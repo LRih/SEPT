@@ -11,27 +11,32 @@ public final class URLWorker extends SwingWorker<String, Void>
     private String url;
     private OnTaskCompleteListener listener;
 
+
     public URLWorker(String url)
     {
         this.url = url;
     }
 
+
+    /* called when execute is called */
     protected final String doInBackground() throws IOException
     {
         return NetUtils.get(url);
     }
 
+    /* called when background task finishes */
     protected final void done()
     {
+        // call success or fail depending on result
         try
         {
             if (listener != null)
-                listener.onTaskComplete(get());
+                listener.onSuccess(get());
         }
         catch (Exception e)
         {
             if (listener != null)
-                listener.onTaskFail();
+                listener.onFail();
         }
     }
 
@@ -44,7 +49,7 @@ public final class URLWorker extends SwingWorker<String, Void>
 
     public interface OnTaskCompleteListener
     {
-        void onTaskComplete(String source);
-        void onTaskFail();
+        void onSuccess(String source);
+        void onFail();
     }
 }

@@ -75,11 +75,11 @@ public final class Main
         URLWorker worker = new URLWorker("http://www.bom.gov.au/fwo/IDV60901/IDV60901.95936.json");
         worker.setOnTaskCompleteListener(new URLWorker.OnTaskCompleteListener()
         {
-            public final void onTaskComplete(String source)
+            public final void onSuccess(String source)
             {
                 System.out.println(source);
             }
-            public final void onTaskFail()
+            public final void onFail()
             {
                 System.out.println("URL load failed");
             }
