@@ -1,0 +1,6 @@
+
+*.log
+
+.metadata/.lock
+
+.metadata/.mylyn/.taskListIndex/segments_1
