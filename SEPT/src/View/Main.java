@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Main
+public final class Main
 {
     private JFrame frmSept;
 
@@ -16,7 +16,7 @@ public class Main
     {
         EventQueue.invokeLater(new Runnable()
         {
-            public void run()
+            public final void run()
             {
                 try
                 {
