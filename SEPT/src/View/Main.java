@@ -1,9 +1,12 @@
 package View;
 
-import java.awt.EventQueue;
+import Utils.URLWorker;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 public final class Main
 {
@@ -53,5 +56,34 @@ public final class Main
         JLabel lblHelloSeptTeam = new JLabel("Hello SEPT Team!");
         lblHelloSeptTeam.setBounds(167, 95, 116, 39);
         frmSept.getContentPane().add(lblHelloSeptTeam);
+
+        // test asynchronous load
+        JButton btn = new JButton("print URL source");
+        btn.setBounds(10, 10, 146, 39);
+        btn.addActionListener(new ActionListener()
+        {
+            public final void actionPerformed(ActionEvent e)
+            {
+                testLoadURL();
+            }
+        });
+        frmSept.getContentPane().add(btn);
+    }
+
+    private void testLoadURL()
+    {
+        URLWorker worker = new URLWorker("http://www.bom.gov.au/fwo/IDV60901/IDV60901.95936.json");
+        worker.setOnTaskCompleteListener(new URLWorker.OnTaskCompleteListener()
+        {
+            public final void onTaskComplete(String source)
+            {
+                System.out.println(source);
+            }
+            public final void onTaskFail()
+            {
+                System.out.println("URL load failed");
+            }
+        });
+        worker.execute();
     }
 }
