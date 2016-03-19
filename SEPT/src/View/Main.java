@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import net.miginfocom.swing.MigLayout;
 
 public final class Main
 {
@@ -51,15 +52,13 @@ public final class Main
         frmSept.setTitle("SEPT");
         frmSept.setBounds(100, 100, 450, 300);
         frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frmSept.getContentPane().setLayout(null);
+        frmSept.getContentPane().setLayout(new MigLayout("", "[1000px][1000px][1000px]", "[40px][1000px]"));
 
         JLabel lblHelloSeptTeam = new JLabel("Hello SEPT Team!");
-        lblHelloSeptTeam.setBounds(167, 95, 116, 39);
-        frmSept.getContentPane().add(lblHelloSeptTeam);
+        frmSept.getContentPane().add(lblHelloSeptTeam, "cell 2 0,grow");
 
         // test asynchronous load
         JButton btn = new JButton("print URL source");
-        btn.setBounds(10, 10, 146, 39);
         btn.addActionListener(new ActionListener()
         {
             public final void actionPerformed(ActionEvent e)
@@ -67,7 +66,10 @@ public final class Main
                 testLoadURL();
             }
         });
-        frmSept.getContentPane().add(btn);
+        frmSept.getContentPane().add(btn, "cell 0 0,alignx right,growy");
+        
+        StatesPanel panel = new StatesPanel();
+        frmSept.getContentPane().add(panel, "cell 0 1 3 1,grow");
     }
 
     private void testLoadURL()
