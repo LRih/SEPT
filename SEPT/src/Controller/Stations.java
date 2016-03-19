@@ -16,7 +16,7 @@ public class Stations {
 		}
 	}
 
-	public static ArrayList<Station> getStates() {
+	public static ArrayList<Station> getStations() {
 		return getStations("");
 	}
 

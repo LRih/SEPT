@@ -71,3 +71,5 @@ local.properties
 .buildpath
 
 .metadata/.mylyn/tasks.xml.zip
+
+.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi

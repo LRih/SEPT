@@ -16,7 +16,7 @@ public class Areas {
 		}
 	}
 
-	public static ArrayList<Area> getStates() {
+	public static ArrayList<Area> getAreas() {
 		return getAreas("");
 	}
 
