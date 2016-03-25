@@ -3,10 +3,10 @@ package Controller;
 import java.util.ArrayList;
 import Model.Area;
 
-public class Areas {
+public final class Areas {
 
 	public static ArrayList<Area> getAreas(String search) {
-		ArrayList<Area> areas = new ArrayList<Area>();
+		ArrayList<Area> areas = new ArrayList<>();
 
 		if (search.length() == 0)
 			return areas;

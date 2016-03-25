@@ -50,7 +50,7 @@ public class StatesPanel extends JPanel {
 		ArrayList<State> states = States.getStates();
 		JButton btnState;
 		for (int i = 0; i < states.size(); i++) {
-			btnState = new JButton(states.get(i).getCode());
+			btnState = new JButton(states.get(i).getAbbr());
 			btnState.setBackground(new Color(240, 255, 255));
 			btnState.setMinimumSize(new Dimension(75, 50));
 			btnState.setBorder(new LineBorder(new Color(211, 211, 211)));

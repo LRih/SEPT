@@ -3,7 +3,7 @@ package Controller;
 import java.util.ArrayList;
 import Model.Station;
 
-public class Stations {
+public final class Stations {
 
 	public static ArrayList<Station> getStations(String search) {
 		ArrayList<Station> stations = new ArrayList<Station>();

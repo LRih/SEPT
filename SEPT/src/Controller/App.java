@@ -1,6 +1,6 @@
 package Controller;
 
-public class App {
+public final class App {
 	
 	public static void addToFavourites(String code) {
 		

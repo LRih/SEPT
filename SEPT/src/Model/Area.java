@@ -1,29 +1,18 @@
 package Model;
 
-public final class Area {
-	private String title;
-	private String code;
+public final class Area
+{
+    private final String name;
 
 
-	public Area(String title, String code) {
-		this.title = title;
-		this.code = code;
-	}
+    public Area(String name)
+    {
+        this.name = name;
+    }
 
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public String getName()
+    {
+        return name;
+    }
 }

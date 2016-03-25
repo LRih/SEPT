@@ -1,29 +1,24 @@
 package Model;
 
-public final class State {
-	private String title;
-	private String code;
+public final class State
+{
+    private final String name;
+    private final String abbr;
 
 
-	public State(String title, String code) {
-		this.title = title;
-		this.code = code;
-	}
+    public State(String name, String abbr)
+    {
+        this.name = name;
+        this.abbr = abbr;
+    }
 
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public String getName()
+    {
+        return name;
+    }
+    public String getAbbr()
+    {
+        return abbr;
+    }
 }
