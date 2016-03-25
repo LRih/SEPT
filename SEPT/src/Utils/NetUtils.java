@@ -12,6 +12,14 @@ public final class NetUtils
     private static final String CHARSET = "UTF-8";
     private static final int TIMEOUT = 10000;
 
+
+    private NetUtils()
+    {
+        // disallow instantiating
+        throw new AssertionError();
+    }
+
+
     /* gets the source of a URL */
     public static String get(String url) throws IOException
     {

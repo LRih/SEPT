@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import net.miginfocom.swing.MigLayout;
+//import net.miginfocom.swing.MigLayout;
 
 public final class Main
 {
@@ -52,7 +52,7 @@ public final class Main
         frmSept.setTitle("SEPT");
         frmSept.setBounds(100, 100, 450, 300);
         frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frmSept.getContentPane().setLayout(new MigLayout("", "[1000px][1000px][1000px]", "[40px][1000px]"));
+//        frmSept.getContentPane().setLayout(new MigLayout("", "[1000px][1000px][1000px]", "[40px][1000px]"));
 
         JLabel lblHelloSeptTeam = new JLabel("Hello SEPT Team!");
         frmSept.getContentPane().add(lblHelloSeptTeam, "cell 2 0,grow");

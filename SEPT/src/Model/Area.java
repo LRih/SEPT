@@ -1,8 +1,15 @@
 package Model;
 
-public class Area {
+public final class Area {
 	private String title;
 	private String code;
+
+
+	public Area(String title, String code) {
+		this.title = title;
+		this.code = code;
+	}
+
 
 	public String getTitle() {
 		return title;
@@ -19,11 +26,4 @@ public class Area {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
-	public Area(String title, String code) {
-		super();
-		this.title = title;
-		this.code = code;
-	}
-
 }

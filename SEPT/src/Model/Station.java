@@ -1,29 +1,18 @@
 package Model;
 
-public class Station {
-	private String title;
-	private String code;
+public class Station
+{
+    private final String name;
 
-	public String getTitle() {
-		return title;
-	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public Station(String name)
+    {
+        this.name = name;
+    }
 
-	public String getCode() {
-		return code;
-	}
 
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public Station(String title, String code) {
-		super();
-		this.title = title;
-		this.code = code;
-	}
-
+    public String getName()
+    {
+        return name;
+    }
 }

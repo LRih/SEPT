@@ -1,6 +1,10 @@
+import Model.Favorite;
+import Model.Favorites;
+import Utils.FavoritesManager;
 import Utils.NetUtils;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 public final class ConsoleMain
 {
@@ -13,7 +17,21 @@ public final class ConsoleMain
         }
         catch (IOException e)
         {
-            System.out.println("Error");
+            e.printStackTrace();
+        }
+
+        try
+        {
+            Favorites favs = FavoritesManager.load();
+            favs.add(String.valueOf(Calendar.getInstance().getTimeInMillis()), "Testing");
+
+            for (Favorite fav : favs.getItems())
+                System.out.println(fav.id + ": " + fav.name);
+
+            FavoritesManager.save(favs);
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }

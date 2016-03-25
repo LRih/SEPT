@@ -6,7 +6,7 @@ import javax.swing.border.LineBorder;
 
 import Controller.States;
 import Model.State;
-import net.miginfocom.swing.MigLayout;
+//import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Dimension;
@@ -27,7 +27,7 @@ public class StatesPanel extends JPanel {
 		setForeground(new Color(255, 127, 80));
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
-		setLayout(new MigLayout("", "[grow][]", "[][grow]"));
+//		setLayout(new MigLayout("", "[grow][]", "[][grow]"));
 
 		tfSearch = new JTextField();
 		tfSearch.setMinimumSize(new Dimension(10, 30));
@@ -45,7 +45,7 @@ public class StatesPanel extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		add(panel, "cell 0 1 2 1,grow");
-		panel.setLayout(new MigLayout("", "[grow][grow][grow]", "[][]"));
+//		panel.setLayout(new MigLayout("", "[grow][grow][grow]", "[][]"));
 
 		ArrayList<State> states = States.getStates();
 		JButton btnState;
