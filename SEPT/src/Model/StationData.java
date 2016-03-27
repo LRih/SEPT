@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.HashMap;
+
 public final class StationData
 {
     private final String id;
@@ -8,6 +10,8 @@ public final class StationData
     private final float latitude;
     private final float longitude;
     private final float height;
+
+    HashMap<Long, Reading> readings; // hashed by datetime
 
 
     public StationData(String id, String mainId, float latitude, float longitude, float height)

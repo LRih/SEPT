@@ -4,6 +4,7 @@ public final class Station
 {
     private final String name;
     private final String url;
+
     private StationData data; // stores station data once it is loaded from the web
 
 

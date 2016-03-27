@@ -1,55 +1,51 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public final class Favorites implements Serializable
 {
-    private final List<Favorite> favorites;
+    // TODO cannot hash by id since ID and WMO can be duplicate
+    private final HashMap<String, Favorite> favorites;
 
 
     public Favorites()
     {
-        this.favorites = new ArrayList<>();
+        this.favorites = new HashMap<>();
     }
 
 
-    public final void add(String id, String name)
+    public final boolean add(String id, String name)
     {
         // only add if id does not already exist
-        if (!isExist(id))
-            favorites.add(new Favorite(id, name));
-    }
-    public final void delete(String id)
-    {
-        for (int i = 0; i < favorites.size(); i++)
+        if (!favorites.containsKey(id))
         {
-            if (id.equals(favorites.get(i).id))
-            {
-                favorites.remove(i);
-                return;
-            }
+            favorites.put(id, new Favorite(id, name));
+            return true;
         }
+
+        return false;
     }
-    public final void sort()
+    public final boolean delete(String id)
     {
-        Collections.sort(favorites);
+        if (favorites.containsKey(id))
+        {
+            favorites.remove(id);
+            return true;
+        }
+
+        return false;
     }
 
     public final Favorite[] getItems()
     {
-        return favorites.toArray(new Favorite[favorites.size()]);
+        return favorites.values().toArray(new Favorite[favorites.size()]);
     }
-
-    private boolean isExist(String id)
+    public final Favorite[] getSortedItems()
     {
-        // check if id already exists
-        for (Favorite favorite : favorites)
-            if (id.equals(favorite.id))
-                return true;
-
-        return false;
+        Favorite[] items = getItems();
+        Arrays.sort(items);
+        return items;
     }
 }

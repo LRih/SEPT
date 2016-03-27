@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-public class StatesPanel extends JPanel {
+public final class StatesPanel extends JPanel {
 
 	/**
 	 * 

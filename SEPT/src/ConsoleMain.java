@@ -25,7 +25,7 @@ public final class ConsoleMain
             Favorites favs = FavoritesManager.load();
             favs.add(String.valueOf(Calendar.getInstance().getTimeInMillis()), "Testing");
 
-            for (Favorite fav : favs.getItems())
+            for (Favorite fav : favs.getSortedItems())
                 System.out.println(fav.id + ": " + fav.name);
 
             FavoritesManager.save(favs);
