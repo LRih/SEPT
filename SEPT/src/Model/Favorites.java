@@ -2,36 +2,35 @@ package Model;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public final class Favorites implements Serializable
 {
-    // TODO cannot hash by id since ID and WMO can be duplicate
-    private final HashMap<String, Favorite> favorites;
+    private final TreeMap<String, Favorite> favorites;
 
 
     public Favorites()
     {
-        this.favorites = new HashMap<>();
+        this.favorites = new TreeMap<>();
     }
 
 
-    public final boolean add(String id, String name)
+    public final boolean add(Station station)
     {
-        // only add if id does not already exist
-        if (!favorites.containsKey(id))
+        // only add if favorite does not already exist
+        if (!favorites.containsKey(station.getKey()))
         {
-            favorites.put(id, new Favorite(id, name));
+            favorites.put(station.getKey(), new Favorite(station));
             return true;
         }
 
         return false;
     }
-    public final boolean delete(String id)
+    public final boolean delete(Station station)
     {
-        if (favorites.containsKey(id))
+        if (favorites.containsKey(station.getKey()))
         {
-            favorites.remove(id);
+            favorites.remove(station.getKey());
             return true;
         }
 

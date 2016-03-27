@@ -4,20 +4,26 @@ import java.io.Serializable;
 
 public final class Favorite implements Serializable, Comparable<Favorite>
 {
-    public final String id;
-    public final String name;
+    public final String key;
+
+    public final String state;
+    public final String area;
+    public final String station;
 
 
-    public Favorite(String id, String name)
+    public Favorite(Station station)
     {
-        this.id = id;
-        this.name = name;
+        this.key = station.getKey();
+
+        this.state = station.getArea().getState().getName();
+        this.area = station.getArea().getName();
+        this.station = station.getName();
     }
 
 
     public final int compareTo(Favorite fav)
     {
-        // sort alphabetically
-        return name.compareTo(fav.name);
+        // sort by key
+        return key.compareTo(fav.key);
     }
 }

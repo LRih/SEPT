@@ -1,5 +1,4 @@
-import Model.Favorite;
-import Model.Favorites;
+import Model.*;
 import Utils.FavoritesManager;
 import Utils.NetUtils;
 
@@ -22,11 +21,19 @@ public final class ConsoleMain
 
         try
         {
+            State state = new State("Victoria", "VIC");
+            state.addArea("Melbourne");
+
+            Area area = state.getArea("Melbourne");
+            area.addStation("Olympic Park", "http://www.example.com");
+
+            Station station = area.getStation("Olympic Park");
+
             Favorites favs = FavoritesManager.load();
-            favs.add(String.valueOf(Calendar.getInstance().getTimeInMillis()), "Testing");
+            favs.add(station);
 
             for (Favorite fav : favs.getSortedItems())
-                System.out.println(fav.id + ": " + fav.name);
+                System.out.println(fav.key);
 
             FavoritesManager.save(favs);
         }

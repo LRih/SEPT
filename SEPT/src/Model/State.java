@@ -1,19 +1,31 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.TreeMap;
 
 public final class State
 {
     private final String name;
     private final String abbr;
-    private final List<Area> areas = new ArrayList<>();
+    private final TreeMap<String, Area> areas = new TreeMap<>();
 
 
     public State(String name, String abbr)
     {
         this.name = name;
         this.abbr = abbr;
+    }
+
+
+    public final boolean addArea(String name)
+    {
+        // only add if area does not already exist
+        if (!areas.containsKey(name))
+        {
+            areas.put(name, new Area(this, name));
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -25,8 +37,8 @@ public final class State
     {
         return abbr;
     }
-    public final List<Area> getAreas()
+    public final Area getArea(String name)
     {
-        return areas;
+        return areas.get(name);
     }
 }
