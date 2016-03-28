@@ -1,4 +1,4 @@
-$(document).ready(function ()
+$(document).ready(function()
 {
     var AFFIX_TOP_LIMIT = 300;
     var AFFIX_OFFSET = 49;
@@ -6,14 +6,14 @@ $(document).ready(function ()
     var $menu = $("#menu");
     var $btn = $("#menu-toggle");
 
-    $("#menu-toggle").on("click", function ()
+    $("#menu-toggle").on("click", function()
     {
         $menu.toggleClass("open");
         return false;
     });
 
 
-    $(".docs-nav").each(function ()
+    $(".docs-nav").each(function()
     {
         var $affixNav = $(this);
         var $container = $affixNav.parent();
@@ -54,7 +54,7 @@ $(document).ready(function ()
         }
 
 
-        $(window).on("scroll", function (evt)
+        $(window).on("scroll", function(evt)
         {
             var top = window.scrollY;
             var height = $affixNav.outerHeight();
