@@ -38,7 +38,6 @@ header
 .container
 {
     padding: 0 20px;
-    width: 95%;
     max-width: 650px;
     position: relative;
 }
@@ -53,6 +52,13 @@ h2
 {
     color: #2c6700;
     font-size: 32px;
+}
+
+h3
+{
+    line-height: 1;
+    font-size: 24px;
+    margin-top: 48px;
 }
 
 hr
@@ -96,6 +102,16 @@ a:active
     margin: 0 -20px;
     padding: 0 20px;
     text-decoration: none;
+}
+
+.code
+{
+    font-family: "Lucida Console", Monaco, monospace;
+    color: #c25;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 4px;
+    padding: 4px 6px;
 }
 
 section

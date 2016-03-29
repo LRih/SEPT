@@ -20,7 +20,7 @@
             </header>
             <section>
                 <div class="container">
-                    <ul style="top: 0px;" class="docs-nav">
+                    <ul class="docs-nav">
 
                         <li><strong>Getting Started</strong></li>
                         <li><a href="#prerequisites" class="active">Prerequisites</a></li>
@@ -41,39 +41,44 @@
 
                         <h2>Getting Started</h2>
                         <h3 id="prerequisites">Prerequisites</h3>
-                        <p>
-                            The Java JDK is required to compile and run BOM Weather. Link available below:<br>
+                        <p>The following are required to run BOM Weather:</p>
+                        <ul>
+                        <li>An internet connection for downloading weather data</li>
+                        <li>
+                            The Java JDK is required to compile and run BOM Weather. Link:<br>
                             <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="blank">Java download</a>
-                        </p>
-                        <p></p>
+                        </li>
+                        </ul>
 
                         <h3 id="compiling-eclipse">Compiling with Eclipse</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a facilisis leo, auctor cursus mauris. Vestibulum et metus commodo, mollis leo quis, feugiat tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur quis cursus odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed quam lacus, blandit porttitor ligula id, venenatis hendrerit nisl. Etiam id risus consectetur, imperdiet ligula vitae, ullamcorper diam. Sed fermentum tellus lorem, nec aliquam magna pellentesque at. Nam dignissim mauris non tellus euismod, at pellentesque diam blandit. Cras lacinia interdum egestas. Maecenas ut lorem sem. Mauris euismod metus id est semper euismod.</p>
-                        <p>Nunc tincidunt libero mauris, a luctus mi imperdiet in. Maecenas at magna tristique, sodales nisl et, rutrum ligula. Cras efficitur nunc in nulla faucibus, id fermentum sapien laoreet. Pellentesque et mi id libero laoreet pellentesque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec tortor neque, tincidunt non tincidunt a, faucibus in turpis. Morbi in purus velit.</p>
+                        <p>Someone else please. I have no idea how to use Eclipse.</p>
                         
                         <h3 id="compiling-command-line">Compiling with terminal</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a facilisis leo, auctor cursus mauris. Vestibulum et metus commodo, mollis leo quis, feugiat tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur quis cursus odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed quam lacus, blandit porttitor ligula id, venenatis hendrerit nisl. Etiam id risus consectetur, imperdiet ligula vitae, ullamcorper diam. Sed fermentum tellus lorem, nec aliquam magna pellentesque at. Nam dignissim mauris non tellus euismod, at pellentesque diam blandit. Cras lacinia interdum egestas. Maecenas ut lorem sem. Mauris euismod metus id est semper euismod.</p>
-                        <p>Nunc tincidunt libero mauris, a luctus mi imperdiet in. Maecenas at magna tristique, sodales nisl et, rutrum ligula. Cras efficitur nunc in nulla faucibus, id fermentum sapien laoreet. Pellentesque et mi id libero laoreet pellentesque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec tortor neque, tincidunt non tincidunt a, faucibus in turpis. Morbi in purus velit.</p>
-                        
+                        <p>Run command prompt/terminal depending on OS (or other preferred shell application). Navigate to the folder containing <span class="code">Main.java</span> and run the following command:</p>
+                        <p class="code">javac -cp .;junit-4.12.jar;joda-time-2.9.jar;json-20160212.jar Main.java</p>
+                        <p>To run the app run the following command:</p>
+                        <p class="code">java Main</p>
+
                         <h3 id="license">License</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a facilisis leo, auctor cursus mauris. Vestibulum et metus commodo, mollis leo quis, feugiat tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur quis cursus odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed quam lacus, blandit porttitor ligula id, venenatis hendrerit nisl. Etiam id risus consectetur, imperdiet ligula vitae, ullamcorper diam. Sed fermentum tellus lorem, nec aliquam magna pellentesque at. Nam dignissim mauris non tellus euismod, at pellentesque diam blandit. Cras lacinia interdum egestas. Maecenas ut lorem sem. Mauris euismod metus id est semper euismod.</p>
-                        <p>Nunc tincidunt libero mauris, a luctus mi imperdiet in. Maecenas at magna tristique, sodales nisl et, rutrum ligula. Cras efficitur nunc in nulla faucibus, id fermentum sapien laoreet. Pellentesque et mi id libero laoreet pellentesque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec tortor neque, tincidunt non tincidunt a, faucibus in turpis. Morbi in purus velit.</p>
+                        <p>Write something about the licenses of the libraries we are using. So far:</p>
+                        <ul>
+                            <li>Joda-Time: <a href"http://www.joda.org/joda-time" target="blank">http://www.joda.org/joda-time</a></li>
+                            <li>org.json: <a href"http://mvnrepository.com/artifact/org.json/json" target="blank">http://mvnrepository.com/artifact/org.json/json</a></li>
+                            <li>WebLaF: <a href"http://weblookandfeel.com" target="blank">http://weblookandfeel.com</a></li>
+                        </ul>
                         
                         <hr>
 
                         <h2>Usage</h2>
                         <h3 id="navigation">Navigation</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a facilisis leo, auctor cursus mauris. Vestibulum et metus commodo, mollis leo quis, feugiat tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur quis cursus odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed quam lacus, blandit porttitor ligula id, venenatis hendrerit nisl. Etiam id risus consectetur, imperdiet ligula vitae, ullamcorper diam. Sed fermentum tellus lorem, nec aliquam magna pellentesque at. Nam dignissim mauris non tellus euismod, at pellentesque diam blandit. Cras lacinia interdum egestas. Maecenas ut lorem sem. Mauris euismod metus id est semper euismod.</p>
-                        <p>Nunc tincidunt libero mauris, a luctus mi imperdiet in. Maecenas at magna tristique, sodales nisl et, rutrum ligula. Cras efficitur nunc in nulla faucibus, id fermentum sapien laoreet. Pellentesque et mi id libero laoreet pellentesque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec tortor neque, tincidunt non tincidunt a, faucibus in turpis. Morbi in purus velit.</p>
+                        <p>How to navigate the whole app.</p>
                         
                         <h3 id="information">Information</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a facilisis leo, auctor cursus mauris. Vestibulum et metus commodo, mollis leo quis, feugiat tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur quis cursus odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed quam lacus, blandit porttitor ligula id, venenatis hendrerit nisl. Etiam id risus consectetur, imperdiet ligula vitae, ullamcorper diam. Sed fermentum tellus lorem, nec aliquam magna pellentesque at. Nam dignissim mauris non tellus euismod, at pellentesque diam blandit. Cras lacinia interdum egestas. Maecenas ut lorem sem. Mauris euismod metus id est semper euismod.</p>
+                        <p>Information on what the charts and data values mean.</p>
                         <img src="images/sample.png" alt="Forecast">
-                        <p>Nunc tincidunt libero mauris, a luctus mi imperdiet in. Maecenas at magna tristique, sodales nisl et, rutrum ligula. Cras efficitur nunc in nulla faucibus, id fermentum sapien laoreet. Pellentesque et mi id libero laoreet pellentesque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec tortor neque, tincidunt non tincidunt a, faucibus in turpis. Morbi in purus velit.</p>
                         
                         <h3 id="favorites">Favorites</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a facilisis leo, auctor cursus mauris. Vestibulum et metus commodo, mollis leo quis, feugiat tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur quis cursus odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed quam lacus, blandit porttitor ligula id, venenatis hendrerit nisl. Etiam id risus consectetur, imperdiet ligula vitae, ullamcorper diam. Sed fermentum tellus lorem, nec aliquam magna pellentesque at. Nam dignissim mauris non tellus euismod, at pellentesque diam blandit. Cras lacinia interdum egestas. Maecenas ut lorem sem. Mauris euismod metus id est semper euismod.</p>
-                        <p>Nunc tincidunt libero mauris, a luctus mi imperdiet in. Maecenas at magna tristique, sodales nisl et, rutrum ligula. Cras efficitur nunc in nulla faucibus, id fermentum sapien laoreet. Pellentesque et mi id libero laoreet pellentesque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec tortor neque, tincidunt non tincidunt a, faucibus in turpis. Morbi in purus velit.</p>
+                        <p>How favorites work.</p>
                         
                     </div>
                 </div>
