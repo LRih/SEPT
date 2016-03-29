@@ -2,6 +2,7 @@ package Model;
 
 import java.util.TreeMap;
 
+@Deprecated
 public final class Area
 {
     private final State state;
@@ -13,19 +14,6 @@ public final class Area
     {
         this.state = state;
         this.name = name;
-    }
-
-
-    public final boolean addStation(String name, String url)
-    {
-        // only add if station does not already exist
-        if (!stations.containsKey(name))
-        {
-            stations.put(name, new Station(this, name, url));
-            return true;
-        }
-
-        return false;
     }
 
 

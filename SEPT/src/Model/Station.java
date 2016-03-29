@@ -2,25 +2,25 @@ package Model;
 
 public final class Station
 {
-    private final Area area;
+    private final State state;
     private final String name;
     private final String url;
 
     private StationData data; // stores station data once it is loaded from the web
 
 
-    public Station(Area area, String name, String url)
+    public Station(State state, String name, String url)
     {
-        this.area = area;
+        this.state = state;
 
         this.name = name;
         this.url = url;
     }
 
 
-    public final Area getArea()
+    public final State getState()
     {
-        return area;
+        return state;
     }
     public final String getName()
     {
@@ -39,6 +39,6 @@ public final class Station
 
     public final String getKey()
     {
-        return area.getState().getName() + "-" + area.getName() + "-" + name;
+        return state.getName() + "-" + name;
     }
 }

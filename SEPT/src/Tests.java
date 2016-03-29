@@ -1,4 +1,3 @@
-import Model.Area;
 import Model.Favorites;
 import Model.State;
 import Model.Station;
@@ -20,14 +19,11 @@ public final class Tests
     public void testAddFavorite()
     {
         State state = new State("Victoria", "VIC");
-        state.addArea("Melbourne");
+        state.addStation("Olympic Park", "http://www.example.com");
+        state.addStation("Geelong", "http://www.example.com");
 
-        Area area = state.getArea("Melbourne");
-        area.addStation("Olympic Park", "http://www.example.com");
-        area.addStation("Geelong", "http://www.example.com");
-
-        Station station1 = area.getStation("Olympic Park");
-        Station station2 = area.getStation("Geelong");
+        Station station1 = state.getStation("Olympic Park");
+        Station station2 = state.getStation("Geelong");
 
         Favorites favorites = new Favorites();
 

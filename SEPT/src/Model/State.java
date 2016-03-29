@@ -6,7 +6,7 @@ public final class State
 {
     private final String name;
     private final String abbr;
-    private final TreeMap<String, Area> areas = new TreeMap<>();
+    private final TreeMap<String, Station> stations = new TreeMap<>();
 
 
     public State(String name, String abbr)
@@ -16,12 +16,12 @@ public final class State
     }
 
 
-    public final boolean addArea(String name)
+    public final boolean addStation(String name, String url)
     {
-        // only add if area does not already exist
-        if (!areas.containsKey(name))
+        // only add if station does not already exist
+        if (!stations.containsKey(name))
         {
-            areas.put(name, new Area(this, name));
+            stations.put(name, new Station(this, name, url));
             return true;
         }
 
@@ -37,8 +37,8 @@ public final class State
     {
         return abbr;
     }
-    public final Area getArea(String name)
+    public final Station getStation(String name)
     {
-        return areas.get(name);
+        return stations.get(name);
     }
 }

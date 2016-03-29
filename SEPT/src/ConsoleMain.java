@@ -3,7 +3,6 @@ import Utils.FavoritesManager;
 import Utils.NetUtils;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 public final class ConsoleMain
 {
@@ -22,12 +21,9 @@ public final class ConsoleMain
         try
         {
             State state = new State("Victoria", "VIC");
-            state.addArea("Melbourne");
+            state.addStation("Olympic Park", "http://www.example.com");
 
-            Area area = state.getArea("Melbourne");
-            area.addStation("Olympic Park", "http://www.example.com");
-
-            Station station = area.getStation("Olympic Park");
+            Station station = state.getStation("Olympic Park");
 
             Favorites favs = FavoritesManager.load();
             favs.add(station);

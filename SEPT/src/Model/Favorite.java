@@ -7,7 +7,6 @@ public final class Favorite implements Serializable, Comparable<Favorite>
     public final String key;
 
     public final String state;
-    public final String area;
     public final String station;
 
 
@@ -15,8 +14,7 @@ public final class Favorite implements Serializable, Comparable<Favorite>
     {
         this.key = station.getKey();
 
-        this.state = station.getArea().getState().getName();
-        this.area = station.getArea().getName();
+        this.state = station.getState().getName();
         this.station = station.getName();
     }
 
