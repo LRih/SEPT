@@ -7,21 +7,17 @@ public final class StationData
     private final String id;
     private final String mainId;
 
-    private final float latitude;
-    private final float longitude;
-    private final float height;
+    private final String timezone;
 
     HashMap<Long, Reading> readings; // hashed by datetime
 
 
-    public StationData(String id, String mainId, float latitude, float longitude, float height)
+    public StationData(String id, String mainId, String timezone)
     {
         this.id = id;
         this.mainId = mainId;
 
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.height = height;
+        this.timezone = timezone;
     }
 
 
@@ -34,16 +30,8 @@ public final class StationData
         return mainId;
     }
 
-    public final float getLatitude()
+    public final String getTimezone()
     {
-        return latitude;
-    }
-    public final float getLongitude()
-    {
-        return longitude;
-    }
-    public final float getHeight()
-    {
-        return height;
+        return timezone;
     }
 }

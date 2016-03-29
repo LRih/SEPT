@@ -1,4 +1,5 @@
 import Model.*;
+import Utils.BOMUtils;
 import Utils.FavoritesManager;
 import Utils.NetUtils;
 
@@ -8,6 +9,8 @@ public final class ConsoleMain
 {
     public static void main(String[] args)
     {
+        System.out.println(BOMUtils.toDateTime("20160329220000"));
+
         // testing network functions
         try
         {

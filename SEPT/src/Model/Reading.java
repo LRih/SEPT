@@ -1,8 +1,14 @@
 package Model;
 
+import Utils.BOMUtils;
+import org.joda.time.LocalDateTime;
+
 public final class Reading
 {
-    private final long dateTime;
+    private final LocalDateTime dateTime;
+
+    private final float latitude;
+    private final float longitude;
 
     private final float airTemp;
     private final float apparentTemp;
@@ -25,11 +31,15 @@ public final class Reading
     private final float rainTrace;
 
 
-    public Reading(long dateTime, float airTemp, float apparentTemp, float dewPt, int relativeHumidity, float deltaTemp,
+    public Reading(StationData stationData, String dateTime, float latitude, float longitude,
+                   float airTemp, float apparentTemp, float dewPt, int relativeHumidity, float deltaTemp,
                    String cloud, String cloudType, String windDir, int windSpdKmH, int windSpdKts, int windGustKmH, int windGustKts,
                    float pressureQNH, float pressureMSL, float rainTrace)
     {
-        this.dateTime = dateTime;
+        this.dateTime = BOMUtils.toDateTime(dateTime);
+
+        this.latitude = latitude;
+        this.longitude = longitude;
 
         this.airTemp = airTemp;
         this.apparentTemp = apparentTemp;
