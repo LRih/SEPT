@@ -1,5 +1,6 @@
 import Model.Favorites;
 import Model.State;
+import Model.States;
 import Model.Station;
 import org.junit.Test;
 
@@ -7,16 +8,27 @@ import static org.junit.Assert.*;
 
 public final class Tests
 {
-    // tests that one equals one
+    // test add duplicate state
     @Test
-    public void testSample()
+    public void testAddDuplicateState()
     {
-        assertEquals(1, 1);
+        States states = new States();
+        assertEquals(states.add("Victoria", "VIC"), true);
+        assertEquals(states.add("Victoria", "VIC"), false);
+    }
+
+    // test add duplicate station
+    @Test
+    public void testAddDuplicateStation()
+    {
+        State state = new State("Victoria", "VIC");
+        assertEquals(state.addStation("Melbourne", "http://www.example.com"), true);
+        assertEquals(state.addStation("Melbourne", "http://www.example.com"), false);
     }
 
     // test favorites operations
     @Test
-    public void testAddFavorite()
+    public void testFavorites()
     {
         State state = new State("Victoria", "VIC");
         state.addStation("Olympic Park", "http://www.example.com");

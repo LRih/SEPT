@@ -1,5 +1,7 @@
 package Utils;
 
+import Model.Station;
+import Model.StationData;
 import org.joda.time.LocalDateTime;
 
 public final class BOMUtils
@@ -10,6 +12,16 @@ public final class BOMUtils
         throw new AssertionError();
     }
 
+
+    public static StationData getStationData(Station station)
+    {
+        // TODO implement pseudo code
+        // try get json file from web using station.url
+        // failing that try get locally cached json file
+        // failing that the UI should display an unavailable data message
+
+        return null;
+    }
 
     public static LocalDateTime toDateTime(String bomDt)
     {

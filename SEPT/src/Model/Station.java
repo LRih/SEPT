@@ -6,8 +6,6 @@ public final class Station
     private final String name;
     private final String url;
 
-    private StationData data; // stores station data once it is loaded from the web
-
 
     public Station(State state, String name, String url)
     {
@@ -29,11 +27,6 @@ public final class Station
     public final String getUrl()
     {
         return url;
-    }
-
-    public final boolean hasData()
-    {
-        return data != null;
     }
 
 

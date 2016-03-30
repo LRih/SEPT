@@ -31,7 +31,7 @@ public final class Reading
     private final float rainTrace;
 
 
-    public Reading(StationData stationData, String dateTime, float latitude, float longitude,
+    public Reading(String dateTime, float latitude, float longitude,
                    float airTemp, float apparentTemp, float dewPt, int relativeHumidity, float deltaTemp,
                    String cloud, String cloudType, String windDir, int windSpdKmH, int windSpdKts, int windGustKmH, int windGustKts,
                    float pressureQNH, float pressureMSL, float rainTrace)
@@ -60,5 +60,85 @@ public final class Reading
         this.pressureMSL = pressureMSL;
 
         this.rainTrace = rainTrace;
+    }
+
+
+    public final LocalDateTime getDateTime()
+    {
+        return dateTime;
+    }
+
+    public final float getLatitude()
+    {
+        return latitude;
+    }
+    public final float getLongitude()
+    {
+        return longitude;
+    }
+
+    public final float getAirTemp()
+    {
+        return airTemp;
+    }
+    public final float getApparentTemp()
+    {
+        return apparentTemp;
+    }
+    public final float getDewPt()
+    {
+        return dewPt;
+    }
+    public final int getRelativeHumidity()
+    {
+        return relativeHumidity;
+    }
+    public final float getDeltaTemp()
+    {
+        return deltaTemp;
+    }
+
+    public final String getCloud()
+    {
+        return cloud;
+    }
+    public final String getCloudType()
+    {
+        return cloudType;
+    }
+
+    public final String getWindDir()
+    {
+        return windDir;
+    }
+    public final int getWindSpdKmH()
+    {
+        return windSpdKmH;
+    }
+    public final int getWindSpdKts()
+    {
+        return windSpdKts;
+    }
+    public final int getWindGustKmH()
+    {
+        return windGustKmH;
+    }
+    public final int getWindGustKts()
+    {
+        return windGustKts;
+    }
+
+    public final float getPressureQNH()
+    {
+        return pressureQNH;
+    }
+    public final float getPressureMSL()
+    {
+        return pressureMSL;
+    }
+
+    public final float getRainTrace()
+    {
+        return rainTrace;
     }
 }

@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.HashMap;
+import java.util.List;
 
 public final class StationData
 {
@@ -9,7 +9,7 @@ public final class StationData
 
     private final String timezone;
 
-    HashMap<Long, Reading> readings; // hashed by datetime
+    private List<Reading> readings;
 
 
     public StationData(String id, String mainId, String timezone)
@@ -33,5 +33,14 @@ public final class StationData
     public final String getTimezone()
     {
         return timezone;
+    }
+
+    public final List<Reading> getReadings()
+    {
+        return readings;
+    }
+    public final void setReading(List<Reading> readings)
+    {
+        this.readings = readings;
     }
 }

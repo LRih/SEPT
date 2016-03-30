@@ -18,7 +18,7 @@ public final class State
 
     public final boolean addStation(String name, String url)
     {
-        // only add if station does not already exist
+        // only add station if it does not already exist
         if (!stations.containsKey(name))
         {
             stations.put(name, new Station(this, name, url));
