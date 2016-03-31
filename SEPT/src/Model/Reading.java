@@ -5,6 +5,7 @@ import org.joda.time.LocalDateTime;
 
 public final class Reading
 {
+    // TODO consider NULL values from JSON
     private final LocalDateTime dateTime;
 
     private final float latitude;

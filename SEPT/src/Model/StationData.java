@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.Collections;
 import java.util.List;
 
 public final class StationData
@@ -12,12 +13,14 @@ public final class StationData
     private List<Reading> readings;
 
 
-    public StationData(String id, String mainId, String timezone)
+    public StationData(String id, String mainId, String timezone, List<Reading> readings)
     {
         this.id = id;
         this.mainId = mainId;
 
         this.timezone = timezone;
+
+        this.readings = Collections.unmodifiableList(readings);
     }
 
 
@@ -38,9 +41,5 @@ public final class StationData
     public final List<Reading> getReadings()
     {
         return readings;
-    }
-    public final void setReading(List<Reading> readings)
-    {
-        this.readings = readings;
     }
 }
