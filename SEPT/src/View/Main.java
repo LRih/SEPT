@@ -1,6 +1,7 @@
 package View;
 
 import Utils.URLWorker;
+import net.miginfocom.swing.MigLayout;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -50,9 +51,9 @@ public final class Main
     {
         frmSept = new JFrame();
         frmSept.setTitle("SEPT");
-        frmSept.setBounds(100, 100, 450, 300);
+        frmSept.setBounds(100, 100, 800, 600);
         frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frmSept.getContentPane().setLayout(new MigLayout("", "[1000px][1000px][1000px]", "[40px][1000px]"));
+        frmSept.getContentPane().setLayout(new MigLayout("", "[1000px][1000px][1000px]", "[40px][1000px]"));
 
         JLabel lblHelloSeptTeam = new JLabel("Hello SEPT Team!");
         frmSept.getContentPane().add(lblHelloSeptTeam, "cell 2 0,grow");
