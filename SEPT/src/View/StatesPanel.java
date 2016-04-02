@@ -11,7 +11,6 @@ import net.miginfocom.swing.MigLayout;
 //import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

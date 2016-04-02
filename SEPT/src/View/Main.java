@@ -72,7 +72,7 @@ public final class Main
         });
         frmSept.getContentPane().add(btn, "cell 0 0,alignx right,growy");
         
-        StatesPanel panel = new StatesPanel();
+        WeatherStations panel = new WeatherStations();
         frmSept.getContentPane().add(panel, "cell 0 1 3 1,grow");
     }
 
