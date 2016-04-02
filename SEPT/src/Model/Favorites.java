@@ -1,10 +1,10 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.TreeMap;
 
-public final class Favorites implements Serializable
+public final class Favorites implements Serializable, Iterable<Favorite>
 {
     private final TreeMap<String, Favorite> favorites;
 
@@ -37,14 +37,35 @@ public final class Favorites implements Serializable
         return false;
     }
 
-    public final Favorite[] getItems()
+    public final int size()
     {
-        return favorites.values().toArray(new Favorite[favorites.size()]);
+        return favorites.size();
     }
-    public final Favorite[] getSortedItems()
+
+    public final Iterator<Favorite> iterator()
     {
-        Favorite[] items = getItems();
-        Arrays.sort(items);
-        return items;
+        return new FavouriteIterator();
+    }
+
+
+    /* provide a way to iterate through sorted favorites */
+    private class FavouriteIterator implements Iterator<Favorite>
+    {
+        private Iterator<String> keyIterator = favorites.keySet().iterator();
+
+        public final boolean hasNext()
+        {
+            return keyIterator.hasNext();
+        }
+
+        public final Favorite next()
+        {
+            return favorites.get(keyIterator.next());
+        }
+
+        public final void remove()
+        {
+            keyIterator.remove();
+        }
     }
 }

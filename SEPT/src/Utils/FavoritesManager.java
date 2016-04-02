@@ -5,11 +5,11 @@ import Model.Favorites;
 import java.io.*;
 
 /*
-    For handling the storage of favorites
+    For handling the storage of favorites.
  */
 public final class FavoritesManager
 {
-    private static String FILENAME = "favourites";
+    private static String FILE_PATH = "favourites";
 
 
     private FavoritesManager()
@@ -19,19 +19,20 @@ public final class FavoritesManager
     }
 
 
+    /* loads serialized favorites class */
     public static Favorites load() throws IOException, ClassNotFoundException
     {
         Favorites favorites = new Favorites();
 
         // return empty list if file doesn't exist
-        if (!new File(FILENAME).exists())
+        if (!new File(FILE_PATH).exists())
             return favorites;
 
         ObjectInputStream in = null;
 
         try
         {
-            in = new ObjectInputStream(new FileInputStream(FILENAME));
+            in = new ObjectInputStream(new FileInputStream(FILE_PATH));
             favorites = (Favorites)in.readObject();
         }
         finally
@@ -51,13 +52,14 @@ public final class FavoritesManager
         return favorites;
     }
 
+    /* serializes and saves favorites class */
     public static void save(Favorites favorites) throws IOException
     {
         ObjectOutputStream out = null;
 
         try
         {
-            out = new ObjectOutputStream(new FileOutputStream(FILENAME));
+            out = new ObjectOutputStream(new FileOutputStream(FILE_PATH));
             out.writeObject(favorites);
         }
         finally

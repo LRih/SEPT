@@ -1,27 +1,35 @@
 package Utils;
 
+import Model.Station;
+import Model.StationData;
+
 import javax.swing.*;
-import java.io.IOException;
 
 /*
-    Used for downloading source from a URL asynchronously.
+    Used for downloading BOM station data asynchronously.
  */
-public final class URLWorker extends SwingWorker<String, Void>
+public final class StationDataWorker extends SwingWorker<StationData, Void>
 {
-    private String url;
+    private Station station;
     private OnTaskCompleteListener listener;
 
 
-    public URLWorker(String url)
+    public StationDataWorker(Station station)
     {
-        this.url = url;
+        this.station = station;
     }
 
 
     /* called when execute is called */
-    protected final String doInBackground() throws IOException
+    protected final StationData doInBackground() throws Exception
     {
-        return NetUtils.get(url);
+        StationData data = DataManager.getStationData(station);
+
+        // fail when data is null
+        if (data == null)
+            throw new Exception("Could not get station data");
+
+        return data;
     }
 
     /* called when background task finishes */
@@ -49,7 +57,7 @@ public final class URLWorker extends SwingWorker<String, Void>
 
     public interface OnTaskCompleteListener
     {
-        void onSuccess(String source);
+        void onSuccess(StationData data);
         void onFail();
     }
 }

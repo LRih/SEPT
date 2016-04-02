@@ -13,8 +13,8 @@ public final class Tests
     public void testAddDuplicateState()
     {
         States states = new States();
-        assertEquals(states.add("Victoria", "VIC"), true);
-        assertEquals(states.add("Victoria", "VIC"), false);
+        assertNotNull(states.add("Victoria", "VIC"));
+        assertNull(states.add("Victoria", "VIC"));
     }
 
     // test add duplicate station
@@ -22,8 +22,8 @@ public final class Tests
     public void testAddDuplicateStation()
     {
         State state = new State("Victoria", "VIC");
-        assertEquals(state.addStation("Melbourne", "http://www.example.com"), true);
-        assertEquals(state.addStation("Melbourne", "http://www.example.com"), false);
+        assertNotNull(state.addStation("Melbourne", "http://www.example.com"));
+        assertNull(state.addStation("Melbourne", "http://www.example.com"));
     }
 
     // test favorites operations
@@ -39,18 +39,18 @@ public final class Tests
 
         Favorites favorites = new Favorites();
 
-        assertEquals(favorites.getItems().length, 0);
+        assertEquals(favorites.size(), 0);
 
         favorites.add(station1);
-        assertEquals(favorites.getItems().length, 1);
+        assertEquals(favorites.size(), 1);
 
         favorites.add(station1);
-        assertEquals(favorites.getItems().length, 1);
+        assertEquals(favorites.size(), 1);
 
         favorites.delete(station2);
-        assertEquals(favorites.getItems().length, 1);
+        assertEquals(favorites.size(), 1);
 
         favorites.delete(station1);
-        assertEquals(favorites.getItems().length, 0);
+        assertEquals(favorites.size(), 0);
     }
 }

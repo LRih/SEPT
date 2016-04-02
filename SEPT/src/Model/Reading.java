@@ -1,43 +1,44 @@
 package Model;
 
-import Utils.BOMUtils;
+import Utils.DataManager;
 import org.joda.time.LocalDateTime;
 
 public final class Reading
 {
-    // TODO consider NULL values from JSON
-    private final LocalDateTime dateTime;
+    private final LocalDateTime localDateTime;
+    private final LocalDateTime utcDateTime;
 
-    private final float latitude;
-    private final float longitude;
+    private final Float latitude;
+    private final Float longitude;
 
-    private final float airTemp;
-    private final float apparentTemp;
-    private final float dewPt;
-    private final int relativeHumidity;
-    private final float deltaTemp;
+    private final Float airTemp;
+    private final Float apparentTemp;
+    private final Float dewPt;
+    private final Integer relativeHumidity;
+    private final Float deltaTemp;
 
     private final String cloud;
     private final String cloudType;
 
     private final String windDir;
-    private final int windSpdKmH;
-    private final int windSpdKts;
-    private final int windGustKmH;
-    private final int windGustKts;
+    private final Integer windSpdKmH;
+    private final Integer windSpdKts;
+    private final Integer windGustKmH;
+    private final Integer windGustKts;
 
-    private final float pressureQNH;
-    private final float pressureMSL;
+    private final Float pressureQNH;
+    private final Float pressureMSL;
 
-    private final float rainTrace;
+    private final Float rainTrace;
 
 
-    public Reading(String dateTime, float latitude, float longitude,
-                   float airTemp, float apparentTemp, float dewPt, int relativeHumidity, float deltaTemp,
-                   String cloud, String cloudType, String windDir, int windSpdKmH, int windSpdKts, int windGustKmH, int windGustKts,
-                   float pressureQNH, float pressureMSL, float rainTrace)
+    public Reading(String localDateTime, String utcDateTime, Float latitude, Float longitude,
+                   Float airTemp, Float apparentTemp, Float dewPt, Integer relativeHumidity, Float deltaTemp,
+                   String cloud, String cloudType, String windDir, Integer windSpdKmH, Integer windSpdKts, Integer windGustKmH, Integer windGustKts,
+                   Float pressureQNH, Float pressureMSL, Float rainTrace)
     {
-        this.dateTime = BOMUtils.toDateTime(dateTime);
+        this.localDateTime = DataManager.toDateTime(localDateTime);
+        this.utcDateTime = DataManager.toDateTime(utcDateTime);
 
         this.latitude = latitude;
         this.longitude = longitude;
@@ -64,37 +65,41 @@ public final class Reading
     }
 
 
-    public final LocalDateTime getDateTime()
+    public final LocalDateTime getLocalDateTime()
     {
-        return dateTime;
+        return localDateTime;
+    }
+    public final LocalDateTime getUTCDateTime()
+    {
+        return utcDateTime;
     }
 
-    public final float getLatitude()
+    public final Float getLatitude()
     {
         return latitude;
     }
-    public final float getLongitude()
+    public final Float getLongitude()
     {
         return longitude;
     }
 
-    public final float getAirTemp()
+    public final Float getAirTemp()
     {
         return airTemp;
     }
-    public final float getApparentTemp()
+    public final Float getApparentTemp()
     {
         return apparentTemp;
     }
-    public final float getDewPt()
+    public final Float getDewPt()
     {
         return dewPt;
     }
-    public final int getRelativeHumidity()
+    public final Integer getRelativeHumidity()
     {
         return relativeHumidity;
     }
-    public final float getDeltaTemp()
+    public final Float getDeltaTemp()
     {
         return deltaTemp;
     }
@@ -112,33 +117,33 @@ public final class Reading
     {
         return windDir;
     }
-    public final int getWindSpdKmH()
+    public final Integer getWindSpdKmH()
     {
         return windSpdKmH;
     }
-    public final int getWindSpdKts()
+    public final Integer getWindSpdKts()
     {
         return windSpdKts;
     }
-    public final int getWindGustKmH()
+    public final Integer getWindGustKmH()
     {
         return windGustKmH;
     }
-    public final int getWindGustKts()
+    public final Integer getWindGustKts()
     {
         return windGustKts;
     }
 
-    public final float getPressureQNH()
+    public final Float getPressureQNH()
     {
         return pressureQNH;
     }
-    public final float getPressureMSL()
+    public final Float getPressureMSL()
     {
         return pressureMSL;
     }
 
-    public final float getRainTrace()
+    public final Float getRainTrace()
     {
         return rainTrace;
     }

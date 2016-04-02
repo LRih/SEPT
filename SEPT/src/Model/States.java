@@ -7,16 +7,17 @@ public final class States
     private final TreeMap<String, State> states = new TreeMap<>();
 
 
-    public final boolean add(String name, String abbr)
+    public final State add(String name, String abbr)
     {
         // only add state if it does not already exist
         if (!states.containsKey(name))
         {
-            states.put(name, new State(name, abbr));
-            return true;
+            State state = new State(name, abbr);
+            states.put(name, state);
+            return state;
         }
 
-        return false;
+        return null;
     }
 
 

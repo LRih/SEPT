@@ -16,16 +16,17 @@ public final class State
     }
 
 
-    public final boolean addStation(String name, String url)
+    public final Station addStation(String name, String url)
     {
         // only add station if it does not already exist
         if (!stations.containsKey(name))
         {
-            stations.put(name, new Station(this, name, url));
-            return true;
+            Station station = new Station(this, name, url);
+            stations.put(name, station);
+            return station;
         }
 
-        return false;
+        return null;
     }
 
 

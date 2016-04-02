@@ -1,7 +1,6 @@
 import Model.*;
-import Utils.BOMUtils;
+import Utils.DataManager;
 import Utils.FavoritesManager;
-import Utils.NetUtils;
 
 import java.io.IOException;
 
@@ -9,34 +8,33 @@ public final class ConsoleMain
 {
     public static void main(String[] args)
     {
-        System.out.println(BOMUtils.toDateTime("20160329220000"));
-
-        // testing network functions
         try
         {
-            System.out.println(NetUtils.get("http://www.bom.gov.au/fwo/IDV60901/IDV60901.95936.json"));
+            // test loading states and getting data from BOM for Mildura
+            States states = DataManager.loadStates();
+            Station station = states.get("Victoria").getStation("Mildura");
+
+            System.out.println(station.getState().getName());
+            System.out.println(station.getKey());
+            System.out.println(station.getUrl());
+
+            StationData data = DataManager.getStationData(station);
+            if (data != null)
+                System.out.println(data.getId());
+            System.out.println();
+
+            // test read favorites
+            System.out.println("Favorites:");
+            Favorites favs = FavoritesManager.load();
+            
+            for (Favorite fav : favs)
+                System.out.println(fav.key);
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
-
-        try
-        {
-            State state = new State("Victoria", "VIC");
-            state.addStation("Olympic Park", "http://www.example.com");
-
-            Station station = state.getStation("Olympic Park");
-
-            Favorites favs = FavoritesManager.load();
-            favs.add(station);
-
-            for (Favorite fav : favs.getSortedItems())
-                System.out.println(fav.key);
-
-            FavoritesManager.save(favs);
-        }
-        catch (Exception e)
+        catch (ClassNotFoundException e)
         {
             e.printStackTrace();
         }
