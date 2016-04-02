@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 //import net.miginfocom.swing.MigLayout;
 
+import com.alee.laf.WebLookAndFeel;
+
 public final class Main
 {
     private JFrame frmSept;
@@ -25,6 +27,7 @@ public final class Main
             {
                 try
                 {
+                	WebLookAndFeel.install ();
                     Main window = new Main();
                     window.frmSept.setVisible(true);
                 }
