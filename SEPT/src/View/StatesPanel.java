@@ -8,7 +8,6 @@ import Controller.States;
 import Model.State;
 import net.miginfocom.swing.MigLayout;
 
-//import net.miginfocom.swing.MigLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;

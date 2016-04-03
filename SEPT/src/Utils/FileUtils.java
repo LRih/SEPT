@@ -2,6 +2,9 @@ package Utils;
 
 import java.io.*;
 
+/**
+ * Handles file system based operations.
+ */
 public final class FileUtils
 {
     private static final String CHARSET = "UTF-8";
@@ -14,6 +17,13 @@ public final class FileUtils
     }
 
 
+    /**
+     * Load a text based file.
+     *
+     * @param path the path of the file to load
+     * @return the data contained in file at path {@code path}
+     * @throws IOException if there is an IO error of any sort
+     */
     public static String loadText(String path) throws IOException
     {
         StringBuilder data = new StringBuilder();
@@ -48,6 +58,13 @@ public final class FileUtils
         return data.toString();
     }
 
+    /**
+     * Save a text based file.
+     *
+     * @param text the text data to save to file
+     * @param path the path of the save location
+     * @throws IOException if there is an IO error of any sort
+     */
     public static void saveText(String text, String path) throws IOException
     {
         OutputStreamWriter out = null;

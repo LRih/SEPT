@@ -4,17 +4,20 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.TreeMap;
 
+// TODO document
 public final class Favorites implements Serializable, Iterable<Favorite>
 {
     private final TreeMap<String, Favorite> favorites;
 
 
+    // TODO document
     public Favorites()
     {
         this.favorites = new TreeMap<>();
     }
 
 
+    // TODO document
     public final boolean add(Station station)
     {
         // only add if favorite does not already exist
@@ -26,6 +29,7 @@ public final class Favorites implements Serializable, Iterable<Favorite>
 
         return false;
     }
+    // TODO document
     public final boolean delete(Station station)
     {
         if (favorites.containsKey(station.getKey()))
@@ -37,11 +41,13 @@ public final class Favorites implements Serializable, Iterable<Favorite>
         return false;
     }
 
+    // TODO document
     public final int size()
     {
         return favorites.size();
     }
 
+    // TODO document
     public final Iterator<Favorite> iterator()
     {
         return new FavouriteIterator();

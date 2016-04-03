@@ -9,8 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/*
-    Helper class for data management.
+/**
+ * Helper class for data management.
  */
 public final class DataManager
 {
@@ -24,6 +24,7 @@ public final class DataManager
     }
 
 
+    // TODO document
     /* loads list of states with station URLs from locally stored json file */
     public static States loadStates() throws IOException
     {
@@ -51,6 +52,7 @@ public final class DataManager
         return states;
     }
 
+    // TODO document
     public static StationData getStationData(Station station)
     {
         // try to load weather data from web
@@ -104,6 +106,7 @@ public final class DataManager
         return "cache" + File.separator + station.getKey() + ".json";
     }
 
+    // TODO document
     /* convert BOM formatted date time to a form recognized by joda time */
     public static LocalDateTime toDateTime(String bomDt)
     {

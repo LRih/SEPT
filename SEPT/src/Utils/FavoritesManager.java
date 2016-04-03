@@ -4,8 +4,8 @@ import Model.Favorites;
 
 import java.io.*;
 
-/*
-    For handling the storage of favorites.
+/**
+ * Handles the storage of favorites.
  */
 public final class FavoritesManager
 {
@@ -18,8 +18,13 @@ public final class FavoritesManager
         throw new AssertionError();
     }
 
-
-    /* loads serialized favorites class */
+    /**
+     * Loads serialized favorites class from the filesystem.
+     *
+     * @return the deserialized favorites file
+     * @throws IOException if there is an IO error of any sort
+     * @throws ClassNotFoundException if the favorites class is not defined
+     */
     public static Favorites load() throws IOException, ClassNotFoundException
     {
         Favorites favorites = new Favorites();
@@ -52,7 +57,12 @@ public final class FavoritesManager
         return favorites;
     }
 
-    /* serializes and saves favorites class */
+    /**
+     * Serializes and saves favorites class to the filesystem.
+     *
+     * @param favorites the favorites instance to save
+     * @throws IOException if there is an IO error of any sort
+     */
     public static void save(Favorites favorites) throws IOException
     {
         ObjectOutputStream out = null;

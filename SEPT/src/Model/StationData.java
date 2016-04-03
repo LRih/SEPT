@@ -3,6 +3,7 @@ package Model;
 import java.util.Collections;
 import java.util.List;
 
+// TODO document
 public final class StationData
 {
     private final String id;
@@ -13,6 +14,7 @@ public final class StationData
     private List<Reading> readings;
 
 
+    // TODO document
     public StationData(String id, String mainId, String timezone, List<Reading> readings)
     {
         this.id = id;
@@ -24,20 +26,24 @@ public final class StationData
     }
 
 
+    // TODO document
     public final String getId()
     {
         return id;
     }
+    // TODO document
     public final String getMainId()
     {
         return mainId;
     }
 
+    // TODO document
     public final String getTimezone()
     {
         return timezone;
     }
 
+    // TODO document
     public final List<Reading> getReadings()
     {
         return readings;

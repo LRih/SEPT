@@ -1,15 +1,8 @@
 package View;
 
-import Utils.StationDataWorker;
 import net.miginfocom.swing.MigLayout;
-
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
-//import net.miginfocom.swing.MigLayout;
-
 import com.alee.laf.WebLookAndFeel;
 
 public final class Main

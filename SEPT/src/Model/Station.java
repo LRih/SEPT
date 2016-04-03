@@ -1,5 +1,6 @@
 package Model;
 
+// TODO document
 public final class Station
 {
     private final State state;
@@ -7,6 +8,7 @@ public final class Station
     private final String url;
 
 
+    // TODO document
     public Station(State state, String name, String url)
     {
         this.state = state;
@@ -16,20 +18,24 @@ public final class Station
     }
 
 
+    // TODO document
     public final State getState()
     {
         return state;
     }
+    // TODO document
     public final String getName()
     {
         return name;
     }
+    // TODO document
     public final String getUrl()
     {
         return url;
     }
 
 
+    // TODO document
     public final String getKey()
     {
         return state.getName() + "-" + name;

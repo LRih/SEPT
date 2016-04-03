@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Handles network based operations.
+ */
 public final class NetUtils
 {
     private static final String CHARSET = "UTF-8";
@@ -19,7 +22,13 @@ public final class NetUtils
     }
 
 
-    /* gets the source of a URL by GET request */
+    /**
+     * Gets the source of a URL by GET request.
+     *
+     * @param url the URL for which to get the source
+     * @return the source of {@code url}
+     * @throws IOException if there is an IO error of any sort
+     */
     public static String get(String url) throws IOException
     {
         HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
@@ -32,7 +41,6 @@ public final class NetUtils
         return source;
     }
 
-    /* get source from connection object */
     private static String getSource(HttpURLConnection connection) throws IOException
     {
         String source = "";

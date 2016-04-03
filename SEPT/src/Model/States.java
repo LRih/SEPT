@@ -2,11 +2,13 @@ package Model;
 
 import java.util.TreeMap;
 
+// TODO document
 public final class States
 {
     private final TreeMap<String, State> states = new TreeMap<>();
 
 
+    // TODO document
     public final State add(String name, String abbr)
     {
         // only add state if it does not already exist
@@ -21,6 +23,7 @@ public final class States
     }
 
 
+    // TODO document
     public final State get(String name)
     {
         return states.get(name);

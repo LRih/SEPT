@@ -26,7 +26,7 @@ public final class ConsoleMain
             // test read favorites
             System.out.println("Favorites:");
             Favorites favs = FavoritesManager.load();
-            
+
             for (Favorite fav : favs)
                 System.out.println(fav.key);
         }
