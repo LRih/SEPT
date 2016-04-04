@@ -28,14 +28,14 @@ public final class FavoritesManager
         throw new AssertionError();
     }
 
+
     /**
      * Loads favorites JSON from the filesystem.
      *
      * @return the deserialized favorites file
      * @throws IOException if there is an IO error of any sort
-     * @throws JSONException if the JSON file is malformed
      */
-    public static Favorites load() throws IOException, JSONException
+    public static Favorites load() throws IOException
     {
         Favorites favorites = new Favorites();
 
@@ -43,16 +43,7 @@ public final class FavoritesManager
         if (!new File(FILE_PATH).exists())
             return favorites;
 
-        // process json file and load into favorites
-        JSONArray json = new JSONArray(FileUtils.loadText(FILE_PATH));
-
-        for (int i = 0; i < json.length(); i++)
-        {
-            JSONObject obj = json.getJSONObject(i);
-            favorites.add(obj.getString(KEY_KEY), obj.getString(KEY_STATE), obj.getString(KEY_STATION));
-        }
-
-        return favorites;
+        return toFavorites(FileUtils.loadText(FILE_PATH));
     }
 
     /**
@@ -60,11 +51,50 @@ public final class FavoritesManager
      *
      * @param favorites the favorites instance to save
      * @throws IOException if there is an IO error of any sort
-     * @throws JSONException if producing the JSON object produced an error
      */
-    public static void save(Favorites favorites) throws IOException, JSONException
+    public static void save(Favorites favorites) throws IOException
     {
         FileUtils.saveText(toJSON(favorites).toString(JSON_INDENT), FILE_PATH);
+    }
+
+    /**
+     * Converts JSON to favorites object. Ignores any invalid entries.
+     *
+     * @return the resultant favorites object
+     */
+    private static Favorites toFavorites(String json)
+    {
+        Favorites favorites = new Favorites();
+        JSONArray array;
+
+        // try to parse JSON
+        try
+        {
+            array = new JSONArray(json);
+        }
+        catch (JSONException e)
+        {
+            // all entries is corrupt, return empty favorites
+            e.printStackTrace();
+            return favorites;
+        }
+
+        // get all favorites
+        for (int i = 0; i < array.length(); i++)
+        {
+            try
+            {
+                JSONObject obj = array.getJSONObject(i);
+                favorites.add(obj.getString(KEY_KEY), obj.getString(KEY_STATE), obj.getString(KEY_STATION));
+            }
+            catch (JSONException e)
+            {
+                // entry is corrupt so ignore
+                e.printStackTrace();
+            }
+        }
+
+        return favorites;
     }
 
     /**
@@ -78,12 +108,20 @@ public final class FavoritesManager
 
         for (Favorite favorite : favorites)
         {
-            JSONObject obj = new JSONObject();
-            obj.put(KEY_KEY, favorite.key);
-            obj.put(KEY_STATE, favorite.state);
-            obj.put(KEY_STATION, favorite.station);
+            try
+            {
+                JSONObject obj = new JSONObject();
+                obj.put(KEY_KEY, favorite.key);
+                obj.put(KEY_STATE, favorite.state);
+                obj.put(KEY_STATION, favorite.station);
 
-            json.put(obj);
+                json.put(obj);
+            }
+            catch (JSONException e)
+            {
+                // ignore favorite when error occurred trying to save it
+                e.printStackTrace();
+            }
         }
 
         return json;

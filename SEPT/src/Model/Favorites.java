@@ -10,7 +10,9 @@ public final class Favorites implements Serializable, Iterable<Favorite>
     private final TreeMap<String, Favorite> favorites;
 
 
-    // TODO document
+    /**
+     * Creates a new favorites instance.
+     */
     public Favorites()
     {
         this.favorites = new TreeMap<>();

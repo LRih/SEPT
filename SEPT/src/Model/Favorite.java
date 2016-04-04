@@ -2,10 +2,14 @@ package Model;
 
 import java.io.Serializable;
 
-// TODO document
+/**
+ * Data structure for representing a favorite.
+ */
 public final class Favorite implements Serializable, Comparable<Favorite>
 {
-    // TODO document
+    /**
+     * For identifying the favorite. All favorites have a unique key.
+     */
     public final String key;
 
     // TODO document
@@ -29,7 +33,12 @@ public final class Favorite implements Serializable, Comparable<Favorite>
     }
 
 
-    // TODO document
+    /**
+     * Favorites are sorted alphabetically by key.
+     *
+     * @return the sort order compared to {@code fav}
+     * @param fav comparison target
+     */
     public final int compareTo(Favorite fav)
     {
         // sort by key
