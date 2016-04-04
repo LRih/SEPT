@@ -1,15 +1,25 @@
 package Utils;
 
+import Model.Favorite;
 import Model.Favorites;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Handles the storage of favorites.
  */
 public final class FavoritesManager
 {
-    private static String FILE_PATH = "favourites";
+    private static String FILE_PATH = "favourites.json";
+    private static int JSON_INDENT = 4;
+
+    private static String KEY_KEY = "key";
+    private static String KEY_STATE = "state";
+    private static String KEY_STATION = "station";
 
 
     private FavoritesManager()
@@ -19,13 +29,13 @@ public final class FavoritesManager
     }
 
     /**
-     * Loads serialized favorites class from the filesystem.
+     * Loads favorites JSON from the filesystem.
      *
      * @return the deserialized favorites file
      * @throws IOException if there is an IO error of any sort
-     * @throws ClassNotFoundException if the favorites class is not defined
+     * @throws JSONException if the JSON file is malformed
      */
-    public static Favorites load() throws IOException, ClassNotFoundException
+    public static Favorites load() throws IOException, JSONException
     {
         Favorites favorites = new Favorites();
 
@@ -33,57 +43,49 @@ public final class FavoritesManager
         if (!new File(FILE_PATH).exists())
             return favorites;
 
-        ObjectInputStream in = null;
+        // process json file and load into favorites
+        JSONArray json = new JSONArray(FileUtils.loadText(FILE_PATH));
 
-        try
+        for (int i = 0; i < json.length(); i++)
         {
-            in = new ObjectInputStream(new FileInputStream(FILE_PATH));
-            favorites = (Favorites)in.readObject();
-        }
-        finally
-        {
-            // ensure ObjectInputStream is closed under any circumstances
-            try
-            {
-                if (in != null)
-                    in.close();
-            }
-            catch (IOException ex)
-            {
-                ex.printStackTrace();
-            }
+            JSONObject obj = json.getJSONObject(i);
+            favorites.add(obj.getString(KEY_KEY), obj.getString(KEY_STATE), obj.getString(KEY_STATION));
         }
 
         return favorites;
     }
 
     /**
-     * Serializes and saves favorites class to the filesystem.
+     * Saves favorites to the filesystem in JSON format.
      *
      * @param favorites the favorites instance to save
      * @throws IOException if there is an IO error of any sort
+     * @throws JSONException if producing the JSON object produced an error
      */
-    public static void save(Favorites favorites) throws IOException
+    public static void save(Favorites favorites) throws IOException, JSONException
     {
-        ObjectOutputStream out = null;
+        FileUtils.saveText(toJSON(favorites).toString(JSON_INDENT), FILE_PATH);
+    }
 
-        try
+    /**
+     * Converts favorites to a JSON array for storage.
+     *
+     * @return the resultant JSON array
+     */
+    private static JSONArray toJSON(Favorites favorites)
+    {
+        JSONArray json = new JSONArray();
+
+        for (Favorite favorite : favorites)
         {
-            out = new ObjectOutputStream(new FileOutputStream(FILE_PATH));
-            out.writeObject(favorites);
+            JSONObject obj = new JSONObject();
+            obj.put(KEY_KEY, favorite.key);
+            obj.put(KEY_STATE, favorite.state);
+            obj.put(KEY_STATION, favorite.station);
+
+            json.put(obj);
         }
-        finally
-        {
-            // ensure ObjectOutputStream is closed under any circumstances
-            try
-            {
-                if (out != null)
-                    out.close();
-            }
-            catch (IOException ex)
-            {
-                ex.printStackTrace();
-            }
-        }
+
+        return json;
     }
 }

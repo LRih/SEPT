@@ -71,7 +71,8 @@ public final class FileUtils
 
         // make the directories if non-existent
         String directory = new File(path).getParent();
-        new File(directory).mkdirs();
+        if (directory != null) // null when no directory
+            new File(directory).mkdirs();
 
         try
         {

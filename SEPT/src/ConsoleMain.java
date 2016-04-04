@@ -27,14 +27,14 @@ public final class ConsoleMain
             System.out.println("Favorites:");
             Favorites favs = FavoritesManager.load();
 
+            favs.add(station);
+
             for (Favorite fav : favs)
                 System.out.println(fav.key);
+
+            FavoritesManager.save(favs);
         }
         catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException e)
         {
             e.printStackTrace();
         }

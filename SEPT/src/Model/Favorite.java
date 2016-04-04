@@ -17,10 +17,15 @@ public final class Favorite implements Serializable, Comparable<Favorite>
     // TODO document
     public Favorite(Station station)
     {
-        this.key = station.getKey();
+        this(station.getKey(), station.getState().getName(), station.getName());
+    }
+    // TODO document
+    public Favorite(String key, String state, String station)
+    {
+        this.key = key;
 
-        this.state = station.getState().getName();
-        this.station = station.getName();
+        this.state = state;
+        this.station = station;
     }
 
 

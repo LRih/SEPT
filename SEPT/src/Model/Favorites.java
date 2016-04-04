@@ -20,10 +20,15 @@ public final class Favorites implements Serializable, Iterable<Favorite>
     // TODO document
     public final boolean add(Station station)
     {
+        return add(station.getKey(), station.getState().getName(), station.getName());
+    }
+    // TODO document
+    public final boolean add(String key, String state, String station)
+    {
         // only add if favorite does not already exist
-        if (!favorites.containsKey(station.getKey()))
+        if (!favorites.containsKey(key))
         {
-            favorites.put(station.getKey(), new Favorite(station));
+            favorites.put(key, new Favorite(key, state, station));
             return true;
         }
 
