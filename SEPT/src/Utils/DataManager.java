@@ -24,8 +24,12 @@ public final class DataManager
     }
 
 
-    // TODO document
-    /* loads list of states with station URLs from locally stored json file */
+    /**
+     * Loads list of states with station URLs from locally stored json file.
+     *
+     * @return states loaded from file
+     * @throws IOException if there is an IO error of any sort
+     */
     public static States loadStates() throws IOException
     {
         States states = new States();
@@ -106,8 +110,12 @@ public final class DataManager
         return "cache" + File.separator + station.getKey() + ".json";
     }
 
-    // TODO document
-    /* convert BOM formatted date time to a form recognized by joda time */
+    /**
+     * Convert BOM formatted date time to a form recognized by joda time.
+     *
+     * @return datetime object of BOM date
+     * @param bomDt datetime string from BOM
+     */
     public static LocalDateTime toDateTime(String bomDt)
     {
         String dt = bomDt.replaceAll("(\\d{4})(\\d{2})(\\d{2})(\\d{2})(\\d{2})(\\d{2})", "$1-$2-$3T$4:$5:$6");

@@ -3,7 +3,9 @@ package Model;
 import java.util.Collections;
 import java.util.List;
 
-// TODO document
+/**
+ * Object for storing information about a station obtained from BOM.
+ */
 public final class StationData
 {
     private final String id;

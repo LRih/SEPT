@@ -12,18 +12,34 @@ public final class Favorite implements Serializable, Comparable<Favorite>
      */
     public final String key;
 
-    // TODO document
+    /**
+     * Name of state.
+     */
     public final String state;
-    // TODO document
+
+    /**
+     * Name of station.
+     */
     public final String station;
 
 
-    // TODO document
+    /**
+     * Creates a new favourite.
+     *
+     * @param station the station to for which to create a favorite
+     */
     public Favorite(Station station)
     {
         this(station.getKey(), station.getState().getName(), station.getName());
     }
-    // TODO document
+
+    /**
+     * Creates a new favourite.
+     *
+     * @param key key of station
+     * @param state name of state
+     * @param station name of station
+     */
     public Favorite(String key, String state, String station)
     {
         this.key = key;
