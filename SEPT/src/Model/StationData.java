@@ -16,7 +16,14 @@ public final class StationData
     private List<Reading> readings;
 
 
-    // TODO document
+    /**
+     * Creates a station data instance.
+     *
+     * @param id BOM id of station
+     * @param mainId BOM main id of station
+     * @param timezone timezone of station
+     * @param readings list of readings for station
+     */
     public StationData(String id, String mainId, String timezone, List<Reading> readings)
     {
         this.id = id;
@@ -28,24 +35,20 @@ public final class StationData
     }
 
 
-    // TODO document
     public final String getId()
     {
         return id;
     }
-    // TODO document
     public final String getMainId()
     {
         return mainId;
     }
 
-    // TODO document
     public final String getTimezone()
     {
         return timezone;
     }
 
-    // TODO document
     public final List<Reading> getReadings()
     {
         return readings;

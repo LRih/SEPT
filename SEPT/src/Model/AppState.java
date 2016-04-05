@@ -21,22 +21,18 @@ public final class AppState
         this.chart = chart;
     }
 
-    // TODO document
     public final Rectangle getWindowRect()
     {
         return windowRect;
     }
-    // TODO document
     public final String getState()
     {
         return state;
     }
-    // TODO document
     public final String getStation()
     {
         return station;
     }
-    // TODO document
     public final String getChart()
     {
         return chart;

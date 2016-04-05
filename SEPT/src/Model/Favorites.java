@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.TreeMap;
 
-// TODO document
+/**
+ * Data structure for representing a collection of favorites.
+ */
 public final class Favorites implements Serializable, Iterable<Favorite>
 {
     private final TreeMap<String, Favorite> favorites;
@@ -19,12 +21,25 @@ public final class Favorites implements Serializable, Iterable<Favorite>
     }
 
 
-    // TODO document
+    /**
+     * Adds a new favorite. Fails if it already exists.
+     *
+     * @return success of failure of the add
+     * @param station station for which to add a favorite
+     */
     public final boolean add(Station station)
     {
         return add(station.getKey(), station.getState().getName(), station.getName());
     }
-    // TODO document
+
+    /**
+     * Adds a new favorite. Fails if it already exists.
+     *
+     * @return success of failure of the add
+     * @param key unique station identifier
+     * @param state name of state
+     * @param station name of station
+     */
     public final boolean add(String key, String state, String station)
     {
         // only add if favorite does not already exist
@@ -36,7 +51,13 @@ public final class Favorites implements Serializable, Iterable<Favorite>
 
         return false;
     }
-    // TODO document
+
+    /**
+     * Deletes a station. Fails if it already exists.
+     *
+     * @return success of failure of the deletion
+     * @param station station for which to delete favorite
+     */
     public final boolean delete(Station station)
     {
         if (favorites.containsKey(station.getKey()))
@@ -48,20 +69,23 @@ public final class Favorites implements Serializable, Iterable<Favorite>
         return false;
     }
 
-    // TODO document
+    /**
+     * Returns the number of favorites.
+     */
     public final int size()
     {
         return favorites.size();
     }
 
-    // TODO document
     public final Iterator<Favorite> iterator()
     {
         return new FavouriteIterator();
     }
 
 
-    /* provide a way to iterate through sorted favorites */
+    /**
+     * Provide a way to iterate through sorted favorites.
+     */
     private class FavouriteIterator implements Iterator<Favorite>
     {
         private Iterator<String> keyIterator = favorites.keySet().iterator();

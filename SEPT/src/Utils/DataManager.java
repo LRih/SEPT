@@ -56,7 +56,14 @@ public final class DataManager
         return states;
     }
 
-    // TODO document
+    /**
+     * Tries to load station data from various sources. First it tries to load
+     * the most recent data from the web. If it fails it will try to load a
+     * locally cached version. If this fails, {@code null} is returned.
+     *
+     * @return loaded station data
+     * @param station the station for which to load data
+     */
     public static StationData getStationData(Station station)
     {
         // try to load weather data from web

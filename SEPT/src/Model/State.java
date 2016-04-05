@@ -46,24 +46,15 @@ public final class State
     }
 
 
-    /**
-     * Getter for name.
-     *
-     * @return the name of state
-     */
     public final String getName()
     {
         return name;
     }
-    /**
-     * Getter for abbreviation.
-     *
-     * @return the abbreviation of the name
-     */
     public final String getAbbr()
     {
         return abbr;
     }
+
     /**
      * Gets a station contained in this state
      *

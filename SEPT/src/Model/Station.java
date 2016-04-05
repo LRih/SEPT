@@ -1,6 +1,8 @@
 package Model;
 
-// TODO document
+/**
+ * Data structure for representing a station.
+ */
 public final class Station
 {
     private final State state;
@@ -24,28 +26,18 @@ public final class Station
     }
 
 
-    /**
-     * Getter for state.
-     */
     public final State getState()
     {
         return state;
     }
-    /**
-     * Getter for name.
-     */
     public final String getName()
     {
         return name;
     }
-    /**
-     * Getter for URL.
-     */
     public final String getUrl()
     {
         return url;
     }
-
 
     /**
      * Key that uniquely identifies this station.

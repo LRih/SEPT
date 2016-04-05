@@ -2,13 +2,21 @@ package Model;
 
 import java.util.TreeMap;
 
-// TODO document
+/**
+ * Data structure for representing a collection of states.
+ */
 public final class States
 {
     private final TreeMap<String, State> states = new TreeMap<>();
 
 
-    // TODO document
+    /**
+     * Adds a new state. Fails if it already exists.
+     *
+     * @return the added state. {@code null} if state already exists
+     * @param name the name of the state
+     * @param abbr abbreviation of name
+     */
     public final State add(String name, String abbr)
     {
         // only add state if it does not already exist
@@ -23,7 +31,12 @@ public final class States
     }
 
 
-    // TODO document
+    /**
+     * Gets a state contained in states
+     *
+     * @return the state with name {@code name}
+     * @param name the name of the state
+     */
     public final State get(String name)
     {
         return states.get(name);
