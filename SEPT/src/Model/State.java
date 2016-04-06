@@ -8,7 +8,6 @@ import java.util.TreeMap;
 public final class State
 {
     private final String name;
-    private final String abbr;
     private final TreeMap<String, Station> stations = new TreeMap<>();
 
 
@@ -16,12 +15,10 @@ public final class State
      * Creates a new state instance.
      *
      * @param name name of state
-     * @param abbr abbreviation of name
      */
-    public State(String name, String abbr)
+    public State(String name)
     {
         this.name = name;
-        this.abbr = abbr;
     }
 
 
@@ -49,10 +46,6 @@ public final class State
     public final String getName()
     {
         return name;
-    }
-    public final String getAbbr()
-    {
-        return abbr;
     }
 
     /**

@@ -15,14 +15,13 @@ public final class States
      *
      * @return the added state. {@code null} if state already exists
      * @param name the name of the state
-     * @param abbr abbreviation of name
      */
-    public final State add(String name, String abbr)
+    public final State add(String name)
     {
         // only add state if it does not already exist
         if (!states.containsKey(name))
         {
-            State state = new State(name, abbr);
+            State state = new State(name);
             states.put(name, state);
             return state;
         }

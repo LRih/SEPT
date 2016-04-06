@@ -8,14 +8,14 @@ public final class Reading
     private final LocalDateTime localDateTime;
     private final LocalDateTime utcDateTime;
 
-    private final Float latitude;
-    private final Float longitude;
+    private final Double latitude;
+    private final Double longitude;
 
-    private final Float airTemp;
-    private final Float apparentTemp;
-    private final Float dewPt;
+    private final Double airTemp;
+    private final Double apparentTemp;
+    private final Double dewPt;
     private final Integer relativeHumidity;
-    private final Float deltaTemp;
+    private final Double deltaTemp;
 
     private final String cloud;
     private final String cloudType;
@@ -26,16 +26,16 @@ public final class Reading
     private final Integer windGustKmH;
     private final Integer windGustKts;
 
-    private final Float pressureQNH;
-    private final Float pressureMSL;
+    private final Double pressureQNH;
+    private final Double pressureMSL;
 
-    private final Float rainTrace;
+    private final String rainTrace;
 
 
-    public Reading(String localDateTime, String utcDateTime, Float latitude, Float longitude,
-                   Float airTemp, Float apparentTemp, Float dewPt, Integer relativeHumidity, Float deltaTemp,
+    public Reading(String localDateTime, String utcDateTime, Double latitude, Double longitude,
+                   Double airTemp, Double apparentTemp, Double dewPt, Integer relativeHumidity, Double deltaTemp,
                    String cloud, String cloudType, String windDir, Integer windSpdKmH, Integer windSpdKts, Integer windGustKmH, Integer windGustKts,
-                   Float pressureQNH, Float pressureMSL, Float rainTrace)
+                   Double pressureQNH, Double pressureMSL, String rainTrace)
     {
         this.localDateTime = DataManager.toDateTime(localDateTime);
         this.utcDateTime = DataManager.toDateTime(utcDateTime);
@@ -74,24 +74,24 @@ public final class Reading
         return utcDateTime;
     }
 
-    public final Float getLatitude()
+    public final Double getLatitude()
     {
         return latitude;
     }
-    public final Float getLongitude()
+    public final Double getLongitude()
     {
         return longitude;
     }
 
-    public final Float getAirTemp()
+    public final Double getAirTemp()
     {
         return airTemp;
     }
-    public final Float getApparentTemp()
+    public final Double getApparentTemp()
     {
         return apparentTemp;
     }
-    public final Float getDewPt()
+    public final Double getDewPt()
     {
         return dewPt;
     }
@@ -99,7 +99,7 @@ public final class Reading
     {
         return relativeHumidity;
     }
-    public final Float getDeltaTemp()
+    public final Double getDeltaTemp()
     {
         return deltaTemp;
     }
@@ -134,16 +134,16 @@ public final class Reading
         return windGustKts;
     }
 
-    public final Float getPressureQNH()
+    public final Double getPressureQNH()
     {
         return pressureQNH;
     }
-    public final Float getPressureMSL()
+    public final Double getPressureMSL()
     {
         return pressureMSL;
     }
 
-    public final Float getRainTrace()
+    public final String getRainTrace()
     {
         return rainTrace;
     }

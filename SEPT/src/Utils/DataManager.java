@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper class for data management.
@@ -42,7 +43,7 @@ public final class DataManager
         {
             JSONObject jsonState = jsonStates.getJSONObject(i);
 
-            State state = states.add(jsonState.getString("state"), jsonState.getString("state"));
+            State state = states.add(jsonState.getString("state"));
 
             // iterate stations
             JSONArray jsonStations = jsonState.getJSONArray("stations");
@@ -92,8 +93,44 @@ public final class DataManager
     }
     private static StationData createStationData(String json)
     {
-        // TODO parse json into station data
-        return new StationData(json, null, null, new ArrayList<Reading>());
+        JSONObject obj = new JSONObject(json).getJSONObject("observations");
+        JSONObject header = obj.getJSONArray("header").getJSONObject(0);
+
+        return new StationData(header.getString("ID"), header.getString("main_ID"), header.getString("time_zone"), createReadings(obj.getJSONArray("data")));
+    }
+
+    private static List<Reading> createReadings(JSONArray arr)
+    {
+        List<Reading> readings = new ArrayList<>();
+
+        for (int i = 0; i < arr.length(); i++)
+            readings.add(createReading(arr.getJSONObject(i)));
+
+        return readings;
+    }
+    private static Reading createReading(JSONObject obj)
+    {
+        return new Reading(
+            obj.getString("local_date_time_full"),
+            obj.getString("aifstime_utc"),
+            obj.isNull("lat") ? null : obj.getDouble("lat"),
+            obj.isNull("lon") ? null : obj.getDouble("lon"),
+            obj.isNull("air_temp") ? null : obj.getDouble("air_temp"),
+            obj.isNull("apparent_t") ? null : obj.getDouble("apparent_t"),
+            obj.isNull("dewpt") ? null : obj.getDouble("dewpt"),
+            obj.isNull("rel_hum") ? null : obj.getInt("rel_hum"),
+            obj.isNull("delta_t") ? null : obj.getDouble("delta_t"),
+            obj.isNull("cloud") ? null : obj.getString("cloud"),
+            obj.isNull("cloud_type") ? null : obj.getString("cloud_type"),
+            obj.isNull("wind_dir") ? null : obj.getString("wind_dir"),
+            obj.isNull("wind_spd_kmh") ? null : obj.getInt("wind_spd_kmh"),
+            obj.isNull("wind_spd_kt") ? null : obj.getInt("wind_spd_kt"),
+            obj.isNull("gust_kmh") ? null : obj.getInt("gust_kmh"),
+            obj.isNull("gust_kt") ? null : obj.getInt("gust_kt"),
+            obj.isNull("press_qnh") ? null : obj.getDouble("press_qnh"),
+            obj.isNull("press_msl") ? null : obj.getDouble("press_msl"),
+            obj.isNull("rain_trace") ? null : obj.getString("rain_trace")
+        );
     }
 
     private static String loadCache(Station station) throws IOException

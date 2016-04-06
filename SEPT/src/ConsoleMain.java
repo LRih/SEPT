@@ -20,7 +20,10 @@ public final class ConsoleMain
 
             StationData data = DataManager.getStationData(station);
             if (data != null)
-                System.out.println(data.getId());
+            {
+                for (Reading reading : data.getReadings())
+                    System.out.println(reading.getLocalDateTime() + " : " + reading.getAirTemp());
+            }
             System.out.println();
 
             // test read favorites

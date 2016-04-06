@@ -47,7 +47,7 @@ public final class StatesPanel extends JPanel implements ActionListener {
 		ArrayList<State> states = States.getStates();
 		JButton btnState;
 		for (int i = 0; i < states.size(); i++) {
-			btnState = new JButton(states.get(i).getAbbr());
+			btnState = new JButton(states.get(i).getName());
 			btnState.addActionListener(this);
 			if (i % 3 == 0 && i != 0)
 				panel.add(btnState, "wrap, growx");
