@@ -13,7 +13,7 @@ public final class StationData
 
     private final String timezone;
 
-    private List<Reading> readings;
+    private final List<Reading> readings;
 
 
     /**

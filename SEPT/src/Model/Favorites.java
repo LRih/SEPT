@@ -79,30 +79,6 @@ public final class Favorites implements Serializable, Iterable<Favorite>
 
     public final Iterator<Favorite> iterator()
     {
-        return new FavouriteIterator();
-    }
-
-
-    /**
-     * Provide a way to iterate through sorted favorites.
-     */
-    private class FavouriteIterator implements Iterator<Favorite>
-    {
-        private Iterator<String> keyIterator = favorites.keySet().iterator();
-
-        public final boolean hasNext()
-        {
-            return keyIterator.hasNext();
-        }
-
-        public final Favorite next()
-        {
-            return favorites.get(keyIterator.next());
-        }
-
-        public final void remove()
-        {
-            keyIterator.remove();
-        }
+        return new KeySetIterator<>(favorites);
     }
 }

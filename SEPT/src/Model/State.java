@@ -1,11 +1,12 @@
 package Model;
 
+import java.util.Iterator;
 import java.util.TreeMap;
 
 /**
  * Data structure for representing a state.
  */
-public final class State
+public final class State implements Iterable<Station>
 {
     private final String name;
     private final TreeMap<String, Station> stations = new TreeMap<>();
@@ -57,5 +58,10 @@ public final class State
     public final Station getStation(String name)
     {
         return stations.get(name);
+    }
+
+    public final Iterator<Station> iterator()
+    {
+        return new KeySetIterator<>(stations);
     }
 }
