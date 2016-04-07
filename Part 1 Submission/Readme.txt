@@ -9,11 +9,12 @@ Percentage:
 25%
 
 Contribution description:
-Class diagram
+Planning class diagram
+Component diagram
 Documentation formatting
 Network related functionality
 Asynchronous functionality
-Favourites Handling
+Favorites Handling
 
 
 --------------------------------------------
@@ -51,3 +52,13 @@ Percentage:
 
 Contribution description:
 Use case diagram
+
+
+--------------------------------------------
+
+
+Tasks that may warrant extra marks (provided in folder "Extra"):
+- Initial planning: UI mockup, use case diagram, planning class diagram
+- User stories with confirmation
+- Use of architecture design: MVC, multilayer
+- Use of design patterns: iterator for favorites, observer for asynchronous tasks
