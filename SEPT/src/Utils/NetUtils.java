@@ -40,7 +40,15 @@ public final class NetUtils
 
         return source;
     }
-
+    
+    
+    /**
+     * Gets the source of a URL by GET request.
+     *
+     * @param connection is of type httpURLConnection.
+     * @return source
+     * @throws IOException if there is an IO error of any sort
+     */
     private static String getSource(HttpURLConnection connection) throws IOException
     {
         String source = "";
