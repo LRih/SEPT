@@ -91,6 +91,13 @@ public final class DataManager
 
         return null;
     }
+    
+    /**
+     * Takes the chosen json file, puts into workable jsonobject and returns readable stationdata.
+     * 
+     * @return stationdata for the chosen station - taken from json
+     * @param json the json file being passed into a jsonobject
+     */
     private static StationData createStationData(String json)
     {
         JSONObject obj = new JSONObject(json).getJSONObject("observations");
@@ -99,6 +106,14 @@ public final class DataManager
         return new StationData(header.getString("ID"), header.getString("main_ID"), header.getString("time_zone"), createReadings(obj.getJSONArray("data")));
     }
 
+
+    /**
+     * Takes the jsonarray and grabs every value and orders it 
+     * into the arraylist 'readings'.
+     * 
+     * @return readings is the array list of all ordered values
+     * @param arr is the json array of raw values
+     */
     private static List<Reading> createReadings(JSONArray arr)
     {
         List<Reading> readings = new ArrayList<>();
