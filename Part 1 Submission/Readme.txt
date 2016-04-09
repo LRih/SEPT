@@ -12,7 +12,8 @@ Contribution description:
 Planning class diagram
 Component diagram
 Documentation formatting
-Network related functionality
+Code documentation
+Network/file IO functionality
 Asynchronous functionality
 Favorites Handling
 
@@ -39,7 +40,7 @@ Percentage:
 25%
 
 Contribution description:
-Scraping BOM site for JSON links
+Scraping BOM site for JSON links using python
 
 
 --------------------------------------------
@@ -52,6 +53,7 @@ Percentage:
 
 Contribution description:
 Use case diagram
+Code documentation
 
 
 --------------------------------------------
@@ -62,3 +64,4 @@ Tasks that may warrant extra marks (provided in folder "Extra"):
 - User stories with confirmation
 - Use of architecture design: MVC, multilayer
 - Use of design patterns: iterator for favorites, observer for asynchronous tasks
+- JUnit tests done (Tests.java) and screenshot of results also provided
