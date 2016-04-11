@@ -2,11 +2,16 @@ As a user I want to keep track of weather stations I view frequently.
 Given the user is viewing the list of stations, when they click the "add to favourites" button then the station will be added to the favourites list.
 
 As a user I want to find weather stations closest to my physical location.
+// TODO
 
 As a paranoid weather skeptic I want to always have the most updated data displayed.
+// TODO
 
 As a user I want to have data displayed in graphical form to better understand the trends in weather patterns.
+// TODO
 
 As a curious user I want to be able to view Antarctic weather data in addition to weather data from Australia.
+// TODO
 
 As a user I want to be able to access weather data (albeit outdated) even without an internet connection.
+// TODO
