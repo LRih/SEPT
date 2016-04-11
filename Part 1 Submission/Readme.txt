@@ -28,6 +28,7 @@ Percentage:
 
 Contribution description:
 Mockup
+Code documentation
 User interface
 
 
@@ -54,6 +55,7 @@ Percentage:
 Contribution description:
 Use case diagram
 Code documentation
+Sequence diagrams
 
 
 --------------------------------------------
