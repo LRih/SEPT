@@ -34,6 +34,7 @@ public final class Reading {
 			Double apparentTemp, Double dewPt, Integer relativeHumidity, Double deltaTemp, String cloud,
 			String cloudType, String windDir, Integer windSpdKmH, Integer windSpdKts, Integer windGustKmH,
 			Integer windGustKts, Double pressureQNH, Double pressureMSL, String rainTrace) {
+		
 		this.localDateTime = DataManager.toDateTime(localDateTime);
 		this.utcDateTime = DataManager.toDateTime(utcDateTime);
 

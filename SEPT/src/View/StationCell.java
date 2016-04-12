@@ -13,6 +13,8 @@ import Utils.DataManager;
 import java.awt.Font;
 import java.io.IOException;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StationCell extends JPanel {
 
@@ -20,13 +22,21 @@ public class StationCell extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	Station station = null;
+	
 	/**
 	 * Create the panel.
 	 */
 	public StationCell(MainPanel m, Favorite fav) {
+
+		
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.setStation(station);
+			}
+		});
 		States states = null;
-		Station station = null;
 		StationData data = null;
 		try {
 			states = DataManager.loadStates();

@@ -5,6 +5,11 @@
         "key": "New South Wales-Murwillumbah"
     },
     {
+        "station": "Adelaide",
+        "state": "South Australia",
+        "key": "South Australia-Adelaide"
+    },
+    {
         "station": "Mildura",
         "state": "Victoria",
         "key": "Victoria-Mildura"
