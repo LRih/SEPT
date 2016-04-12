@@ -152,8 +152,6 @@ public class MainPanel extends JPanel {
 				add(webButton, "cell 1 2,alignx right, gapx 0 15, gapy 5 0");
 
 		WebScrollPane webScrollPane = new WebScrollPane(panel, false, true);
-		webScrollPane.setDrawFocus(false);
-		webScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		webScrollPane.setPreferredSize(new Dimension(0, 0));
 		add(webScrollPane, "cell 0 3 2 1,grow");
 	}
