@@ -61,7 +61,7 @@ public final class Main {
 			if (favs.size() == 0)
 				showState(0);
 			else
-				showState(0);
+				showState(2);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
