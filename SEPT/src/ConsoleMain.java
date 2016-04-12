@@ -12,7 +12,7 @@ public final class ConsoleMain
         {
             // test loading states and getting data from BOM for Mildura
             States states = DataManager.loadStates();
-            Station station = states.get("Victoria").getStation("Mildura");
+            Station station = states.get("Western Australia").getStation("Browse Island");
 
             System.out.println(station.getState().getName());
             System.out.println(station.getKey());
@@ -22,7 +22,7 @@ public final class ConsoleMain
             if (data != null)
             {
                 for (Reading reading : data.getReadings())
-                    System.out.println(reading.getLocalDateTime() + " : " + reading.getAirTemp());
+                    System.out.println(reading.getLocalDateTime() + " : " + reading.toString());
             }
             System.out.println();
 

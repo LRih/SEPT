@@ -1,5 +1,22 @@
-[{
-    "station": "Mildura",
-    "state": "Victoria",
-    "key": "Victoria-Mildura"
-}]
+[
+    {
+        "station": "Murwillumbah",
+        "state": "New South Wales",
+        "key": "New South Wales-Murwillumbah"
+    },
+    {
+        "station": "Mildura",
+        "state": "Victoria",
+        "key": "Victoria-Mildura"
+    },
+    {
+        "station": "Bidyadanga",
+        "state": "Western Australia",
+        "key": "Western Australia-Bidyadanga"
+    },
+    {
+        "station": "Browse Island",
+        "state": "Western Australia",
+        "key": "Western Australia-Browse Island"
+    }
+]

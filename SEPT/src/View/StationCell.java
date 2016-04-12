@@ -3,7 +3,16 @@ package View;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
-import com.alee.laf.button.WebButton;
+
+import Model.Favorite;
+import Model.States;
+import Model.Station;
+import Model.StationData;
+import Utils.DataManager;
+
+import java.awt.Font;
+import java.io.IOException;
+import java.awt.Color;
 
 public class StationCell extends JPanel {
 
@@ -15,28 +24,39 @@ public class StationCell extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public StationCell() {
-		setLayout(new MigLayout("", "[20%][grow][10%][10%][10%]", "[][][]"));
+	public StationCell(MainPanel m, Favorite fav) {
+		States states = null;
+		Station station = null;
+		StationData data = null;
+		try {
+			states = DataManager.loadStates();
+			station = states.get(fav.state).getStation(fav.station);
+			data = DataManager.getStationData(station);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		WebLabel wblblVictoria = new WebLabel();
-		wblblVictoria.setText("Victoria");
-		add(wblblVictoria, "cell 0 0");
+		setBorder(null);
+		setBackground(new Color(248, 248, 255));
+		setLayout(new MigLayout("", "[grow][][5%][]", "[][][]"));
 		
 		WebLabel wblblMildura = new WebLabel();
-		wblblMildura.setText("Mildura");
-		add(wblblMildura, "cell 1 0");
+		wblblMildura.setForeground(new Color(255, 69, 0));
+		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		wblblMildura.setText(station.getName());
+		add(wblblMildura, "cell 0 0 1 2,alignx left,grow");
 		
-		WebLabel webLabel = new WebLabel();
-		webLabel.setText("26");
-		add(webLabel, "cell 2 0");
+		WebLabel webLabel_2 = new WebLabel();
+		webLabel_2.setForeground(new Color(105, 105, 105));
+		webLabel_2.setFont(new Font("Futura", Font.PLAIN, 20));
+		webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
+		add(webLabel_2, "cell 1 0 1 3,alignx center,aligny center");
 		
-		WebLabel webLabel_1 = new WebLabel();
-		webLabel_1.setText("19");
-		add(webLabel_1, "cell 3 0");
-		
-		WebButton wbtnX = new WebButton();
-		wbtnX.setText("X");
-		add(wbtnX, "cell 4 0");
+		WebLabel wblblVictoria = new WebLabel();
+		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 12));
+		wblblVictoria.setText(station.getState().getName());
+		add(wblblVictoria, "cell 0 2");
 
 	}
 

@@ -27,6 +27,7 @@ public class FirstScreen extends JPanel {
 	 * Create the panel.
 	 */
 	public FirstScreen(Main m) {
+		setBackground(new Color(255, 255, 255));
 		this.main = m;
 		
 		setLayout(new MigLayout("", "[grow][center][grow]", "[grow][grow][center][center][center][center][grow][grow][grow]"));
@@ -35,6 +36,10 @@ public class FirstScreen extends JPanel {
 		add(webImage, "cell 1 2");
 
 		WebButton wbtnAddStation = new WebButton("Add Station", JavaUtils.createImageIcon("/Images/add_16x16.png", "Add"));
+		wbtnAddStation.setDefaultButtonShadeColor(new Color(180, 180, 180));
+		wbtnAddStation.setBottomSelectedBgColor(new Color(154, 205, 50));
+		wbtnAddStation.setDrawShade(false);
+		wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
 		wbtnAddStation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.showState(1);
