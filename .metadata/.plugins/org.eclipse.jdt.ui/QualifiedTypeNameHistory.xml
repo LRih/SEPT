@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.StackOverflowError"/>
+<fullyQualifiedTypeName name="View.StatesPanel"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="Controller.States"/>
+<fullyQualifiedTypeName name="java.lang.Thread.State"/>
+<fullyQualifiedTypeName name="net.miginfocom.swing.MigLayout"/>
+<fullyQualifiedTypeName name="View.StatesPanel.StateButtonListener"/>
+<fullyQualifiedTypeName name="View.WeatherStations"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="com.alee.laf.WebLookAndFeel"/>
+<fullyQualifiedTypeName name="Model.StationData"/>
+<fullyQualifiedTypeName name="Model.Station"/>
+<fullyQualifiedTypeName name="Model.State"/>
+<fullyQualifiedTypeName name="View.StationListCell"/>
+<fullyQualifiedTypeName name="java.awt.Component"/>
+<fullyQualifiedTypeName name="com.alee.laf.text.WebTextArea"/>
+<fullyQualifiedTypeName name="com.alee.laf.panel.WebPanel"/>
+<fullyQualifiedTypeName name="Main"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="View.FirstScreen"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="View.Main"/>
+<fullyQualifiedTypeName name="View.AddStation"/>
+<fullyQualifiedTypeName name="com.alee.extended.breadcrumb.WebBreadcrumbLabel"/>
+<fullyQualifiedTypeName name="Utils.JavaUtils"/>
+<fullyQualifiedTypeName name="View.MainPanel"/>
+<fullyQualifiedTypeName name="com.alee.laf.scroll.WebScrollPane"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+</qualifiedTypeNameHistroy>
