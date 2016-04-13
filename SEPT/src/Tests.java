@@ -147,7 +147,7 @@ public final class Tests
             if (!result.isEmpty())
                 result += ", ";
 
-            result += favorite.key;
+            result += Station.getKey(favorite.state, favorite.station);
         }
 
         assertEquals(result, "Victoria-Coburg, Victoria-Geelong, Victoria-Olympic Park");

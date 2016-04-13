@@ -38,14 +38,20 @@ public final class Station
     {
         return url;
     }
-
-    /**
-     * Key that uniquely identifies this station.
-     *
-     * @return the key
-     */
     public final String getKey()
     {
-        return state.getName() + "-" + name;
+        return getKey(state.getName(), name);
+    }
+
+    /**
+     * Key that uniquely identifies a station.
+     *
+     * @return the key
+     * @param state name of state
+     * @param station name of station
+     */
+    public static String getKey(String state, String station)
+    {
+        return state + "-" + station;
     }
 }

@@ -1,4 +1,5 @@
 import Model.*;
+import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.FavoritesManager;
 
@@ -33,9 +34,13 @@ public final class ConsoleMain
             favs.add(station);
 
             for (Favorite fav : favs)
-                System.out.println(fav.key);
+                System.out.println(fav.state + ": " + fav.station);
 
             FavoritesManager.save(favs);
+
+            // test app state
+            AppStateManager.load();
+            AppStateManager.save();
         }
         catch (IOException e)
         {

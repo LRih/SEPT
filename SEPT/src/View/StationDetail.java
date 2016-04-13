@@ -40,7 +40,7 @@ public class StationDetail extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public StationDetail(MainPanel m) {
+	public StationDetail(final MainPanel m) {
 		
 		setLayout(new MigLayout("", "[30%][grow][30%]", "[][][][][][][][grow]"));
 		

@@ -1,27 +1,22 @@
 [
     {
         "station": "Murwillumbah",
-        "state": "New South Wales",
-        "key": "New South Wales-Murwillumbah"
+        "state": "New South Wales"
     },
     {
         "station": "Adelaide",
-        "state": "South Australia",
-        "key": "South Australia-Adelaide"
+        "state": "South Australia"
     },
     {
         "station": "Mildura",
-        "state": "Victoria",
-        "key": "Victoria-Mildura"
+        "state": "Victoria"
     },
     {
         "station": "Bidyadanga",
-        "state": "Western Australia",
-        "key": "Western Australia-Bidyadanga"
+        "state": "Western Australia"
     },
     {
         "station": "Browse Island",
-        "state": "Western Australia",
-        "key": "Western Australia-Browse Island"
+        "state": "Western Australia"
     }
 ]

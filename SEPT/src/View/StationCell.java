@@ -28,7 +28,7 @@ public class StationCell extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public StationCell(MainPanel m, Favorite fav, Boolean selected) {
+	public StationCell(final MainPanel m, Favorite fav, Boolean selected) {
 
 		
 		addMouseListener(new MouseAdapter() {

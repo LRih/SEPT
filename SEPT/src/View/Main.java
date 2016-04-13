@@ -1,5 +1,6 @@
 package View;
 
+import Model.AppState;
 import net.miginfocom.swing.MigLayout;
 import java.awt.EventQueue;
 import java.io.IOException;
@@ -73,7 +74,7 @@ public final class Main {
 		frmSept.getContentPane().removeAll();
 		frmSept.getContentPane().setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 		
-		AppStateManager.CURRENT_STATE = index;
+		AppState.getInstance().state = index;
 		
 		switch (index) {
 		// FIRSTSCREEN

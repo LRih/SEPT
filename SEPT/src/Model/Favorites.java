@@ -29,23 +29,24 @@ public final class Favorites implements Serializable, Iterable<Favorite>
      */
     public final boolean add(Station station)
     {
-        return add(station.getKey(), station.getState().getName(), station.getName());
+        return add(station.getState().getName(), station.getName());
     }
 
     /**
      * Adds a new favorite. Fails if it already exists.
      *
      * @return success of failure of the add
-     * @param key unique station identifier
      * @param state name of state
      * @param station name of station
      */
-    public final boolean add(String key, String state, String station)
+    public final boolean add(String state, String station)
     {
+        String key = Station.getKey(state, station);
+
         // only add if favorite does not already exist
         if (!favorites.containsKey(key))
         {
-            favorites.put(key, new Favorite(key, state, station));
+            favorites.put(key, new Favorite(state, station));
             return true;
         }
 

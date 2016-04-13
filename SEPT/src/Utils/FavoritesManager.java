@@ -17,7 +17,6 @@ public final class FavoritesManager
     private static String FILE_PATH = "favourites.json";
     private static int JSON_INDENT = 4;
 
-    private static String KEY_KEY = "key";
     private static String KEY_STATE = "state";
     private static String KEY_STATION = "station";
 
@@ -74,7 +73,7 @@ public final class FavoritesManager
         }
         catch (JSONException e)
         {
-            // all entries is corrupt, return empty favorites
+            // all entries are corrupt, return empty favorites
             e.printStackTrace();
             return favorites;
         }
@@ -85,7 +84,7 @@ public final class FavoritesManager
             try
             {
                 JSONObject obj = array.getJSONObject(i);
-                favorites.add(obj.getString(KEY_KEY), obj.getString(KEY_STATE), obj.getString(KEY_STATION));
+                favorites.add(obj.getString(KEY_STATE), obj.getString(KEY_STATION));
             }
             catch (JSONException e)
             {
@@ -111,7 +110,6 @@ public final class FavoritesManager
             try
             {
                 JSONObject obj = new JSONObject();
-                obj.put(KEY_KEY, favorite.key);
                 obj.put(KEY_STATE, favorite.state);
                 obj.put(KEY_STATION, favorite.station);
 

@@ -19,7 +19,7 @@ public class StationChart extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public StationChart(MainPanel m) {
+	public StationChart(final MainPanel m) {
 		setBackground(new Color(240, 248, 255));
 		setLayout(new MigLayout("", "[][][][]", "[][][][][][][][]"));
 

@@ -1,9 +1,10 @@
 package Utils;
 
 import Model.AppState;
-import Model.Station;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -11,39 +12,89 @@ import java.io.IOException;
  */
 public final class AppStateManager
 {
-	
-	// current app state
-	public static int CURRENT_STATE = 0;
-	// extra datas to store
-	public static String v1 = "";
-	public static String v2 = "";
-	public static String v3 = "";
-	public static String v4 = "";
-	public static String v5 = "";
-	
+    private static String FILE_PATH = "appstate.json";
+    private static int JSON_INDENT = 4;
+
+    private static String KEY_STATE = "state";
+    private static String KEY_STATION = "station";
+    private static String KEY_CHART = "chart";
+    private static String KEY_V1 = "v1";
+    private static String KEY_V2 = "v2";
+    private static String KEY_V3 = "v3";
+    private static String KEY_V4 = "v4";
+    private static String KEY_V5 = "v5";
+
     /**
-     * Saves various app state attributes in JSON format.
+     * Loads the app state from the last session.
      *
-     * @return the app state of last session. Returns default app state if first run
      * @throws IOException if there is an IO error of any sort
      */
-    public static AppState load() throws IOException
+    public static void load() throws IOException
     {
-        // TODO implement
-        return null;
+        // don't do anything if app state doesn't exist
+        if (!new File(FILE_PATH).exists())
+            return;
+
+        String data = FileUtils.loadText(FILE_PATH);
+        AppState state = AppState.getInstance();
+
+        // try to parse JSON
+        try
+        {
+            JSONObject json = new JSONObject(data);
+
+            state.state = json.getInt(KEY_STATE);
+            state.station = json.getString(KEY_STATION);
+            state.chart = json.getString(KEY_CHART);
+            state.v1 = json.getString(KEY_V1);
+            state.v2 = json.getString(KEY_V2);
+            state.v3 = json.getString(KEY_V3);
+            state.v4 = json.getString(KEY_V4);
+            state.v5 = json.getString(KEY_V5);
+        }
+        catch (JSONException e)
+        {
+            // app state is corrupt, set app state to defaults
+            e.printStackTrace();
+            state.resetDefault();
+        }
     }
 
     /**
-     * Saves various app state attributes in JSON format.
+     * Saves the current instance of app state.
      *
-     * @param windowRect coordinates and dimensions of window
-     * @param shownStation current station shown to the user. {@code null} if no station
-     * @param selectedChart current chart of station shown to the user {@code null} if no chart or no station
      * @throws IOException if there is an IO error of any sort
      */
-    public static void save(Rectangle windowRect, Station shownStation, String selectedChart) throws IOException
+    public static void save() throws IOException
     {
-        // TODO implement
-        // TODO how can we store selectedChart?
+        FileUtils.saveText(toJSON(AppState.getInstance()).toString(JSON_INDENT), FILE_PATH);
+    }
+
+    /**
+     * Converts app state to a JSON object for storage.
+     *
+     * @return the resultant JSON array
+     */
+    private static JSONObject toJSON(AppState appState)
+    {
+        JSONObject json = new JSONObject();
+
+        try
+        {
+            json.put(KEY_STATE, appState.state);
+            json.put(KEY_STATION, appState.station);
+            json.put(KEY_CHART, appState.chart);
+            json.put(KEY_V1, appState.v1);
+            json.put(KEY_V2, appState.v2);
+            json.put(KEY_V3, appState.v3);
+            json.put(KEY_V4, appState.v4);
+            json.put(KEY_V5, appState.v5);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        return json;
     }
 }

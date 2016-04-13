@@ -1,40 +1,50 @@
 package Model;
 
-import java.awt.*;
-
 /**
- * Stores various attributes of app state.
+ * Stores various attributes of app state. Singleton class.
  */
 public final class AppState
 {
-    private final Rectangle windowRect;
-    private final String state;
-    private final String station;
-    private final String chart;
+    private static AppState instance;
 
-    // TODO document
-    public AppState(Rectangle windowRect, String state, String station, String chart)
+    public int state;
+    public String station;
+    public String chart;
+
+    public String v1;
+    public String v2;
+    public String v3;
+    public String v4;
+    public String v5;
+
+    private AppState()
     {
-        this.windowRect = windowRect;
-        this.state = state;
-        this.station = station;
-        this.chart = chart;
     }
 
-    public final Rectangle getWindowRect()
+    public static AppState getInstance()
     {
-        return windowRect;
+        if (instance == null)
+        {
+            instance = new AppState();
+            instance.resetDefault();
+        }
+
+        return instance;
     }
-    public final String getState()
+
+    /**
+     * Resets the app state to default values.
+     */
+    public final void resetDefault()
     {
-        return state;
-    }
-    public final String getStation()
-    {
-        return station;
-    }
-    public final String getChart()
-    {
-        return chart;
+        state = 0;
+        station = "station";
+        chart = "chart";
+
+        v1 = "v1";
+        v2 = "v2";
+        v3 = "v3";
+        v4 = "v4";
+        v5 = "v5";
     }
 }
