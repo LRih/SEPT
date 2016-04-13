@@ -11,6 +11,16 @@ import java.io.IOException;
  */
 public final class AppStateManager
 {
+	
+	// current app state
+	public static int CURRENT_STATE = 0;
+	// extra datas to store
+	public static String v1 = "";
+	public static String v2 = "";
+	public static String v3 = "";
+	public static String v4 = "";
+	public static String v5 = "";
+	
     /**
      * Saves various app state attributes in JSON format.
      *

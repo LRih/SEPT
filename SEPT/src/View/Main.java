@@ -8,6 +8,7 @@ import javax.swing.*;
 import com.alee.laf.WebLookAndFeel;
 
 import Model.Favorites;
+import Utils.AppStateManager;
 import Utils.FavoritesManager;
 import java.awt.Color;
 
@@ -71,7 +72,8 @@ public final class Main {
 	public void showState(int index) {
 		frmSept.getContentPane().removeAll();
 		frmSept.getContentPane().setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
-
+		
+		AppStateManager.CURRENT_STATE = index;
 		switch (index) {
 		// FIRSTSCREEN
 		case 0:

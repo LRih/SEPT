@@ -1,6 +1,5 @@
 package View;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.joda.time.format.DateTimeFormat;
