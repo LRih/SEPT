@@ -60,8 +60,6 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			dataWorker.execute();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 		setBorder(null);
@@ -92,13 +90,22 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 		this.data = data;
 		System.out.println(station.getName() + ": " + selected);
-		if (selected)
+		if (selected) {
+//			setBackground(new Color(230, 230, 250));
 			main.setStation(station, data);
+		}
 
 		wblblMildura.setText(station.getName());
 		webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
 		wblblVictoria.setText(station.getState().getName());
 
+	}
+	
+	public void setSelected(Boolean selected) {
+		if (selected)
+			setBackground(new Color(230, 230, 250));
+		else
+			setBackground(new Color(248, 248, 255));
 	}
 
 	@Override

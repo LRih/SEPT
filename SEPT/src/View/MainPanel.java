@@ -87,7 +87,7 @@ public class MainPanel extends JPanel {
 			try {
 				States states = DataManager.loadStates();
 				selected = states.get(AppState.getInstance().v2).getStation(AppState.getInstance().v3);
-				System.out.println("selected: "+selected.getName());
+				System.out.println("selected: " + selected.getName());
 			} catch (Exception e) {
 				System.out.println("selected err");
 			}
@@ -105,7 +105,7 @@ public class MainPanel extends JPanel {
 				}
 
 				cell = new StationCell(this, fav, flag);
-				
+
 				if (col % 2 == 0)
 					panel.add(cell, "cell 0 " + row + ", grow, gap 4");
 				else
@@ -138,6 +138,8 @@ public class MainPanel extends JPanel {
 		// VIEW_CHART
 		case 1:
 			stationChart = new StationChart(this);
+			if (stationData != null)
+				stationChart.setStation(station, stationData);
 			panel_1.add(stationChart, "cell 0 0, grow");
 			break;
 
@@ -149,8 +151,13 @@ public class MainPanel extends JPanel {
 	public void setStation(Station station, StationData data) {
 		this.station = station;
 		this.stationData = data;
-		stationDetail.setStation(station, data);
-		showState(0);
+		if (AppState.getInstance().v1.equals("0")) {
+			stationDetail.setStation(station, data);
+			showState(0);
+		} else {
+			stationChart.setStation(station, stationData);
+			showState(1);
+		}
 	}
 
 }
