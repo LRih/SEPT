@@ -21,6 +21,11 @@ public final class AppState
     {
     }
 
+    /**
+     * Singleton get instance method. Creates the instance for app state if it doesn't exist.
+     *
+     * @return the single app state instance
+     */
     public static AppState getInstance()
     {
         if (instance == null)
