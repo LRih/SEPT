@@ -53,13 +53,12 @@ public final class Main {
 
 		showMainScreen();
 
-		// WeatherStations panel = new WeatherStations();
-		// frmSept.getContentPane().add(panel, "cell 0 1 3 1,grow");
 	}
 	
 	public void showMainScreen() {
 		try {
 			Favorites favs = FavoritesManager.load();
+			
 			if (favs.size() == 0)
 				showState(0);
 			else
