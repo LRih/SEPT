@@ -22,26 +22,29 @@ public class StationCell extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Station station = null;
+	private Station station = null;
+	private StationData data = null;
 	
 	/**
 	 * Create the panel.
 	 */
-	public StationCell(MainPanel m, Favorite fav) {
+	public StationCell(MainPanel m, Favorite fav, Boolean selected) {
 
 		
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				m.setStation(station);
+				m.setStation(station, data);
 			}
 		});
 		States states = null;
-		StationData data = null;
 		try {
 			states = DataManager.loadStates();
 			station = states.get(fav.state).getStation(fav.station);
 			data = DataManager.getStationData(station);
+			
+			if (selected)
+				m.setStation(station, data);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

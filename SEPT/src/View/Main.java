@@ -74,6 +74,7 @@ public final class Main {
 		frmSept.getContentPane().setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 		
 		AppStateManager.CURRENT_STATE = index;
+		
 		switch (index) {
 		// FIRSTSCREEN
 		case 0:

@@ -11,10 +11,9 @@ import com.alee.laf.scroll.WebScrollPane;
 
 import Model.Favorite;
 import Model.Favorites;
-import Model.States;
 import Model.Station;
 import Model.StationData;
-import Utils.DataManager;
+import Utils.AppStateManager;
 import Utils.FavoritesManager;
 
 import com.alee.laf.button.WebButton;
@@ -33,20 +32,11 @@ public class MainPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Main main = null;
-	private Station station = null;
-	private StationData data = null;
-	private WebLabel wblblMildura;
-	private WebLabel wblblHumid;
-	private WebLabel wblblVictoria;
-	private WebLabel wblblWindSse;
-	private WebLabel wblblRainSinceam;
-	private WebLabel wblblc;
-	private WebLabel wblblPressQmh;
-	private WebLabel wblblPress;
-	private WebLabel wblblAirTemp;
-	private WebLabel wblblDewPoint;
-	private WebLabel wblblLastUpdate;
-	private DateTimeFormatter dtfOut;
+	private JPanel panel_1;
+	StationDetail stationDetail;
+	StationChart stationChart;
+	Station station;
+	StationData stationData;
 
 	/**
 	 * Create the panel.
@@ -61,104 +51,10 @@ public class MainPanel extends JPanel {
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
 
-		try {
-
-			Favorites favs = FavoritesManager.load();
-			States states = DataManager.loadStates();
-			int row = 0;
-			int col = 0;
-			StationCell cell = null;
-			for (Favorite fav : favs) {
-
-				if (row == 0 && col == 0)
-					station = states.get(fav.state).getStation(fav.station);
-
-				cell = new StationCell(this, fav);
-				if (col % 2 == 0)
-					panel.add(cell, "cell 0 " + row + ", grow, gap 4");
-				else
-					panel.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
-
-				col++;
-			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(240, 248, 255));
-		add(panel_1, "cell 0 1 2 1,grow");
-		panel_1.setLayout(new MigLayout("", "[30%][grow][30%]", "[][][][][][][][grow]"));
-
-		wblblMildura = new WebLabel();
-		wblblMildura.setText("-");
-		wblblMildura.setForeground(new Color(255, 69, 0));
-		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 30));
-
-		panel_1.add(wblblMildura, "cell 0 0 2 1");
-
-		wblblHumid = new WebLabel();
-		wblblHumid.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblHumid.setText("-");
-		panel_1.add(wblblHumid, "cell 2 0,aligny bottom");
-
-		wblblVictoria = new WebLabel();
-		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
-		wblblVictoria.setText("-");
-		panel_1.add(wblblVictoria, "cell 0 1 2 1");
-
-		wblblWindSse = new WebLabel();
-		wblblWindSse.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblWindSse.setText("-");
-		panel_1.add(wblblWindSse, "cell 2 1");
-
-		wblblRainSinceam = new WebLabel();
-		wblblRainSinceam.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblRainSinceam.setText("Rain since 9am: -");
-		panel_1.add(wblblRainSinceam, "cell 2 2");
-
-		wblblc = new WebLabel();
-		wblblc.setForeground(new Color(60, 179, 113));
-		wblblc.setFont(new Font("Futura", Font.PLAIN, 50));
-		wblblc.setText("-°C");
-		panel_1.add(wblblc, "cell 1 2 1 3,alignx left,aligny top");
-
-		wblblPressQmh = new WebLabel();
-		wblblPressQmh.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblPressQmh.setText("Press QNH hPa: -");
-		panel_1.add(wblblPressQmh, "cell 2 3");
-
-		wblblPress = new WebLabel();
-		wblblPress.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblPress.setText("Press MSL hPa: -");
-		panel_1.add(wblblPress, "cell 2 4,aligny top");
-
-		wblblAirTemp = new WebLabel();
-		wblblAirTemp.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblAirTemp.setText("App temp: -°C");
-		panel_1.add(wblblAirTemp, "cell 1 5,aligny bottom");
-
-		WebButton wbtnViewChart = new WebButton();
-		wbtnViewChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wbtnViewChart.setDefaultButtonShadeColor(new Color(240, 255, 255));
-		wbtnViewChart.setBottomSelectedBgColor(new Color(224, 255, 255));
-		wbtnViewChart.setBottomBgColor(new Color(240, 248, 255));
-		wbtnViewChart.setDrawShade(false);
-		wbtnViewChart.setText("View Chart");
-		panel_1.add(wbtnViewChart, "cell 2 5,alignx left,aligny bottom");
-
-		wblblDewPoint = new WebLabel();
-		wblblDewPoint.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblDewPoint.setText("Dew Point: -°C");
-		panel_1.add(wblblDewPoint, "cell 1 6");
-
-		 dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
-
-		wblblLastUpdate = new WebLabel();
-		wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
-		wblblLastUpdate.setText("Last update: -");
-		panel_1.add(wblblLastUpdate, "cell 0 7 2 1,aligny bottom");
+		 panel_1 = new JPanel();
+		 panel_1.setBackground(new Color(240, 248, 255));
+		 add(panel_1, "cell 0 1 2 1,grow");
+		
 
 		WebLabel wblblWeatherStations = new WebLabel();
 		wblblWeatherStations.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -182,29 +78,60 @@ public class MainPanel extends JPanel {
 		WebScrollPane webScrollPane = new WebScrollPane(panel, false, true);
 		webScrollPane.setPreferredSize(new Dimension(0, 0));
 		add(webScrollPane, "cell 0 3 2 1,grow");
+		
+		try {
+
+			Favorites favs = FavoritesManager.load();
+			int row = 0;
+			int col = 0;
+			StationCell cell = null;
+			for (Favorite fav : favs) {
+//
+				if (row == 0 && col == 0)
+					cell = new StationCell(this, fav, true);
+				else
+					cell = new StationCell(this, fav, false);
+				if (col % 2 == 0)
+					panel.add(cell, "cell 0 " + row + ", grow, gap 4");
+				else
+					panel.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
+
+				col++;
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void showState(int index) {
+		panel_1.removeAll();
+		panel_1.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
+		
+		switch (index) {
+		// STATION DETAIL
+		case 0:
+			 stationDetail = new StationDetail(this);
+			 stationDetail.setStation(station, stationData);
+			panel_1.add(stationDetail, "cell 0 0, grow");
+			break;
+
+		// VIEW_CHART
+		case 1:
+			 stationChart = new StationChart(this);
+			panel_1.add(stationChart, "cell 0 0, grow");
+			break;
+
+		}
+		panel_1.validate();
+		panel_1.repaint();
 	}
 
-	public Station getStation() {
-		return station;
-	}
-
-	public void setStation(Station station) {
-		data = DataManager.getStationData(station);
-
-		wblblMildura.setText(station.getName());
-		wblblHumid.setText("Humid: " + data.getReadings().get(0).getRelativeHumidity() + "%");
-		wblblVictoria.setText(station.getState().getName());
-		wblblWindSse.setText(
-				"Wind: " + data.getReadings().get(0).getWindDir() + " " + data.getReadings().get(0).getWindSpdKmH()
-						+ "-" + data.getReadings().get(0).getWindGustKmH() + " km/h");
-		wblblRainSinceam.setText("Rain since 9am: " + data.getReadings().get(0).getRainTrace() + "mm");
-		wblblc.setText(data.getReadings().get(0).getAirTemp() + "°C");
-		wblblPressQmh.setText("Press QNH hPa: " + data.getReadings().get(0).getPressureQNH());
-		wblblPress.setText("Press MSL hPa: " + data.getReadings().get(0).getPressureMSL());
-		wblblAirTemp.setText("App temp: " + data.getReadings().get(0).getApparentTemp() + "°C");
-		wblblDewPoint.setText("Dew Point: " + data.getReadings().get(0).getDewPt() + "°C");
-		wblblLastUpdate.setText("Last update: " + dtfOut.print(data.getReadings().get(0).getLocalDateTime()));
-
+	public void setStation(Station station, StationData data) {
+		this.station = station;
+		this.stationData = data;
+		showState(0);
+		stationDetail.setStation(station, data);
 	}
 
 }
