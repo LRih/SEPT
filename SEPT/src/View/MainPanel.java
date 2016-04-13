@@ -2,18 +2,17 @@ package View;
 
 import javax.swing.JPanel;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.scroll.WebScrollPane;
 
+import Model.AppState;
 import Model.Favorite;
 import Model.Favorites;
+import Model.States;
 import Model.Station;
 import Model.StationData;
-import Utils.AppStateManager;
+import Utils.DataManager;
 import Utils.FavoritesManager;
 
 import com.alee.laf.button.WebButton;
@@ -51,10 +50,9 @@ public class MainPanel extends JPanel {
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
 
-		 panel_1 = new JPanel();
-		 panel_1.setBackground(new Color(240, 248, 255));
-		 add(panel_1, "cell 0 1 2 1,grow");
-		
+		panel_1 = new JPanel();
+		panel_1.setBackground(new Color(240, 248, 255));
+		add(panel_1, "cell 0 1 2 1,grow");
 
 		WebLabel wblblWeatherStations = new WebLabel();
 		wblblWeatherStations.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -78,19 +76,36 @@ public class MainPanel extends JPanel {
 		WebScrollPane webScrollPane = new WebScrollPane(panel, false, true);
 		webScrollPane.setPreferredSize(new Dimension(0, 0));
 		add(webScrollPane, "cell 0 3 2 1,grow");
-		
+
 		try {
 
 			Favorites favs = FavoritesManager.load();
 			int row = 0;
 			int col = 0;
 			StationCell cell = null;
+			Station selected = null;
+			try {
+				States states = DataManager.loadStates();
+				selected = states.get(AppState.getInstance().v2).getStation(AppState.getInstance().v3);
+				System.out.println("selected: "+selected.getName());
+			} catch (Exception e) {
+				System.out.println("selected err");
+			}
+
+			Boolean flag;
 			for (Favorite fav : favs) {
-//
-				if (row == 0 && col == 0)
-					cell = new StationCell(this, fav, true);
-				else
-					cell = new StationCell(this, fav, false);
+				flag = false;
+
+				if (selected != null) {
+					if (fav.state.equals(selected.getState().getName()) && fav.station.equals(selected.getName()))
+						flag = true;
+				} else {
+					if (row == 0 && col == 0)
+						flag = true;
+				}
+
+				cell = new StationCell(this, fav, flag);
+				
 				if (col % 2 == 0)
 					panel.add(cell, "cell 0 " + row + ", grow, gap 4");
 				else
@@ -103,22 +118,26 @@ public class MainPanel extends JPanel {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public void showState(int index) {
 		panel_1.removeAll();
 		panel_1.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
-		
+
+		AppState.getInstance().v1 = index + "";
+		System.out.println("v1: " + AppState.getInstance().v1);
+
 		switch (index) {
 		// STATION DETAIL
-		case 0:
-			 stationDetail = new StationDetail(this);
-			 stationDetail.setStation(station, stationData);
+		default:
+			stationDetail = new StationDetail(this);
+			if (stationData != null)
+				stationDetail.setStation(station, stationData);
 			panel_1.add(stationDetail, "cell 0 0, grow");
 			break;
 
 		// VIEW_CHART
 		case 1:
-			 stationChart = new StationChart(this);
+			stationChart = new StationChart(this);
 			panel_1.add(stationChart, "cell 0 0, grow");
 			break;
 
@@ -130,8 +149,8 @@ public class MainPanel extends JPanel {
 	public void setStation(Station station, StationData data) {
 		this.station = station;
 		this.stationData = data;
-		showState(0);
 		stationDetail.setStation(station, data);
+		showState(0);
 	}
 
 }

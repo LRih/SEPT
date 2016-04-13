@@ -12,10 +12,13 @@ import Model.Favorites;
 import Utils.AppStateManager;
 import Utils.FavoritesManager;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public final class Main {
 	private JFrame frmSept;
-
+	private Favorites favs;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -26,6 +29,7 @@ public final class Main {
 					WebLookAndFeel.install();
 					Main window = new Main();
 					window.frmSept.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,19 +49,38 @@ public final class Main {
 	 */
 	private void initialize() {
 		frmSept = new JFrame();
+		frmSept.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					AppStateManager.save();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		frmSept.getContentPane().setBackground(Color.WHITE);
 		frmSept.setBackground(Color.WHITE);
 		frmSept.setTitle("Bom Weather");
 		frmSept.setBounds(100, 100, 800, 500);
 		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		showMainScreen();
+		try {
+			AppStateManager.load();
+			if (AppState.getInstance().state > -1) {
+				showState(AppState.getInstance().state);
+			} else
+				showMainScreen();
+		} catch (IOException e) {
+			showMainScreen();
+		}
 
 	}
 	
 	public void showMainScreen() {
 		try {
-			Favorites favs = FavoritesManager.load();
+			 favs = FavoritesManager.load();
 			
 			if (favs.size() == 0)
 				showState(0);
@@ -74,6 +97,7 @@ public final class Main {
 		frmSept.getContentPane().setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 		
 		AppState.getInstance().state = index;
+		System.out.println("state: "+AppState.getInstance().state);
 		
 		switch (index) {
 		// FIRSTSCREEN
@@ -95,6 +119,16 @@ public final class Main {
 			MainPanel mainPanel = new MainPanel(this);
 			frmSept.setTitle("Bom Weather - Weather Stations");
 			frmSept.getContentPane().add(mainPanel, "cell 0 0 1 1,grow");
+			
+			try {
+				if (!AppState.getInstance().v1.equals("v1"))
+					mainPanel.showState(Integer.parseInt(AppState.getInstance().v1));
+				else
+					mainPanel.showState(0);
+			} catch (Exception e) {
+				mainPanel.showState(0);
+			}
+			
 			break;
 
 		}
