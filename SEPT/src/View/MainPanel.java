@@ -124,7 +124,6 @@ public class MainPanel extends JPanel {
 		panel_1.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
 		AppState.getInstance().v1 = index + "";
-		System.out.println("v1: " + AppState.getInstance().v1);
 
 		switch (index) {
 		// STATION DETAIL

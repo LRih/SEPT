@@ -54,7 +54,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		try {
 			states = DataManager.loadStates();
 			station = states.get(fav.state).getStation(fav.station);
-
+			
 			StationDataWorker dataWorker = new StationDataWorker(station);
 			dataWorker.setOnTaskCompleteListener(this);
 			dataWorker.execute();
@@ -69,7 +69,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		wblblMildura = new WebLabel();
 		wblblMildura.setForeground(new Color(255, 69, 0));
 		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		wblblMildura.setText("-");
+		wblblMildura.setText(fav.station);
 		add(wblblMildura, "cell 0 0 1 2,alignx left,grow");
 
 		webLabel_2 = new WebLabel();
@@ -80,7 +80,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 		wblblVictoria = new WebLabel();
 		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 12));
-		wblblVictoria.setText("-");
+		wblblVictoria.setText(fav.state);
 		add(wblblVictoria, "cell 0 2");
 
 	}
@@ -89,15 +89,14 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 	public void onSuccess(StationData data) {
 
 		this.data = data;
-		System.out.println(station.getName() + ": " + selected);
 		if (selected) {
 //			setBackground(new Color(230, 230, 250));
 			main.setStation(station, data);
 		}
 
 		wblblMildura.setText(station.getName());
-		webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
 		wblblVictoria.setText(station.getState().getName());
+		webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
 
 	}
 	
@@ -111,15 +110,11 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 	@Override
 	public void onFail() {
 
-		System.out.println("Fail " + station.getName());
-
 		try {
 			Favorites favs = FavoritesManager.load();
 			favs.delete(station);
-			// FavoritesManager.save(favs);
+			 FavoritesManager.save(favs);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		main.showState(0);
 

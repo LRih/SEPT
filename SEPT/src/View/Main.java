@@ -97,7 +97,6 @@ public final class Main {
 		frmSept.getContentPane().setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 		
 		AppState.getInstance().state = index;
-		System.out.println("state: "+AppState.getInstance().state);
 		
 		switch (index) {
 		// FIRSTSCREEN
