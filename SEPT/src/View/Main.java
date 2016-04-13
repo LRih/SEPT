@@ -63,7 +63,7 @@ public final class Main {
 		frmSept.getContentPane().setBackground(Color.WHITE);
 		frmSept.setBackground(Color.WHITE);
 		frmSept.setTitle("Bom Weather");
-		frmSept.setBounds(100, 100, 800, 500);
+		frmSept.setBounds(100, 100, 800, 600);
 		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		try {
