@@ -1,6 +1,7 @@
 package View;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
 
@@ -49,7 +50,16 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 				AppState.getInstance().v2 = fav.state;
 				AppState.getInstance().v3 = fav.station;
 			}
+
+			public void mouseEntered(MouseEvent e) {
+				setBackground(Color.GREEN);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				setBackground(new Color(248, 248, 255));
+			}
 		});
+
 		States states = null;
 		try {
 			// TODO if DataManager.loadStates() fails, just best to display error message and close the app
