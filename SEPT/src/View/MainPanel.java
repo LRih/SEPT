@@ -85,6 +85,7 @@ public class MainPanel extends JPanel {
 			StationCell cell = null;
 			Station selected = null;
 			try {
+				// TODO if DataManager.loadStates() fails, just best to display error message and close the app
 				States states = DataManager.loadStates();
 				selected = states.get(AppState.getInstance().v2).getStation(AppState.getInstance().v3);
 				System.out.println("selected: " + selected.getName());

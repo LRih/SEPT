@@ -52,6 +52,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		});
 		States states = null;
 		try {
+			// TODO if DataManager.loadStates() fails, just best to display error message and close the app
 			states = DataManager.loadStates();
 			station = states.get(fav.state).getStation(fav.station);
 		} catch (IOException e) {
