@@ -8,12 +8,10 @@ public final class AppState
     private static AppState instance;
 
     public int state;
-    public String station;
-    public String chart;
 
-    public String v1;
+    public int v1;
     public String v2;
-    public String v3;
+    public String station;
     public String v4;
     public String v5;
 
@@ -42,14 +40,11 @@ public final class AppState
      */
     public final void resetDefault()
     {
-        state = 0;
-        station = "station";
-        chart = "chart";
-
-        v1 = "v1";
-        v2 = "v2";
-        v3 = "v3";
-        v4 = "v4";
-        v5 = "v5";
+        state = -1;
+        v1 = 0;
+        v2 = "";
+        station = "";
+        v4 = "";
+        v5 = "";
     }
 }

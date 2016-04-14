@@ -1,10 +1,8 @@
 {
-    "v1": "0",
+    "v1": 0,
     "v5": "v5",
     "v4": "v4",
-    "station": "station",
-    "v3": "Mildura",
-    "v2": "Victoria",
-    "state": 2,
-    "chart": "chart"
+    "station": "Bidyadanga",
+    "v2": "Western Australia",
+    "state": 2
 }

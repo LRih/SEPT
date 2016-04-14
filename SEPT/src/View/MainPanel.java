@@ -17,12 +17,10 @@ import Utils.FavoritesManager;
 
 import com.alee.laf.button.WebButton;
 
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import java.awt.Color;
 
 public class MainPanel extends JPanel {
 
@@ -71,6 +69,7 @@ public class MainPanel extends JPanel {
 			}
 		});
 		webButton.setFont(new Font("Bender", Font.PLAIN, 13));
+		webButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(webButton, "cell 1 2,alignx right, gapx 0 15, gapy 5 0");
 
 		WebScrollPane webScrollPane = new WebScrollPane(panel, false, true);
@@ -87,7 +86,7 @@ public class MainPanel extends JPanel {
 			try {
 				// TODO if DataManager.loadStates() fails, just best to display error message and close the app
 				States states = DataManager.loadStates();
-				selected = states.get(AppState.getInstance().v2).getStation(AppState.getInstance().v3);
+				selected = states.get(AppState.getInstance().v2).getStation(AppState.getInstance().station);
 				System.out.println("selected: " + selected.getName());
 			} catch (Exception e) {
 				System.out.println("selected err");
@@ -124,7 +123,7 @@ public class MainPanel extends JPanel {
 		panel_1.removeAll();
 		panel_1.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
-		AppState.getInstance().v1 = index + "";
+		AppState.getInstance().v1 = index;
 
 		switch (index) {
 		// STATION DETAIL
@@ -151,7 +150,7 @@ public class MainPanel extends JPanel {
 	public void setStation(Station station, StationData data) {
 		this.station = station;
 		this.stationData = data;
-		if (AppState.getInstance().v1.equals("0")) {
+		if (AppState.getInstance().v1 == 0) {
 			stationDetail.setStation(station, data);
 			showState(0);
 		} else {

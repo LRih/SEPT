@@ -8,8 +8,8 @@ import com.alee.laf.label.WebLabel;
 import Utils.SwingUtils;
 
 import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
+
 import com.alee.extended.image.WebImage;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

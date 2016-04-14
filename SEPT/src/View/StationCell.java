@@ -7,18 +7,15 @@ import com.alee.laf.label.WebLabel;
 
 import Model.AppState;
 import Model.Favorite;
-import Model.Favorites;
 import Model.States;
 import Model.Station;
 import Model.StationData;
 import Utils.DataManager;
-import Utils.FavoritesManager;
 import Utils.StationDataWorker;
 import Utils.StationDataWorker.OnTaskCompleteListener;
 
-import java.awt.Font;
+import java.awt.*;
 import java.io.IOException;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -42,20 +39,21 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 	public StationCell(final MainPanel m, final Favorite fav, Boolean selected) {
 		this.main = m;
 		this.selected = selected;
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				m.setStation(station, data);
 				AppState.getInstance().v2 = fav.state;
-				AppState.getInstance().v3 = fav.station;
+				AppState.getInstance().station = fav.station;
 			}
 
-			public void mouseEntered(MouseEvent e) {
+			// hover effect
+			public final void mouseEntered(MouseEvent e) {
 				setBackground(Color.GREEN);
 			}
-
-			public void mouseExited(MouseEvent e) {
+			public final void mouseExited(MouseEvent e) {
 				setBackground(new Color(248, 248, 255));
 			}
 		});
@@ -119,15 +117,6 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 	@Override
 	public void onFail() {
-		// TODO don't delete favourite here. It could fail when no network connection and not cached.
-		try {
-			Favorites favs = FavoritesManager.load();
-			favs.delete(station);
-			 FavoritesManager.save(favs);
-		} catch (IOException e) {
-		}
 		main.showState(0);
-
 	}
-
 }

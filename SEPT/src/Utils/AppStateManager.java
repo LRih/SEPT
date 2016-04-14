@@ -20,7 +20,6 @@ public final class AppStateManager
     private static String KEY_CHART = "chart";
     private static String KEY_V1 = "v1";
     private static String KEY_V2 = "v2";
-    private static String KEY_V3 = "v3";
     private static String KEY_V4 = "v4";
     private static String KEY_V5 = "v5";
 
@@ -60,10 +59,8 @@ public final class AppStateManager
 
             state.state = json.getInt(KEY_STATE);
             state.station = json.getString(KEY_STATION);
-            state.chart = json.getString(KEY_CHART);
-            state.v1 = json.getString(KEY_V1);
+            state.v1 = json.getInt(KEY_V1);
             state.v2 = json.getString(KEY_V2);
-            state.v3 = json.getString(KEY_V3);
             state.v4 = json.getString(KEY_V4);
             state.v5 = json.getString(KEY_V5);
         }
@@ -113,10 +110,8 @@ public final class AppStateManager
         {
             json.put(KEY_STATE, appState.state);
             json.put(KEY_STATION, appState.station);
-            json.put(KEY_CHART, appState.chart);
             json.put(KEY_V1, appState.v1);
             json.put(KEY_V2, appState.v2);
-            json.put(KEY_V3, appState.v3);
             json.put(KEY_V4, appState.v4);
             json.put(KEY_V5, appState.v5);
         }

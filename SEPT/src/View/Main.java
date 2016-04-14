@@ -90,36 +90,29 @@ public final class Main {
 		AppState.getInstance().state = index;
 		
 		switch (index) {
-		// FIRSTSCREEN
-		case 0:
-			FirstScreen firstScreen = new FirstScreen(this);
-			frmSept.setTitle("Welcome to BOM Weather!");
-			frmSept.getContentPane().add(firstScreen, "cell 0 0 1 1,grow");
-			break;
+            // FIRSTSCREEN
+            case 0:
+                FirstScreen firstScreen = new FirstScreen(this);
+                frmSept.setTitle("Welcome to BOM Weather!");
+                frmSept.getContentPane().add(firstScreen, "cell 0 0 31 1,grow");
+                break;
 
-		// ADD_STATION
-		case 1:
-			AddStation addStation = new AddStation(this);
-			frmSept.setTitle("Bom Weather - Add Station");
-			frmSept.getContentPane().add(addStation, "cell 0 0 1 1,grow");
-			break;
-			
-		// MAIN_SCREEN
-		case 2:
-			MainPanel mainPanel = new MainPanel(this);
-			frmSept.setTitle("Bom Weather - Weather Stations");
-			frmSept.getContentPane().add(mainPanel, "cell 0 0 1 1,grow");
-			
-			try {
-				if (!AppState.getInstance().v1.equals("v1"))
-					mainPanel.showState(Integer.parseInt(AppState.getInstance().v1));
-				else
-					mainPanel.showState(0);
-			} catch (Exception e) {
-				mainPanel.showState(0);
-			}
-			
-			break;
+            // ADD_STATION
+            case 1:
+                AddStation addStation = new AddStation(this);
+                frmSept.setTitle("Bom Weather - Add Station");
+                frmSept.getContentPane().add(addStation, "cell 0 0 1 1,grow");
+                break;
+
+            // MAIN_SCREEN
+            case 2:
+                MainPanel mainPanel = new MainPanel(this);
+                frmSept.setTitle("Bom Weather - Weather Stations");
+                frmSept.getContentPane().add(mainPanel, "cell 0 0 1 1,grow");
+
+                mainPanel.showState(AppState.getInstance().v1);
+
+                break;
 
 		}
 		frmSept.getContentPane().validate();
