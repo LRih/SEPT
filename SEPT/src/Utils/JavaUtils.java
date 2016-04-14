@@ -9,9 +9,13 @@ import org.joda.time.format.PeriodFormatterBuilder;
 
 import View.FirstScreen;
 
-public class JavaUtils {
+// TODO document
+public final class JavaUtils {
 
-	// Returns an ImageIcon, or null if the path was invalid.
+    // TODO document
+	/**
+	 * @return an ImageIcon, or null if the path was invalid.
+ 	 */
 	public static ImageIcon createImageIcon(String path, String description) {
 		java.net.URL imgURL = FirstScreen.class.getResource(path);
 		if (imgURL != null) {
@@ -21,7 +25,8 @@ public class JavaUtils {
 			return null;
 		}
 	}
-	
+
+	// TODO document
 	public static String timeAgo(DateTime time) {
 		DateTime now = new DateTime();
 		Period period = new Period(time, now);

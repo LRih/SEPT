@@ -91,6 +91,48 @@ public final class DataManager
 
         return null;
     }
+
+    /**
+     * Loads the most recent data from the web. If it fails {@code null} is returned.
+     *
+     * @return loaded station data
+     * @param station the station for which to load data
+     */
+    public static StationData getNetStationData(Station station)
+    {
+        try
+        {
+            String json = NetUtils.get(station.getUrl());
+            trySaveCache(station, json); // cache data locally
+            return createStationData(json);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * Loads the cached version of station data locally. If it fails {@code null} is returned.
+     *
+     * @return loaded station data
+     * @param station the station for which to load data
+     */
+    public static StationData getCachedStationData(Station station)
+    {
+        try
+        {
+            return createStationData(loadCache(station));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
     
     /**
      * Takes the chosen json file, puts into workable jsonobject and returns readable stationdata.

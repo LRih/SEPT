@@ -25,6 +25,21 @@ public final class AppStateManager
     private static String KEY_V5 = "v5";
 
     /**
+     * Tries to load the app state from the last session.
+     */
+    public static void tryLoad()
+    {
+        try
+        {
+            load();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Loads the app state from the last session.
      *
      * @throws IOException if there is an IO error of any sort
@@ -57,6 +72,21 @@ public final class AppStateManager
             // app state is corrupt, set app state to defaults
             e.printStackTrace();
             state.resetDefault();
+        }
+    }
+
+    /**
+     * Tries to save the current instance of app state.
+     */
+    public static void trySave()
+    {
+        try
+        {
+            save();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 

@@ -33,7 +33,7 @@ public final class StationDataWorker extends SwingWorker<StationData, Void>
      */
     protected final StationData doInBackground() throws Exception
     {
-        StationData data = DataManager.getStationData(station);
+        StationData data = DataManager.getNetStationData(station);
 
         // fail when data is null
         if (data == null)

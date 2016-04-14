@@ -38,7 +38,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 	/**
 	 * Create the panel.
 	 */
-	public StationCell(final MainPanel m, Favorite fav, Boolean selected) {
+	public StationCell(final MainPanel m, final Favorite fav, Boolean selected) {
 		this.main = m;
 		this.selected = selected;
 
@@ -54,13 +54,12 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		try {
 			states = DataManager.loadStates();
 			station = states.get(fav.state).getStation(fav.station);
-			
-			StationDataWorker dataWorker = new StationDataWorker(station);
-			dataWorker.setOnTaskCompleteListener(this);
-			dataWorker.execute();
-
 		} catch (IOException e) {
 		}
+
+		StationDataWorker dataWorker = new StationDataWorker(station);
+		dataWorker.setOnTaskCompleteListener(this);
+		dataWorker.execute();
 
 		setBorder(null);
 		setBackground(new Color(248, 248, 255));
@@ -109,7 +108,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 	@Override
 	public void onFail() {
-
+		// TODO don't delete favourite here. It could fail when no network connection and not cached.
 		try {
 			Favorites favs = FavoritesManager.load();
 			favs.delete(station);

@@ -52,12 +52,7 @@ public final class Main {
 		frmSept.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				try {
-					AppStateManager.save();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				AppStateManager.trySave();
 			}
 		});
 		frmSept.getContentPane().setBackground(Color.WHITE);
@@ -66,15 +61,11 @@ public final class Main {
 		frmSept.setBounds(100, 100, 800, 600);
 		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		try {
-			AppStateManager.load();
-			if (AppState.getInstance().state > -1) {
-				showState(AppState.getInstance().state);
-			} else
-				showMainScreen();
-		} catch (IOException e) {
+		AppStateManager.tryLoad();
+		if (AppState.getInstance().state > -1) {
+			showState(AppState.getInstance().state);
+		} else
 			showMainScreen();
-		}
 
 	}
 	
