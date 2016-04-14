@@ -62,8 +62,8 @@ public final class Main {
 		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		AppStateManager.tryLoad();
-		if (AppState.getInstance().state > -1) {
-			showState(AppState.getInstance().state);
+		if (AppState.getInstance().stateIndex > -1) {
+			showState(AppState.getInstance().stateIndex);
 		} else
 			showMainScreen();
 
@@ -87,7 +87,7 @@ public final class Main {
 		frmSept.getContentPane().removeAll();
 		frmSept.getContentPane().setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 		
-		AppState.getInstance().state = index;
+		AppState.getInstance().stateIndex = index;
 		
 		switch (index) {
             // FIRSTSCREEN

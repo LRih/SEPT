@@ -45,7 +45,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				m.setStation(station, data);
-				AppState.getInstance().v2 = fav.state;
+				AppState.getInstance().state = fav.state;
 				AppState.getInstance().station = fav.station;
 			}
 

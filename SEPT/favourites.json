@@ -4,6 +4,10 @@
         "state": "New South Wales"
     },
     {
+        "station": "Adelaide",
+        "state": "South Australia"
+    },
+    {
         "station": "Mildura",
         "state": "Victoria"
     },

@@ -7,11 +7,10 @@ public final class AppState
 {
     private static AppState instance;
 
-    public int state;
-
-    public int v1;
-    public String v2;
+    public int stateIndex;
+    public String state;
     public String station;
+    public int v1;
     public String v4;
     public String v5;
 
@@ -40,10 +39,10 @@ public final class AppState
      */
     public final void resetDefault()
     {
-        state = -1;
-        v1 = 0;
-        v2 = "";
+        stateIndex = -1;
+        state = "";
         station = "";
+        v1 = 0;
         v4 = "";
         v5 = "";
     }
