@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper class for data management.
+ * Helper class for BOM data management.
  */
 public final class DataManager
 {

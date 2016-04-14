@@ -1,12 +1,11 @@
 package View;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
-import Utils.JavaUtils;
+import Utils.SwingUtils;
 
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -32,10 +31,10 @@ public class FirstScreen extends JPanel {
 		
 		setLayout(new MigLayout("", "[grow][center][grow]", "[grow][grow][center][center][center][center][grow][grow][grow]"));
 		
-		WebImage webImage = new WebImage(JavaUtils.createImageIcon("/Images/logo_big.png", "logo"));
+		WebImage webImage = new WebImage(SwingUtils.createImageIcon("/Images/logo_big.png", "logo"));
 		add(webImage, "cell 1 2");
 
-		WebButton wbtnAddStation = new WebButton("Add Station", JavaUtils.createImageIcon("/Images/add_16x16.png", "Add"));
+		WebButton wbtnAddStation = new WebButton("Add Station", SwingUtils.createImageIcon("/Images/add_16x16.png", "Add"));
 		wbtnAddStation.setDefaultButtonShadeColor(new Color(180, 180, 180));
 		wbtnAddStation.setBottomSelectedBgColor(new Color(154, 205, 50));
 		wbtnAddStation.setDrawShade(false);
