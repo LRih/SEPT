@@ -7,17 +7,15 @@ import com.alee.laf.button.WebButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
-import java.util.TreeMap;
 import java.awt.event.ActionEvent;
-import com.alee.extended.breadcrumb.WebBreadcrumb;
-import com.alee.extended.breadcrumb.WebBreadcrumbLabel;
 import com.alee.laf.label.WebLabel;
 
+import Model.AppState;
 import Model.Favorites;
 import Model.State;
 import Model.States;
 import Model.Station;
+import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.FavoritesManager;
 
@@ -115,6 +113,10 @@ public class AddStation extends JPanel {
 					favs = FavoritesManager.load();
 		            favs.add(station);
 		            FavoritesManager.save(favs);
+		            
+		            AppState.getInstance().state = station.getState().getName();
+					AppState.getInstance().station = station.getName();
+					AppStateManager.trySave();
 				} catch (IOException e1) {
 					// TODO: what to do?
 				}

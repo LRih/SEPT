@@ -18,11 +18,14 @@ import java.awt.event.WindowEvent;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.button.WebButton;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public final class Main {
 	private JFrame frmSept;
 	Favorites favs;
 	private JPanel pnMain;
+	private JPanel pnMainBar;
 
 	/**
 	 * Launch the application.
@@ -63,26 +66,32 @@ public final class Main {
 		frmSept.getContentPane().setBackground(Color.WHITE);
 		frmSept.getContentPane().setLayout(new MigLayout("ins 0, gapy 0", "[grow]", "[60][grow]"));
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 140, 0));
-		frmSept.getContentPane().add(panel, "cell 0 0,grow");
-		panel.setLayout(new MigLayout("", "[grow][10%]", "[]"));
+		pnMainBar = new JPanel();
+		pnMainBar.setBackground(new Color(169, 169, 169));
+		frmSept.getContentPane().add(pnMainBar, "cell 0 0,grow");
+		pnMainBar.setLayout(new MigLayout("", "[grow][10%]", "[]"));
 
 		WebLabel wblblBomWeather = new WebLabel();
 		wblblBomWeather.setBackground(new Color(25, 25, 112));
 		wblblBomWeather.setForeground(new Color(255, 255, 255));
 		wblblBomWeather.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		wblblBomWeather.setText("BOM Weather");
-		panel.add(wblblBomWeather, "cell 0 0");
+		pnMainBar.add(wblblBomWeather, "cell 0 0");
 
 		WebButton wbtnRefreshData = new WebButton();
+		wbtnRefreshData.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setMainBg(false);
+				showMainScreen();
+			}
+		});
 		wbtnRefreshData.setForeground(new Color(25, 25, 112));
 		wbtnRefreshData.setDefaultButtonShadeColor(new Color(240, 255, 255));
 		wbtnRefreshData.setBottomSelectedBgColor(new Color(224, 255, 255));
 		wbtnRefreshData.setBottomBgColor(new Color(240, 255, 255));
 		wbtnRefreshData.setDrawShade(false);
 		wbtnRefreshData.setText("Refresh Data");
-		panel.add(wbtnRefreshData, "cell 1 0,aligny center, alignx right");
+		pnMainBar.add(wbtnRefreshData, "cell 1 0,aligny center, alignx right");
 
 		pnMain = new JPanel();
 		frmSept.getContentPane().add(pnMain, "cell 0 1,grow");
@@ -145,6 +154,14 @@ public final class Main {
 		}
 		pnMain.validate();
 		pnMain.repaint();
+	}
+	
+	public void setMainBg(Boolean hasInternetConnection) {
+		if (hasInternetConnection) {
+			pnMainBar.setBackground(new Color(255, 140, 0));
+		} else {
+			pnMainBar.setBackground(new Color(169, 169, 169));
+		}
 	}
 
 }

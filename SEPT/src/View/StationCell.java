@@ -33,6 +33,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 	private WebLabel wblblMildura;
 	private WebLabel webLabel_2;
 	private WebLabel wblblVictoria;
+	private StationDataWorker dataWorker;
 
 	/**
 	 * Create the panel.
@@ -78,7 +79,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			// no problem, this is normal.
 		}
 
-		StationDataWorker dataWorker = new StationDataWorker(station);
+		dataWorker = new StationDataWorker(station);
 		dataWorker.setOnTaskCompleteListener(this);
 		dataWorker.execute();
 
@@ -93,7 +94,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		add(wblblMildura, "cell 0 0 1 2,alignx left,grow");
 
 		webLabel_2 = new WebLabel();
-		webLabel_2.setForeground(new Color(105, 105, 105));
+		webLabel_2.setForeground(new Color(155, 155, 155));
 		webLabel_2.setFont(new Font("Futura", Font.PLAIN, 20));
 		if (this.data != null) {
 			try {
@@ -123,15 +124,19 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			// setBackground(new Color(230, 230, 250));
 			main.setStation(station, data);
 		}
+		
+		main.main.setMainBg(true);
 
 		wblblMildura.setText(station.getName());
 		wblblVictoria.setText(station.getState().getName());
 		webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
+		webLabel_2.setForeground(new Color(34, 139, 34));
 
 	}
 
 	@Override
 	public void onFail() {
+		main.main.setMainBg(false);
 		main.showState(0);
 	}
 }

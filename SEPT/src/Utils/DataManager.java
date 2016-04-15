@@ -87,17 +87,12 @@ public final class DataManager {
 	 * @return loaded station data
 	 * @param station
 	 *            the station for which to load data
+	 * @throws IOException 
 	 */
-	public static StationData getNetStationData(Station station) {
-		try {
+	public static StationData getNetStationData(Station station) throws IOException {
 			String json = NetUtils.get(station.getUrl());
 			trySaveCache(station, json); // cache data locally
 			return createStationData(json);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
 	}
 
 	/**
