@@ -10,6 +10,7 @@ import Model.Favorite;
 import Model.States;
 import Model.Station;
 import Model.StationData;
+import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.StationDataWorker;
 import Utils.StationDataWorker.OnTaskCompleteListener;
@@ -47,6 +48,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 				m.setStation(station, data);
 				AppState.getInstance().state = fav.state;
 				AppState.getInstance().station = fav.station;
+				AppStateManager.trySave();
 			}
 
 			// hover effect
@@ -64,10 +66,16 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			// TODO if DataManager.loadStates() fails, just best to display
 			// error message and close the app
 			states = DataManager.loadStates();
-			this.station = states.get(fav.state).getStation(fav.station);
-			this.data = DataManager.getCachedStationData(station);
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.exit(0);
+		}
+
+		this.station = states.get(fav.state).getStation(fav.station);
+		
+		try {
+			this.data = DataManager.getCachedStationData(station);
+		} catch (IOException e1) {
+			// no problem, this is normal.
 		}
 
 		StationDataWorker dataWorker = new StationDataWorker(station);
@@ -120,13 +128,6 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		wblblVictoria.setText(station.getState().getName());
 		webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
 
-	}
-
-	public void setSelected(Boolean selected) {
-		if (selected)
-			setBackground(new Color(230, 230, 250));
-		else
-			setBackground(new Color(248, 248, 255));
 	}
 
 	@Override

@@ -7,15 +7,12 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import com.alee.extended.progress.WebProgressOverlay;
 import com.alee.laf.WebLookAndFeel;
 
 import Model.Favorites;
 import Utils.AppStateManager;
 import Utils.FavoritesManager;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import com.alee.laf.label.WebLabel;
@@ -24,7 +21,7 @@ import java.awt.Font;
 
 public final class Main {
 	private JFrame frmSept;
-	private Favorites favs;
+	Favorites favs;
 	private JPanel pnMain;
 
 	/**
@@ -121,7 +118,8 @@ public final class Main {
 		pnMain.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
 		AppState.getInstance().stateIndex = index;
-
+		AppStateManager.trySave();
+		
 		switch (index) {
 		// FIRSTSCREEN
 		case 0:

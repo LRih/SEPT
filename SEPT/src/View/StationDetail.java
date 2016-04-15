@@ -11,11 +11,18 @@ import org.joda.time.format.DateTimeFormatter;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
+import Model.AppState;
+import Model.Favorites;
 import Model.Station;
 import Model.StationData;
+import Utils.AppStateManager;
+import Utils.FavoritesManager;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StationDetail extends JPanel {
 
@@ -37,11 +44,13 @@ public class StationDetail extends JPanel {
 	private WebLabel wblblLastUpdate;
 	private DateTimeFormatter dtfOut;
 	private WebButton wbtnViewWeatherHistory;
-
+	private WebLabel wblblRemoveFromFavourites;
+	
 	/**
 	 * Create the panel.
 	 */
 	public StationDetail(final MainPanel m) {
+		setBackground(new Color(176, 196, 222));
 		
 		setLayout(new MigLayout("", "[30%][grow][30%]", "[][][][][][][][grow]"));
 		
@@ -73,7 +82,7 @@ public class StationDetail extends JPanel {
 		add(wblblRainSinceam, "cell 2 2");
 
 		wblblc = new WebLabel();
-		wblblc.setForeground(new Color(60, 179, 113));
+		wblblc.setForeground(new Color(255, 255, 255));
 		wblblc.setFont(new Font("Futura", Font.PLAIN, 50));
 		wblblc.setText("-°C");
 		add(wblblc, "cell 1 2 1 3,alignx left,aligny top");
@@ -132,11 +141,38 @@ public class StationDetail extends JPanel {
 		wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
 		wblblLastUpdate.setText("Last update: -");
 		add(wblblLastUpdate, "cell 0 7 2 1,aligny bottom");
+		
+
+		wblblRemoveFromFavourites = new WebLabel();
+		wblblRemoveFromFavourites.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				try {
+					Favorites favs = FavoritesManager.load();
+					favs.delete(m.station);
+					FavoritesManager.save(favs);
+					AppState.getInstance().state = "";
+					AppState.getInstance().station = "";
+					AppStateManager.trySave();
+				} catch (IOException e1) {
+				}
+				m.main.showMainScreen();
+			}
+		});
+		wblblRemoveFromFavourites.setForeground(Color.RED);
+		wblblRemoveFromFavourites.setFont(new Font("Century Gothic", Font.ITALIC, 13));
+		wblblRemoveFromFavourites.setText("Remove from Favourites");
+		
+		add(wblblRemoveFromFavourites, "cell 2 7,alignx right,aligny bottom");
 	}
 	
 	public void setStation(Station station, StationData data) {
 
-		if (data.getReadings().get(0).getAirTemp() < 30) {
+		if (data.getReadings().get(0).getAirTemp() < 0) {
+			setBackground(new Color(176, 196, 222));
+			wblblc.setForeground(new Color(255, 255, 255));
+		} else if (data.getReadings().get(0).getAirTemp() < 25) {
 			setBackground(new Color(240, 248, 255));
 			wblblc.setForeground(new Color(30, 144, 255));
 		} else {

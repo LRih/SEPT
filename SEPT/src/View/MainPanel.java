@@ -12,6 +12,7 @@ import Model.Favorites;
 import Model.States;
 import Model.Station;
 import Model.StationData;
+import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.FavoritesManager;
 
@@ -28,13 +29,14 @@ public class MainPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Main main = null;
+	Main main = null;
 	private JPanel panel_1;
 	StationDetail stationDetail;
 	StationChart stationChart;
 	StationHistory stationHistory;
 	Station station;
 	StationData stationData;
+	Station selected;
 
 	/**
 	 * Create the panel.
@@ -84,16 +86,19 @@ public class MainPanel extends JPanel {
 			int row = 0;
 			int col = 0;
 			StationCell cell = null;
-			Station selected = null;
-			try {
-				// TODO if DataManager.loadStates() fails, just best to display
-				// error message and close the app
-				States states = DataManager.loadStates();
-				selected = states.get(AppState.getInstance().state).getStation(AppState.getInstance().station);
-			} catch (Exception e) {
-				
-				System.exit(0);
-			}
+
+			if (selected == null)
+				try {
+					// TODO if DataManager.loadStates() fails, just best to
+					// display
+					// error message and close the app
+					States states = DataManager.loadStates();
+					if (!AppState.getInstance().state.equals("") && !AppState.getInstance().station.equals("")) {
+						selected = states.get(AppState.getInstance().state).getStation(AppState.getInstance().station);
+					}
+				} catch (Exception e) {
+					System.exit(0);
+				}
 
 			Boolean flag;
 			for (Favorite fav : favs) {
@@ -127,6 +132,7 @@ public class MainPanel extends JPanel {
 		panel_1.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
 		AppState.getInstance().v1 = index;
+		AppStateManager.trySave();
 
 		switch (index) {
 		// STATION DETAIL
