@@ -170,12 +170,15 @@ public final class Main {
 		// FIRSTSCREEN
 		case AppDefine.FIRST_SCREEN:
 			FirstScreen firstScreen = new FirstScreen(this);
+			pnMainBar.setBackground(new Color(255, 140, 0));
+			wbtnRefreshData.setVisible(false);
 			pnMain.add(firstScreen, "cell 0 0 31 1,grow");
 			break;
 
 		// ADD_STATION
 		case AppDefine.ADD_STATION:
 			AddStation addStation = new AddStation(this);
+			wbtnRefreshData.setVisible(false);
 			pnMain.add(addStation, "cell 0 0 1 1,grow");
 			break;
 
@@ -183,7 +186,7 @@ public final class Main {
 		case AppDefine.MAIN_SCREEN:
 			MainPanel mainPanel = new MainPanel(this);
 			pnMain.add(mainPanel, "cell 0 0 1 1,grow");
-
+			wbtnRefreshData.setVisible(true);
 			mainPanel.showState(AppState.getInstance().v1);
 
 			break;

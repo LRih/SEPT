@@ -33,6 +33,8 @@ public class AddStation extends JPanel {
 	private WebComboBox wcbStates;
 	private WebComboBox wcbStations;
 	private States states;
+	private WebButton wbtnBack;
+	private WebButton wbtnAddToMy;
 
 	/**
 	 * Create the panel.
@@ -43,13 +45,8 @@ public class AddStation extends JPanel {
 
 		setLayout(new MigLayout("", "[20%][grow]", "[][grow]"));
 
-		WebButton wbtnBack = new WebButton();
+		wbtnBack = new WebButton();
 		wbtnBack.setFont(new Font("Bender", Font.PLAIN, 13));
-		wbtnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				main.showMainScreen();
-			}
-		});
 		wbtnBack.setText("< Back");
 		add(wbtnBack, "cell 0 0");
 
@@ -96,13 +93,32 @@ public class AddStation extends JPanel {
 		wcbStations.setDrawFocus(false);
 		pnAddStation.add(wcbStations, "cell 1 2,growx");
 
-		WebButton wbtnAddToMy = new WebButton();
+		wbtnAddToMy = new WebButton();
 		wbtnAddToMy.setFont(new Font("Bender", Font.PLAIN, 13));
 		wbtnAddToMy.setForeground(new Color(0, 128, 0));
 		wbtnAddToMy.setDefaultButtonShadeColor(new Color(240, 255, 240));
 		wbtnAddToMy.setBottomSelectedBgColor(new Color(154, 205, 50));
 		wbtnAddToMy.setBottomBgColor(new Color(240, 255, 240));
 		wbtnAddToMy.setDrawShade(false);
+		wbtnAddToMy.setText("Add to My Favorites");
+		pnAddStation.add(wbtnAddToMy, "cell 1 3");
+
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
+		pnContent.add(panel_3, "cell 2 1,grow");
+
+		loadData();
+		addListeners();
+	}
+	
+	private void addListeners() {
+		
+		wbtnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.showMainScreen();
+			}
+		});
+
 		wbtnAddToMy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -124,14 +140,7 @@ public class AddStation extends JPanel {
 				main.showMainScreen();
 			}
 		});
-		wbtnAddToMy.setText("Add to My Favorites");
-		pnAddStation.add(wbtnAddToMy, "cell 1 3");
-
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		pnContent.add(panel_3, "cell 2 1,grow");
-
-		loadData();
+		
 	}
 
 	private void loadData() {

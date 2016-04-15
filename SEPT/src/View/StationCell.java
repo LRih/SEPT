@@ -10,6 +10,7 @@ import Model.Favorite;
 import Model.States;
 import Model.Station;
 import Model.StationData;
+import Utils.AppDefine;
 import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.StationDataWorker;
@@ -125,7 +126,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			main.setStation(station, data);
 		}
 		
-		main.main.setMainBg(true);
+		main.frmMain.setMainBg(true);
 
 		wblblMildura.setText(station.getName());
 		wblblVictoria.setText(station.getState().getName());
@@ -137,7 +138,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 	@Override
 	public void onFail() {
 		main.loadFail();
-		main.main.setMainBg(false);
-		main.showState(0);
+		main.frmMain.setMainBg(false);
+		main.showState(AppDefine.STATION_DETAIL);
 	}
 }

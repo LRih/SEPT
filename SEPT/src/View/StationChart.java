@@ -8,6 +8,7 @@ import com.alee.laf.label.WebLabel;
 import Model.Reading;
 import Model.Station;
 import Model.StationData;
+import Utils.AppDefine;
 
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -88,7 +89,7 @@ public class StationChart extends JPanel {
 		wbtnBack.setDrawShade(false);
 		wbtnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				m.showState(0);
+				m.showState(AppDefine.STATION_DETAIL);
 			}
 		});
 		wbtnBack.setText("Back");

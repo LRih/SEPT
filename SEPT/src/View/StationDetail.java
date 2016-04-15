@@ -15,6 +15,7 @@ import Model.AppState;
 import Model.Favorites;
 import Model.Station;
 import Model.StationData;
+import Utils.AppDefine;
 import Utils.AppStateManager;
 import Utils.FavoritesManager;
 import net.miginfocom.swing.MigLayout;
@@ -31,9 +32,9 @@ public class StationDetail extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private WebLabel wblblMildura;
+	private WebLabel wblblStation;
 	private WebLabel wblblHumid;
-	private WebLabel wblblVictoria;
+	private WebLabel wblblState;
 	private WebLabel wblblWindSse;
 	private WebLabel wblblRainSinceam;
 	private WebLabel wblblc;
@@ -47,35 +48,42 @@ public class StationDetail extends JPanel {
 	private WebLabel wblblRemoveFromFavourites;
 	private JPanel panel;
 	private JPanel panel_1;
-	
+
+	private WebButton wbtnViewChart;
+
+	private MainPanel mainPanel;
+
 	/**
 	 * Create the panel.
 	 */
 	public StationDetail(final MainPanel m) {
+
+		mainPanel = m;
+
 		setBackground(new Color(176, 196, 222));
-		
+
 		setLayout(new MigLayout("", "[30%,grow][grow][30%]", "[grow][][][][][][][][grow][]"));
-		
+
 		panel = new JPanel();
 		panel.setVisible(false);
 		add(panel, "cell 0 0,grow");
-		
-		wblblMildura = new WebLabel();
-		wblblMildura.setText("-");
-		wblblMildura.setForeground(new Color(255, 69, 0));
-		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 
-		add(wblblMildura, "cell 0 1 2 1");
+		wblblStation = new WebLabel();
+		wblblStation.setText("-");
+		wblblStation.setForeground(new Color(255, 69, 0));
+		wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+
+		add(wblblStation, "cell 0 1 2 1");
 
 		wblblHumid = new WebLabel();
 		wblblHumid.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblHumid.setText("-");
 		add(wblblHumid, "cell 2 1,aligny bottom");
 
-		wblblVictoria = new WebLabel();
-		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
-		wblblVictoria.setText("-");
-		add(wblblVictoria, "cell 0 2 2 1");
+		wblblState = new WebLabel();
+		wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
+		wblblState.setText("-");
+		add(wblblState, "cell 0 2 2 1");
 
 		wblblWindSse = new WebLabel();
 		wblblWindSse.setFont(new Font("Century Gothic", Font.PLAIN, 13));
@@ -108,12 +116,7 @@ public class StationDetail extends JPanel {
 		wblblAirTemp.setText("App temp: -°C");
 		add(wblblAirTemp, "cell 1 6,aligny bottom");
 
-		WebButton wbtnViewChart = new WebButton();
-		wbtnViewChart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				m.showState(1);
-			}
-		});
+		wbtnViewChart = new WebButton();
 		wbtnViewChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wbtnViewChart.setDefaultButtonShadeColor(new Color(240, 255, 255));
 		wbtnViewChart.setBottomSelectedBgColor(new Color(224, 255, 255));
@@ -127,14 +130,9 @@ public class StationDetail extends JPanel {
 		wblblDewPoint.setText("Dew Point: -°C");
 		add(wblblDewPoint, "cell 1 7");
 
-		 dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
-		
+		dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+
 		wbtnViewWeatherHistory = new WebButton();
-		wbtnViewWeatherHistory.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				m.showState(2);
-			}
-		});
 		wbtnViewWeatherHistory.setText("View Weather History");
 		wbtnViewWeatherHistory.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wbtnViewWeatherHistory.setDefaultButtonShadeColor(new Color(240, 255, 255));
@@ -142,7 +140,7 @@ public class StationDetail extends JPanel {
 		wbtnViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
 		wbtnViewWeatherHistory.setDrawShade(false);
 		add(wbtnViewWeatherHistory, "cell 2 7");
-		
+
 		panel_1 = new JPanel();
 		panel_1.setVisible(false);
 		add(panel_1, "cell 0 8,grow");
@@ -151,48 +149,69 @@ public class StationDetail extends JPanel {
 		wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
 		wblblLastUpdate.setText("Last update: -");
 		add(wblblLastUpdate, "cell 0 9 2 1,aligny bottom");
-		
 
 		wblblRemoveFromFavourites = new WebLabel();
-		wblblRemoveFromFavourites.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				try {
-					Favorites favs = FavoritesManager.load();
-					favs.delete(m.station);
-					FavoritesManager.save(favs);
-					AppState.getInstance().state = "";
-					AppState.getInstance().station = "";
-					AppStateManager.trySave();
-				} catch (IOException e1) {
-				}
-				m.main.showMainScreen();
-			}
-		});
 		wblblRemoveFromFavourites.setForeground(Color.RED);
 		wblblRemoveFromFavourites.setFont(new Font("Century Gothic", Font.ITALIC, 13));
 		wblblRemoveFromFavourites.setText("Remove from Favourites");
-		
+
 		add(wblblRemoveFromFavourites, "cell 2 9,alignx right,aligny bottom");
+
+		addListeners();
 	}
-	
+
+	private void addListeners() {
+
+		wbtnViewChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainPanel.showState(AppDefine.VIEW_CHART);
+			}
+		});
+
+		wbtnViewWeatherHistory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainPanel.showState(AppDefine.VIEW_HISTORY);
+			}
+		});
+
+		wblblRemoveFromFavourites.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Favorites favs = FavoritesManager.load();
+					favs.delete(mainPanel.station);
+					FavoritesManager.save(favs);
+				} catch (IOException e1) {
+				} finally {
+					AppState.getInstance().state = "";
+					AppState.getInstance().station = "";
+					AppStateManager.trySave();
+				}
+				mainPanel.frmMain.showMainScreen();
+			}
+		});
+
+	}
+
 	public void setStation(Station station, StationData data) {
 
-		if (data.getReadings().get(0).getAirTemp() < 0) {
+		// change colours by Temperature
+		if (data.getReadings().get(0).getAirTemp() < AppDefine.TEMP_FREEZING) {
 			setBackground(new Color(176, 196, 222));
 			wblblc.setForeground(new Color(255, 255, 255));
-		} else if (data.getReadings().get(0).getAirTemp() < 25) {
+		} else if (data.getReadings().get(0).getAirTemp() < AppDefine.TEMP_COOL) {
 			setBackground(new Color(240, 248, 255));
 			wblblc.setForeground(new Color(30, 144, 255));
 		} else {
 			setBackground(new Color(255, 248, 220));
 			wblblc.setForeground(new Color(255, 99, 71));
 		}
+
 		
-		wblblMildura.setText(station.getName());
+		// set Text
+		wblblStation.setText(station.getName());
 		wblblHumid.setText("Humid: " + data.getReadings().get(0).getRelativeHumidity() + "%");
-		wblblVictoria.setText(station.getState().getName());
+		wblblState.setText(station.getState().getName());
 		wblblWindSse.setText(
 				"Wind: " + data.getReadings().get(0).getWindDir() + " " + data.getReadings().get(0).getWindSpdKmH()
 						+ "-" + data.getReadings().get(0).getWindGustKmH() + " km/h");

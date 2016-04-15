@@ -5,6 +5,7 @@ import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
+import Utils.AppDefine;
 import Utils.SwingUtils;
 
 import javax.swing.SwingConstants;
@@ -21,6 +22,7 @@ public class FirstScreen extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Main main = null;
+	private WebButton wbtnAddStation;
 
 	/**
 	 * Create the panel.
@@ -34,16 +36,11 @@ public class FirstScreen extends JPanel {
 		WebImage webImage = new WebImage(SwingUtils.createImageIcon("/Images/logo_big.png", "logo"));
 		add(webImage, "cell 1 2");
 
-		WebButton wbtnAddStation = new WebButton("Add Station", SwingUtils.createImageIcon("/Images/add_16x16.png", "Add"));
+		wbtnAddStation = new WebButton("Add Station", SwingUtils.createImageIcon("/Images/add_16x16.png", "Add"));
 		wbtnAddStation.setDefaultButtonShadeColor(new Color(180, 180, 180));
 		wbtnAddStation.setBottomSelectedBgColor(new Color(154, 205, 50));
 		wbtnAddStation.setDrawShade(false);
 		wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
-		wbtnAddStation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				main.showState(1);
-			}
-		});
 		wbtnAddStation.setFont(new Font("Bender", Font.PLAIN, 13));
 		add(wbtnAddStation, "cell 1 3");
 
@@ -60,6 +57,17 @@ public class FirstScreen extends JPanel {
 		wblblClickaddStation.setText("Click \"Add Station\" to get started");
 		add(wblblClickaddStation, "cell 1 5");
 
+		addListeners();
+	}
+	
+	private void addListeners() {
+		
+		wbtnAddStation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.showState(AppDefine.ADD_STATION);
+			}
+		});
+		
 	}
 
 }

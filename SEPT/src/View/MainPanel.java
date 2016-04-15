@@ -15,6 +15,7 @@ import Model.Favorites;
 import Model.States;
 import Model.Station;
 import Model.StationData;
+import Utils.AppDefine;
 import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.FavoritesManager;
@@ -35,8 +36,8 @@ public class MainPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Main main = null;
-	private JPanel panel_1;
+	Main frmMain = null;
+	private JPanel pnMainContent;
 	StationDetail stationDetail;
 	StationChart stationChart;
 	StationHistory stationHistory;
@@ -44,45 +45,41 @@ public class MainPanel extends JPanel {
 	StationData stationData;
 	Station selected;
 	private Boolean shown;
+	private WebButton wbtnAddStation;
 
 	/**
 	 * Create the panel.
 	 */
 	public MainPanel(Main m) {
 		setBackground(new Color(255, 255, 255));
-		main = m;
+		frmMain = m;
 
 		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][][160]"));
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
+		JPanel pnFavorites = new JPanel();
+		pnFavorites.setBackground(Color.WHITE);
+		pnFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
 
-		panel_1 = new JPanel();
-		panel_1.setBackground(new Color(240, 248, 255));
-		add(panel_1, "cell 0 1 2 1,grow");
+		pnMainContent = new JPanel();
+		pnMainContent.setBackground(new Color(240, 248, 255));
+		add(pnMainContent, "cell 0 1 2 1,grow");
 
 		WebLabel wblblWeatherStations = new WebLabel();
 		wblblWeatherStations.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		wblblWeatherStations.setText("Favourite Stations");
 		add(wblblWeatherStations, "flowx,cell 0 2,gapx 15,gapy 5");
 
-		WebButton webButton = new WebButton("Add station");
-		webButton.setForeground(new Color(0, 100, 0));
-		webButton.setDrawShade(false);
-		webButton.setDefaultButtonShadeColor(new Color(154, 205, 50));
-		webButton.setBottomSelectedBgColor(new Color(50, 205, 50));
-		webButton.setBottomBgColor(new Color(240, 255, 240));
-		webButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				main.showState(1);
-			}
-		});
-		webButton.setFont(new Font("Bender", Font.PLAIN, 13));
-		webButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(webButton, "cell 1 2,alignx right, gapx 0 15, gapy 5 0");
+		wbtnAddStation = new WebButton("Add station");
+		wbtnAddStation.setForeground(new Color(0, 100, 0));
+		wbtnAddStation.setDrawShade(false);
+		wbtnAddStation.setDefaultButtonShadeColor(new Color(154, 205, 50));
+		wbtnAddStation.setBottomSelectedBgColor(new Color(50, 205, 50));
+		wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
+		wbtnAddStation.setFont(new Font("Bender", Font.PLAIN, 13));
+		wbtnAddStation.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		add(wbtnAddStation, "cell 1 2,alignx right, gapx 0 15, gapy 5 0");
 
-		WebScrollPane webScrollPane = new WebScrollPane(panel, false, true);
+		WebScrollPane webScrollPane = new WebScrollPane(pnFavorites, false, true);
 		webScrollPane.setDrawFocus(false);
 		webScrollPane.setPreferredSize(new Dimension(0, 0));
 		add(webScrollPane, "cell 0 3 2 1,grow, hmin 160");
@@ -90,6 +87,8 @@ public class MainPanel extends JPanel {
 		try {
 
 			Favorites favs = FavoritesManager.load();
+			if (favs.size() == 0)
+				throw new Exception("NO_FAVORITE_STATION");
 			int row = 0;
 			int col = 0;
 			StationCell cell = null;
@@ -123,66 +122,77 @@ public class MainPanel extends JPanel {
 				cell = new StationCell(this, fav, flag);
 
 				if (col % 2 == 0)
-					panel.add(cell, "cell 0 " + row + ", grow, gap 4");
+					pnFavorites.add(cell, "cell 0 " + row + ", grow, gap 4");
 				else
-					panel.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
+					pnFavorites.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
 
 				col++;
 			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (Exception e1) {
+			frmMain.showState(AppDefine.FIRST_SCREEN);
 		}
+
+		addListeners();
+	}
+
+	private void addListeners() {
+
+		wbtnAddStation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMain.showState(1);
+			}
+		});
+
 	}
 
 	public void showState(int index) {
-		panel_1.removeAll();
-		panel_1.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
+		pnMainContent.removeAll();
+		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
 		AppState.getInstance().v1 = index;
 		AppStateManager.trySave();
 
 		switch (index) {
-		// STATION DETAIL
+		// STATION_DETAIL
 		default:
 			stationDetail = new StationDetail(this);
 			if (stationData != null)
 				stationDetail.setStation(station, stationData);
-			panel_1.add(stationDetail, "cell 0 0, grow");
+			pnMainContent.add(stationDetail, "cell 0 0, grow");
 			break;
 
 		// VIEW_CHART
-		case 1:
+		case AppDefine.VIEW_CHART:
 			stationChart = new StationChart(this);
 			if (stationData != null)
 				stationChart.setStation(station, stationData);
-			panel_1.add(stationChart, "cell 0 0, grow");
+			pnMainContent.add(stationChart, "cell 0 0, grow");
 			break;
 		// VIEW_HISTORY
-		case 2:
+		case AppDefine.VIEW_HISTORY:
 			stationHistory = new StationHistory(this);
 			if (stationData != null)
 				stationHistory.setStation(station, stationData);
-			panel_1.add(stationHistory, "cell 0 0, grow");
+			pnMainContent.add(stationHistory, "cell 0 0, grow");
 			break;
 		}
-		panel_1.validate();
-		panel_1.repaint();
+		pnMainContent.validate();
+		pnMainContent.repaint();
 
 	}
 
 	public void setStation(Station station, StationData data) {
 		this.station = station;
 		this.stationData = data;
-		if (AppState.getInstance().v1 == 0) {
+		if (AppState.getInstance().v1 == AppDefine.STATION_DETAIL) {
 			stationDetail.setStation(station, data);
-			showState(0);
-		} else if (AppState.getInstance().v1 == 1) {
+			showState(AppDefine.STATION_DETAIL);
+		} else if (AppState.getInstance().v1 == AppDefine.VIEW_CHART) {
 			stationChart.setStation(station, data);
-			showState(1);
-		} else if (AppState.getInstance().v1 == 2) {
+			showState(AppDefine.VIEW_CHART);
+		} else if (AppState.getInstance().v1 == AppDefine.VIEW_HISTORY) {
 			stationHistory.setStation(station, data);
-			showState(2);
+			showState(AppDefine.VIEW_HISTORY);
 		}
 	}
 
@@ -190,17 +200,11 @@ public class MainPanel extends JPanel {
 		if (!shown) {
 			shown = true;
 			final WebNotification notificationPopup = new WebNotification();
-			notificationPopup.setIcon(NotificationIcon.clock);
-			notificationPopup.setDisplayTime(5000);
-
-			final WebClock clock = new WebClock();
-			clock.setClockType(ClockType.timer);
-			clock.setTimeLeft(6000);
-			clock.setTimePattern("'No Internet Connection (' ss ')'");
-			notificationPopup.setContent(new GroupPanel(clock));
+			notificationPopup.setIcon(NotificationIcon.error);
+			notificationPopup.setDisplayTime(AppDefine.NOTIFICATION_CLOSE_TIME_MILLIS);
+			notificationPopup.setContent("No Internet Connection");
 
 			NotificationManager.showNotification(notificationPopup);
-			clock.start();
 		}
 	}
 
