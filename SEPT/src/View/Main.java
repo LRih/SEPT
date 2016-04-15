@@ -91,7 +91,7 @@ public final class Main {
 		frmSept.getContentPane().add(pnMain, "cell 0 1,grow");
 		frmSept.setBackground(Color.WHITE);
 		frmSept.setTitle("Bom Weather");
-		frmSept.setBounds(100, 100, 1100, 600);
+		frmSept.setBounds(100, 100, 1300, 600);
 		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		AppStateManager.tryLoad();

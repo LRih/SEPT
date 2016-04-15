@@ -90,9 +90,9 @@ public class MainPanel extends JPanel {
 				// error message and close the app
 				States states = DataManager.loadStates();
 				selected = states.get(AppState.getInstance().state).getStation(AppState.getInstance().station);
-				System.out.println("selected: " + selected.getName());
 			} catch (Exception e) {
-				System.out.println("selected err");
+				
+				System.exit(0);
 			}
 
 			Boolean flag;
@@ -164,10 +164,10 @@ public class MainPanel extends JPanel {
 			stationDetail.setStation(station, data);
 			showState(0);
 		} else if (AppState.getInstance().v1 == 1) {
-			stationChart.setStation(station, stationData);
+			stationChart.setStation(station, data);
 			showState(1);
 		} else if (AppState.getInstance().v1 == 2) {
-			stationHistory.setStation(station, stationData);
+			stationHistory.setStation(station, data);
 			showState(2);
 		}
 	}

@@ -39,7 +39,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 	public StationCell(final MainPanel m, final Favorite fav, Boolean selected) {
 		this.main = m;
 		this.selected = selected;
-        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -53,6 +53,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			public final void mouseEntered(MouseEvent e) {
 				setBackground(new Color(240, 248, 255));
 			}
+
 			public final void mouseExited(MouseEvent e) {
 				setBackground(new Color(248, 248, 255));
 			}
@@ -60,10 +61,13 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 		States states = null;
 		try {
-			// TODO if DataManager.loadStates() fails, just best to display error message and close the app
+			// TODO if DataManager.loadStates() fails, just best to display
+			// error message and close the app
 			states = DataManager.loadStates();
-			station = states.get(fav.state).getStation(fav.station);
+			this.station = states.get(fav.state).getStation(fav.station);
+			this.data = DataManager.getCachedStationData(station);
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
 		}
 
 		StationDataWorker dataWorker = new StationDataWorker(station);
@@ -83,7 +87,17 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		webLabel_2 = new WebLabel();
 		webLabel_2.setForeground(new Color(105, 105, 105));
 		webLabel_2.setFont(new Font("Futura", Font.PLAIN, 20));
-		webLabel_2.setText("-");
+		if (this.data != null) {
+			try {
+				if (selected)
+					m.setStation(this.station, this.data);
+			} catch (Exception e) {
+			}
+			
+			webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
+		} else
+			webLabel_2.setText("-");
+		
 		add(webLabel_2, "cell 1 0 1 3,alignx center,aligny center");
 
 		wblblVictoria = new WebLabel();
@@ -98,7 +112,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 		this.data = data;
 		if (selected) {
-//			setBackground(new Color(230, 230, 250));
+			// setBackground(new Color(230, 230, 250));
 			main.setStation(station, data);
 		}
 
@@ -107,7 +121,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
 
 	}
-	
+
 	public void setSelected(Boolean selected) {
 		if (selected)
 			setBackground(new Color(230, 230, 250));

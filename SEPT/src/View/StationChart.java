@@ -5,16 +5,17 @@ import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
+import Model.Reading;
 import Model.Station;
 import Model.StationData;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import com.bitagentur.renderer.JChartLibPanel;
-import com.bitagentur.chart.JChartLibAreachart;
 import com.bitagentur.chart.JChartLibBaseChart;
 import com.bitagentur.chart.JChartLibLineChart;
 import com.bitagentur.data.JChartLibDataSet;
@@ -28,54 +29,60 @@ public class StationChart extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private WebLabel wblblMildura;
 	private WebLabel wblblVictoria;
-	private StationData data;
+	private StationData data = null;
 	private JChartLibPanel chartLibPanel;
+	private JPanel panel;
 
 	private JChartLibDataSet createDataset() {
-	    //Dataseries can be added with int arrays
-	    int[] values1 = new int[5];
-	    values1[0] = 1;
-	    values1[1] = 3;
-	    values1[2] = 4;
-	    values1[3] = 7;
-	    values1[4] = 2;
 
-	    //or by generating a Dataserie object
-	    JChartLibSerie values2 = new JChartLibSerie("Banana");
-	    values2.addValue(5);
-	    values2.addValue(4);
-	    values2.addValue(2);
-	    values2.addValue(6);
-	    values2.addValue(2);
+		final JChartLibDataSet dataset = new JChartLibDataSet();
 
-	    final JChartLibDataSet dataset = new JChartLibDataSet();
-	    dataset.addDataSerie("Apple", values1);   //adds the apples
-	    dataset.addDataSerie(values2);            //adds the bananas
+		if (this.data == null) {
+			int[] tempData = {};
+			dataset.addDataSerie("N/A", tempData);
+			return dataset;
+		}
 
-	    return dataset;
+		JChartLibSerie serie3PM = getSerie("3PM Temp", data.get3PMReadings());
+		JChartLibSerie serie9AM = getSerie("9AM Temp", data.get9AMReadings());
+		JChartLibSerie serieMax = getSerie("Max Temp", data.getMaxReadings());
+		JChartLibSerie serieMin = getSerie("Min Temp", data.getMinReadings());
+
+		dataset.addDataSerie(serie3PM);
+		dataset.addDataSerie(serie9AM);
+		dataset.addDataSerie(serieMax);
+		dataset.addDataSerie(serieMin);
+
+		return dataset;
 	}
-	
+
+	private JChartLibSerie getSerie(String name, List<Reading> list) {
+		JChartLibSerie serie = new JChartLibSerie(name);
+		for (Reading reading : list) {
+			serie.addValue(reading.getAirTemp());
+		}
+
+		return serie;
+	}
+
 	private JChartLibBaseChart createChart(final JChartLibDataSet dataset) {
 
-	    // create the chart with title and axis names
-	    final JChartLibLineChart chart = new JChartLibLineChart(
-	            "", // chart title
-	            "time", // x axis text
-	            "temperature", // y axis text
-	            dataset
-	            );
+		// create the chart with title and axis names
+		final JChartLibLineChart chart = new JChartLibLineChart("", // chart
+																	// title
+				"time", // x axis text
+				"temperature", // y axis text
+				dataset);
 
-	    return chart;
+		return chart;
 	}
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public StationChart(final MainPanel m) {
 		setBackground(new Color(240, 248, 255));
-		setLayout(new MigLayout("", "[grow][][][]", "[][grow][][][][][][]"));
-
-		setLayout(new MigLayout("", "[10%][][][grow]", "[][][][][][][][grow]"));
+		setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
 
 		WebButton wbtnBack = new WebButton();
 		wbtnBack.setDrawShade(false);
@@ -87,35 +94,49 @@ public class StationChart extends JPanel {
 		wbtnBack.setText("Back");
 		add(wbtnBack, "cell 0 0");
 
-		 wblblMildura = new WebLabel();
+		wblblMildura = new WebLabel();
 		wblblMildura.setText("-");
 		wblblMildura.setForeground(new Color(255, 69, 0));
 		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 
 		add(wblblMildura, "cell 1 0");
 
-		 wblblVictoria = new WebLabel();
+		wblblVictoria = new WebLabel();
 		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
 		wblblVictoria.setText("-");
 		add(wblblVictoria, "cell 2 0");
 		
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		add(panel, "cell 0 1 4 1,grow");
+		panel.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
-		final JChartLibDataSet dataset = createDataset();
-	    final JChartLibBaseChart chart = createChart(dataset);
-//	    chartLibPanel = new JChartLibPanel(null);
-		chartLibPanel = new JChartLibPanel(chart);
+		chartLibPanel = new JChartLibPanel(null);
+		panel.add(chartLibPanel, "cell 0 0, grow");
 		chartLibPanel.setPreferredSize(new Dimension(600, 270));
-		chartLibPanel.setBackground(new Color(240, 248, 255));
-		add(chartLibPanel, "cell 0 1 4 1,growx");
+
+	}
+
+	public void updateChart() {
 		
+		panel.removeAll();
+		
+		JChartLibDataSet chartLibDataSet = createDataset();
+		JChartLibBaseChart baseChart = createChart(chartLibDataSet);
+		chartLibPanel = new JChartLibPanel(baseChart);
+		panel.add(chartLibPanel, "cell 0 0, grow");
+		
+		panel.validate();
+		panel.repaint();
 	}
 
 	public void setStation(Station station, StationData data) {
 		this.data = data;
-		
+
 		wblblMildura.setText(station.getName());
 		wblblVictoria.setText(station.getState().getName());
+
+		updateChart();
 	}
-	
 
 }
