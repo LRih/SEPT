@@ -32,6 +32,7 @@ public class MainPanel extends JPanel {
 	private JPanel panel_1;
 	StationDetail stationDetail;
 	StationChart stationChart;
+	StationHistory stationHistory;
 	Station station;
 	StationData stationData;
 
@@ -84,7 +85,8 @@ public class MainPanel extends JPanel {
 			StationCell cell = null;
 			Station selected = null;
 			try {
-				// TODO if DataManager.loadStates() fails, just best to display error message and close the app
+				// TODO if DataManager.loadStates() fails, just best to display
+				// error message and close the app
 				States states = DataManager.loadStates();
 				selected = states.get(AppState.getInstance().state).getStation(AppState.getInstance().station);
 				System.out.println("selected: " + selected.getName());
@@ -141,10 +143,17 @@ public class MainPanel extends JPanel {
 				stationChart.setStation(station, stationData);
 			panel_1.add(stationChart, "cell 0 0, grow");
 			break;
-
+		// VIEW_HISTORY
+		case 2:
+			stationHistory = new StationHistory(this);
+			if (stationData != null)
+				stationHistory.setStation(station, stationData);
+			panel_1.add(stationHistory, "cell 0 0, grow");
+			break;
 		}
 		panel_1.validate();
 		panel_1.repaint();
+
 	}
 
 	public void setStation(Station station, StationData data) {
@@ -153,9 +162,12 @@ public class MainPanel extends JPanel {
 		if (AppState.getInstance().v1 == 0) {
 			stationDetail.setStation(station, data);
 			showState(0);
-		} else {
+		} else if (AppState.getInstance().v1 == 1) {
 			stationChart.setStation(station, stationData);
 			showState(1);
+		} else if (AppState.getInstance().v1 == 2) {
+			stationHistory.setStation(station, stationData);
+			showState(2);
 		}
 	}
 

@@ -36,6 +36,7 @@ public class StationDetail extends JPanel {
 	private WebLabel wblblDewPoint;
 	private WebLabel wblblLastUpdate;
 	private DateTimeFormatter dtfOut;
+	private WebButton wbtnViewWeatherHistory;
 
 	/**
 	 * Create the panel.
@@ -112,6 +113,20 @@ public class StationDetail extends JPanel {
 		add(wblblDewPoint, "cell 1 6");
 
 		 dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+		
+		wbtnViewWeatherHistory = new WebButton();
+		wbtnViewWeatherHistory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				m.showState(2);
+			}
+		});
+		wbtnViewWeatherHistory.setText("View Weather History");
+		wbtnViewWeatherHistory.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		wbtnViewWeatherHistory.setDefaultButtonShadeColor(new Color(240, 255, 255));
+		wbtnViewWeatherHistory.setBottomSelectedBgColor(new Color(224, 255, 255));
+		wbtnViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
+		wbtnViewWeatherHistory.setDrawShade(false);
+		add(wbtnViewWeatherHistory, "cell 2 6");
 
 		wblblLastUpdate = new WebLabel();
 		wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
