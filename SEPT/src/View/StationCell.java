@@ -51,7 +51,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 			// hover effect
 			public final void mouseEntered(MouseEvent e) {
-				setBackground(Color.GREEN);
+				setBackground(new Color(240, 248, 255));
 			}
 			public final void mouseExited(MouseEvent e) {
 				setBackground(new Color(248, 248, 255));

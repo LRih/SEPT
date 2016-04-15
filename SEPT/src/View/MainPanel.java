@@ -42,7 +42,7 @@ public class MainPanel extends JPanel {
 		setBackground(new Color(255, 255, 255));
 		main = m;
 
-		setLayout(new MigLayout("ins 0 0 0 0", "[grow][20%]", "[][grow][][160]"));
+		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][][160]"));
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
