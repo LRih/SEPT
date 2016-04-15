@@ -45,6 +45,8 @@ public class StationDetail extends JPanel {
 	private DateTimeFormatter dtfOut;
 	private WebButton wbtnViewWeatherHistory;
 	private WebLabel wblblRemoveFromFavourites;
+	private JPanel panel;
+	private JPanel panel_1;
 	
 	/**
 	 * Create the panel.
@@ -52,55 +54,59 @@ public class StationDetail extends JPanel {
 	public StationDetail(final MainPanel m) {
 		setBackground(new Color(176, 196, 222));
 		
-		setLayout(new MigLayout("", "[30%][grow][30%]", "[][][][][][][][grow]"));
+		setLayout(new MigLayout("", "[30%,grow][grow][30%]", "[grow][][][][][][][][grow][]"));
+		
+		panel = new JPanel();
+		panel.setVisible(false);
+		add(panel, "cell 0 0,grow");
 		
 		wblblMildura = new WebLabel();
 		wblblMildura.setText("-");
 		wblblMildura.setForeground(new Color(255, 69, 0));
 		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 
-		add(wblblMildura, "cell 0 0 2 1");
+		add(wblblMildura, "cell 0 1 2 1");
 
 		wblblHumid = new WebLabel();
 		wblblHumid.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblHumid.setText("-");
-		add(wblblHumid, "cell 2 0,aligny bottom");
+		add(wblblHumid, "cell 2 1,aligny bottom");
 
 		wblblVictoria = new WebLabel();
 		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
 		wblblVictoria.setText("-");
-		add(wblblVictoria, "cell 0 1 2 1");
+		add(wblblVictoria, "cell 0 2 2 1");
 
 		wblblWindSse = new WebLabel();
 		wblblWindSse.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblWindSse.setText("-");
-		add(wblblWindSse, "cell 2 1");
+		add(wblblWindSse, "cell 2 2");
 
 		wblblRainSinceam = new WebLabel();
 		wblblRainSinceam.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblRainSinceam.setText("Rain since 9am: -");
-		add(wblblRainSinceam, "cell 2 2");
+		add(wblblRainSinceam, "cell 2 3");
 
 		wblblc = new WebLabel();
 		wblblc.setForeground(new Color(255, 255, 255));
 		wblblc.setFont(new Font("Futura", Font.PLAIN, 50));
 		wblblc.setText("-°C");
-		add(wblblc, "cell 1 2 1 3,alignx left,aligny top");
+		add(wblblc, "cell 1 3 1 3,alignx left,aligny top");
 
 		wblblPressQmh = new WebLabel();
 		wblblPressQmh.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblPressQmh.setText("Press QNH hPa: -");
-		add(wblblPressQmh, "cell 2 3");
+		add(wblblPressQmh, "cell 2 4");
 
 		wblblPress = new WebLabel();
 		wblblPress.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblPress.setText("Press MSL hPa: -");
-		add(wblblPress, "cell 2 4,aligny top");
+		add(wblblPress, "cell 2 5,aligny top");
 
 		wblblAirTemp = new WebLabel();
 		wblblAirTemp.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblAirTemp.setText("App temp: -°C");
-		add(wblblAirTemp, "cell 1 5,aligny bottom");
+		add(wblblAirTemp, "cell 1 6,aligny bottom");
 
 		WebButton wbtnViewChart = new WebButton();
 		wbtnViewChart.addActionListener(new ActionListener() {
@@ -114,12 +120,12 @@ public class StationDetail extends JPanel {
 		wbtnViewChart.setBottomBgColor(new Color(240, 248, 255));
 		wbtnViewChart.setDrawShade(false);
 		wbtnViewChart.setText("View Chart");
-		add(wbtnViewChart, "cell 2 5,alignx left,aligny bottom");
+		add(wbtnViewChart, "cell 2 6,alignx left,aligny bottom");
 
 		wblblDewPoint = new WebLabel();
 		wblblDewPoint.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblDewPoint.setText("Dew Point: -°C");
-		add(wblblDewPoint, "cell 1 6");
+		add(wblblDewPoint, "cell 1 7");
 
 		 dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 		
@@ -135,12 +141,16 @@ public class StationDetail extends JPanel {
 		wbtnViewWeatherHistory.setBottomSelectedBgColor(new Color(224, 255, 255));
 		wbtnViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
 		wbtnViewWeatherHistory.setDrawShade(false);
-		add(wbtnViewWeatherHistory, "cell 2 6");
+		add(wbtnViewWeatherHistory, "cell 2 7");
+		
+		panel_1 = new JPanel();
+		panel_1.setVisible(false);
+		add(panel_1, "cell 0 8,grow");
 
 		wblblLastUpdate = new WebLabel();
 		wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
 		wblblLastUpdate.setText("Last update: -");
-		add(wblblLastUpdate, "cell 0 7 2 1,aligny bottom");
+		add(wblblLastUpdate, "cell 0 9 2 1,aligny bottom");
 		
 
 		wblblRemoveFromFavourites = new WebLabel();
@@ -164,7 +174,7 @@ public class StationDetail extends JPanel {
 		wblblRemoveFromFavourites.setFont(new Font("Century Gothic", Font.ITALIC, 13));
 		wblblRemoveFromFavourites.setText("Remove from Favourites");
 		
-		add(wblblRemoveFromFavourites, "cell 2 7,alignx right,aligny bottom");
+		add(wblblRemoveFromFavourites, "cell 2 9,alignx right,aligny bottom");
 	}
 	
 	public void setStation(Station station, StationData data) {
