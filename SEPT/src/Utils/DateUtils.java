@@ -1,6 +1,7 @@
 package Utils;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -14,6 +15,18 @@ public final class DateUtils
     {
         // disallow instantiating
         throw new AssertionError();
+    }
+
+    /**
+     * Checks if two dates are different days.
+     *
+     * @return different day if true
+     * @param dt1 first date to check
+     * @param dt2 second date to check
+     */
+    public static boolean isDifferentDay(LocalDateTime dt1, LocalDateTime dt2)
+    {
+        return dt1.getYear() != dt2.getYear() || dt1.getMonthOfYear() != dt2.getMonthOfYear() || dt1.getDayOfMonth() != dt2.getDayOfMonth();
     }
 
     // TODO document

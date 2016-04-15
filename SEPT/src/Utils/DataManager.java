@@ -194,7 +194,7 @@ public final class DataManager
     {
         return FileUtils.loadText(getCacheFilePath(station));
     }
-    private static void trySaveCache(Station station, String json)
+    private synchronized static void trySaveCache(Station station, String json)
     {
         try
         {

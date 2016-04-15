@@ -65,75 +65,57 @@ public final class Reading {
 	public final LocalDateTime getLocalDateTime() {
 		return localDateTime;
 	}
-
 	public final LocalDateTime getUTCDateTime() {
 		return utcDateTime;
 	}
-
 	public final Double getLatitude() {
 		return latitude;
 	}
-
 	public final Double getLongitude() {
 		return longitude;
 	}
-
 	public final Double getAirTemp() {
 		return airTemp;
 	}
-
 	public final Double getApparentTemp() {
 		return apparentTemp;
 	}
-
 	public final Double getDewPt() {
 		return dewPt;
 	}
-
 	public final Integer getRelativeHumidity() {
 		return relativeHumidity;
 	}
-
 	public final Double getDeltaTemp() {
 		return deltaTemp;
 	}
-
 	public final String getCloud() {
 		return cloud;
 	}
-
 	public final String getCloudType() {
 		return cloudType;
 	}
-
 	public final String getWindDir() {
 		return windDir;
 	}
-
 	public final Integer getWindSpdKmH() {
 		return windSpdKmH;
 	}
-
 	public final Integer getWindSpdKts() {
 		return windSpdKts;
 	}
-
 	public final Integer getWindGustKmH() {
 		return windGustKmH;
 	}
-
 	public final Integer getWindGustKts() {
 		return windGustKts;
 	}
-
 	public final Double getPressureQNH() {
 		return pressureQNH;
 	}
-
 	public final Double getPressureMSL() {
 		return pressureMSL;
 	}
-
 	public final String getRainTrace() {
 		return rainTrace;
 	}

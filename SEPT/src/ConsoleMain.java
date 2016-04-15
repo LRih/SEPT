@@ -22,8 +22,8 @@ public final class ConsoleMain
             StationData data = DataManager.getStationData(station);
             if (data != null)
             {
-                for (Reading reading : data.getReadings())
-                    System.out.println(reading.getLocalDateTime() + " : " + reading.toString());
+                for (Reading reading : data.getMinReadings())
+                    System.out.println(reading.getLocalDateTime() + " : " + reading.getAirTemp());
             }
             System.out.println();
 
