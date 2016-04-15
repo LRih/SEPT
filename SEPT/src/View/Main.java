@@ -109,18 +109,15 @@ public final class Main {
 		AppStateManager.tryLoad();
 
 		try {
-			System.out.println(AppState.getInstance().v4);
 			String[] arr = AppState.getInstance().v4.split(",");
-			System.out.println(arr.length);
 			if (arr.length != 4)
-				Integer.parseInt("GO_TO_CATCH_PLS");
+				throw new Exception("GO_TO_CATCH_PLS");
 
 			int x = (int) Double.parseDouble(arr[0]);
 			int y = (int) Double.parseDouble(arr[1]);
 			int width = (int) Double.parseDouble(arr[2]);
 			int height = (int) Double.parseDouble(arr[3]);
 			frmSept.setBounds(x, y, width, height);
-			System.out.println("here: " + x + "," + y + "," + width + "," + height);
 		} catch (Exception e) {
 			frmSept.setBounds(100, 100, 1300, 600);
 		}
