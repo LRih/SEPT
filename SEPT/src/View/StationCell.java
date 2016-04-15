@@ -136,6 +136,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 	@Override
 	public void onFail() {
+		main.loadFail();
 		main.main.setMainBg(false);
 		main.showState(0);
 	}

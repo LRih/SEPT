@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.scroll.WebScrollPane;
+import com.alee.managers.notification.NotificationIcon;
+import com.alee.managers.notification.NotificationManager;
+import com.alee.managers.notification.WebNotification;
 
 import Model.AppState;
 import Model.Favorite;
@@ -16,6 +19,9 @@ import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.FavoritesManager;
 
+import com.alee.extended.panel.GroupPanel;
+import com.alee.extended.time.ClockType;
+import com.alee.extended.time.WebClock;
 import com.alee.laf.button.WebButton;
 
 import java.awt.*;
@@ -37,6 +43,7 @@ public class MainPanel extends JPanel {
 	Station station;
 	StationData stationData;
 	Station selected;
+	private Boolean shown;
 
 	/**
 	 * Create the panel.
@@ -101,6 +108,7 @@ public class MainPanel extends JPanel {
 				}
 
 			Boolean flag;
+			shown = false;
 			for (Favorite fav : favs) {
 				flag = false;
 
@@ -175,6 +183,24 @@ public class MainPanel extends JPanel {
 		} else if (AppState.getInstance().v1 == 2) {
 			stationHistory.setStation(station, data);
 			showState(2);
+		}
+	}
+
+	public void loadFail() {
+		if (!shown) {
+			shown = true;
+			final WebNotification notificationPopup = new WebNotification();
+			notificationPopup.setIcon(NotificationIcon.clock);
+			notificationPopup.setDisplayTime(5000);
+
+			final WebClock clock = new WebClock();
+			clock.setClockType(ClockType.timer);
+			clock.setTimeLeft(6000);
+			clock.setTimePattern("'No Internet Connection (' ss ')'");
+			notificationPopup.setContent(new GroupPanel(clock));
+
+			NotificationManager.showNotification(notificationPopup);
+			clock.start();
 		}
 	}
 
