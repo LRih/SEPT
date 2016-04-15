@@ -195,6 +195,8 @@ public class StationDetail extends JPanel {
 
 	public void setStation(Station station, StationData data) {
 
+		// TODO handle the case where readings list has zero entries
+
 		// change colours by Temperature
 		if (data.getReadings().get(0).getAirTemp() < AppDefine.TEMP_FREEZING) {
 			setBackground(new Color(176, 196, 222));

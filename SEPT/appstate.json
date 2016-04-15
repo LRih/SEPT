@@ -1,8 +1,8 @@
 {
-    "v1": 0,
     "v5": "",
-    "v4": "",
-    "station": "Browse Island",
+    "station": "",
+    "shownWindow": 3,
     "stateIndex": 2,
-    "state": "Western Australia"
+    "state": "",
+    "windowRect": "716.0,219.0,751.0,603.0"
 }

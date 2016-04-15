@@ -120,9 +120,7 @@ public final class Reading {
 		return rainTrace;
 	}
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
+	public final String toString() {
 		return this.latitude + "," + this.longitude + "-" + this.cloudType + "-" + this.windDir + "-"
 				+ this.windSpdKmH+"-"+this.rainTrace;
 	}

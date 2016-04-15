@@ -15,11 +15,11 @@ public final class AppStateManager
     private static String FILE_PATH = "appstate.json";
     private static int JSON_INDENT = 4;
 
+    private static String KEY_WINDOW_RECT = "windowRect";
+    private static String KEY_SHOWN_WINDOW = "shownWindow";
     private static String KEY_STATE_INDEX = "stateIndex";
     private static String KEY_STATE = "state";
     private static String KEY_STATION = "station";
-    private static String KEY_V1 = "v1";
-    private static String KEY_V4 = "v4";
     private static String KEY_V5 = "v5";
 
     /**
@@ -56,11 +56,11 @@ public final class AppStateManager
         {
             JSONObject json = new JSONObject(data);
 
+            state.windowRect = json.getString(KEY_WINDOW_RECT);
+            state.shownWindow = json.getInt(KEY_SHOWN_WINDOW);
             state.stateIndex = json.getInt(KEY_STATE_INDEX);
             state.state = json.getString(KEY_STATE);
             state.station = json.getString(KEY_STATION);
-            state.v1 = json.getInt(KEY_V1);
-            state.v4 = json.getString(KEY_V4);
             state.v5 = json.getString(KEY_V5);
         }
         catch (JSONException e)
@@ -107,11 +107,11 @@ public final class AppStateManager
 
         try
         {
+            json.put(KEY_WINDOW_RECT, appState.windowRect);
+            json.put(KEY_SHOWN_WINDOW, appState.shownWindow);
             json.put(KEY_STATE_INDEX, appState.stateIndex);
             json.put(KEY_STATE, appState.state);
             json.put(KEY_STATION, appState.station);
-            json.put(KEY_V1, appState.v1);
-            json.put(KEY_V4, appState.v4);
             json.put(KEY_V5, appState.v5);
         }
         catch (JSONException e)

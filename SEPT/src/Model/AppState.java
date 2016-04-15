@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.*;
+
 /**
  * Stores various attributes of app state. Singleton class.
  */
@@ -7,11 +9,11 @@ public final class AppState
 {
     private static AppState instance;
 
+    public String windowRect;
+    public int shownWindow;
     public int stateIndex;
     public String state;
     public String station;
-    public int v1;
-    public String v4;
     public String v5;
 
     private AppState()
@@ -39,11 +41,43 @@ public final class AppState
      */
     public final void resetDefault()
     {
+        shownWindow = 0;
+        windowRect = "100,100,1300,600";
         stateIndex = -1;
         state = "";
         station = "";
-        v1 = 0;
-        v4 = "";
         v5 = "";
+    }
+
+
+    /**
+     * Converts string encoded rectangle to object.
+     *
+     * @return the rectangle object
+     */
+    public final Rectangle getWindowRect()
+    {
+        try
+        {
+            String[] arr = windowRect.split(",");
+
+            if (arr.length != 4)
+                throw new Exception("Invalid AppState Format.");
+
+            int x = (int)Double.parseDouble(arr[0]);
+            int y = (int)Double.parseDouble(arr[1]);
+            int width = (int)Double.parseDouble(arr[2]);
+            int height = (int)Double.parseDouble(arr[3]);
+
+            return new Rectangle(x, y, width, height);
+        }
+        catch (Exception e)
+        {
+            return new Rectangle(100, 100, 1300, 600);
+        }
+    }
+    public final void setWindowRect(Point pos, Dimension size)
+    {
+        windowRect = pos.getX() + "," + pos.getY() + "," + size.getWidth() + "," + size.getHeight();
     }
 }

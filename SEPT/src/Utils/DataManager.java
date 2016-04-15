@@ -63,16 +63,14 @@ public final class DataManager {
 	public static StationData getStationData(Station station) {
 		// try to load weather data from web
 		try {
-			String json = NetUtils.get(station.getUrl());
-			trySaveCache(station, json); // cache data locally
-			return createStationData(json);
+			return getNetStationData(station);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		// try to load weather data from cached file
 		try {
-			return createStationData(loadCache(station));
+			return getCachedStationData(station);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

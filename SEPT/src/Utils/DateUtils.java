@@ -29,7 +29,12 @@ public final class DateUtils
         return dt1.getYear() != dt2.getYear() || dt1.getMonthOfYear() != dt2.getMonthOfYear() || dt1.getDayOfMonth() != dt2.getDayOfMonth();
     }
 
-    // TODO document
+    /**
+     * Converts date to ago string
+     *
+     * @return the string
+     * @param time the date to convert
+     */
     public static String toTimeAgo(DateTime time)
     {
         DateTime now = new DateTime();

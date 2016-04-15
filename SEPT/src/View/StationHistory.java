@@ -45,7 +45,7 @@ public class StationHistory extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public StationHistory(MainPanel m) {
+	public StationHistory(final MainPanel m) {
 
 		dtfOut = DateTimeFormat.forPattern("HH:mm dd/MM");
 
@@ -127,11 +127,11 @@ public class StationHistory extends JPanel {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		private String[] columnNames = { "Time EST", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
-				"Wind Spd", "Wind Gust", "Gust Spd", "Gust kts", "Press QNH", "Press MSL", "Rain since 9am" };
+		private String[] columnNames = { "Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
+				"Wind Spd", "Wind Gust Kts", "Gust Spd", "Gust kts", "Press QNH", "Press MSL", "Rain since 9am" };
 
 		public final Object[] longValues = { "01:00 16/04", "14.6", "App Tmp", "Dew Point", "Real Hum", "Delta-T",
-				"Wind Dir", "Wind Spd", "Wind Gust", "Gust Spd", "Gust kts", "Press QNH", "Press MSL",
+				"Wind Dir", "Wind Spd", "Wind Gust Kts", "Gust Spd", "Gust kts", "Press QNH", "Press MSL",
 				"Rain since 9am" };
 
 		@Override

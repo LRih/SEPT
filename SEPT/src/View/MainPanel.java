@@ -20,14 +20,10 @@ import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.FavoritesManager;
 
-import com.alee.extended.panel.GroupPanel;
-import com.alee.extended.time.ClockType;
-import com.alee.extended.time.WebClock;
 import com.alee.laf.button.WebButton;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class MainPanel extends JPanel {
@@ -149,7 +145,7 @@ public class MainPanel extends JPanel {
 		pnMainContent.removeAll();
 		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
-		AppState.getInstance().v1 = index;
+		AppState.getInstance().shownWindow = index;
 		AppStateManager.trySave();
 
 		switch (index) {
@@ -184,13 +180,13 @@ public class MainPanel extends JPanel {
 	public void setStation(Station station, StationData data) {
 		this.station = station;
 		this.stationData = data;
-		if (AppState.getInstance().v1 == AppDefine.STATION_DETAIL) {
+		if (AppState.getInstance().shownWindow == AppDefine.STATION_DETAIL) {
 			stationDetail.setStation(station, data);
 			showState(AppDefine.STATION_DETAIL);
-		} else if (AppState.getInstance().v1 == AppDefine.VIEW_CHART) {
+		} else if (AppState.getInstance().shownWindow == AppDefine.VIEW_CHART) {
 			stationChart.setStation(station, data);
 			showState(AppDefine.VIEW_CHART);
-		} else if (AppState.getInstance().v1 == AppDefine.VIEW_HISTORY) {
+		} else if (AppState.getInstance().shownWindow == AppDefine.VIEW_HISTORY) {
 			stationHistory.setStation(station, data);
 			showState(AppDefine.VIEW_HISTORY);
 		}

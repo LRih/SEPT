@@ -89,20 +89,7 @@ public final class Main {
 		frmSept.setTitle("Bom Weather");
 
 		AppStateManager.tryLoad();
-
-		try {
-			String[] arr = AppState.getInstance().v4.split(",");
-			if (arr.length != 4)
-				throw new Exception("Invalid AppState Format.");
-
-			int x = (int) Double.parseDouble(arr[0]);
-			int y = (int) Double.parseDouble(arr[1]);
-			int width = (int) Double.parseDouble(arr[2]);
-			int height = (int) Double.parseDouble(arr[3]);
-			frmSept.setBounds(x, y, width, height);
-		} catch (Exception e) {
-			frmSept.setBounds(100, 100, 1300, 600);
-		}
+        frmSept.setBounds(AppState.getInstance().getWindowRect());
 
 		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -120,14 +107,8 @@ public final class Main {
 		frmSept.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-
 				// store Current Window Location and Size
-				double x = frmSept.getLocationOnScreen().getX();
-				double y = frmSept.getLocationOnScreen().getY();
-				double width = frmSept.getSize().getWidth();
-				double height = frmSept.getSize().getHeight();
-
-				AppState.getInstance().v4 = x + "," + y + "," + width + "," + height;
+				AppState.getInstance().setWindowRect(frmSept.getLocationOnScreen(), frmSept.getSize());
 				AppStateManager.trySave();
 
 			}
@@ -187,7 +168,7 @@ public final class Main {
 			MainPanel mainPanel = new MainPanel(this);
 			pnMain.add(mainPanel, "cell 0 0 1 1,grow");
 			wbtnRefreshData.setVisible(true);
-			mainPanel.showState(AppState.getInstance().v1);
+			mainPanel.showState(AppState.getInstance().shownWindow);
 
 			break;
 
