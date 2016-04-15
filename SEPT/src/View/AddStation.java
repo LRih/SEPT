@@ -41,7 +41,7 @@ public class AddStation extends JPanel {
 		setBackground(Color.WHITE);
 		main = m;
 
-		setLayout(new MigLayout("", "[grow][60%][grow]", "[][grow]"));
+		setLayout(new MigLayout("", "[20%][grow]", "[][grow]"));
 
 		WebButton wbtnBack = new WebButton();
 		wbtnBack.setFont(new Font("Bender", Font.PLAIN, 13));
@@ -53,29 +53,29 @@ public class AddStation extends JPanel {
 		wbtnBack.setText("< Back");
 		add(wbtnBack, "cell 0 0");
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		add(panel, "cell 0 1 2 1,grow");
-		panel.setLayout(new MigLayout("", "[grow][grow][grow]", "[grow][grow][grow]"));
+		JPanel pnContent = new JPanel();
+		pnContent.setBackground(Color.WHITE);
+		add(pnContent, "cell 0 1 2 1,grow");
+		pnContent.setLayout(new MigLayout("", "[20%][grow][20%]", "[grow][grow][grow]"));
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
-		panel.add(panel_2, "cell 0 1,grow");
+		pnContent.add(panel_2, "cell 0 1,grow");
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		panel.add(panel_1, "cell 1 1,grow");
-		panel_1.setLayout(new MigLayout("", "[30%][70%,grow]", "[][][][]"));
+		JPanel pnAddStation = new JPanel();
+		pnAddStation.setBackground(Color.WHITE);
+		pnContent.add(pnAddStation, "cell 1 1,grow");
+		pnAddStation.setLayout(new MigLayout("", "[grow][70%,grow]", "[][][][]"));
 
 		WebLabel wblblAddStation = new WebLabel();
-		panel_1.add(wblblAddStation, "cell 1 0");
+		pnAddStation.add(wblblAddStation, "cell 1 0");
 		wblblAddStation.setForeground(new Color(0, 0, 0));
 		wblblAddStation.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		wblblAddStation.setText("Find your station");
 
 		WebLabel wblblSelectState = new WebLabel();
 		wblblSelectState.setText("Select State");
-		panel_1.add(wblblSelectState, "cell 0 1,alignx trailing");
+		pnAddStation.add(wblblSelectState, "cell 0 1,alignx trailing");
 
 		wcbStates = new WebComboBox();
 		wcbStates.setFont(new Font("Century Gothic", Font.PLAIN, 13));
@@ -85,16 +85,16 @@ public class AddStation extends JPanel {
 				loadStationsByState(wcbStates.getSelectedItem().toString());
 			}
 		});
-		panel_1.add(wcbStates, "cell 1 1,growx");
+		pnAddStation.add(wcbStates, "cell 1 1,growx");
 
 		WebLabel wblblSelectStation = new WebLabel();
 		wblblSelectStation.setText("Select Station");
-		panel_1.add(wblblSelectStation, "cell 0 2,alignx trailing");
+		pnAddStation.add(wblblSelectStation, "cell 0 2,alignx trailing");
 
 		wcbStations = new WebComboBox();
 		wcbStations.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wcbStations.setDrawFocus(false);
-		panel_1.add(wcbStations, "cell 1 2,growx");
+		pnAddStation.add(wcbStations, "cell 1 2,growx");
 
 		WebButton wbtnAddToMy = new WebButton();
 		wbtnAddToMy.setFont(new Font("Bender", Font.PLAIN, 13));
@@ -125,11 +125,11 @@ public class AddStation extends JPanel {
 			}
 		});
 		wbtnAddToMy.setText("Add to My Favorites");
-		panel_1.add(wbtnAddToMy, "cell 1 3");
+		pnAddStation.add(wbtnAddToMy, "cell 1 3");
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
-		panel.add(panel_3, "cell 2 1,grow");
+		pnContent.add(panel_3, "cell 2 1,grow");
 
 		loadData();
 	}

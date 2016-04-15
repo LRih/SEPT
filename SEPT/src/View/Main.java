@@ -60,7 +60,15 @@ public final class Main {
 		frmSept.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+
+				double x = frmSept.getLocationOnScreen().getX();
+				double y = frmSept.getLocationOnScreen().getY();
+				double width = frmSept.getSize().getWidth();
+				double height = frmSept.getSize().getHeight();
+
+				AppState.getInstance().v4 = x + "," + y + "," + width + "," + height;
 				AppStateManager.trySave();
+
 			}
 		});
 		frmSept.getContentPane().setBackground(Color.WHITE);
@@ -97,10 +105,28 @@ public final class Main {
 		frmSept.getContentPane().add(pnMain, "cell 0 1,grow");
 		frmSept.setBackground(Color.WHITE);
 		frmSept.setTitle("Bom Weather");
-		frmSept.setBounds(100, 100, 1300, 600);
-		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		AppStateManager.tryLoad();
+
+		try {
+			System.out.println(AppState.getInstance().v4);
+			String[] arr = AppState.getInstance().v4.split(",");
+			System.out.println(arr.length);
+			if (arr.length != 4)
+				Integer.parseInt("GO_TO_CATCH_PLS");
+
+			int x = (int) Double.parseDouble(arr[0]);
+			int y = (int) Double.parseDouble(arr[1]);
+			int width = (int) Double.parseDouble(arr[2]);
+			int height = (int) Double.parseDouble(arr[3]);
+			frmSept.setBounds(x, y, width, height);
+			System.out.println("here: " + x + "," + y + "," + width + "," + height);
+		} catch (Exception e) {
+			frmSept.setBounds(100, 100, 1300, 600);
+		}
+
+		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		if (AppState.getInstance().stateIndex > -1) {
 			showState(AppState.getInstance().stateIndex);
 		} else
@@ -128,7 +154,7 @@ public final class Main {
 
 		AppState.getInstance().stateIndex = index;
 		AppStateManager.trySave();
-		
+
 		switch (index) {
 		// FIRSTSCREEN
 		case 0:
@@ -155,7 +181,7 @@ public final class Main {
 		pnMain.validate();
 		pnMain.repaint();
 	}
-	
+
 	public void setMainBg(Boolean hasInternetConnection) {
 		if (hasInternetConnection) {
 			pnMainBar.setBackground(new Color(255, 140, 0));

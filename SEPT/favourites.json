@@ -1,22 +1,18 @@
 [
     {
-        "station": "Murwillumbah",
+        "station": "Casey",
+        "state": "Antartica"
+    },
+    {
+        "station": "Sydney Airport",
         "state": "New South Wales"
     },
     {
-        "station": "Adelaide",
-        "state": "South Australia"
+        "station": "Centre Island",
+        "state": "Northern Territory"
     },
     {
-        "station": "Mildura",
+        "station": "Ballarat",
         "state": "Victoria"
-    },
-    {
-        "station": "Bidyadanga",
-        "state": "Western Australia"
-    },
-    {
-        "station": "Browse Island",
-        "state": "Western Australia"
     }
 ]
