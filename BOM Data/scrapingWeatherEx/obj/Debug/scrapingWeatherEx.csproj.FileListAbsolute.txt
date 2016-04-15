@@ -1,0 +1,9 @@
+C:\Users\Richard\Documents\Documents\Programming\C#\scrapingWeatherEx\bin\Debug\scrapingWeatherEx.exe.config
+C:\Users\Richard\Documents\Documents\School\2016 S1 Software Engineering Process and Tools\scrapingWeatherEx\bin\Debug\scrapingWeatherEx.exe.config
+C:\Users\Richard\Documents\Documents\School\2016 S1 Software Engineering Process and Tools\scrapingWeatherEx\bin\Debug\scrapingWeatherEx.exe
+C:\Users\Richard\Documents\Documents\School\2016 S1 Software Engineering Process and Tools\scrapingWeatherEx\bin\Debug\scrapingWeatherEx.pdb
+C:\Users\Richard\Documents\Documents\School\2016 S1 Software Engineering Process and Tools\scrapingWeatherEx\obj\Debug\scrapingWeatherEx.csprojResolveAssemblyReference.cache
+C:\Users\Richard\Documents\Documents\School\2016 S1 Software Engineering Process and Tools\scrapingWeatherEx\obj\Debug\scrapingWeatherEx.exe
+C:\Users\Richard\Documents\Documents\School\2016 S1 Software Engineering Process and Tools\scrapingWeatherEx\obj\Debug\scrapingWeatherEx.pdb
+C:\Users\Richard\Documents\Documents\School\2016 S1 Software Engineering Process and Tools\scrapingWeatherEx\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Richard\Documents\Documents\School\2016 S1 Software Engineering Process and Tools\scrapingWeatherEx\bin\Debug\Newtonsoft.Json.xml
