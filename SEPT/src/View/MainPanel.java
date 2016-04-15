@@ -76,7 +76,7 @@ public class MainPanel extends JPanel {
 		WebScrollPane webScrollPane = new WebScrollPane(panel, false, true);
 		webScrollPane.setDrawFocus(false);
 		webScrollPane.setPreferredSize(new Dimension(0, 0));
-		add(webScrollPane, "cell 0 3 2 1,grow");
+		add(webScrollPane, "cell 0 3 2 1,grow, hmin 160");
 
 		try {
 
