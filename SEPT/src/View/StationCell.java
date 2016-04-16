@@ -104,7 +104,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			} catch (Exception e) {
 			}
 			
-			webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
+			webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
 		} else
 			webLabel_2.setText("-");
 		
@@ -130,7 +130,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 		wblblMildura.setText(station.getName());
 		wblblVictoria.setText(station.getState().getName());
-		webLabel_2.setText(data.getReadings().get(0).getAirTemp().toString());
+		webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
 		webLabel_2.setForeground(new Color(34, 139, 34));
 
 	}

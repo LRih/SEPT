@@ -1,8 +1,8 @@
 {
     "v5": "",
-    "station": "Casey",
-    "shownWindow": 3,
+    "station": "Ballarat",
+    "shownWindow": 5,
     "stateIndex": 2,
-    "state": "Antarctica",
-    "windowRect": "522.0,138.0,874.0,737.0"
+    "state": "Victoria",
+    "windowRect": "100.0,100.0,567.0,600.0"
 }

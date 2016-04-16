@@ -142,7 +142,7 @@ public class StationHistory extends JPanel {
 			if (data == null)
 				return 0;
 
-			return data.getReadings().size();
+			return data.getLatestReadings().size();
 		}
 
 		@Override
@@ -156,7 +156,7 @@ public class StationHistory extends JPanel {
 			if (data == null)
 				return "-";
 
-			LatestReading reading = data.getReadings().get(row);
+			LatestReading reading = data.getLatestReadings().get(row);
 			switch (col) {
 			case 0:
 				return reading.getLocalDateTime() != null ? dtfOut.print(reading.getLocalDateTime()) : "-";

@@ -17,6 +17,10 @@ import java.util.List;
 public final class DataManager {
 	private static String STATIONS_FILE_PATH = "stations.json";
     private static int JSON_INDENT = 4;
+
+	/**
+	 * Number of past months to fetch for historical readings.
+	 */
     private static int MONTHS_FETCH_COUNT = 3;
 
 	private DataManager() {
@@ -92,14 +96,32 @@ public final class DataManager {
 	 */
 	public static StationData getNetStationData(Station station) throws IOException {
         String jsonMain = NetUtils.get(station.getUrl());
-        trySaveMainCache(station, jsonMain); // cache data locally
+        tryCacheLatestData(station, jsonMain); // cache data locally
 
-        String jsonHistorical = getNetHistoricalReadings(station);
-        trySaveHistoricalCache(station, jsonHistorical); // cache data locally
+        String jsonHistorical = getHistoricalReadings(station);
+        tryCacheHistoricalData(station, jsonHistorical); // cache data locally
 
         return createStationData(jsonMain, jsonHistorical);
 	}
-    private static String getNetHistoricalReadings(Station station)
+
+    /**
+     * Loads the cached version of station data locally. If it fails
+     * {@code null} is returned.
+     *
+     * @return loaded station data
+     * @param station
+     *            the station for which to load data
+     * @throws IOException
+     */
+    public static StationData getCachedStationData(Station station) throws IOException {
+        return createStationData(loadLatestCacheData(station), loadHistoricalCacheData(station));
+    }
+
+
+    /**
+     * Obtain historical readings from BOM.
+     */
+    private static String getHistoricalReadings(Station station)
     {
         JSONArray json = new JSONArray();
         LocalDate date = LocalDate.now().minusMonths(MONTHS_FETCH_COUNT);
@@ -129,7 +151,7 @@ public final class DataManager {
     }
 
     /**
-     * Create json format from historical csv data
+     * Create json format from historical csv data.
      */
     private static JSONArray createJSON(String historicalCSV)
     {
@@ -172,18 +194,6 @@ public final class DataManager {
         return json;
     }
 
-	/**
-	 * Loads the cached version of station data locally. If it fails
-	 * {@code null} is returned.
-	 *
-	 * @return loaded station data
-	 * @param station
-	 *            the station for which to load data
-	 * @throws IOException
-	 */
-	public static StationData getCachedStationData(Station station) throws IOException {
-		return createStationData(loadMainCache(station), loadHistoricalCache(station));
-	}
 
 	/**
 	 * Takes the chosen json file, puts into workable jsonobject and returns
@@ -201,11 +211,10 @@ public final class DataManager {
             header.getString("ID"),
             header.getString("main_ID"),
             header.getString("time_zone"),
-            createReadings(obj.getJSONArray("data")),
+            createLatestReadings(obj.getJSONArray("data")),
             createHistoricalReadings(new JSONArray(jsonHistorical))
         );
 	}
-
 
 	/**
 	 * Takes the jsonarray and grabs every value and orders it into the
@@ -214,15 +223,15 @@ public final class DataManager {
 	 * @return readings is the array list of all ordered values
 	 * @param arr is the json array of raw values
 	 */
-	private static List<LatestReading> createReadings(JSONArray arr) {
+	private static List<LatestReading> createLatestReadings(JSONArray arr) {
 		List<LatestReading> readings = new ArrayList<>();
 
 		for (int i = 0; i < arr.length(); i++)
-			readings.add(createReading(arr.getJSONObject(i)));
+			readings.add(createLatestReading(arr.getJSONObject(i)));
 
 		return readings;
 	}
-	private static LatestReading createReading(JSONObject obj) {
+	private static LatestReading createLatestReading(JSONObject obj) {
 		return new LatestReading(obj.getString("local_date_time_full"), obj.getString("aifstime_utc"),
 				obj.isNull("lat") ? null : obj.getDouble("lat"), obj.isNull("lon") ? null : obj.getDouble("lon"),
 				obj.isNull("air_temp") ? null : obj.getDouble("air_temp"),
@@ -262,32 +271,32 @@ public final class DataManager {
     }
 
 
-	private static String loadMainCache(Station station) throws IOException {
-		return FileUtils.loadText(getCacheMainFilePath(station));
+	private static String loadLatestCacheData(Station station) throws IOException {
+		return FileUtils.loadText(getLatestCacheFilePath(station));
 	}
-    private static String loadHistoricalCache(Station station) throws IOException {
-        return FileUtils.loadText(getCacheHistoricalFilePath(station));
+    private static String loadHistoricalCacheData(Station station) throws IOException {
+        return FileUtils.loadText(getHistoricalCacheFilePath(station));
     }
 
-    private synchronized static void trySaveMainCache(Station station, String json) {
+    private synchronized static void tryCacheLatestData(Station station, String json) {
         try {
-            FileUtils.saveText(json, getCacheMainFilePath(station));
+            FileUtils.saveText(json, getLatestCacheFilePath(station));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-	private synchronized static void trySaveHistoricalCache(Station station, String json) {
+	private synchronized static void tryCacheHistoricalData(Station station, String json) {
 		try {
-			FileUtils.saveText(json, getCacheHistoricalFilePath(station));
+			FileUtils.saveText(json, getHistoricalCacheFilePath(station));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static String getCacheMainFilePath(Station station) {
+	private static String getLatestCacheFilePath(Station station) {
 		return "cache" + File.separator + station.getKey() + ".json";
 	}
-    private static String getCacheHistoricalFilePath(Station station) {
+    private static String getHistoricalCacheFilePath(Station station) {
         return "cache" + File.separator + station.getKey() + "-historical.json";
     }
 

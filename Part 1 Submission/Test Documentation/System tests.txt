@@ -1,21 +1,30 @@
+
+-------------------------------------------------------------------------------
 Test case 1
------------
-Last run: never
-Result: PASSED/FAILED
+-------------------------------------------------------------------------------
+Last run: 16 April 2016
+Result: PASSED
 
 Description:
 User opens app and expects all available states and stations listed.
 
 Precondition:
-Start app.
+Delete cache folder.
+Delete favorites.json.
+Delete appstate.json.
 
 Expected results:
+States and stations list should be populated.
 
 Steps:
-1.
+1. Open app.
+2. Click "Add station". The "Select State" drop down should display "Antarctica".
+   The "Select Station" drop down should display "Casey".
 
+
+-------------------------------------------------------------------------------
 Test case 2
------------
+-------------------------------------------------------------------------------
 Last run: never
 Result: PASSED/FAILED
 
@@ -33,26 +42,36 @@ Station data should still be viewable without internet connection.
 
 Steps:
 1. Open app.
-2. Click on state "Victoria".
-3. Click on station "Bundoora". Wait until the station data is loaded and shown.
-4. Close the app.
+2. Click "Add Station".
+3. Click dropdown for "Select State" and select "Victoria".
+4. Click dropdown for "Select Station" and select "Ballarat".
+5. Click "Add to My Favorites".
+6. Wait until the main screen displays the temperature for "Ballarat".
+7. Close the app.
 5. Disconnect from the internet.
-6. Open the app. The app should be displaying Bundoora weather station data.
+6. Open the app. The app should be displaying "Ballarat" weather station data.
 
+
+-------------------------------------------------------------------------------
 Test case 3
------------
+-------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
 Test case 4
------------
+-------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
 Test case 5
------------
+-------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
 Test case 6
------------
+-------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
 Test case 7
------------
+-------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
 Test case 8
------------
+-------------------------------------------------------------------------------

@@ -55,7 +55,7 @@ public final class StationData
         return timezone;
     }
 
-    public final List<LatestReading> getReadings()
+    public final List<LatestReading> getLatestReadings()
     {
         return readings;
     }
