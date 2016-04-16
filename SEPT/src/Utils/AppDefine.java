@@ -44,7 +44,12 @@ public class AppDefine {
 	public static StationData currentStationData;
 
 	public static DateTimeFormatter dtfOut;
-
+	
+	/**
+     	* initialises ui elements
+	* @throws Exception e when invalid states format
+     	*/
+	
 	public static void initApp(JFrame mainFrame) {
 
 		dtfOut = DateTimeFormat.forPattern("HH:mm dd/MM");
