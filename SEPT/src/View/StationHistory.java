@@ -36,14 +36,13 @@ public class StationHistory extends JPanel {
 	private WebLabel wblblVictoria;
 	private WebScrollPane webScrollPane;
 	private WebTable webTable;
-	private DateTimeFormatter dtfOut;
 
 	/**
 	 * Create the panel.
 	 */
 	public StationHistory(final MainPanel m) {
 
-		dtfOut = DateTimeFormat.forPattern("HH:mm dd/MM");
+		
 
 		setBackground(new Color(240, 248, 255));
 		setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
@@ -157,7 +156,7 @@ public class StationHistory extends JPanel {
 			LatestReading reading = AppDefine.currentStationData.getLatestReadings().get(row);
 			switch (col) {
 			case 0:
-				return reading.getLocalDateTime() != null ? dtfOut.print(reading.getLocalDateTime()) : "-";
+				return reading.getLocalDateTime() != null ? AppDefine.dtfOut.print(reading.getLocalDateTime()) : "-";
 			case 1:
 				return reading.getAirTemp() != null ? reading.getAirTemp() + "" : "-";
 			case 2:

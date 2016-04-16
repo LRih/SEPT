@@ -1,8 +1,24 @@
 {
+<<<<<<< HEAD
+    "windowRect": "100.0,100.0,1300.0,600.0",
+    "stateIndex": 2,
+    "station": "Casey",
+    "shownWindow": 3,
+    "state": "Antarctica",
+    "v5": ""
+||||||| merged common ancestors
+    "v5": "",
+    "station": "Bundoora",
+    "shownWindow": 3,
+    "stateIndex": 2,
+    "state": "Victoria",
+    "windowRect": "697.0,175.0,594.0,600.0"
+=======
     "v5": "",
     "station": "Adele Island",
     "shownWindow": 5,
     "stateIndex": 2,
     "state": "Western Australia",
     "windowRect": "100.0,100.0,1300.0,600.0"
+>>>>>>> origin/master
 }
