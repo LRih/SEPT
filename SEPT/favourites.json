@@ -1,4 +1,10 @@
-[{
-    "station": "Bundoora",
-    "state": "Victoria"
-}]
+[
+    {
+        "station": "Casey",
+        "state": "Antarctica"
+    },
+    {
+        "station": "Adelaide",
+        "state": "South Australia"
+    }
+]

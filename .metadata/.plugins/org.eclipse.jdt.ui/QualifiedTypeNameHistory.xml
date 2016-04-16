@@ -11,8 +11,6 @@
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="com.alee.laf.WebLookAndFeel"/>
 <fullyQualifiedTypeName name="Model.StationData"/>
-<fullyQualifiedTypeName name="Model.Station"/>
-<fullyQualifiedTypeName name="Model.State"/>
 <fullyQualifiedTypeName name="View.StationListCell"/>
 <fullyQualifiedTypeName name="java.awt.Component"/>
 <fullyQualifiedTypeName name="com.alee.laf.text.WebTextArea"/>
@@ -30,4 +28,25 @@
 <fullyQualifiedTypeName name="View.MainPanel"/>
 <fullyQualifiedTypeName name="com.alee.laf.scroll.WebScrollPane"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="View.StationHistory.ExampleTableModel"/>
+<fullyQualifiedTypeName name="Model.Reading"/>
+<fullyQualifiedTypeName name="com.bitagentur.data.JChartLibDataSet"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.awt.font.TextAttribute"/>
+<fullyQualifiedTypeName name="Model.Favorites"/>
+<fullyQualifiedTypeName name="Utils.AppStateManager"/>
+<fullyQualifiedTypeName name="Model.States"/>
+<fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
+<fullyQualifiedTypeName name="Model.State"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="Utils.FavoritesManager"/>
+<fullyQualifiedTypeName name="com.alee.managers.notification.WebNotification"/>
+<fullyQualifiedTypeName name="com.alee.managers.notification.NotificationIcon"/>
+<fullyQualifiedTypeName name="com.alee.extended.time.WebClock"/>
+<fullyQualifiedTypeName name="com.alee.extended.time.ClockType"/>
+<fullyQualifiedTypeName name="com.alee.extended.panel.GroupPanel"/>
+<fullyQualifiedTypeName name="com.alee.managers.notification.NotificationManager"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="Utils.AppDefine"/>
+<fullyQualifiedTypeName name="Model.Station"/>
 </qualifiedTypeNameHistroy>
