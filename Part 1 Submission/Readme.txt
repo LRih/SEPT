@@ -11,11 +11,13 @@ Percentage:
 Contribution description:
 Planning class diagram
 Component diagram
-Documentation formatting
+Misc documentation
 Code documentation
-Network/file IO functionality
+System tests
+JUnit tests
+Business logic layer
+Data access layer
 Asynchronous functionality
-Favorites Handling
 
 
 --------------------------------------------
@@ -29,7 +31,9 @@ Percentage:
 Contribution description:
 Mockup
 Code documentation
-User interface
+System tests
+Presentation layer
+App state handling
 
 
 --------------------------------------------
@@ -41,7 +45,11 @@ Percentage:
 25%
 
 Contribution description:
-Scraping BOM site for JSON links using python
+BOM scraping script
+Links JSON file
+System tests
+Misc documentation
+Code documentation
 
 
 --------------------------------------------
@@ -54,8 +62,10 @@ Percentage:
 
 Contribution description:
 Use case diagram
+Misc documentation
 Code documentation
 Sequence diagrams
+System tests
 
 
 --------------------------------------------
