@@ -36,6 +36,7 @@ public class AppDefine {
 		try {
 			states = DataManager.loadStates();
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.exit(0);
 		}
 
@@ -45,7 +46,7 @@ public class AppDefine {
 			favorites = FavoritesManager.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-
+			e.printStackTrace();
 		}
 
 	}
