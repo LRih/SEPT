@@ -27,6 +27,7 @@ public final class Main {
 	private JPanel pnMain;
 	private JPanel pnMainBar;
 	private WebButton wbtnRefreshData;
+	private Boolean isFirstOpen;
 
 	/**
 	 * Launch the application.
@@ -35,7 +36,7 @@ public final class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public final void run() {
 				try {
-					
+
 					WebLookAndFeel.install();
 					Main window = new Main();
 					window.frmSept.setVisible(true);
@@ -51,6 +52,7 @@ public final class Main {
 	 * Create the application.
 	 */
 	public Main() {
+		isFirstOpen = true;
 		initialize();
 	}
 
@@ -89,19 +91,15 @@ public final class Main {
 		frmSept.setTitle("Bom Weather");
 
 		AppStateManager.tryLoad();
-        frmSept.setBounds(AppState.getInstance().getWindowRect());
+		frmSept.setBounds(AppState.getInstance().getWindowRect());
 
 		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// re-open last AppState or show MainScreen
-		if (AppState.getInstance().stateIndex > -1) {
-			showState(AppState.getInstance().stateIndex);
-		} else
-			showMainScreen();
-		
+		showMainScreen();
+
 		addListeners();
 	}
-	
+
 	private void addListeners() {
 		// on close listener
 		frmSept.addWindowListener(new WindowAdapter() {
@@ -117,10 +115,10 @@ public final class Main {
 		// refresh button pressed
 		wbtnRefreshData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				// set Top Bar Background to Grey
 				setMainBg(false);
-				
+
 				// reload data
 				showMainScreen();
 			}
@@ -133,14 +131,20 @@ public final class Main {
 			// if there is no favorited station, show first screen
 			if (favs.size() == 0)
 				throw new Exception("NO_FAVORITE_STATION");
-			else
-				showState(AppDefine.MAIN_SCREEN);
+			else {
+				if (isFirstOpen)
+					showState(AppState.getInstance().stateIndex);
+				else
+					showState(AppDefine.MAIN_SCREEN);
+			}
 		} catch (Exception e) {
 			showState(AppDefine.FIRST_SCREEN);
 		}
 	}
 
 	public void showState(int index) {
+		if (isFirstOpen)
+			isFirstOpen = false;
 		pnMain.removeAll();
 		pnMain.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
