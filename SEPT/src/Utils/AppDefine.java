@@ -15,6 +15,10 @@ import Model.States;
 import Model.Station;
 import Model.StationData;
 
+/**
+ * initialises the front-end application
+ */
+
 public class AppDefine {
 
 	public static final int FIRST_SCREEN = 0;
