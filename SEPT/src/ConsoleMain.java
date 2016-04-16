@@ -13,7 +13,7 @@ public final class ConsoleMain
         {
             // test loading states and getting data from BOM for Mildura
             States states = DataManager.loadStates();
-            Station station = states.get("South Australia").getStation("Adelaide");
+            Station station = states.get("Western Australia").getStation("Adele Island");
 
             System.out.println(station.getState().getName());
             System.out.println(station.getKey());

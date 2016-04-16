@@ -132,7 +132,7 @@ public class AddStation extends JPanel {
 				try {
 					FavoritesManager.save(AppDefine.favorites);
 				} catch (IOException e1) {
-					System.out.println(e1.getMessage());
+					e1.printStackTrace();
 				}
 
 				AppState.getInstance().state = station.getState().getName();

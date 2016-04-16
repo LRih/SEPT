@@ -78,6 +78,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		try {
 			this.data = DataManager.getCachedStationData(station);
 		} catch (IOException e1) {
+            e1.printStackTrace();
 			// no problem, this is normal.
 			this.data = null;
 		}
@@ -106,8 +107,9 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
+
+            if(data.getLatestReadings().size() > 0 && data.getLatestReadings().get(0).getAirTemp() != null)
+			    webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
 		} else
 			webLabel_2.setText("-");
 		
@@ -128,12 +130,17 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			// setBackground(new Color(230, 230, 250));
 			main.setStation(station, data);
 		}
-		
-		main.frmMain.setMainBg(true);
+
+        main.frmMain.setMainBg(true);
 
         wblblMildura.setText(station.getName());
 		wblblVictoria.setText(station.getState().getName());
-        webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
+
+        if(data.getLatestReadings().size() > 0 && data.getLatestReadings().get(0).getAirTemp() != null)
+            webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
+        else
+            webLabel_2.setText("-");
+
 		webLabel_2.setForeground(new Color(34, 139, 34));
 
 	}
