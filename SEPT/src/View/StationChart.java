@@ -23,6 +23,8 @@ import com.bitagentur.chart.JChartLibBaseChart;
 import com.bitagentur.chart.JChartLibLineChart;
 import com.bitagentur.data.JChartLibDataSet;
 import com.bitagentur.data.JChartLibSerie;
+import com.alee.laf.combobox.WebComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class StationChart extends JPanel {
 
@@ -35,8 +37,10 @@ public class StationChart extends JPanel {
 	private StationData data = null;
 	private JChartLibPanel chartLibPanel;
 	private JPanel panel;
+	private WebComboBox wcbChartType;
+	private WebLabel wblblSelectChart;
 
-	private JChartLibDataSet createDataset() {
+	private JChartLibDataSet createDataset(int serieType) {
 
 		final JChartLibDataSet dataset = new JChartLibDataSet();
 
@@ -46,39 +50,48 @@ public class StationChart extends JPanel {
 			return dataset;
 		}
 
-		// TODO check this Quan
-		// JChartLibSerie serie3PM = getSerie("3PM Temp",
-		// data.get3PMReadings());
-		// JChartLibSerie serie9AM = getSerie("9AM Temp",
-		// data.get9AMReadings());
-		// JChartLibSerie serieMax = getSerie("Max Temp",
-		// data.getMaxReadings());
-		// JChartLibSerie serieMin = getSerie("Min Temp",
-		// data.getMinReadings());
-		//
-		// dataset.addDataSerie(serie3PM);
-		// dataset.addDataSerie(serie9AM);
-		// dataset.addDataSerie(serieMax);
-		// dataset.addDataSerie(serieMin);
+		JChartLibSerie serie = null;
 
-		JChartLibSerie serieMax = new JChartLibSerie("Max Temp");
-		for (HistoricalReading reading : AppDefine.currentStationData.getHistoricalReadings()) {
-			if (reading.max != null) {
-				serieMax.addValue(reading.max);
+		switch (serieType) {
+		case AppDefine.CHART_9AM:
+			serie = new JChartLibSerie("Daily 9am");
+			for (HistoricalReading reading : AppDefine.currentStationData.getHistoricalReadings()) {
+				if (reading.temp9AM != null) {
+					serie.addValue(reading.date.toDate(), reading.temp9AM);
+				}
 			}
+			break;
+		case AppDefine.CHART_3PM:
+			serie = new JChartLibSerie("Daily 3pm");
+			for (HistoricalReading reading : AppDefine.currentStationData.getHistoricalReadings()) {
+				if (reading.temp3PM != null) {
+					serie.addValue(reading.date.toDate(), reading.temp3PM);
+				}
+			}
+			break;
+		case AppDefine.CHART_MAX:
+			serie = new JChartLibSerie("Daily Max");
+			for (HistoricalReading reading : AppDefine.currentStationData.getHistoricalReadings()) {
+				if (reading.max != null) {
+					serie.addValue(reading.date.toDate(), reading.max);
+				}
+			}
+			break;
+		case AppDefine.CHART_MIN:
+			serie = new JChartLibSerie("Daily Min");
+			for (HistoricalReading reading : AppDefine.currentStationData.getHistoricalReadings()) {
+				if (reading.min != null) {
+					serie.addValue(reading.date.toDate(), reading.min);
+				}
+			}
+			break;
+
+		default:
+			break;
 		}
-		dataset.addDataSerie(serieMax);
+		dataset.addDataSerie(serie);
 
 		return dataset;
-	}
-
-	private JChartLibSerie getSerie(String name, List<LatestReading> list) {
-		JChartLibSerie serie = new JChartLibSerie(name);
-		for (LatestReading reading : list) {
-			serie.addValue(reading.getAirTemp());
-		}
-
-		return serie;
 	}
 
 	private JChartLibBaseChart createChart(final JChartLibDataSet dataset) {
@@ -101,6 +114,7 @@ public class StationChart extends JPanel {
 		setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
 
 		WebButton wbtnBack = new WebButton();
+		wbtnBack.setFont(new Font("Bender", Font.PLAIN, 13));
 		wbtnBack.setDrawShade(false);
 		wbtnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +122,7 @@ public class StationChart extends JPanel {
 			}
 		});
 		wbtnBack.setText("Back");
-		add(wbtnBack, "cell 0 0");
+		add(wbtnBack, "cell 0 0,alignx left,aligny center");
 
 		wblblMildura = new WebLabel();
 		wblblMildura.setText("-");
@@ -120,7 +134,18 @@ public class StationChart extends JPanel {
 		wblblVictoria = new WebLabel();
 		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
 		wblblVictoria.setText("-");
-		add(wblblVictoria, "cell 2 0");
+		add(wblblVictoria, "cell 2 0,alignx trailing");
+		
+		wblblSelectChart = new WebLabel();
+		wblblSelectChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		wblblSelectChart.setText("Select Chart");
+		add(wblblSelectChart, "flowx,cell 3 0,alignx right,aligny center");
+		
+		wcbChartType = new WebComboBox();
+		wcbChartType.setDrawFocus(false);
+		wcbChartType.setFont(new Font("Bender", Font.PLAIN, 13));
+		wcbChartType.setModel(new DefaultComboBoxModel(new String[] {"Daily 9AM", "Daily 3PM", "Daily Max", "Daily Min"}));
+		add(wcbChartType, "cell 3 0,alignx right");
 
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -131,13 +156,18 @@ public class StationChart extends JPanel {
 		panel.add(chartLibPanel, "cell 0 0, grow");
 		chartLibPanel.setPreferredSize(new Dimension(600, 270));
 
+		wcbChartType.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateChart(wcbChartType.getSelectedIndex());
+			}
+		});
 	}
 
-	public void updateChart() {
+	public void updateChart(int type) {
 
 		panel.removeAll();
 
-		JChartLibDataSet chartLibDataSet = createDataset();
+		JChartLibDataSet chartLibDataSet = createDataset(type);
 		JChartLibBaseChart baseChart = createChart(chartLibDataSet);
 		chartLibPanel = new JChartLibPanel(baseChart);
 		panel.add(chartLibPanel, "cell 0 0, grow");
@@ -152,7 +182,7 @@ public class StationChart extends JPanel {
 		wblblMildura.setText(station.getName());
 		wblblVictoria.setText(station.getState().getName());
 
-		updateChart();
+		updateChart(wcbChartType.getSelectedIndex());
 	}
 
 }

@@ -78,11 +78,6 @@ public class AddStation extends JPanel {
 		wcbStates = new WebComboBox();
 		wcbStates.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wcbStates.setDrawFocus(false);
-		wcbStates.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				loadStationsByState(wcbStates.getSelectedItem().toString());
-			}
-		});
 		pnAddStation.add(wcbStates, "cell 1 1,growx");
 
 		WebLabel wblblSelectStation = new WebLabel();
@@ -117,6 +112,12 @@ public class AddStation extends JPanel {
 		wbtnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.showMainScreen();
+			}
+		});
+		
+		wcbStates.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loadStationsByState(wcbStates.getSelectedItem().toString());
 			}
 		});
 
