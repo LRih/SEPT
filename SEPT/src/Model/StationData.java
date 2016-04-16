@@ -1,7 +1,6 @@
 package Model;
 
 import Utils.DateUtils;
-import org.joda.time.Days;
 import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
@@ -18,7 +17,8 @@ public final class StationData
 
     private final String timezone;
 
-    private final List<Reading> readings;
+    private final List<LatestReading> readings;
+    private final List<HistoricalReading> historicalReadings;
 
 
     /**
@@ -29,7 +29,7 @@ public final class StationData
      * @param timezone timezone of station
      * @param readings list of readings for station
      */
-    public StationData(String id, String mainId, String timezone, List<Reading> readings)
+    public StationData(String id, String mainId, String timezone, List<LatestReading> readings, List<HistoricalReading> historicalReadings)
     {
         this.id = id;
         this.mainId = mainId;
@@ -37,6 +37,7 @@ public final class StationData
         this.timezone = timezone;
 
         this.readings = Collections.unmodifiableList(readings);
+        this.historicalReadings = Collections.unmodifiableList(historicalReadings);
     }
 
 
@@ -54,9 +55,13 @@ public final class StationData
         return timezone;
     }
 
-    public final List<Reading> getReadings()
+    public final List<LatestReading> getReadings()
     {
         return readings;
+    }
+    public final List<HistoricalReading> getHistoricalReadings()
+    {
+        return historicalReadings;
     }
 
     /**
@@ -64,17 +69,18 @@ public final class StationData
      *
      * @return the list of filtered readings
      */
-    public final List<Reading> getMinReadings()
+    @Deprecated
+    public final List<LatestReading> getMinReadings()
     {
-        List<Reading> results = new ArrayList<>();
+        List<LatestReading> results = new ArrayList<>();
 
         // no readings
         if (readings.size() == 0)
             return results;
 
-        Reading min = null;
+        LatestReading min = null;
 
-        for (Reading reading : readings)
+        for (LatestReading reading : readings)
         {
             // ignore readings with no temp data
             if (reading.getAirTemp() == null)
@@ -107,17 +113,18 @@ public final class StationData
      *
      * @return the list of filtered readings
      */
-    public final List<Reading> getMaxReadings()
+    @Deprecated
+    public final List<LatestReading> getMaxReadings()
     {
-        List<Reading> results = new ArrayList<>();
+        List<LatestReading> results = new ArrayList<>();
 
         // no readings
         if (readings.size() == 0)
             return results;
 
-        Reading max = null;
+        LatestReading max = null;
 
-        for (Reading reading : readings)
+        for (LatestReading reading : readings)
         {
             // ignore readings with no temp data
             if (reading.getAirTemp() == null)
@@ -150,11 +157,12 @@ public final class StationData
      *
      * @return the list of filtered readings
      */
-    public final List<Reading> get9AMReadings()
+    @Deprecated
+    public final List<LatestReading> get9AMReadings()
     {
-        List<Reading> results = new ArrayList<>();
+        List<LatestReading> results = new ArrayList<>();
 
-        for (Reading reading : readings)
+        for (LatestReading reading : readings)
         {
             LocalDateTime dt = reading.getLocalDateTime();
             if (dt.getHourOfDay() == 9 && dt.getMinuteOfHour() == 0)
@@ -169,11 +177,12 @@ public final class StationData
      *
      * @return the list of filtered readings
      */
-    public final List<Reading> get3PMReadings()
+    @Deprecated
+    public final List<LatestReading> get3PMReadings()
     {
-        List<Reading> results = new ArrayList<>();
+        List<LatestReading> results = new ArrayList<>();
 
-        for (Reading reading : readings)
+        for (LatestReading reading : readings)
         {
             LocalDateTime dt = reading.getLocalDateTime();
             if (dt.getHourOfDay() == 15 && dt.getMinuteOfHour() == 0)

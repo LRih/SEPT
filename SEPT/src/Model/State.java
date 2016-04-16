@@ -29,13 +29,14 @@ public final class State implements Iterable<Station>
      * @return the added station. {@code null} if station already exists
      * @param name the name of the station
      * @param url URL of the JSON data from BOM
+     * @param historicalId used for fetching historical from BOM
      */
-    public final Station addStation(String name, String url)
+    public final Station addStation(String name, String url, String historicalId)
     {
         // only add station if it does not already exist
         if (!stations.containsKey(name))
         {
-            Station station = new Station(this, name, url);
+            Station station = new Station(this, name, url, historicalId);
             stations.put(name, station);
             return station;
         }

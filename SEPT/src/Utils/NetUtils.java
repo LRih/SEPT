@@ -60,7 +60,7 @@ public final class NetUtils
 
             String line;
             while ((line = reader.readLine()) != null)
-                source += line;
+                source += line + "\n";
 
             reader.close();
         }

@@ -24,7 +24,7 @@ public final class Tests
     public void testAddStation()
     {
         States states = new States();
-        Station station = states.add("Victoria").addStation("Geelong", "http://www.example.com");
+        Station station = states.add("Victoria").addStation("Geelong", "http://www.example.com", "");
 
         assertEquals(station.getName(), "Geelong");
     }
@@ -47,8 +47,8 @@ public final class Tests
     public void testAddDuplicateStation()
     {
         State state = new State("Victoria");
-        assertNotNull(state.addStation("Melbourne", "http://www.example.com"));
-        assertNull(state.addStation("Melbourne", "http://www.example.com"));
+        assertNotNull(state.addStation("Melbourne", "http://www.example.com", ""));
+        assertNull(state.addStation("Melbourne", "http://www.example.com", ""));
     }
 
 
@@ -71,7 +71,7 @@ public final class Tests
     public void testGetStation()
     {
         States states = new States();
-        states.add("Victoria").addStation("Geelong", "http://www.example.com");
+        states.add("Victoria").addStation("Geelong", "http://www.example.com", "");
 
         Station station = states.get("Victoria").getStation("Geelong");
         assertEquals(station.getName(), "Geelong");
@@ -109,9 +109,9 @@ public final class Tests
     public void testStationsSorted()
     {
         State state = new State("Victoria");
-        state.addStation("Olympic Park", "http://www.example.com");
-        state.addStation("Geelong", "http://www.example.com");
-        state.addStation("Coburg", "http://www.example.com");
+        state.addStation("Olympic Park", "http://www.example.com", "");
+        state.addStation("Geelong", "http://www.example.com", "");
+        state.addStation("Coburg", "http://www.example.com", "");
 
         String result = "";
         for (Station station : state)
@@ -132,9 +132,9 @@ public final class Tests
     public void testFavoritesSorted()
     {
         State state = new State("Victoria");
-        Station station1 = state.addStation("Olympic Park", "http://www.example.com");
-        Station station2 = state.addStation("Geelong", "http://www.example.com");
-        Station station3 = state.addStation("Coburg", "http://www.example.com");
+        Station station1 = state.addStation("Olympic Park", "http://www.example.com", "");
+        Station station2 = state.addStation("Geelong", "http://www.example.com", "");
+        Station station3 = state.addStation("Coburg", "http://www.example.com", "");
 
         Favorites favorites = new Favorites();
         favorites.add(station1);
@@ -161,8 +161,8 @@ public final class Tests
     public void testAddDuplicateFavorite()
     {
         State state = new State("Victoria");
-        state.addStation("Olympic Park", "http://www.example.com");
-        state.addStation("Geelong", "http://www.example.com");
+        state.addStation("Olympic Park", "http://www.example.com", "");
+        state.addStation("Geelong", "http://www.example.com", "");
 
         Station station1 = state.getStation("Olympic Park");
 
@@ -181,8 +181,8 @@ public final class Tests
     public void testDeleteNonExistentFavorite()
     {
         State state = new State("Victoria");
-        state.addStation("Olympic Park", "http://www.example.com");
-        state.addStation("Geelong", "http://www.example.com");
+        state.addStation("Olympic Park", "http://www.example.com", "");
+        state.addStation("Geelong", "http://www.example.com", "");
 
         Station station1 = state.getStation("Olympic Park");
         Station station2 = state.getStation("Geelong");
@@ -203,8 +203,8 @@ public final class Tests
     public void testDeleteFavorite()
     {
         State state = new State("Victoria");
-        state.addStation("Olympic Park", "http://www.example.com");
-        state.addStation("Geelong", "http://www.example.com");
+        state.addStation("Olympic Park", "http://www.example.com", "");
+        state.addStation("Geelong", "http://www.example.com", "");
 
         Station station1 = state.getStation("Olympic Park");
 

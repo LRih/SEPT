@@ -68,7 +68,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			// TODO if DataManager.loadStates() fails, just best to display
 			// error message and close the app
 			states = DataManager.loadStates();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.exit(0);
 		}
 

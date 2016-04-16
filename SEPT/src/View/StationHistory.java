@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -18,7 +17,7 @@ import org.joda.time.format.DateTimeFormatter;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
-import Model.Reading;
+import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
 import Utils.AppDefine;
@@ -26,8 +25,6 @@ import net.miginfocom.swing.MigLayout;
 import com.alee.laf.scroll.WebScrollPane;
 import java.awt.Component;
 import com.alee.laf.table.WebTable;
-import com.alee.laf.table.renderers.WebTableCellRenderer;
-import com.alee.utils.swing.WebDefaultCellEditor;
 
 public class StationHistory extends JPanel {
 
@@ -127,12 +124,13 @@ public class StationHistory extends JPanel {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		private String[] columnNames = { "Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
-				"Wind Spd", "Wind Gust Kts", "Gust Spd", "Gust kts", "Press QNH", "Press MSL", "Rain since 9am" };
+		private String[] columnNames = {
+			"Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
+            "Wind Spd km/h", "Wind Gust km/h", "Wind Spd kts", "Wind Gust kts", "Press QNH", "Press MSL", "Rain since 9am" };
 
-		public final Object[] longValues = { "01:00 16/04", "14.6", "App Tmp", "Dew Point", "Real Hum", "Delta-T",
-				"Wind Dir", "Wind Spd", "Wind Gust Kts", "Gust Spd", "Gust kts", "Press QNH", "Press MSL",
-				"Rain since 9am" };
+		public final Object[] longValues = {
+			"Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
+            "Wind Spd km/h", "Wind Gust km/h", "Wind Spd kts", "Wind Gust kts", "Press QNH", "Press MSL", "Rain since 9am" };
 
 		@Override
 		public int getColumnCount() {
@@ -158,7 +156,7 @@ public class StationHistory extends JPanel {
 			if (data == null)
 				return "-";
 
-			Reading reading = data.getReadings().get(row);
+			LatestReading reading = data.getReadings().get(row);
 			switch (col) {
 			case 0:
 				return reading.getLocalDateTime() != null ? dtfOut.print(reading.getLocalDateTime()) : "-";

@@ -1,6 +1,7 @@
 package Utils;
 
 import Model.*;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +16,8 @@ import java.util.List;
  */
 public final class DataManager {
 	private static String STATIONS_FILE_PATH = "stations.json";
+    private static int JSON_INDENT = 4;
+    private static int MONTHS_FETCH_COUNT = 3;
 
 	private DataManager() {
 		// disallow instantiating
@@ -44,12 +47,13 @@ public final class DataManager {
 			JSONArray jsonStations = jsonState.getJSONArray("stations");
 			for (int j = 0; j < jsonStations.length(); j++) {
 				JSONObject jsonStation = jsonStations.getJSONObject(j);
-				state.addStation(jsonStation.getString("city"), jsonStation.getString("url"));
+				state.addStation(jsonStation.getString("city"), jsonStation.getString("url"), jsonStation.getString("historicalId"));
 			}
 		}
 
 		return states;
 	}
+
 
 	/**
 	 * Tries to load station data from various sources. First it tries to load
@@ -64,14 +68,14 @@ public final class DataManager {
 		// try to load weather data from web
 		try {
 			return getNetStationData(station);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		// try to load weather data from cached file
 		try {
 			return getCachedStationData(station);
-		} catch (IOException e) {
+        } catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -83,15 +87,90 @@ public final class DataManager {
 	 * returned.
 	 *
 	 * @return loaded station data
-	 * @param station
-	 *            the station for which to load data
-	 * @throws IOException 
+	 * @param station the station for which to load data
+	 * @throws IOException
 	 */
 	public static StationData getNetStationData(Station station) throws IOException {
-			String json = NetUtils.get(station.getUrl());
-			trySaveCache(station, json); // cache data locally
-			return createStationData(json);
+        String jsonMain = NetUtils.get(station.getUrl());
+        trySaveMainCache(station, jsonMain); // cache data locally
+
+        String jsonHistorical = getNetHistoricalReadings(station);
+        trySaveHistoricalCache(station, jsonHistorical); // cache data locally
+
+        return createStationData(jsonMain, jsonHistorical);
 	}
+    private static String getNetHistoricalReadings(Station station)
+    {
+        JSONArray json = new JSONArray();
+        LocalDate date = LocalDate.now().minusMonths(MONTHS_FETCH_COUNT);
+
+        // fetch historical csv data
+        for (int i = 0; i < MONTHS_FETCH_COUNT; i++)
+        {
+            date = date.plusMonths(1);
+
+            // ignore any unobtainable historical reading
+            try
+            {
+                String csv = NetUtils.get(getHistoricalUrl(station, date.getYear(), date.getMonthOfYear()));
+                JSONArray jsonMonth = createJSON(csv);
+
+                // add all month readings to result
+                for (int j = 0; j < jsonMonth.length(); j++)
+                    json.put(jsonMonth.getJSONObject(j));
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        return json.toString(JSON_INDENT);
+    }
+
+    /**
+     * Create json format from historical csv data
+     */
+    private static JSONArray createJSON(String historicalCSV)
+    {
+        JSONArray json = new JSONArray();
+
+        String[] lines = historicalCSV.split("\n");
+        int dataLineIndex = -1;
+
+        // find where data starts based on reference point
+        for (int i = 0; i < lines.length; i++)
+        {
+            if (lines[i].startsWith(",\"Date\""))
+            {
+                dataLineIndex = i + 1;
+                break;
+            }
+        }
+
+        // no data found, return empty array
+        if (dataLineIndex == -1)
+            return json;
+
+        // convert data lines into json objects
+        for (int i = dataLineIndex; i < lines.length; i++)
+        {
+            if (lines[i].trim().isEmpty())
+                continue;
+
+            String[] data = lines[i].split(",", -1); // -1 allows empty values
+            JSONObject obj = new JSONObject();
+            obj.put("date", data[1]);
+            obj.put("min", data[2].isEmpty() ? null : Double.parseDouble(data[2]));
+            obj.put("max", data[3].isEmpty() ? null : Double.parseDouble(data[3]));
+            obj.put("temp9AM", data[10].isEmpty() ? null : Double.parseDouble(data[10]));
+            obj.put("temp3PM", data[16].isEmpty() ? null : Double.parseDouble(data[16]));
+
+            json.put(obj);
+        }
+
+        return json;
+    }
 
 	/**
 	 * Loads the cached version of station data locally. If it fails
@@ -103,44 +182,48 @@ public final class DataManager {
 	 * @throws IOException
 	 */
 	public static StationData getCachedStationData(Station station) throws IOException {
-		return createStationData(loadCache(station));
+		return createStationData(loadMainCache(station), loadHistoricalCache(station));
 	}
 
 	/**
 	 * Takes the chosen json file, puts into workable jsonobject and returns
 	 * readable stationdata.
-	 * 
+	 *
 	 * @return stationdata for the chosen station - taken from json
-	 * @param json
-	 *            the json file being passed into a jsonobject
+	 * @param jsonMain the json string being passed into a jsonobject
+	 * @param jsonHistorical the historical json string being passed into a jsonobject
 	 */
-	private static StationData createStationData(String json) {
-		JSONObject obj = new JSONObject(json).getJSONObject("observations");
+	private static StationData createStationData(String jsonMain, String jsonHistorical) {
+		JSONObject obj = new JSONObject(jsonMain).getJSONObject("observations");
 		JSONObject header = obj.getJSONArray("header").getJSONObject(0);
 
-		return new StationData(header.getString("ID"), header.getString("main_ID"), header.getString("time_zone"),
-				createReadings(obj.getJSONArray("data")));
+		return new StationData(
+            header.getString("ID"),
+            header.getString("main_ID"),
+            header.getString("time_zone"),
+            createReadings(obj.getJSONArray("data")),
+            createHistoricalReadings(new JSONArray(jsonHistorical))
+        );
 	}
+
 
 	/**
 	 * Takes the jsonarray and grabs every value and orders it into the
 	 * arraylist 'readings'.
-	 * 
+	 *
 	 * @return readings is the array list of all ordered values
-	 * @param arr
-	 *            is the json array of raw values
+	 * @param arr is the json array of raw values
 	 */
-	private static List<Reading> createReadings(JSONArray arr) {
-		List<Reading> readings = new ArrayList<>();
+	private static List<LatestReading> createReadings(JSONArray arr) {
+		List<LatestReading> readings = new ArrayList<>();
 
 		for (int i = 0; i < arr.length(); i++)
 			readings.add(createReading(arr.getJSONObject(i)));
 
 		return readings;
 	}
-
-	private static Reading createReading(JSONObject obj) {
-		return new Reading(obj.getString("local_date_time_full"), obj.getString("aifstime_utc"),
+	private static LatestReading createReading(JSONObject obj) {
+		return new LatestReading(obj.getString("local_date_time_full"), obj.getString("aifstime_utc"),
 				obj.isNull("lat") ? null : obj.getDouble("lat"), obj.isNull("lon") ? null : obj.getDouble("lon"),
 				obj.isNull("air_temp") ? null : obj.getDouble("air_temp"),
 				obj.isNull("apparent_t") ? null : obj.getDouble("apparent_t"),
@@ -159,21 +242,61 @@ public final class DataManager {
 				obj.isNull("rain_trace") ? null : obj.getString("rain_trace"));
 	}
 
-	private static String loadCache(Station station) throws IOException {
-		return FileUtils.loadText(getCacheFilePath(station));
-	}
+    private static List<HistoricalReading> createHistoricalReadings(JSONArray arr) {
+        List<HistoricalReading> readings = new ArrayList<>();
 
-	private synchronized static void trySaveCache(Station station, String json) {
+        for (int i = 0; i < arr.length(); i++)
+            readings.add(createHistoricalReading(arr.getJSONObject(i)));
+
+        return readings;
+    }
+    private static HistoricalReading createHistoricalReading(JSONObject obj) {
+
+        return new HistoricalReading(
+            obj.getString("date"),
+            obj.isNull("min") ? null : obj.getDouble("min"),
+            obj.isNull("max") ? null : obj.getDouble("max"),
+            obj.isNull("temp9AM") ? null : obj.getDouble("temp9AM"),
+            obj.isNull("temp3PM") ? null : obj.getDouble("temp3PM")
+        );
+    }
+
+
+	private static String loadMainCache(Station station) throws IOException {
+		return FileUtils.loadText(getCacheMainFilePath(station));
+	}
+    private static String loadHistoricalCache(Station station) throws IOException {
+        return FileUtils.loadText(getCacheHistoricalFilePath(station));
+    }
+
+    private synchronized static void trySaveMainCache(Station station, String json) {
+        try {
+            FileUtils.saveText(json, getCacheMainFilePath(station));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	private synchronized static void trySaveHistoricalCache(Station station, String json) {
 		try {
-			FileUtils.saveText(json, getCacheFilePath(station));
+			FileUtils.saveText(json, getCacheHistoricalFilePath(station));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static String getCacheFilePath(Station station) {
+	private static String getCacheMainFilePath(Station station) {
 		return "cache" + File.separator + station.getKey() + ".json";
 	}
+    private static String getCacheHistoricalFilePath(Station station) {
+        return "cache" + File.separator + station.getKey() + "-historical.json";
+    }
+
+    private static String getHistoricalUrl(Station station, int year, int month)
+    {
+        String date = String.valueOf(year) + String.format("%02d", month);
+        return String.format("http://www.bom.gov.au/climate/dwo/%1$s/text/%2$s.%1$s.csv", date, station.getHistoricalId());
+    }
+
 
 	/**
 	 * Convert BOM formatted date time to a form recognized by joda time.

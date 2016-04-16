@@ -1,11 +1,13 @@
 package View;
 
 import javax.swing.JPanel;
+
+import Model.HistoricalReading;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
-import Model.Reading;
+import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
 import Utils.AppDefine;
@@ -44,22 +46,31 @@ public class StationChart extends JPanel {
 			return dataset;
 		}
 
-		JChartLibSerie serie3PM = getSerie("3PM Temp", data.get3PMReadings());
-		JChartLibSerie serie9AM = getSerie("9AM Temp", data.get9AMReadings());
-		JChartLibSerie serieMax = getSerie("Max Temp", data.getMaxReadings());
-		JChartLibSerie serieMin = getSerie("Min Temp", data.getMinReadings());
+        // TODO check this Quan
+//		JChartLibSerie serie3PM = getSerie("3PM Temp", data.get3PMReadings());
+//		JChartLibSerie serie9AM = getSerie("9AM Temp", data.get9AMReadings());
+//		JChartLibSerie serieMax = getSerie("Max Temp", data.getMaxReadings());
+//		JChartLibSerie serieMin = getSerie("Min Temp", data.getMinReadings());
+//
+//		dataset.addDataSerie(serie3PM);
+//		dataset.addDataSerie(serie9AM);
+//		dataset.addDataSerie(serieMax);
+//		dataset.addDataSerie(serieMin);
 
-		dataset.addDataSerie(serie3PM);
-		dataset.addDataSerie(serie9AM);
+        JChartLibSerie serieMax = new JChartLibSerie("Max Temp");
+        for (HistoricalReading reading : data.getHistoricalReadings()) {
+            if (reading.max != null) {
+                serieMax.addValue(reading.max);
+            }
+        }
 		dataset.addDataSerie(serieMax);
-		dataset.addDataSerie(serieMin);
 
 		return dataset;
 	}
 
-	private JChartLibSerie getSerie(String name, List<Reading> list) {
+	private JChartLibSerie getSerie(String name, List<LatestReading> list) {
 		JChartLibSerie serie = new JChartLibSerie(name);
-		for (Reading reading : list) {
+		for (LatestReading reading : list) {
 			serie.addValue(reading.getAirTemp());
 		}
 

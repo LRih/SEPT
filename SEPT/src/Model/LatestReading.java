@@ -3,7 +3,11 @@ package Model;
 import Utils.DataManager;
 import org.joda.time.LocalDateTime;
 
-public final class Reading {
+/**
+ * Data structure for storing recent station readings.
+ */
+public final class LatestReading
+{
 	private final LocalDateTime localDateTime;
 	private final LocalDateTime utcDateTime;
 
@@ -30,10 +34,10 @@ public final class Reading {
 
 	private final String rainTrace;
 
-	public Reading(String localDateTime, String utcDateTime, Double latitude, Double longitude, Double airTemp,
-			Double apparentTemp, Double dewPt, Integer relativeHumidity, Double deltaTemp, String cloud,
-			String cloudType, String windDir, Integer windSpdKmH, Integer windSpdKts, Integer windGustKmH,
-			Integer windGustKts, Double pressureQNH, Double pressureMSL, String rainTrace) {
+	public LatestReading(String localDateTime, String utcDateTime, Double latitude, Double longitude, Double airTemp,
+						 Double apparentTemp, Double dewPt, Integer relativeHumidity, Double deltaTemp, String cloud,
+						 String cloudType, String windDir, Integer windSpdKmH, Integer windSpdKts, Integer windGustKmH,
+						 Integer windGustKts, Double pressureQNH, Double pressureMSL, String rainTrace) {
 		
 		this.localDateTime = DataManager.toDateTime(localDateTime);
 		this.utcDateTime = DataManager.toDateTime(utcDateTime);
