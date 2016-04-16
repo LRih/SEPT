@@ -126,6 +126,10 @@ public final class DataManager {
         JSONArray json = new JSONArray();
         LocalDate date = LocalDate.now().minusMonths(MONTHS_FETCH_COUNT);
 
+        // no historical data exists
+		if (station.getHistoricalId().isEmpty())
+            return json.toString(JSON_INDENT);
+
         // fetch historical csv data
         for (int i = 0; i < MONTHS_FETCH_COUNT; i++)
         {

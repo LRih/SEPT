@@ -1,4 +1,10 @@
-[{
-    "station": "Ballarat",
-    "state": "Victoria"
-}]
+[
+    {
+        "station": "Casey (Cape Poinsett)",
+        "state": "Antarctica"
+    },
+    {
+        "station": "Alice Springs Airport",
+        "state": "Northern Territory"
+    }
+]

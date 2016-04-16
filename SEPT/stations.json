@@ -163,6 +163,11 @@
                 "historicalId":"IDCJDW3005"
             },
             {
+                "city":"Bundoora",
+                "url":"http://www.bom.gov.au/fwo/IDV60801/IDV60801.95873.json",
+                "historicalId":"IDCJDW3009"
+            },
+            {
                 "city":"Cerberus",
                 "url":"http://www.bom.gov.au/fwo/IDV60801/IDV60801.94898.json",
                 "historicalId":"IDCJDW3014"
@@ -301,6 +306,11 @@
                 "city":"Shepparton",
                 "url":"http://www.bom.gov.au/fwo/IDV60801/IDV60801.94875.json",
                 "historicalId":"IDCJDW3074"
+            },
+            {
+                "city":"Strathbogie",
+                "url":"http://www.bom.gov.au/fwo/IDV60801/IDV60801.95843.json",
+                "historicalId":"IDCJDW3076"
             },
             {
                 "city":"Tatura",
@@ -883,6 +893,11 @@
                 "historicalId":""
             },
             {
+                "city":"Batemans Bay",
+                "url":"http://www.bom.gov.au/fwo/IDN60801/IDN60801.94941.json",
+                "historicalId":"IDCJDW2011"
+            },
+            {
                 "city":"Bega",
                 "url":"http://www.bom.gov.au/fwo/IDN60801/IDN60801.95931.json",
                 "historicalId":"IDCJDW2013"
@@ -946,6 +961,11 @@
                 "city":"Katoomba",
                 "url":"http://www.bom.gov.au/fwo/IDN60801/IDN60801.94744.json",
                 "historicalId":"IDCJDW2068"
+            },
+            {
+                "city":"Lithgow",
+                "url":"http://www.bom.gov.au/fwo/IDN60801/IDN60801.94741.json",
+                "historicalId":"IDCJDW2075"
             },
             {
                 "city":"Mount Boyce",
@@ -1321,6 +1341,11 @@
                 "city":"Bourke",
                 "url":"http://www.bom.gov.au/fwo/IDN60801/IDN60801.94703.json",
                 "historicalId":"IDCJDW2016"
+            },
+            {
+                "city":"Brewarrina",
+                "url":"http://www.bom.gov.au/fwo/IDN60801/IDN60801.95512.json",
+                "historicalId":"IDCJDW2019"
             },
             {
                 "city":"Cobar",
@@ -1921,6 +1946,11 @@
                 "city":"Mount Magnet Airport",
                 "url":"http://www.bom.gov.au/fwo/IDW60801/IDW60801.94429.json",
                 "historicalId":"IDCJDW6090"
+            },
+            {
+                "city":"Murchison",
+                "url":"http://www.bom.gov.au/fwo/IDW60801/IDW60801.94422.json",
+                "historicalId":"IDCJDW6092"
             },
             {
                 "city":"Paynes Find",
@@ -3051,6 +3081,11 @@
                 "city":"Territory Grape Farm",
                 "url":"http://www.bom.gov.au/fwo/IDD60801/IDD60801.94328.json",
                 "historicalId":"IDCJDW8046"
+            },
+            {
+                "city":"Watarrka",
+                "url":"http://www.bom.gov.au/fwo/IDD60801/IDD60801.94323.json",
+                "historicalId":"IDCJDW8051"
             },
             {
                 "city":"Yuendumu",

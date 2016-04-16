@@ -55,6 +55,28 @@ Steps:
 -------------------------------------------------------------------------------
 Test case 3
 -------------------------------------------------------------------------------
+Last run: 16 April 2016
+Result: FAILED
+
+Description:
+System should allow user to remove unwanted favorites.
+
+Precondition:
+Delete cache folder.
+Delete favorites.json.
+Delete appstate.json.
+
+Expected results:
+Ballarat favorite should be removed.
+
+Steps:
+1. Open app.
+2. Click "Add Station".
+3. Click dropdown for "Select State" and select "Victoria".
+4. Click dropdown for "Select Station" and select "Ballarat".
+5. Click "Add to My Favorites".
+6. Click "Remove from Favorites" on the top panel.
+
 
 -------------------------------------------------------------------------------
 Test case 4
