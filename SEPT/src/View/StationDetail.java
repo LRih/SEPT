@@ -59,7 +59,7 @@ public class StationDetail extends JPanel {
 	public StationDetail(final MainPanel m) {
 
 		mainPanel = m;
-
+		
 		setBackground(new Color(176, 196, 222));
 
 		setLayout(new MigLayout("", "[30%,grow][grow][30%]", "[grow][][][][][][][][grow][]"));
@@ -158,19 +158,23 @@ public class StationDetail extends JPanel {
 		add(wblblRemoveFromFavourites, "cell 2 9,alignx right,aligny bottom");
 
 		addListeners();
+		
+		if (AppDefine.currentStation != null) {
+			setTexts(AppDefine.currentStation.getName(), AppDefine.currentStation.getState().getName());
+		}
 	}
-
+	
 	private void addListeners() {
 
 		wbtnViewChart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mainPanel.showState(AppDefine.VIEW_CHART);
+				mainPanel.showState(AppDefine.VIEW_CHART, this.getClass().getName());
 			}
 		});
 
 		wbtnViewWeatherHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mainPanel.showState(AppDefine.VIEW_HISTORY);
+				mainPanel.showState(AppDefine.VIEW_HISTORY, this.getClass().getName());
 			}
 		});
 
@@ -178,9 +182,8 @@ public class StationDetail extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					Favorites favs = FavoritesManager.load();
-					favs.delete(mainPanel.station);
-					FavoritesManager.save(favs);
+					AppDefine.favorites.delete(AppDefine.currentStation);
+					FavoritesManager.save(AppDefine.favorites);
 				} catch (IOException e1) {
 				} finally {
 					AppState.getInstance().state = "";
@@ -192,39 +195,52 @@ public class StationDetail extends JPanel {
 		});
 
 	}
+	
+	private void setTexts(String station, String state) {
+		wblblStation.setText(station);
+		wblblState.setText(state);
+	}
 
-	public void setStation(Station station, StationData data) {
+	public void setStation() {
 
 		// TODO handle the case where readings list has zero entries
-
-		// change colours by Temperature
-		if (data.getLatestReadings().get(0).getAirTemp() < AppDefine.TEMP_FREEZING) {
-			setBackground(new Color(176, 196, 222));
-			wblblc.setForeground(new Color(255, 255, 255));
-		} else if (data.getLatestReadings().get(0).getAirTemp() < AppDefine.TEMP_COOL) {
-			setBackground(new Color(240, 248, 255));
-			wblblc.setForeground(new Color(30, 144, 255));
-		} else {
-			setBackground(new Color(255, 248, 220));
-			wblblc.setForeground(new Color(255, 99, 71));
-		}
-
 		
-		// set Text
-		wblblStation.setText(station.getName());
-		wblblHumid.setText("Humid: " + data.getLatestReadings().get(0).getRelativeHumidity() + "%");
-		wblblState.setText(station.getState().getName());
-		wblblWindSse.setText(
-				"Wind: " + data.getLatestReadings().get(0).getWindDir() + " " + data.getLatestReadings().get(0).getWindSpdKmH()
-						+ "-" + data.getLatestReadings().get(0).getWindGustKmH() + " km/h");
-		wblblRainSinceam.setText("Rain since 9am: " + data.getLatestReadings().get(0).getRainTrace() + "mm");
-		wblblc.setText(data.getLatestReadings().get(0).getAirTemp() + "°C");
-		wblblPressQmh.setText("Press QNH hPa: " + data.getLatestReadings().get(0).getPressureQNH());
-		wblblPress.setText("Press MSL hPa: " + data.getLatestReadings().get(0).getPressureMSL());
-		wblblAirTemp.setText("App temp: " + data.getLatestReadings().get(0).getApparentTemp() + "°C");
-		wblblDewPoint.setText("Dew Point: " + data.getLatestReadings().get(0).getDewPt() + "°C");
-		wblblLastUpdate.setText("Last update: " + dtfOut.print(data.getLatestReadings().get(0).getLocalDateTime()));
+		Station station = AppDefine.currentStation;
+		StationData data = AppDefine.currentStationData;
+		
+		try {
 
+			// change colours by Temperature
+			if (data.getLatestReadings().get(0).getAirTemp() < AppDefine.TEMP_FREEZING) {
+				setBackground(new Color(176, 196, 222));
+				wblblc.setForeground(new Color(255, 255, 255));
+			} else if (data.getLatestReadings().get(0).getAirTemp() < AppDefine.TEMP_COOL) {
+				setBackground(new Color(240, 248, 255));
+				wblblc.setForeground(new Color(30, 144, 255));
+			} else {
+				setBackground(new Color(255, 248, 220));
+				wblblc.setForeground(new Color(255, 99, 71));
+			}
+
+			// set Text
+			wblblStation.setText(station.getName());
+			wblblHumid.setText("Humid: " + data.getLatestReadings().get(0).getRelativeHumidity() + "%");
+			wblblState.setText(station.getState().getName());
+			wblblWindSse.setText("Wind: " + data.getLatestReadings().get(0).getWindDir() + " "
+					+ data.getLatestReadings().get(0).getWindSpdKmH() + "-"
+					+ data.getLatestReadings().get(0).getWindGustKmH() + " km/h");
+			wblblRainSinceam.setText("Rain since 9am: " + data.getLatestReadings().get(0).getRainTrace() + "mm");
+			wblblc.setText(data.getLatestReadings().get(0).getAirTemp() + "°C");
+			wblblPressQmh.setText("Press QNH hPa: " + data.getLatestReadings().get(0).getPressureQNH());
+			wblblPress.setText("Press MSL hPa: " + data.getLatestReadings().get(0).getPressureMSL());
+			wblblAirTemp.setText("App temp: " + data.getLatestReadings().get(0).getApparentTemp() + "°C");
+			wblblDewPoint.setText("Dew Point: " + data.getLatestReadings().get(0).getDewPt() + "°C");
+			wblblLastUpdate.setText("Last update: " + dtfOut.print(data.getLatestReadings().get(0).getLocalDateTime()));
+
+		} catch (Exception e) {
+			// no readings data
+
+		}
 	}
 
 }

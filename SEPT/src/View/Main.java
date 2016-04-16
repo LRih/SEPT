@@ -9,8 +9,10 @@ import javax.swing.*;
 import com.alee.laf.WebLookAndFeel;
 
 import Model.Favorites;
+import Model.States;
 import Utils.AppDefine;
 import Utils.AppStateManager;
+import Utils.DataManager;
 import Utils.FavoritesManager;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
@@ -23,11 +25,9 @@ import java.awt.event.ActionEvent;
 
 public final class Main {
 	private JFrame frmSept;
-	Favorites favs;
 	private JPanel pnMain;
 	private JPanel pnMainBar;
 	private WebButton wbtnRefreshData;
-	private Boolean isFirstOpen;
 
 	/**
 	 * Launch the application.
@@ -52,7 +52,9 @@ public final class Main {
 	 * Create the application.
 	 */
 	public Main() {
-		isFirstOpen = true;
+	
+		AppDefine.initApp();
+		
 		initialize();
 	}
 
@@ -127,24 +129,29 @@ public final class Main {
 
 	public void showMainScreen() {
 		try {
-			favs = FavoritesManager.load();
 			// if there is no favorited station, show first screen
-			if (favs.size() == 0)
+			if (AppDefine.favorites.size() == 0)
 				throw new Exception("NO_FAVORITE_STATION");
 			else {
-				if (isFirstOpen)
-					showState(AppState.getInstance().stateIndex);
+				if (AppState.getInstance().stateIndex == 0 || AppDefine.isFirstOpen)
+					showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
 				else
-					showState(AppDefine.MAIN_SCREEN);
+					showState(AppState.getInstance().stateIndex, this.getClass().getName());
+					
 			}
 		} catch (Exception e) {
-			showState(AppDefine.FIRST_SCREEN);
+			showState(AppDefine.FIRST_SCREEN, this.getClass().getName());
 		}
 	}
 
-	public void showState(int index) {
-		if (isFirstOpen)
-			isFirstOpen = false;
+	public void showState(int index, String from) {
+
+		if (AppDefine.DEBUGGING)
+			System.out.println("Class " + from + ": " + this.getClass().getName() + ".showState(" + index + ");");
+
+		if (AppDefine.isFirstOpen)
+			AppDefine.isFirstOpen = false;
+		
 		pnMain.removeAll();
 		pnMain.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
@@ -172,7 +179,7 @@ public final class Main {
 			MainPanel mainPanel = new MainPanel(this);
 			pnMain.add(mainPanel, "cell 0 0 1 1,grow");
 			wbtnRefreshData.setVisible(true);
-			mainPanel.showState(AppState.getInstance().shownWindow);
+			mainPanel.showState(AppState.getInstance().shownWindow, this.getClass().getName());
 
 			break;
 

@@ -1,5 +1,13 @@
 package Utils;
 
+import java.io.IOException;
+
+import Model.AppState;
+import Model.Favorites;
+import Model.States;
+import Model.Station;
+import Model.StationData;
+
 public class AppDefine {
 
 	public static final int FIRST_SCREEN = 0;
@@ -11,5 +19,35 @@ public class AppDefine {
 	public static final int TEMP_FREEZING = 0;
 	public static final int TEMP_COOL = 25;
 	public static final int NOTIFICATION_CLOSE_TIME_MILLIS = 5000;
-	
+	public static final Boolean DEBUGGING = true;
+
+	public static States states = null;
+	public static Boolean isFirstOpen = true;
+	public static Favorites favorites;
+	public static Station currentStation;
+	public static StationData currentStationData;
+
+	public static void initApp() {
+
+		if (!AppState.getInstance().state.equals("") && !AppState.getInstance().station.equals(""))
+			currentStation = AppDefine.states.get(AppState.getInstance().state)
+					.getStation(AppState.getInstance().station);
+
+		try {
+			states = DataManager.loadStates();
+		} catch (Exception e) {
+			System.exit(0);
+		}
+
+		isFirstOpen = true;
+
+		try {
+			favorites = FavoritesManager.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+
+		}
+
+	}
+
 }

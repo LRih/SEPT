@@ -64,7 +64,7 @@ public class FirstScreen extends JPanel {
 		
 		wbtnAddStation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				main.showState(AppDefine.ADD_STATION);
+				main.showState(AppDefine.ADD_STATION, this.getClass().getName());
 			}
 		});
 		

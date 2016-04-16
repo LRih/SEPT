@@ -79,32 +79,29 @@ public class MainPanel extends JPanel {
 		webScrollPane.setDrawFocus(false);
 		webScrollPane.setPreferredSize(new Dimension(0, 0));
 		add(webScrollPane, "cell 0 3 2 1,grow, hmin 160");
+		
+		stationDetail = new StationDetail(this);
+		stationChart = new StationChart(this);
+		stationHistory = new StationHistory(this);
 
 		try {
 
-			Favorites favs = frmMain.favs;
-			if (favs.size() == 0)
+			if (AppDefine.favorites.size() == 0)
 				throw new Exception("NO_FAVORITE_STATION");
+			
 			int row = 0;
 			int col = 0;
 			StationCell cell = null;
 
 			if (selected == null)
-				try {
-					// TODO if DataManager.loadStates() fails, just best to
-					// display
-					// error message and close the app
-					States states = DataManager.loadStates();
-					if (!AppState.getInstance().state.equals("") && !AppState.getInstance().station.equals("")) {
-						selected = states.get(AppState.getInstance().state).getStation(AppState.getInstance().station);
-					}
-				} catch (Exception e) {
-					System.exit(0);
+				if (!AppState.getInstance().state.equals("") && !AppState.getInstance().station.equals("")) {
+					selected = AppDefine.states.get(AppState.getInstance().state)
+							.getStation(AppState.getInstance().station);
 				}
 
 			Boolean flag;
 			shown = false;
-			for (Favorite fav : favs) {
+			for (Favorite fav : AppDefine.favorites) {
 				flag = false;
 
 				if (selected != null) {
@@ -125,7 +122,8 @@ public class MainPanel extends JPanel {
 				col++;
 			}
 		} catch (Exception e1) {
-			frmMain.showState(AppDefine.FIRST_SCREEN);
+			
+			frmMain.showState(AppDefine.FIRST_SCREEN, this.getClass().getName());
 		}
 
 		addListeners();
@@ -135,13 +133,17 @@ public class MainPanel extends JPanel {
 
 		wbtnAddStation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmMain.showState(1);
+				frmMain.showState(AppDefine.ADD_STATION, this.getClass().getName());
 			}
 		});
 
 	}
 
-	public void showState(int index) {
+	public void showState(int index, String from) {
+
+		if (AppDefine.DEBUGGING)
+			System.out.println("Class " + from + ": " + this.getClass().getName() + ".showState(" + index + ");");
+
 		pnMainContent.removeAll();
 		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
@@ -151,24 +153,22 @@ public class MainPanel extends JPanel {
 		switch (index) {
 		// STATION_DETAIL
 		default:
-			stationDetail = new StationDetail(this);
-			if (stationData != null)
-				stationDetail.setStation(station, stationData);
+			
+			if (AppDefine.currentStationData != null)
+				stationDetail.setStation();
 			pnMainContent.add(stationDetail, "cell 0 0, grow");
 			break;
 
 		// VIEW_CHART
 		case AppDefine.VIEW_CHART:
-			stationChart = new StationChart(this);
-			if (stationData != null)
-				stationChart.setStation(station, stationData);
+			if (AppDefine.currentStationData != null)
+				stationChart.setStation(AppDefine.currentStation, AppDefine.currentStationData);
 			pnMainContent.add(stationChart, "cell 0 0, grow");
 			break;
 		// VIEW_HISTORY
 		case AppDefine.VIEW_HISTORY:
-			stationHistory = new StationHistory(this);
-			if (stationData != null)
-				stationHistory.setStation(station, stationData);
+			if (AppDefine.currentStationData != null)
+				stationHistory.setStation();
 			pnMainContent.add(stationHistory, "cell 0 0, grow");
 			break;
 		}
@@ -178,17 +178,19 @@ public class MainPanel extends JPanel {
 	}
 
 	public void setStation(Station station, StationData data) {
-		this.station = station;
-		this.stationData = data;
+		
+		AppDefine.currentStation = station;
+		AppDefine.currentStationData = data;
+		
 		if (AppState.getInstance().shownWindow == AppDefine.VIEW_CHART) {
 			stationChart.setStation(station, data);
-			showState(AppDefine.VIEW_CHART);
+			showState(AppDefine.VIEW_CHART, this.getClass().getName());
 		} else if (AppState.getInstance().shownWindow == AppDefine.VIEW_HISTORY) {
-			stationHistory.setStation(station, data);
-			showState(AppDefine.VIEW_HISTORY);
+			stationHistory.setStation();
+			showState(AppDefine.VIEW_HISTORY, this.getClass().getName());
 		} else {
-			stationDetail.setStation(station, data);
-			showState(AppDefine.STATION_DETAIL);
+			stationDetail.setStation();
+			showState(AppDefine.STATION_DETAIL, this.getClass().getName());
 		}
 	}
 

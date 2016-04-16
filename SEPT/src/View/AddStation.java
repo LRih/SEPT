@@ -15,6 +15,7 @@ import Model.Favorites;
 import Model.State;
 import Model.States;
 import Model.Station;
+import Utils.AppDefine;
 import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.FavoritesManager;
@@ -110,9 +111,9 @@ public class AddStation extends JPanel {
 		loadData();
 		addListeners();
 	}
-	
+
 	private void addListeners() {
-		
+
 		wbtnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.showMainScreen();
@@ -121,26 +122,27 @@ public class AddStation extends JPanel {
 
 		wbtnAddToMy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				Station station = states.get(wcbStates.getSelectedItem().toString())
+						.getStation(wcbStations.getSelectedItem().toString());
 				
-				Station station = states.get(wcbStates.getSelectedItem().toString()).getStation(wcbStations.getSelectedItem().toString());
-				
-				Favorites favs;
+				AppDefine.currentStation = station;
+				AppDefine.favorites.add(station);
+
 				try {
-					favs = FavoritesManager.load();
-		            favs.add(station);
-		            FavoritesManager.save(favs);
-		            
-		            AppState.getInstance().state = station.getState().getName();
-					AppState.getInstance().station = station.getName();
-					AppStateManager.trySave();
+					FavoritesManager.save(AppDefine.favorites);
 				} catch (IOException e1) {
-					// TODO: what to do?
+					System.out.println(e1.getMessage());
 				}
-				
-				main.showMainScreen();
+
+				AppState.getInstance().state = station.getState().getName();
+				AppState.getInstance().station = station.getName();
+				AppStateManager.trySave();
+
+				main.showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
 			}
 		});
-		
+
 	}
 
 	private void loadData() {
@@ -154,7 +156,7 @@ public class AddStation extends JPanel {
 		Iterator<Station> stations = states.get(name).iterator();
 		while (stations.hasNext())
 			model.addElement(stations.next().getName());
-		 wcbStations.setModel(model);
+		wcbStations.setModel(model);
 	}
 
 	private void loadStates() {
@@ -165,7 +167,7 @@ public class AddStation extends JPanel {
 
 				model.addElement(state.getName());
 			}
-			 wcbStates.setModel(model);
+			wcbStates.setModel(model);
 		} catch (IOException e) {
 			// TODO what to do?
 		}

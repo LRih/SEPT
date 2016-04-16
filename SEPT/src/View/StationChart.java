@@ -40,29 +40,33 @@ public class StationChart extends JPanel {
 
 		final JChartLibDataSet dataset = new JChartLibDataSet();
 
-		if (this.data == null) {
+		if (AppDefine.currentStationData == null) {
 			int[] tempData = {};
 			dataset.addDataSerie("N/A", tempData);
 			return dataset;
 		}
 
-        // TODO check this Quan
-//		JChartLibSerie serie3PM = getSerie("3PM Temp", data.get3PMReadings());
-//		JChartLibSerie serie9AM = getSerie("9AM Temp", data.get9AMReadings());
-//		JChartLibSerie serieMax = getSerie("Max Temp", data.getMaxReadings());
-//		JChartLibSerie serieMin = getSerie("Min Temp", data.getMinReadings());
-//
-//		dataset.addDataSerie(serie3PM);
-//		dataset.addDataSerie(serie9AM);
-//		dataset.addDataSerie(serieMax);
-//		dataset.addDataSerie(serieMin);
+		// TODO check this Quan
+		// JChartLibSerie serie3PM = getSerie("3PM Temp",
+		// data.get3PMReadings());
+		// JChartLibSerie serie9AM = getSerie("9AM Temp",
+		// data.get9AMReadings());
+		// JChartLibSerie serieMax = getSerie("Max Temp",
+		// data.getMaxReadings());
+		// JChartLibSerie serieMin = getSerie("Min Temp",
+		// data.getMinReadings());
+		//
+		// dataset.addDataSerie(serie3PM);
+		// dataset.addDataSerie(serie9AM);
+		// dataset.addDataSerie(serieMax);
+		// dataset.addDataSerie(serieMin);
 
-        JChartLibSerie serieMax = new JChartLibSerie("Max Temp");
-        for (HistoricalReading reading : data.getHistoricalReadings()) {
-            if (reading.max != null) {
-                serieMax.addValue(reading.max);
-            }
-        }
+		JChartLibSerie serieMax = new JChartLibSerie("Max Temp");
+		for (HistoricalReading reading : AppDefine.currentStationData.getHistoricalReadings()) {
+			if (reading.max != null) {
+				serieMax.addValue(reading.max);
+			}
+		}
 		dataset.addDataSerie(serieMax);
 
 		return dataset;
@@ -100,7 +104,7 @@ public class StationChart extends JPanel {
 		wbtnBack.setDrawShade(false);
 		wbtnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				m.showState(AppDefine.STATION_DETAIL);
+				m.showState(AppDefine.STATION_DETAIL, this.getClass().getName());
 			}
 		});
 		wbtnBack.setText("Back");
@@ -117,7 +121,7 @@ public class StationChart extends JPanel {
 		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
 		wblblVictoria.setText("-");
 		add(wblblVictoria, "cell 2 0");
-		
+
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		add(panel, "cell 0 1 4 1,grow");
@@ -130,14 +134,14 @@ public class StationChart extends JPanel {
 	}
 
 	public void updateChart() {
-		
+
 		panel.removeAll();
-		
+
 		JChartLibDataSet chartLibDataSet = createDataset();
 		JChartLibBaseChart baseChart = createChart(chartLibDataSet);
 		chartLibPanel = new JChartLibPanel(baseChart);
 		panel.add(chartLibPanel, "cell 0 0, grow");
-		
+
 		panel.validate();
 		panel.repaint();
 	}

@@ -78,6 +78,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			this.data = DataManager.getCachedStationData(station);
 		} catch (IOException e1) {
 			// no problem, this is normal.
+			this.data = null;
 		}
 
 		dataWorker = new StationDataWorker(station);
@@ -102,6 +103,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 				if (selected)
 					m.setStation(this.station, this.data);
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			
 			webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
@@ -139,6 +141,6 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 	public void onFail() {
 		main.loadFail();
 		main.frmMain.setMainBg(false);
-		main.showState(AppDefine.STATION_DETAIL);
+		main.showState(AppDefine.STATION_DETAIL, this.getClass().getName());
 	}
 }

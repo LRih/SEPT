@@ -34,7 +34,6 @@ public class StationHistory extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private WebLabel wblblMildura;
 	private WebLabel wblblVictoria;
-	private StationData data;
 	private WebScrollPane webScrollPane;
 	private WebTable webTable;
 	private DateTimeFormatter dtfOut;
@@ -53,7 +52,7 @@ public class StationHistory extends JPanel {
 		wbtnBack.setDrawShade(false);
 		wbtnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				m.showState(AppDefine.STATION_DETAIL);
+				m.showState(AppDefine.STATION_DETAIL, this.getClass().getName());
 			}
 		});
 		wbtnBack.setText("Back");
@@ -87,13 +86,12 @@ public class StationHistory extends JPanel {
 		initColumnSizes(webTable);
 	}
 
-	public void setStation(Station station, StationData data) {
-		this.data = data;
+	public void setStation() {
 
 		reloadTable();
 
-		wblblMildura.setText(station.getName());
-		wblblVictoria.setText(station.getState().getName());
+		wblblMildura.setText(AppDefine.currentStation.getName());
+		wblblVictoria.setText(AppDefine.currentStation.getState().getName());
 	}
 
 	private void initColumnSizes(JTable table) {
@@ -139,10 +137,10 @@ public class StationHistory extends JPanel {
 
 		@Override
 		public int getRowCount() {
-			if (data == null)
+			if (AppDefine.currentStationData == null)
 				return 0;
 
-			return data.getLatestReadings().size();
+			return AppDefine.currentStationData.getLatestReadings().size();
 		}
 
 		@Override
@@ -153,10 +151,10 @@ public class StationHistory extends JPanel {
 		@Override
 		public Object getValueAt(int row, int col) {
 
-			if (data == null)
+			if (AppDefine.currentStationData == null)
 				return "-";
 
-			LatestReading reading = data.getLatestReadings().get(row);
+			LatestReading reading = AppDefine.currentStationData.getLatestReadings().get(row);
 			switch (col) {
 			case 0:
 				return reading.getLocalDateTime() != null ? dtfOut.print(reading.getLocalDateTime()) : "-";
