@@ -82,8 +82,8 @@ public class StationChart extends JPanel {
 		// create the chart with title and axis names
 		final JChartLibLineChart chart = new JChartLibLineChart("", // chart
 																	// title
-				"time", // x axis text
-				"temperature", // y axis text
+				"day", // x axis text
+				"temperature (°C)", // y axis text
 				dataset);
 
 		return chart;

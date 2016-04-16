@@ -2,9 +2,9 @@
 /build/
 /bin/
 target/
-/SEPT/cache/
-/SEPT/appstate.json
-/SEPT/favourites.json
+SEPT/cache/
+appstate.json
+favourites.json
  
 # OS Files #
 .DS_Store
