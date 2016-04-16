@@ -11,13 +11,10 @@ import java.awt.event.ActionEvent;
 import com.alee.laf.label.WebLabel;
 
 import Model.AppState;
-import Model.Favorites;
 import Model.State;
-import Model.States;
 import Model.Station;
 import Utils.AppDefine;
 import Utils.AppStateManager;
-import Utils.DataManager;
 import Utils.FavoritesManager;
 
 import java.awt.Font;
@@ -33,7 +30,6 @@ public class AddStation extends JPanel {
 	private Main main = null;
 	private WebComboBox wcbStates;
 	private WebComboBox wcbStations;
-	private States states;
 	private WebButton wbtnBack;
 	private WebButton wbtnAddToMy;
 
@@ -103,8 +99,9 @@ public class AddStation extends JPanel {
 		panel_3.setBackground(Color.WHITE);
 		pnContent.add(panel_3, "cell 2 1,grow");
 
-		loadData();
 		addListeners();
+
+		loadData();
 	}
 
 	private void addListeners() {
@@ -114,7 +111,7 @@ public class AddStation extends JPanel {
 				main.showMainScreen();
 			}
 		});
-		
+
 		wcbStates.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadStationsByState(wcbStates.getSelectedItem().toString());
@@ -124,9 +121,9 @@ public class AddStation extends JPanel {
 		wbtnAddToMy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Station station = states.get(wcbStates.getSelectedItem().toString())
+				Station station = AppDefine.states.get(wcbStates.getSelectedItem().toString())
 						.getStation(wcbStations.getSelectedItem().toString());
-				
+
 				AppDefine.currentStation = station;
 				AppDefine.favorites.add(station);
 
@@ -149,29 +146,23 @@ public class AddStation extends JPanel {
 	private void loadData() {
 		loadStates();
 		if (wcbStates.getItemCount() > 0)
-			wcbStates.setSelectedIndex(0);
+			wcbStates.setSelectedIndex(3);
 	}
 
 	private void loadStationsByState(String name) {
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
-		Iterator<Station> stations = states.get(name).iterator();
+		Iterator<Station> stations = AppDefine.states.get(name).iterator();
 		while (stations.hasNext())
 			model.addElement(stations.next().getName());
 		wcbStations.setModel(model);
 	}
 
 	private void loadStates() {
-		try {
-			states = DataManager.loadStates();
-			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
-			for (State state : states) {
-
-				model.addElement(state.getName());
-			}
-			wcbStates.setModel(model);
-		} catch (IOException e) {
-			// TODO what to do?
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
+		for (State state : AppDefine.states) {
+			model.addElement(state.getName());
 		}
+		wcbStates.setModel(model);
 
 	}
 

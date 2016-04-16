@@ -133,10 +133,10 @@ public final class Main {
 			if (AppDefine.favorites.size() == 0)
 				throw new Exception("NO_FAVORITE_STATION");
 			else {
-				if (AppState.getInstance().stateIndex == 0 || AppDefine.isFirstOpen)
-					showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
-				else
+				if (AppDefine.isFirstOpen)
 					showState(AppState.getInstance().stateIndex, this.getClass().getName());
+				else
+					showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
 					
 			}
 		} catch (Exception e) {
