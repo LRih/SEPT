@@ -3,6 +3,8 @@
 /bin/
 target/
 /SEPT/cache/
+/SEPT/appstate.json
+/SEPT/favourites.json
  
 # OS Files #
 .DS_Store
