@@ -17,7 +17,7 @@ public final class StationData
 
     private final String timezone;
 
-    private final List<LatestReading> readings;
+    private final List<LatestReading> latestReadings;
     private final List<HistoricalReading> historicalReadings;
 
 
@@ -27,16 +27,17 @@ public final class StationData
      * @param id BOM id of station
      * @param mainId BOM main id of station
      * @param timezone timezone of station
-     * @param readings list of readings for station
+     * @param latestReadings list of latest readings for station
+     * @param historicalReadings list of historical readings for station
      */
-    public StationData(String id, String mainId, String timezone, List<LatestReading> readings, List<HistoricalReading> historicalReadings)
+    public StationData(String id, String mainId, String timezone, List<LatestReading> latestReadings, List<HistoricalReading> historicalReadings)
     {
         this.id = id;
         this.mainId = mainId;
 
         this.timezone = timezone;
 
-        this.readings = Collections.unmodifiableList(readings);
+        this.latestReadings = Collections.unmodifiableList(latestReadings);
         this.historicalReadings = Collections.unmodifiableList(historicalReadings);
     }
 
@@ -57,7 +58,7 @@ public final class StationData
 
     public final List<LatestReading> getLatestReadings()
     {
-        return readings;
+        return latestReadings;
     }
     public final List<HistoricalReading> getHistoricalReadings()
     {
@@ -75,12 +76,12 @@ public final class StationData
         List<LatestReading> results = new ArrayList<>();
 
         // no readings
-        if (readings.size() == 0)
+        if (latestReadings.size() == 0)
             return results;
 
         LatestReading min = null;
 
-        for (LatestReading reading : readings)
+        for (LatestReading reading : latestReadings)
         {
             // ignore readings with no temp data
             if (reading.getAirTemp() == null)
@@ -119,12 +120,12 @@ public final class StationData
         List<LatestReading> results = new ArrayList<>();
 
         // no readings
-        if (readings.size() == 0)
+        if (latestReadings.size() == 0)
             return results;
 
         LatestReading max = null;
 
-        for (LatestReading reading : readings)
+        for (LatestReading reading : latestReadings)
         {
             // ignore readings with no temp data
             if (reading.getAirTemp() == null)
@@ -162,7 +163,7 @@ public final class StationData
     {
         List<LatestReading> results = new ArrayList<>();
 
-        for (LatestReading reading : readings)
+        for (LatestReading reading : latestReadings)
         {
             LocalDateTime dt = reading.getLocalDateTime();
             if (dt.getHourOfDay() == 9 && dt.getMinuteOfHour() == 0)
@@ -182,7 +183,7 @@ public final class StationData
     {
         List<LatestReading> results = new ArrayList<>();
 
-        for (LatestReading reading : readings)
+        for (LatestReading reading : latestReadings)
         {
             LocalDateTime dt = reading.getLocalDateTime();
             if (dt.getHourOfDay() == 15 && dt.getMinuteOfHour() == 0)

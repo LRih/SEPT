@@ -69,6 +69,7 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			// error message and close the app
 			states = DataManager.loadStates();
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.exit(0);
 		}
 
@@ -130,15 +131,16 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		
 		main.frmMain.setMainBg(true);
 
-		wblblMildura.setText(station.getName());
+        wblblMildura.setText(station.getName());
 		wblblVictoria.setText(station.getState().getName());
-		webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
+        webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
 		webLabel_2.setForeground(new Color(34, 139, 34));
 
 	}
 
 	@Override
-	public void onFail() {
+	public void onFail(Exception e) {
+        e.printStackTrace();
 		main.loadFail();
 		main.frmMain.setMainBg(false);
 		main.showState(AppDefine.STATION_DETAIL, this.getClass().getName());
