@@ -22,11 +22,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Detail information UI in Main Screen
+ */
 public class StationDetail extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private WebLabel wblblStation;
@@ -45,9 +45,7 @@ public class StationDetail extends JPanel {
 	private WebLabel wblblRemoveFromFavourites;
 	private JPanel panel;
 	private JPanel panel_1;
-
 	private WebButton wbtnViewChart;
-
 	private MainPanel mainPanel;
 
 	/**
@@ -198,6 +196,9 @@ public class StationDetail extends JPanel {
 		wblblState.setText(state);
 	}
 
+	/**
+	 * set station information to this Panel
+	 */
 	public void setStation() {
 
 		Station station = AppDefine.currentStation;

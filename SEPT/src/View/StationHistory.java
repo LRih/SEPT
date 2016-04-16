@@ -11,26 +11,21 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
 import Model.LatestReading;
-import Model.Station;
-import Model.StationData;
 import Utils.AppDefine;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.scroll.WebScrollPane;
 import java.awt.Component;
 import com.alee.laf.table.WebTable;
 
+/**
+ * Show all weather history table UI
+ */
 public class StationHistory extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private WebLabel wblblMildura;
 	private WebLabel wblblVictoria;
@@ -41,8 +36,6 @@ public class StationHistory extends JPanel {
 	 * Create the panel.
 	 */
 	public StationHistory(final MainPanel m) {
-
-		
 
 		setBackground(new Color(240, 248, 255));
 		setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
@@ -80,11 +73,14 @@ public class StationHistory extends JPanel {
 
 	}
 
-	public void reloadTable() {
+	private void reloadTable() {
 		webTable.setModel(new SampleTableModel());
 		initColumnSizes(webTable);
 	}
 
+	/**
+	 * Set station information to this Panel
+	 */
 	public void setStation() {
 
 		reloadTable();
@@ -116,10 +112,10 @@ public class StationHistory extends JPanel {
 		}
 	}
 
+	/**
+	 * Sample Table Model for the UI
+	 */
 	public class SampleTableModel extends AbstractTableModel {
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 		private String[] columnNames = {
 			"Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
@@ -198,7 +194,6 @@ public class StationHistory extends JPanel {
 			return false;
 		}
 
-		// no need for this because we don't allow editing table
 		@Override
 		public void setValueAt(Object value, int row, int col) {
 			fireTableCellUpdated(row, col);

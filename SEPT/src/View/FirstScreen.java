@@ -15,13 +15,14 @@ import com.alee.extended.image.WebImage;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+/**
+ * First Screen UI. Show when user has no favorite station.
+ */
 public class FirstScreen extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private Main main = null;
+	private Main frmMain = null;
 	private WebButton wbtnAddStation;
 
 	/**
@@ -29,7 +30,7 @@ public class FirstScreen extends JPanel {
 	 */
 	public FirstScreen(Main m) {
 		setBackground(new Color(255, 255, 255));
-		this.main = m;
+		this.frmMain = m;
 		
 		setLayout(new MigLayout("", "[grow][center][grow]", "[grow][grow][center][center][center][center][grow][grow][grow]"));
 		
@@ -64,7 +65,7 @@ public class FirstScreen extends JPanel {
 		
 		wbtnAddStation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				main.showState(AppDefine.ADD_STATION, this.getClass().getName());
+				frmMain.showState(AppDefine.ADD_STATION, this.getClass().getName());
 			}
 		});
 		

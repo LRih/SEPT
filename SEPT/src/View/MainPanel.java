@@ -26,11 +26,11 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Main Panel UI
+ */
 public class MainPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	Main frmMain = null;
 	private JPanel pnMainContent;
@@ -139,6 +139,9 @@ public class MainPanel extends JPanel {
 
 	}
 
+	/**
+     * Change App State
+     */
 	public void showState(int index, String from) {
 
 		if (AppDefine.DEBUGGING)
@@ -153,12 +156,10 @@ public class MainPanel extends JPanel {
 		switch (index) {
 		// STATION_DETAIL
 		default:
-			
 			if (AppDefine.currentStationData != null)
 				stationDetail.setStation();
 			pnMainContent.add(stationDetail, "cell 0 0, grow");
 			break;
-
 		// VIEW_CHART
 		case AppDefine.VIEW_CHART:
 			if (AppDefine.currentStationData != null)
@@ -177,6 +178,9 @@ public class MainPanel extends JPanel {
 
 	}
 
+	/**
+     * Set Current Station data
+     */
 	public void setStation(Station station, StationData data) {
 		
 		AppDefine.currentStation = station;
@@ -194,6 +198,9 @@ public class MainPanel extends JPanel {
 		}
 	}
 
+	/**
+     * Show error notification when one of the station loaded failed.
+     */
 	public void loadFail() {
 		if (!shown) {
 			shown = true;

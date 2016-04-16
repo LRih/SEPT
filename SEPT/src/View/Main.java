@@ -19,6 +19,9 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * App Main
+ */
 public final class Main {
 	private JFrame frmMain;
 	private JPanel pnMain;
@@ -51,9 +54,6 @@ public final class Main {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmMain = new JFrame();
 		frmMain.getContentPane().setBackground(Color.WHITE);
@@ -119,23 +119,33 @@ public final class Main {
 		});
 	}
 
+	/**
+	 * Show appropriate main screen
+	 */
 	public void showMainScreen() {
 		try {
-			// if there is no favorited station, show first screen
-			if (AppDefine.favorites.size() == 0)
-				throw new Exception("NO_FAVORITE_STATION");
-			else {
-				if (AppDefine.isFirstOpen)
-					showState(AppState.getInstance().stateIndex, this.getClass().getName());
-				else
-					showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
+			if (AppState.getInstance().stateIndex == AppDefine.ADD_STATION) {
+				showState(AppState.getInstance().stateIndex, this.getClass().getName());
+			} else {
+				// if there is no favorited station, show first screen
+				if (AppDefine.favorites.size() == 0)
+					throw new Exception("NO_FAVORITE_STATION");
+				else {
+					if (AppDefine.isFirstOpen)
+						showState(AppState.getInstance().stateIndex, this.getClass().getName());
+					else
+						showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
 
+				}
 			}
 		} catch (Exception e) {
 			showState(AppDefine.FIRST_SCREEN, this.getClass().getName());
 		}
 	}
 
+	/**
+	 * Change App State
+	 */
 	public void showState(int index, String from) {
 
 		if (AppDefine.DEBUGGING)
@@ -162,6 +172,7 @@ public final class Main {
 		// ADD_STATION
 		case AppDefine.ADD_STATION:
 			AddStation addStation = new AddStation(this);
+			pnMainBar.setBackground(new Color(255, 140, 0));
 			wbtnRefreshData.setVisible(false);
 			pnMain.add(addStation, "cell 0 0 1 1,grow");
 			break;
@@ -180,6 +191,9 @@ public final class Main {
 		pnMain.repaint();
 	}
 
+	/**
+	 * Change Background when user has Internet/No Internet
+	 */
 	public void setMainBg(Boolean hasInternetConnection) {
 		if (hasInternetConnection) {
 			pnMainBar.setBackground(new Color(255, 140, 0));

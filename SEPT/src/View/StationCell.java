@@ -7,7 +7,6 @@ import com.alee.laf.label.WebLabel;
 
 import Model.AppState;
 import Model.Favorite;
-import Model.States;
 import Model.Station;
 import Model.StationData;
 import Utils.AppDefine;
@@ -21,11 +20,11 @@ import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * A Station Cell for repeating in favorite list.
+ */
 public class StationCell extends JPanel implements OnTaskCompleteListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Station station = null;
 	private StationData data = null;
@@ -112,6 +111,9 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 	}
 
+	/**
+	 * On success call back for StationWorker
+	 */
 	@Override
 	public void onSuccess(StationData data) {
 
@@ -135,6 +137,9 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
 	}
 
+	/**
+	 * On fail call back for StationWorker
+	 */
 	@Override
 	public void onFail(Exception e) {
         e.printStackTrace();

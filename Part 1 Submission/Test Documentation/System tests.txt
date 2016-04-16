@@ -85,15 +85,96 @@ Test case 4
 -------------------------------------------------------------------------------
 Test case 5
 -------------------------------------------------------------------------------
+Last run: 16 April 2016
+Result: PASSED
 
+Description:
+System should remember what was user doing last session and re-open it next time.
+
+Precondition:
+Delete cache folder.
+Delete favorites.json.
+Delete appstate.json.
+
+Expected results:
+When user opened the app the second time, Add Station should be displayed.
+
+Steps:
+1. Open app.
+2. Click "Add Station".
+3. Close app.
+3. Open app again.
 -------------------------------------------------------------------------------
 Test case 6
 -------------------------------------------------------------------------------
+Last run: 16 April 2016
+Result: PASSED
 
+Description:
+System should remember the location on screen and width+height of the app.
+
+Precondition:
+Delete cache folder.
+Delete favorites.json.
+Delete appstate.json.
+
+Expected results:
+When user opened the app the second time, the app is displayed in the same location on screen and same size as last session.
+
+Steps:
+1. Open app.
+2. Drag somewhere else.
+3. Resize the app frame.
+3. Close app.
+3. Open app again.
 -------------------------------------------------------------------------------
 Test case 7
 -------------------------------------------------------------------------------
+Last run: 16 April 2016
+Result: PASSED
 
+Description:
+System should fetch the latest data in the background when click ‘Refresh Data’ button.
+
+Precondition:
+Delete cache folder.
+Delete favorites.json.
+Delete appstate.json.
+
+Expected results:
+The latest data is fetched and displayed in the app.
+
+Steps:
+1. Open app.
+2. Click ‘Add Station’.
+3. Select state ‘Antartica’.
+4. Select station ‘Casey’.
+5. Click ‘Add to My Favorites’.
+6. Click ‘Refresh Data’.
 -------------------------------------------------------------------------------
 Test case 8
 -------------------------------------------------------------------------------
+Last run: 16 April 2016
+Result: PASSED
+
+Description:
+System should prevent user add a station to favorite twice.
+
+Precondition:
+Delete cache folder.
+Delete favorites.json.
+Delete appstate.json.
+
+Expected results:
+The system should show a warning message dialog when user tried to add a station the second time.
+
+Steps:
+1. Open app.
+2. Click ‘Add Station’.
+3. Select state ‘Antartica’.
+4. Select station ‘Casey’.
+5. Click ‘Add to My Favorites’.
+6. Click ‘Add Station’.
+7. Select state ‘Antartica’.
+8. Select station ‘Casey’.
+9. Click ‘Add to My Favorites’.

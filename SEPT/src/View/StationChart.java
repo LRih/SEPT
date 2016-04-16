@@ -8,13 +8,11 @@ import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.optionpane.WebOptionPane;
 
-import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
 import Utils.AppDefine;
 
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -27,15 +25,15 @@ import com.bitagentur.data.JChartLibSerie;
 import com.alee.laf.combobox.WebComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+
+/**
+ * Chart UI
+ */
 public class StationChart extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private WebLabel wblblMildura;
 	private WebLabel wblblVictoria;
-	private StationData data = null;
 	private JChartLibPanel chartLibPanel;
 	private JPanel panel;
 	private WebComboBox wcbChartType;
@@ -167,7 +165,7 @@ public class StationChart extends JPanel {
 		});
 	}
 
-	public void updateChart(int type) {
+	private void updateChart(int type) {
 
 		panel.removeAll();
 
@@ -185,9 +183,10 @@ public class StationChart extends JPanel {
 					WebOptionPane.ERROR_MESSAGE);
 
 	}
-
+	/**
+	 * Set station data for this panel
+	 */
 	public void setStation(Station station, StationData data) {
-		this.data = data;
 
 		wblblMildura.setText(station.getName());
 		wblblVictoria.setText(station.getState().getName());

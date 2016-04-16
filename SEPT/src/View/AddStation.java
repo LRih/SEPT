@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import com.alee.laf.label.WebLabel;
+import com.alee.laf.optionpane.WebOptionPane;
 
 import Model.AppState;
+import Model.Favorite;
 import Model.State;
 import Model.Station;
 import Utils.AppDefine;
@@ -21,24 +23,25 @@ import java.awt.Font;
 import com.alee.laf.combobox.WebComboBox;
 import java.awt.Color;
 
+/**
+ * Add Station UI Panel
+ */
 public class AddStation extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private Main main = null;
+	private Main frmMain = null;
 	private WebComboBox wcbStates;
 	private WebComboBox wcbStations;
 	private WebButton wbtnBack;
 	private WebButton wbtnAddToMy;
+	private JPanel pnContent;
 
 	/**
 	 * Create the panel.
 	 */
 	public AddStation(Main m) {
 		setBackground(Color.WHITE);
-		main = m;
+		frmMain = m;
 
 		setLayout(new MigLayout("", "[20%][grow]", "[][grow]"));
 
@@ -47,7 +50,7 @@ public class AddStation extends JPanel {
 		wbtnBack.setText("< Back");
 		add(wbtnBack, "cell 0 0");
 
-		JPanel pnContent = new JPanel();
+		pnContent = new JPanel();
 		pnContent.setBackground(Color.WHITE);
 		add(pnContent, "cell 0 1 2 1,grow");
 		pnContent.setLayout(new MigLayout("", "[20%][grow][20%]", "[grow][grow][grow]"));
@@ -108,7 +111,7 @@ public class AddStation extends JPanel {
 
 		wbtnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				main.showMainScreen();
+				frmMain.showMainScreen();
 			}
 		});
 
@@ -124,6 +127,14 @@ public class AddStation extends JPanel {
 				Station station = AppDefine.states.get(wcbStates.getSelectedItem().toString())
 						.getStation(wcbStations.getSelectedItem().toString());
 
+				for (Favorite fav : AppDefine.favorites) {
+					if (fav.station.equals(station.getName()) && fav.state.equals(station.getState().getName())) {
+						WebOptionPane.showMessageDialog(pnContent,
+								"You already have this station in your Favorites.", "", WebOptionPane.WARNING_MESSAGE);
+						return;
+					}
+				}
+
 				AppDefine.currentStation = station;
 				AppDefine.favorites.add(station);
 
@@ -137,7 +148,7 @@ public class AddStation extends JPanel {
 				AppState.getInstance().station = station.getName();
 				AppStateManager.trySave();
 
-				main.showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
+				frmMain.showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
 			}
 		});
 
