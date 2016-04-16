@@ -146,7 +146,7 @@ public class AddStation extends JPanel {
 	private void loadData() {
 		loadStates();
 		if (wcbStates.getItemCount() > 0)
-			wcbStates.setSelectedIndex(3);
+			wcbStates.setSelectedIndex(0);
 	}
 
 	private void loadStationsByState(String name) {

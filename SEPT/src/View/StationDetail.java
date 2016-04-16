@@ -56,7 +56,7 @@ public class StationDetail extends JPanel {
 	public StationDetail(final MainPanel m) {
 
 		mainPanel = m;
-		
+
 		setBackground(new Color(176, 196, 222));
 
 		setLayout(new MigLayout("", "[30%,grow][grow][30%]", "[grow][][][][][][][][grow][]"));
@@ -155,12 +155,12 @@ public class StationDetail extends JPanel {
 		add(wblblRemoveFromFavourites, "cell 2 9,alignx right,aligny bottom");
 
 		addListeners();
-		
+
 		if (AppDefine.currentStation != null) {
 			setTexts(AppDefine.currentStation.getName(), AppDefine.currentStation.getState().getName());
 		}
 	}
-	
+
 	private void addListeners() {
 
 		wbtnViewChart.addActionListener(new ActionListener() {
@@ -192,7 +192,7 @@ public class StationDetail extends JPanel {
 		});
 
 	}
-	
+
 	private void setTexts(String station, String state) {
 		wblblStation.setText(station);
 		wblblState.setText(state);
@@ -203,31 +203,35 @@ public class StationDetail extends JPanel {
 		Station station = AppDefine.currentStation;
 		StationData data = AppDefine.currentStationData;
 
-		if (data.getLatestReadings().size() > 0)
-        {
-            LatestReading reading = data.getLatestReadings().get(0);
+		if (data.getLatestReadings().size() > 0) {
+			LatestReading reading = data.getLatestReadings().get(0);
 
 			// change colours by Temperature
-			if (reading.getAirTemp() < AppDefine.TEMP_FREEZING) {
+			try {
+				if (reading.getAirTemp() < AppDefine.TEMP_FREEZING) {
+					setBackground(new Color(176, 196, 222));
+					wblblc.setForeground(new Color(255, 255, 255));
+				} else if (reading.getAirTemp() < AppDefine.TEMP_COOL) {
+					setBackground(new Color(240, 248, 255));
+					wblblc.setForeground(new Color(30, 144, 255));
+				} else {
+					setBackground(new Color(255, 248, 220));
+					wblblc.setForeground(new Color(255, 99, 71));
+				}
+				wblblc.setText(reading.getAirTemp() + "°C");
+			} catch (Exception e) {
 				setBackground(new Color(176, 196, 222));
-				wblblc.setForeground(new Color(255, 255, 255));
-			} else if (reading.getAirTemp() < AppDefine.TEMP_COOL) {
-				setBackground(new Color(240, 248, 255));
-				wblblc.setForeground(new Color(30, 144, 255));
-			} else {
-				setBackground(new Color(255, 248, 220));
-				wblblc.setForeground(new Color(255, 99, 71));
+				wblblc.setForeground(Color.black);
+				wblblc.setText("-°C");
 			}
 
 			// set Text
-			wblblStation.setText(station.getName());
 			wblblHumid.setText("Humid: " + reading.getRelativeHumidity() + "%");
+			wblblStation.setText(station.getName());
 			wblblState.setText(station.getState().getName());
-			wblblWindSse.setText("Wind: " + reading.getWindDir() + " "
-					+ reading.getWindSpdKmH() + "-"
+			wblblWindSse.setText("Wind: " + reading.getWindDir() + " " + reading.getWindSpdKmH() + "-"
 					+ reading.getWindGustKmH() + " km/h");
 			wblblRainSinceam.setText("Rain since 9am: " + reading.getRainTrace() + "mm");
-			wblblc.setText(reading.getAirTemp() + "°C");
 			wblblPressQmh.setText("Press QNH hPa: " + reading.getPressureQNH());
 			wblblPress.setText("Press MSL hPa: " + reading.getPressureMSL());
 			wblblAirTemp.setText("App temp: " + reading.getApparentTemp() + "°C");
