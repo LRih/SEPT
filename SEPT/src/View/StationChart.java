@@ -6,6 +6,7 @@ import Model.HistoricalReading;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
+import com.alee.laf.optionpane.WebOptionPane;
 
 import Model.LatestReading;
 import Model.Station;
@@ -39,6 +40,7 @@ public class StationChart extends JPanel {
 	private JPanel panel;
 	private WebComboBox wcbChartType;
 	private WebLabel wblblSelectChart;
+	private MainPanel mainPanel;
 
 	private JChartLibDataSet createDataset(int serieType) {
 
@@ -85,10 +87,8 @@ public class StationChart extends JPanel {
 				}
 			}
 			break;
-
-		default:
-			break;
 		}
+
 		dataset.addDataSerie(serie);
 
 		return dataset;
@@ -110,6 +110,9 @@ public class StationChart extends JPanel {
 	 * Create the panel.
 	 */
 	public StationChart(final MainPanel m) {
+
+		mainPanel = m;
+
 		setBackground(new Color(240, 248, 255));
 		setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
 
@@ -135,16 +138,17 @@ public class StationChart extends JPanel {
 		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
 		wblblVictoria.setText("-");
 		add(wblblVictoria, "cell 2 0,alignx trailing");
-		
+
 		wblblSelectChart = new WebLabel();
 		wblblSelectChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		wblblSelectChart.setText("Select Chart");
 		add(wblblSelectChart, "flowx,cell 3 0,alignx right,aligny center");
-		
+
 		wcbChartType = new WebComboBox();
 		wcbChartType.setDrawFocus(false);
 		wcbChartType.setFont(new Font("Bender", Font.PLAIN, 13));
-		wcbChartType.setModel(new DefaultComboBoxModel(new String[] {"Daily 9AM", "Daily 3PM", "Daily Max", "Daily Min"}));
+		wcbChartType.setModel(
+				new DefaultComboBoxModel(new String[] { "Daily 9AM", "Daily 3PM", "Daily Max", "Daily Min" }));
 		add(wcbChartType, "cell 3 0,alignx right");
 
 		panel = new JPanel();
@@ -174,6 +178,12 @@ public class StationChart extends JPanel {
 
 		panel.validate();
 		panel.repaint();
+
+		if (chartLibDataSet.getSeries().get(0).getValues().size() == 0)
+			WebOptionPane.showMessageDialog(mainPanel,
+					"No data found for " + chartLibDataSet.getSeries().get(0).getTitle() + "!", "Chart",
+					WebOptionPane.ERROR_MESSAGE);
+
 	}
 
 	public void setStation(Station station, StationData data) {

@@ -8,12 +8,8 @@ import javax.swing.*;
 
 import com.alee.laf.WebLookAndFeel;
 
-import Model.Favorites;
-import Model.States;
 import Utils.AppDefine;
 import Utils.AppStateManager;
-import Utils.DataManager;
-import Utils.FavoritesManager;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -24,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public final class Main {
-	private JFrame frmSept;
+	private JFrame frmMain;
 	private JPanel pnMain;
 	private JPanel pnMainBar;
 	private WebButton wbtnRefreshData;
@@ -36,13 +32,11 @@ public final class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public final void run() {
 				try {
-
 					WebLookAndFeel.install();
 					Main window = new Main();
-					window.frmSept.setVisible(true);
-
+					window.frmMain.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					System.exit(0);
 				}
 			}
 		});
@@ -52,9 +46,8 @@ public final class Main {
 	 * Create the application.
 	 */
 	public Main() {
-	
-		AppDefine.initApp();
-		
+
+		AppDefine.initApp(frmMain);
 		initialize();
 	}
 
@@ -62,14 +55,14 @@ public final class Main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmSept = new JFrame();
-		frmSept.getContentPane().setBackground(Color.WHITE);
-		frmSept.getContentPane().setLayout(new MigLayout("ins 0, gapy 0", "[grow]", "[60][grow]"));
+		frmMain = new JFrame();
+		frmMain.getContentPane().setBackground(Color.WHITE);
+		frmMain.getContentPane().setLayout(new MigLayout("ins 0, gapy 0", "[grow]", "[60][grow]"));
 
 		// Top Bar
 		pnMainBar = new JPanel();
 		pnMainBar.setBackground(new Color(169, 169, 169));
-		frmSept.getContentPane().add(pnMainBar, "cell 0 0,grow");
+		frmMain.getContentPane().add(pnMainBar, "cell 0 0,grow");
 		pnMainBar.setLayout(new MigLayout("", "[grow][10%]", "[]"));
 
 		WebLabel wblblBomWeather = new WebLabel();
@@ -88,27 +81,26 @@ public final class Main {
 		pnMainBar.add(wbtnRefreshData, "cell 1 0,aligny center, alignx right");
 
 		pnMain = new JPanel();
-		frmSept.getContentPane().add(pnMain, "cell 0 1,grow");
-		frmSept.setBackground(Color.WHITE);
-		frmSept.setTitle("Bom Weather");
+		frmMain.getContentPane().add(pnMain, "cell 0 1,grow");
+		frmMain.setBackground(Color.WHITE);
+		frmMain.setTitle("Bom Weather");
 
 		AppStateManager.tryLoad();
-		frmSept.setBounds(AppState.getInstance().getWindowRect());
+		frmMain.setBounds(AppState.getInstance().getWindowRect());
 
-		frmSept.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		showMainScreen();
-
 		addListeners();
 	}
 
 	private void addListeners() {
 		// on close listener
-		frmSept.addWindowListener(new WindowAdapter() {
+		frmMain.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				// store Current Window Location and Size
-				AppState.getInstance().setWindowRect(frmSept.getLocationOnScreen(), frmSept.getSize());
+				AppState.getInstance().setWindowRect(frmMain.getLocationOnScreen(), frmMain.getSize());
 				AppStateManager.trySave();
 
 			}
@@ -137,7 +129,7 @@ public final class Main {
 					showState(AppState.getInstance().stateIndex, this.getClass().getName());
 				else
 					showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
-					
+
 			}
 		} catch (Exception e) {
 			showState(AppDefine.FIRST_SCREEN, this.getClass().getName());
@@ -151,7 +143,7 @@ public final class Main {
 
 		if (AppDefine.isFirstOpen)
 			AppDefine.isFirstOpen = false;
-		
+
 		pnMain.removeAll();
 		pnMain.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 

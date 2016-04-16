@@ -2,8 +2,12 @@ package Utils;
 
 import java.io.IOException;
 
+import javax.swing.JFrame;
+
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
+import com.alee.laf.optionpane.WebOptionPane;
 
 import Model.AppState;
 import Model.Favorites;
@@ -26,9 +30,7 @@ public class AppDefine {
 	public static final int CHART_3PM = 1;
 	public static final int CHART_MAX = 2;
 	public static final int CHART_MIN = 3;
-	
-	
-	
+
 	public static final Boolean DEBUGGING = true;
 
 	public static States states = null;
@@ -39,8 +41,8 @@ public class AppDefine {
 
 	public static DateTimeFormatter dtfOut;
 
-	public static void initApp() {
-		
+	public static void initApp(JFrame mainFrame) {
+
 		dtfOut = DateTimeFormat.forPattern("HH:mm dd/MM");
 
 		if (!AppState.getInstance().state.equals("") && !AppState.getInstance().station.equals(""))
@@ -50,7 +52,7 @@ public class AppDefine {
 		try {
 			states = DataManager.loadStates();
 		} catch (Exception e) {
-			e.printStackTrace();
+			WebOptionPane.showMessageDialog(mainFrame, "Invalid States Format!", "ERROR", WebOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 
@@ -59,8 +61,7 @@ public class AppDefine {
 		try {
 			favorites = FavoritesManager.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// no problem
 		}
 
 	}
