@@ -82,7 +82,7 @@ public class MainPanel extends JPanel {
 
 		try {
 
-			Favorites favs = FavoritesManager.load();
+			Favorites favs = frmMain.favs;
 			if (favs.size() == 0)
 				throw new Exception("NO_FAVORITE_STATION");
 			int row = 0;
@@ -180,15 +180,15 @@ public class MainPanel extends JPanel {
 	public void setStation(Station station, StationData data) {
 		this.station = station;
 		this.stationData = data;
-		if (AppState.getInstance().shownWindow == AppDefine.STATION_DETAIL) {
-			stationDetail.setStation(station, data);
-			showState(AppDefine.STATION_DETAIL);
-		} else if (AppState.getInstance().shownWindow == AppDefine.VIEW_CHART) {
+		if (AppState.getInstance().shownWindow == AppDefine.VIEW_CHART) {
 			stationChart.setStation(station, data);
 			showState(AppDefine.VIEW_CHART);
 		} else if (AppState.getInstance().shownWindow == AppDefine.VIEW_HISTORY) {
 			stationHistory.setStation(station, data);
 			showState(AppDefine.VIEW_HISTORY);
+		} else {
+			stationDetail.setStation(station, data);
+			showState(AppDefine.STATION_DETAIL);
 		}
 	}
 
