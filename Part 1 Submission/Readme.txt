@@ -49,7 +49,6 @@ BOM scraping script
 Links JSON file
 System tests
 Misc documentation
-Code documentation
 
 
 --------------------------------------------

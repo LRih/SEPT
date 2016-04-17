@@ -5,6 +5,9 @@ import Utils.FavoritesManager;
 
 import java.io.IOException;
 
+/**
+ * This class is for testing purposes only.
+ */
 public final class ConsoleMain
 {
     public static void main(String[] args)
