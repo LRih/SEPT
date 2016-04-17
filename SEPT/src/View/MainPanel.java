@@ -85,11 +85,11 @@ public final class MainPanel extends JPanel {
 			int col = 0;
 			StationCell cell;
 
-			if (selected == null)
-				if (!AppState.getInstance().state.equals("") && !AppState.getInstance().station.equals("")) {
-					selected = AppDefine.states.get(AppState.getInstance().state)
-							.getStation(AppState.getInstance().station);
-				}
+			if (selected == null) {
+                AppState as = AppState.getInstance();
+                if (AppDefine.states.get(as.state) != null && AppDefine.states.get(as.state).getStation(as.station) != null)
+                    selected = AppDefine.states.get(as.state).getStation(as.station);
+            }
 
 			Boolean flag;
 			shown = false;
@@ -154,7 +154,7 @@ public final class MainPanel extends JPanel {
 		// VIEW_CHART
 		case AppDefine.VIEW_CHART:
 			if (AppDefine.currentStationData != null)
-				stationChart.setStation(AppDefine.currentStation, AppDefine.currentStationData);
+				stationChart.setStation(AppDefine.currentStation);
 			pnMainContent.add(stationChart, "cell 0 0, grow");
 			break;
 		// VIEW_HISTORY
@@ -176,17 +176,20 @@ public final class MainPanel extends JPanel {
 		
 		AppDefine.currentStation = station;
 		AppDefine.currentStationData = data;
-		
-		if (AppState.getInstance().shownDetail == AppDefine.VIEW_CHART) {
-			stationChart.setStation(station, data);
-			showState(AppDefine.VIEW_CHART, this.getClass().getName());
-		} else if (AppState.getInstance().shownDetail == AppDefine.VIEW_HISTORY) {
-			stationHistory.setStation();
-			showState(AppDefine.VIEW_HISTORY, this.getClass().getName());
-		} else {
-			stationDetail.setStation();
-			showState(AppDefine.STATION_DETAIL, this.getClass().getName());
-		}
+
+		switch (AppState.getInstance().shownDetail) {
+            case AppDefine.VIEW_CHART:
+                stationChart.setStation(station);
+                showState(AppDefine.VIEW_CHART, this.getClass().getName());
+                break;
+            case AppDefine.VIEW_HISTORY:
+                stationHistory.setStation();
+                showState(AppDefine.VIEW_HISTORY, this.getClass().getName());
+                break;
+            default:
+                stationDetail.setStation();
+                showState(AppDefine.STATION_DETAIL, this.getClass().getName());
+        }
 	}
 
 	/**

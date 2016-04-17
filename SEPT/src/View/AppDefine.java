@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.FavoritesManager;
 import org.joda.time.format.DateTimeFormat;
@@ -23,20 +24,24 @@ import Model.StationData;
 public final class AppDefine {
 
 	public static final int FIRST_RUN_PANEL = 0;
-	public static final int ADD_STATION_PANEL = 1;
-	public static final int MAIN_PANEL = 2;
-	public static final int VIEW_CHART = 3;
-	public static final int VIEW_HISTORY = 4;
-	public static final int STATION_DETAIL = 5;
+	public static final int MAIN_PANEL = 1;
+	public static final int ADD_STATION_PANEL = 2;
+
+	public static final int STATION_DETAIL = 0;
+	public static final int VIEW_CHART = 1;
+	public static final int VIEW_HISTORY = 2;
+
 	public static final int TEMP_FREEZING = 0;
 	public static final int TEMP_COOL = 25;
+
 	public static final int NOTIFICATION_CLOSE_TIME_MILLIS = 5000;
+
 	public static final int CHART_9AM = 0;
 	public static final int CHART_3PM = 1;
 	public static final int CHART_MAX = 2;
 	public static final int CHART_MIN = 3;
 
-	public static final boolean DEBUGGING = true;
+	public static final boolean DEBUGGING = false;
 
     /**
      * Current data used by the view.
@@ -50,20 +55,18 @@ public final class AppDefine {
 	
 	/**
 	 * initialises ui elements
-	 * @throws Exception e when invalid states format
      */
 	public static void initApp(JFrame mainFrame) {
 
-		dtfOut = DateTimeFormat.forPattern("HH:mm dd/MM");
+        // load session state
+        AppStateManager.tryLoad();
 
-		if (!AppState.getInstance().state.equals("") && !AppState.getInstance().station.equals(""))
-			currentStation = AppDefine.states.get(AppState.getInstance().state)
-					.getStation(AppState.getInstance().station);
+		dtfOut = DateTimeFormat.forPattern("HH:mm dd/MM");
 
 		try {
 			states = DataManager.loadStates();
 		} catch (Exception e) {
-			WebOptionPane.showMessageDialog(mainFrame, "Invalid States Format!", "ERROR", WebOptionPane.ERROR_MESSAGE);
+			WebOptionPane.showMessageDialog(mainFrame, "\"stations.json\" missing or invalid, closing.", "ERROR", WebOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 
@@ -73,6 +76,10 @@ public final class AppDefine {
 			// no problem
 		}
 
-	}
+        // check for invalid station and state from previous session
+        AppState as = AppState.getInstance();
+        if (states.get(as.state) != null && states.get(as.state).getStation(as.station) != null)
+            currentStation = states.get(as.state).getStation(as.station);
 
+	}
 }

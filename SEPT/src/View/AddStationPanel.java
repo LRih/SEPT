@@ -130,6 +130,7 @@ public final class AddStationPanel extends JPanel {
                     return;
                 }
 
+                // failed to save favorites
                 try {
                     FavoritesManager.save(AppDefine.favorites);
                 } catch (IOException e1) {

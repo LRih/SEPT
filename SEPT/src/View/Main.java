@@ -83,8 +83,6 @@ public final class Main {
 		frmMain.getContentPane().add(pnMain, "cell 0 1,grow");
 		frmMain.setBackground(Color.WHITE);
 		frmMain.setTitle("Bom Weather");
-
-		AppStateManager.tryLoad();
 		frmMain.setBounds(AppState.getInstance().getWindowRect());
 
 		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

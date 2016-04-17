@@ -64,8 +64,8 @@ public final class AppState
             if (arr.length != 4)
                 throw new Exception("Invalid AppState Format.");
 
-            int x = (int)Double.parseDouble(arr[0]);
-            int y = (int)Double.parseDouble(arr[1]);
+            int x = (int)Math.max(Double.parseDouble(arr[0]), 0);
+            int y = (int)Math.max(Double.parseDouble(arr[1]), 0);
             int width = (int)Double.parseDouble(arr[2]);
             int height = (int)Double.parseDouble(arr[3]);
 

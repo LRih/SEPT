@@ -64,7 +64,7 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 		
 		try {
 			this.data = DataManager.getCachedStationData(station);
-		} catch (IOException e1) {
+		} catch (Exception e1) {
             e1.printStackTrace();
 			// no problem, this is normal.
 			this.data = null;
@@ -118,7 +118,6 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 
 		this.data = data;
 		if (selected) {
-			// setBackground(new Color(230, 230, 250));
 			main.setStation(station, data);
 		}
 

@@ -2,6 +2,7 @@ package View;
 
 import javax.swing.JPanel;
 
+import Model.AppState;
 import Model.HistoricalReading;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
@@ -9,7 +10,6 @@ import com.alee.laf.label.WebLabel;
 import com.alee.laf.optionpane.WebOptionPane;
 
 import Model.Station;
-import Model.StationData;
 
 import java.awt.event.ActionListener;
 import java.awt.Color;
@@ -31,8 +31,8 @@ import javax.swing.DefaultComboBoxModel;
 public final class StationChart extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private WebLabel wblblMildura;
-	private WebLabel wblblVictoria;
+	private WebLabel wblblStation;
+	private WebLabel wblblState;
 	private JChartLibPanel chartLibPanel;
 	private JPanel panel;
 	private WebComboBox wcbChartType;
@@ -124,17 +124,17 @@ public final class StationChart extends JPanel {
 		wbtnBack.setText("Back");
 		add(wbtnBack, "cell 0 0,alignx left,aligny center");
 
-		wblblMildura = new WebLabel();
-		wblblMildura.setText("-");
-		wblblMildura.setForeground(new Color(255, 69, 0));
-		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+		wblblStation = new WebLabel();
+		wblblStation.setText("-");
+		wblblStation.setForeground(new Color(255, 69, 0));
+		wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 
-		add(wblblMildura, "cell 1 0");
+		add(wblblStation, "cell 1 0");
 
-		wblblVictoria = new WebLabel();
-		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
-		wblblVictoria.setText("-");
-		add(wblblVictoria, "cell 2 0,alignx trailing");
+		wblblState = new WebLabel();
+		wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
+		wblblState.setText("-");
+		add(wblblState, "cell 2 0,alignx trailing");
 
 		wblblSelectChart = new WebLabel();
 		wblblSelectChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
@@ -147,6 +147,9 @@ public final class StationChart extends JPanel {
 		wcbChartType.setModel(
 				new DefaultComboBoxModel(new String[] { "Daily 9AM", "Daily 3PM", "Daily Max", "Daily Min" }));
 		add(wcbChartType, "cell 3 0,alignx right");
+
+        if (AppState.getInstance().chartIndex >= AppDefine.CHART_9AM && AppState.getInstance().chartIndex <= AppDefine.CHART_MIN)
+            wcbChartType.setSelectedIndex(AppState.getInstance().chartIndex);
 
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -165,6 +168,8 @@ public final class StationChart extends JPanel {
 	}
 
 	private void updateChart(int type) {
+
+        AppState.getInstance().chartIndex = type;
 
 		panel.removeAll();
 
@@ -185,10 +190,10 @@ public final class StationChart extends JPanel {
 	/**
 	 * Set station data for this panel
 	 */
-	public void setStation(Station station, StationData data) {
+	public void setStation(Station station) {
 
-		wblblMildura.setText(station.getName());
-		wblblVictoria.setText(station.getState().getName());
+		wblblStation.setText(station.getName());
+		wblblState.setText(station.getState().getName());
 
 		updateChart(wcbChartType.getSelectedIndex());
 	}

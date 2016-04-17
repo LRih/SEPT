@@ -4,6 +4,7 @@ import Model.*;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -94,7 +95,7 @@ public final class DataManager {
 	 * @param station the station for which to load data
 	 * @throws IOException
 	 */
-	public static StationData getNetStationData(Station station) throws IOException {
+	public static StationData getNetStationData(Station station) throws IOException, JSONException {
         String jsonMain = NetUtils.get(station.getUrl());
         tryCacheLatestData(station, jsonMain); // cache data locally
 
@@ -113,7 +114,7 @@ public final class DataManager {
      *            the station for which to load data
      * @throws IOException
      */
-    public static StationData getCachedStationData(Station station) throws IOException {
+    public static StationData getCachedStationData(Station station) throws IOException, JSONException {
         return createStationData(loadLatestCacheData(station), loadHistoricalCacheData(station));
     }
 
@@ -145,7 +146,7 @@ public final class DataManager {
                 for (int j = 0; j < jsonMonth.length(); j++)
                     json.put(jsonMonth.getJSONObject(j));
             }
-            catch (Exception e)
+            catch (IOException|JSONException e)
             {
                 e.printStackTrace();
             }
@@ -207,7 +208,7 @@ public final class DataManager {
 	 * @param jsonMain the json string being passed into a jsonobject
 	 * @param jsonHistorical the historical json string being passed into a jsonobject
 	 */
-	private static StationData createStationData(String jsonMain, String jsonHistorical) {
+	private static StationData createStationData(String jsonMain, String jsonHistorical) throws JSONException {
 		JSONObject obj = new JSONObject(jsonMain).getJSONObject("observations");
 		JSONObject header = obj.getJSONArray("header").getJSONObject(0);
 
@@ -227,7 +228,7 @@ public final class DataManager {
 	 * @return readings is the array list of all ordered values
 	 * @param arr is the json array of raw values
 	 */
-	private static List<LatestReading> createLatestReadings(JSONArray arr) {
+	private static List<LatestReading> createLatestReadings(JSONArray arr) throws JSONException {
 		List<LatestReading> readings = new ArrayList<>();
 
 		for (int i = 0; i < arr.length(); i++)
@@ -235,7 +236,7 @@ public final class DataManager {
 
 		return readings;
 	}
-	private static LatestReading createLatestReading(JSONObject obj) {
+	private static LatestReading createLatestReading(JSONObject obj) throws JSONException {
 		return new LatestReading(obj.getString("local_date_time_full"), obj.getString("aifstime_utc"),
 				obj.isNull("lat") ? null : obj.getDouble("lat"), obj.isNull("lon") ? null : obj.getDouble("lon"),
 				obj.isNull("air_temp") ? null : obj.getDouble("air_temp"),
@@ -255,7 +256,7 @@ public final class DataManager {
 				obj.isNull("rain_trace") ? null : obj.getString("rain_trace"));
 	}
 
-    private static List<HistoricalReading> createHistoricalReadings(JSONArray arr) {
+    private static List<HistoricalReading> createHistoricalReadings(JSONArray arr) throws JSONException {
         List<HistoricalReading> readings = new ArrayList<>();
 
         for (int i = 0; i < arr.length(); i++)
@@ -263,8 +264,7 @@ public final class DataManager {
 
         return readings;
     }
-    private static HistoricalReading createHistoricalReading(JSONObject obj) {
-
+    private static HistoricalReading createHistoricalReading(JSONObject obj) throws JSONException {
         return new HistoricalReading(
             obj.getString("date"),
             obj.isNull("min") ? null : obj.getDouble("min"),

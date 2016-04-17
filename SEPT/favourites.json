@@ -1,10 +1,4 @@
-[
-    {
-        "station": "Casey",
-        "state": "Antarctica"
-    },
-    {
-        "station": "Adele Island",
-        "state": "Western Australia"
-    }
-]
+[{
+    "station": "East Sale",
+    "state": "Victoria"
+}]
