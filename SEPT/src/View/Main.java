@@ -89,7 +89,7 @@ public final class Main {
 
 		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		showMainScreen();
+		showPreviousSession();
 		addListeners();
 	}
 
@@ -118,18 +118,22 @@ public final class Main {
 		});
 	}
 
+    public void showPreviousSession()
+    {
+        // try restore previous session state
+        if (AppState.getInstance().shownWindow == AppDefine.ADD_STATION_PANEL) {
+            showState(AppDefine.ADD_STATION_PANEL, this.getClass().getName());
+        } else {
+            showMainScreen();
+        }
+    }
+
 	/**
 	 * Show appropriate main screen
 	 */
 	public void showMainScreen() {
-
-        // try restore previous session state
-        if (AppState.getInstance().shownWindow == AppDefine.ADD_STATION_PANEL)
-            showState(AppState.getInstance().shownWindow, this.getClass().getName());
-        else if (AppDefine.favorites.size() == 0) // if no favorites, show first screen
-            showState(AppDefine.FIRST_RUN_PANEL, this.getClass().getName());
-        else
-            showState(AppDefine.MAIN_PANEL, this.getClass().getName());
+        // if no favorites, show first screen
+        showState(AppDefine.favorites.size() == 0 ? AppDefine.FIRST_RUN_PANEL : AppDefine.MAIN_PANEL, this.getClass().getName());
 	}
 
 	/**
@@ -139,9 +143,6 @@ public final class Main {
 
 		if (AppDefine.DEBUGGING)
 			System.out.println("Class " + from + ": " + this.getClass().getName() + ".showState(" + index + ");");
-
-		if (AppDefine.isFirstOpen)
-			AppDefine.isFirstOpen = false;
 
 		pnMain.removeAll();
 		pnMain.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));

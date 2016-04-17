@@ -36,10 +36,12 @@ public final class AppDefine {
 	public static final int CHART_MAX = 2;
 	public static final int CHART_MIN = 3;
 
-	public static final Boolean DEBUGGING = true;
+	public static final boolean DEBUGGING = true;
 
+    /**
+     * Current data used by the view.
+     */
 	public static States states = null;
-	public static Boolean isFirstOpen = true;
 	public static Favorites favorites;
 	public static Station currentStation;
 	public static StationData currentStationData;
@@ -64,8 +66,6 @@ public final class AppDefine {
 			WebOptionPane.showMessageDialog(mainFrame, "Invalid States Format!", "ERROR", WebOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
-
-		isFirstOpen = true;
 
 		try {
 			favorites = FavoritesManager.load();

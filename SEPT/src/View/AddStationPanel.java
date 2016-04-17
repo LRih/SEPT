@@ -6,16 +6,13 @@ import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.optionpane.WebOptionPane;
 
 import Model.AppState;
-import Model.Favorite;
 import Model.State;
 import Model.Station;
-import Utils.AppStateManager;
 import Utils.FavoritesManager;
 
 import java.awt.Font;
@@ -97,9 +94,9 @@ public final class AddStationPanel extends JPanel {
 		wbtnAddToMyFavorites.setText("Add to My Favorites");
 		pnAddStation.add(wbtnAddToMyFavorites, "cell 1 3");
 
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.WHITE);
-		pnContent.add(panel_3, "cell 2 1,grow");
+		JPanel panelFiller = new JPanel();
+		panelFiller.setBackground(Color.WHITE);
+		pnContent.add(panelFiller, "cell 2 1,grow");
 
 		addListeners();
 
@@ -126,22 +123,22 @@ public final class AddStationPanel extends JPanel {
 				Station station = AppDefine.states.get(wcbStates.getSelectedItem().toString())
 						.getStation(wcbStations.getSelectedItem().toString());
 
-				for (Favorite fav : AppDefine.favorites) {
-					if (fav.station.equals(station.getName()) && fav.state.equals(station.getState().getName())) {
-						WebOptionPane.showMessageDialog(pnContent,
-								"You already have this station in your Favorites.", "", WebOptionPane.WARNING_MESSAGE);
-						return;
-					}
-				}
+                // when favorite already exists
+                if (!AppDefine.favorites.add(station)) {
+                    WebOptionPane.showMessageDialog(pnContent,
+                        "You already have this station in your Favorites.", "", WebOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                try {
+                    FavoritesManager.save(AppDefine.favorites);
+                } catch (IOException e1) {
+                    WebOptionPane.showMessageDialog(pnContent,
+                        "Failed to save favorites.", "", WebOptionPane.WARNING_MESSAGE);
+                    return;
+                }
 
 				AppDefine.currentStation = station;
-				AppDefine.favorites.add(station);
-
-				try {
-					FavoritesManager.save(AppDefine.favorites);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
 
 				AppState.getInstance().state = station.getState().getName();
 				AppState.getInstance().station = station.getName();
@@ -160,9 +157,9 @@ public final class AddStationPanel extends JPanel {
 
 	private void loadStationsByState(String name) {
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
-		Iterator<Station> stations = AppDefine.states.get(name).iterator();
-		while (stations.hasNext())
-			model.addElement(stations.next().getName());
+        for (Station station : AppDefine.states.get(name)) {
+            model.addElement(station.getName());
+        }
 		wcbStations.setModel(model);
 	}
 
@@ -172,7 +169,6 @@ public final class AddStationPanel extends JPanel {
 			model.addElement(state.getName());
 		}
 		wcbStates.setModel(model);
-
 	}
 
 }

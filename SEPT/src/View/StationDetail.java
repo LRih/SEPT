@@ -12,7 +12,6 @@ import org.joda.time.format.DateTimeFormatter;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
-import Utils.AppStateManager;
 import Utils.FavoritesManager;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
@@ -202,42 +201,62 @@ public final class StationDetail extends JPanel {
 		Station station = AppDefine.currentStation;
 		StationData data = AppDefine.currentStationData;
 
-		if (data.getLatestReadings().size() > 0) {
-			LatestReading reading = data.getLatestReadings().get(0);
+		if (!data.getLatestReadings().isEmpty()) {
+			LatestReading r = data.getLatestReadings().get(0);
 
 			// change colours by Temperature
-			try {
-				if (reading.getAirTemp() < AppDefine.TEMP_FREEZING) {
-					setBackground(new Color(176, 196, 222));
-					wblblc.setForeground(new Color(255, 255, 255));
-				} else if (reading.getAirTemp() < AppDefine.TEMP_COOL) {
-					setBackground(new Color(240, 248, 255));
-					wblblc.setForeground(new Color(30, 144, 255));
-				} else {
-					setBackground(new Color(255, 248, 220));
-					wblblc.setForeground(new Color(255, 99, 71));
-				}
-				wblblc.setText(reading.getAirTemp() + "°C");
-			} catch (Exception e) {
+			if (r.getAirTemp() != null) {
+                if (r.getAirTemp() < AppDefine.TEMP_FREEZING) {
+                    setBackground(new Color(176, 196, 222));
+                    wblblc.setForeground(new Color(255, 255, 255));
+                } else if (r.getAirTemp() < AppDefine.TEMP_COOL) {
+                    setBackground(new Color(240, 248, 255));
+                    wblblc.setForeground(new Color(30, 144, 255));
+                } else {
+                    setBackground(new Color(255, 248, 220));
+                    wblblc.setForeground(new Color(255, 99, 71));
+                }
+                wblblc.setText(r.getAirTemp() + "°C");
+            } else {
 				setBackground(new Color(176, 196, 222));
 				wblblc.setForeground(Color.black);
 				wblblc.setText("-°C");
 			}
 
 			// set Text
-			wblblHumid.setText("Humid: " + reading.getRelativeHumidity() + "%");
+			wblblHumid.setText("Humid: " + (r.getRelativeHumidity() == null ? "-" : r.getRelativeHumidity()) + "%");
 			wblblStation.setText(station.getName());
 			wblblState.setText(station.getState().getName());
-			wblblWindSse.setText("Wind: " + reading.getWindDir() + " " + reading.getWindSpdKmH() + "-"
-					+ reading.getWindGustKmH() + " km/h");
-			wblblRainSinceam.setText("Rain since 9am: " + reading.getRainTrace() + "mm");
-			wblblPressQmh.setText("Press QNH hPa: " + reading.getPressureQNH());
-			wblblPress.setText("Press MSL hPa: " + reading.getPressureMSL());
-			wblblAirTemp.setText("App temp: " + reading.getApparentTemp() + "°C");
-			wblblDewPoint.setText("Dew Point: " + reading.getDewPt() + "°C");
-			wblblLastUpdate.setText("Last update: " + dtfOut.print(reading.getLocalDateTime()));
 
+            // set wind format
+            String windDir = r.getWindDir() == null ? "" : r.getWindDir();
+            String windSpd = r.getWindSpdKmH() == null || r.getWindGustKmH() == null ? "" : r.getWindSpdKmH() + "-" + r.getWindGustKmH();
+            wblblWindSse.setText("Wind: " + windDir + " " + windSpd + " km/h");
+
+			wblblRainSinceam.setText("Rain since 9am: " + (r.getRainTrace() == null ? "-" : r.getRainTrace()) + "mm");
+			wblblPressQmh.setText("Press QNH hPa: " + (r.getPressureQNH() == null ? "-" : r.getPressureQNH()));
+			wblblPress.setText("Press MSL hPa: " + (r.getPressureMSL() == null ? "-" : r.getPressureMSL()));
+			wblblAirTemp.setText("App temp: " + (r.getApparentTemp() == null ? "-" : r.getApparentTemp()) + "°C");
+			wblblDewPoint.setText("Dew Point: " + (r.getDewPt() == null ? "-" : r.getDewPt()) + "°C");
+			wblblLastUpdate.setText("Last update: " + dtfOut.print(r.getLocalDateTime()));
 		}
-	}
+        else {
+            // set empty temp
+            setBackground(new Color(176, 196, 222));
+            wblblc.setForeground(Color.black);
+            wblblc.setText("-°C");
 
+            // set Text
+            wblblHumid.setText("Humid: -%");
+            wblblStation.setText(station.getName());
+            wblblState.setText(station.getState().getName());
+            wblblWindSse.setText("Wind: -km/h");
+            wblblRainSinceam.setText("Rain since 9am: -mm");
+            wblblPressQmh.setText("Press QNH hPa: -");
+            wblblPress.setText("Press MSL hPa: -");
+            wblblAirTemp.setText("App temp: -°C");
+            wblblDewPoint.setText("Dew Point: -°C");
+            wblblLastUpdate.setText("Last update: -");
+        }
+	}
 }
