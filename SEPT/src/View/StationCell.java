@@ -27,7 +27,7 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 	private static final long serialVersionUID = 1L;
 	private Station station = null;
 	private StationData data = null;
-	private Boolean selected = false;
+	private boolean selected = false;
 	private MainPanel main = null;
 	private WebLabel wblblStation;
 	private WebLabel wblblTemp;
@@ -37,7 +37,7 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 	/**
 	 * Create the panel.
 	 */
-	public StationCell(final MainPanel m, final Favorite fav, Boolean selected) {
+	public StationCell(final MainPanel m, final Favorite fav, boolean selected) {
 		this.main = m;
 		this.selected = selected;
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

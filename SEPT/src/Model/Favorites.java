@@ -54,7 +54,7 @@ public final class Favorites implements Serializable, Iterable<Favorite>
     }
 
     /**
-     * Deletes a station. Fails if it already exists.
+     * Deletes a favorite. Fails if it doesn't exist.
      *
      * @return success of failure of the deletion
      * @param station station for which to delete favorite
@@ -64,6 +64,23 @@ public final class Favorites implements Serializable, Iterable<Favorite>
         if (favorites.containsKey(station.getKey()))
         {
             favorites.remove(station.getKey());
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Deletes a favorite. Fails if it doesn't exist.
+     *
+     * @return success of failure of the deletion
+     * @param key key of favorite
+     */
+    public final boolean delete(String key)
+    {
+        if (favorites.containsKey(key))
+        {
+            favorites.remove(key);
             return true;
         }
 

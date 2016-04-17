@@ -2,12 +2,16 @@ package Utils;
 
 import Model.Favorite;
 import Model.Favorites;
+import Model.States;
+import Model.Station;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles the storage of favorites.
@@ -36,11 +40,9 @@ public final class FavoritesManager
      */
     public static Favorites load() throws IOException
     {
-        Favorites favorites = new Favorites();
-
         // return empty list if file doesn't exist
         if (!new File(FILE_PATH).exists())
-            return favorites;
+            return new Favorites();
 
         return toFavorites(FileUtils.loadText(FILE_PATH));
     }
@@ -55,6 +57,27 @@ public final class FavoritesManager
     {
         FileUtils.saveText(toJSON(favorites).toString(JSON_INDENT), FILE_PATH);
     }
+
+    /**
+     * Remove any favorites not listed in states.
+     *
+     * @param favorites the favorites instance to save
+     * @throws IOException if there is an IO error of any sort
+     */
+    public static void removeInvalidFavourites(Favorites favorites, States states)
+    {
+        List<String> invalidKeys = new ArrayList<>();
+
+        // get list of invalid favorites
+        for (Favorite fav : favorites)
+            if (states.get(fav.state) == null || states.get(fav.state).getStation(fav.station) == null)
+                invalidKeys.add(Station.getKey(fav.state, fav.station));
+
+        // delete all collected invalid favorites
+        for (String key : invalidKeys)
+            favorites.delete(key);
+    }
+
 
     /**
      * Converts JSON to favorites object. Ignores any invalid entries.

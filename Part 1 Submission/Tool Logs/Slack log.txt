@@ -1,0 +1,240 @@
+quando
+12:59 PM joined #general. Also, @marcel joined, @richard joined.
+richard
+1:02 PM Hi
+brenton_kelly
+1:03 PM joined #general
+brenton_kelly
+1:33 PM Hey
+marcel
+1:38 PM Too easy
+quando
+1:42 PM http://campus.codeschool.com/courses/shaping-up-with-angular-js/
+Code School
+Shaping up with Angular.js
+Learn the basics of Angular.js
+1:43
+get a big picture about the framework we probably use
+richard
+2:00 PM Alright guys, as discussed in the tute, I'm going to look at creating a tentative class diagram
+brenton_kelly
+2:05 PM Sounds good
+Shall I work on user stories and something else?
+richard
+2:07 PM Sure sounds good
+brenton_kelly
+2:09 PM I will work on a use case diagram also
+quando
+5:43 PM
+richard
+7:15 PM Right guys, since GitHub wasn't mentioned in the individual assessment post I'm going to learn JIRA just to be safe
+brenton_kelly
+7:59 PM Yeah it is mentioned mate, "Or a code respository /versioning tool (e.g github, bitbucket)"
+marcel
+8:00 PM Was about to say
+brenton_kelly
+8:02 PM
+marcel
+8:02 PM Did you want to split ucd/user stories as well+
+brenton_kelly
+8:03 PM If there's nothing else to do this week, may as well :+1:
+marcel
+8:13 PM Too easy, chuck stream link ;)
+richard
+9:07 PM Thanks guys, when it was first posted "OR a code repository/versioning tool" wasn't there, unless I'm blind
+marcel
+10:39 AM Okay guys so as far as I'm concerned today we're showing off Slack, GitHub, Trello and Lucid?
+richard
+10:40 AM Jira instead of github
+marcel
+10:40 AM Ah okay. So Jira in place of git and we're good?
+richard
+10:41 AM Yep
+marcel
+10:43 AM Too easy, I'll get a quick ucd draft going for the lucid, I'm guessing you're just setting up the Jira and showing that it's a thing? I dont really know lol
+richard
+10:46 AM Yeah showing how it works and why teams would use it
+marcel
+12:27 PM Hey guys, running late - in the case he checks by the time I get there, here's a link to the lucid chart folder so that he can see we know how to use it.https://www.lucidchart.com/invitations/accept/cb6bb605-9bd2-4841-b36c-ebced3ebb83c
+brenton_kelly
+12:32 PM That's pretty 'slack' of you heheh
+marcel
+12:32 PM Ayyyyyyyyyyy
+brenton_kelly
+12:55 PM Any idea when you'll get here @marcel
+Individual assessment, so don't want you to miss out on an easy 3%
+marcel
+1:01 PM Like 10-15 minutes
+1:02
+Is he doing it now?
+brenton_kelly
+1:02 PM Aight easy
+Nah we're last on the board
+richard
+1:37 PM I've added a basic documentation template to the repository
+1:37
+Feel free to change
+brenton_kelly
+8:05 AM Sorry that I've been under the radar for the past few days.
+I have uploaded a Python script which uses BeautifulSoup and Python Requests to gather all the JSON links for all the weather stations.
+I have also uploaded it's output .json file. I can adjust the script if we require a different format for the project.
+8:06
+(Both files are uploaded on Trello, in the 'Python BeautifulSoup Script' card)
+richard
+10:40 AM No worries, that's great
+10:40
+I've added both files in git under the folder
+BOM Links
+richard
+10:44 AM
+
+{
+
+	"city": Hopetoun Airport
+
+	"url": www.bom.gov.au/fwo/IDV60801/IDV60801.94838.json
+
+},
+
+​
+
+@brenton_kelly: If you may can you make these few changes
+richard
+10:44 AM Surround values in quotes
+10:45
+Comma after city value and "http://" before urls
+10:45
+Thanks
+marcel
+9:58 PM hey guys sorry for ALSO being under the rader - turns out sibling weddings really take it out of you
+How are we storing the json links?
+richard
+10:32 AM Lets see, it's not 100% decided. We'll discuss it in the tute. You coming?
+marcel
+10:33 AM Yes sir!
+marcel
+12:50 PM Anybody else coming?
+richard
+3:07 PM
+javadoc and jars.pdf
+
+90KB PDF Click to open original
+Hey @marcel, it appears we do have to do that oracle style documentation for all functions and parameters
+richard
+11:04 PM Some input guys: right now the favorites will be saved as JSON format upon closing and loaded at launch
+11:04
+When loading there are two potential errors: IO and parse (i.e. file is malformed)
+11:04
+Any idea what we should do in both cases?
+marcel
+12:39 PM Hey I'm running late - not missing anything important am I?
+richard
+12:47 PM Nope
+brenton_kelly
+1:44 PM Hey, sorry i'm not there right now.  Ran into an umexpected family e
+mergency. Not sure if I will catch the end or not.
+Sorry again :(
+marcel
+1:50 PM All good man we bailed already
+richard
+2:52 PM No worries
+marcel
+12:47 AM hey, did a couple things over the weekend with code documentation and such - just working on the 2 sequence diagrams now.
+I do apologize, Computing Theory assignment 1 was due tonight so I was grinding that bad boy out :disappointed:
+marcel
+1:29 AM sorted
+1:29
+how is this submitted?
+richard
+8:59 PM It's cool
+8:59
+I believe it's submitted on blackboard
+8:59
+as a zip
+9:00
+I saw the sequence diagrams good work
+9:00
+I found out we also need to do system level tests cases involving the UI
+9:01
+Quan is currently working on that but when it's ready we can do the test cases
+9:01
+I've written an example here:
+9:01
+https://github.com/QuanDhz/SEPT/blob/master/Part%201%20Submission/Test%20Documentation/System%20tests.txt
+9:01
+We need 8 so I propose 2 each?
+marcel
+9:01 PM I'll do two tonight!
+richard
+9:02 PM It's UI level so you might need to modify it later on if the UI doesn't match the test case
+quando
+4:31 AM
+Our UI so far
+quando
+4:33 AM
+First Screen
+brenton_kelly
+5:35 AM Looking very impressive!
+I'll knock out at least 2 test cases tonight. As for the java project, is there any particular part you want me working on? Or should I just work on producing lots of documents/diagrams etc?
+richard
+8:03 PM I think just documents and diagrams right now
+8:03
+Sequence diagrams may have to be updated since the code has changed
+8:08
+I remember something to do with writing about licenses for the libraries we are using
+8:08
+If so that also needs to be done in the documentation html
+brenton_kelly
+8:28 PM Sounds good (y)
+marcel
+8:29 PM if you've got a list of libraries used i will bomb the html with licenses
+richard
+8:29 PM It's in the documentation html
+8:29
+under licenses
+marcel
+12:22 PM sorted licenses
+12:22
+can do component diagram and tests later?
+12:22
+I have work now
+marcel
+10:21 AM is it absolutely necessary to come in today? thinking of staying in and getting shit done
+richard
+10:35 AM Not really so don't worry about it
+marcel
+10:35 AM sweet - gives me precious time
+richard
+10:37 AM Come next week though I hear there's an accessed lab
+10:37
+Assessed*
+marcel
+10:38 AM yeah man will defs - just trying to juggle apt and this shit at the same time is not fun
+richard
+7:45 PM Hey @marcel did you commit the license documentation?
+marcel
+7:46 PM oh shit sorry i did not
+7:46
+whoops
+richard
+7:46 PM Lol yeah was wondering
+richard
+3:40 PM Apparently it's recommended we use a tool for our system tests so I've created an account on lean testing
+3:40
+I've sent you all invitations
+marcel
+3:41 PM noticed, is it easy to use?
+richard
+4:40 PM Yeah seems easy enough
+4:42
+You want to aim for submitting tomorrow night?
+4:43
+There are bonus marks if it's submitted by the original due date
+4:43
+We are nearly there I think, just test cases, and fix up the second sequence diagram
+4:43
+And the app is in a usable state
+marcel
+8:15 PM can do good friendo
+dalestanbrough
+8:22 AM joined #general

@@ -70,8 +70,11 @@ public final class AppDefine {
 			System.exit(0);
 		}
 
+		// load favorites and delete invalid entries
 		try {
 			favorites = FavoritesManager.load();
+            FavoritesManager.removeInvalidFavourites(favorites, states);
+            FavoritesManager.save(favorites);
 		} catch (IOException e) {
 			// no problem
 		}

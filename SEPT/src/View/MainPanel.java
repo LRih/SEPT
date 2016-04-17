@@ -76,47 +76,46 @@ public final class MainPanel extends JPanel {
 		stationChart = new StationChart(this);
 		stationHistory = new StationHistory(this);
 
-		try {
+        // show first run panel if no valid favorites
+        if (AppDefine.favorites.size() == 0)
+            frmMain.showState(AppDefine.FIRST_RUN_PANEL, this.getClass().getName());
+        else
+        {
+            // populate favorites list
+            AppState as = AppState.getInstance();
 
-			if (AppDefine.favorites.size() == 0)
-				throw new Exception("NO_FAVORITE_STATION");
-			
-			int row = 0;
-			int col = 0;
-			StationCell cell;
+            int row = 0;
+            int col = 0;
+            StationCell cell;
 
-			if (selected == null) {
-                AppState as = AppState.getInstance();
+            if (selected == null) {
                 if (AppDefine.states.get(as.state) != null && AppDefine.states.get(as.state).getStation(as.station) != null)
                     selected = AppDefine.states.get(as.state).getStation(as.station);
             }
 
-			Boolean flag;
-			shown = false;
-			for (Favorite fav : AppDefine.favorites) {
-				flag = false;
+            boolean flag;
+            shown = false;
+            for (Favorite fav : AppDefine.favorites) {
+                flag = false;
 
-				if (selected != null) {
-					if (fav.state.equals(selected.getState().getName()) && fav.station.equals(selected.getName()))
-						flag = true;
-				} else {
-					if (row == 0 && col == 0)
-						flag = true;
-				}
+                if (selected != null) {
+                    if (fav.state.equals(selected.getState().getName()) && fav.station.equals(selected.getName()))
+                        flag = true;
+                } else {
+                    if (row == 0 && col == 0)
+                        flag = true;
+                }
 
-				cell = new StationCell(this, fav, flag);
+                cell = new StationCell(this, fav, flag);
 
-				if (col % 2 == 0)
-					pnFavorites.add(cell, "cell 0 " + row + ", grow, gap 4");
-				else
-					pnFavorites.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
+                if (col % 2 == 0)
+                    pnFavorites.add(cell, "cell 0 " + row + ", grow, gap 4");
+                else
+                    pnFavorites.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
 
-				col++;
-			}
-		} catch (Exception e1) {
-			
-			frmMain.showState(AppDefine.FIRST_RUN_PANEL, this.getClass().getName());
-		}
+                col++;
+            }
+        }
 
 		addListeners();
 	}
