@@ -9,13 +9,11 @@ import Model.AppState;
 import Model.Favorite;
 import Model.Station;
 import Model.StationData;
-import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.StationDataWorker;
 import Utils.StationDataWorker.OnTaskCompleteListener;
 
 import java.awt.*;
-import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -27,7 +25,6 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 	private static final long serialVersionUID = 1L;
 	private Station station = null;
 	private StationData data = null;
-	private boolean selected = false;
 	private MainPanel main = null;
 	private WebLabel wblblStation;
 	private WebLabel wblblTemp;
@@ -39,7 +36,6 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 	 */
 	public StationCell(final MainPanel m, final Favorite fav, boolean selected) {
 		this.main = m;
-		this.selected = selected;
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		addMouseListener(new MouseAdapter() {
@@ -52,7 +48,7 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 
 			// hover effect
 			public final void mouseEntered(MouseEvent e) {
-				setBackground(new Color(240, 248, 255));
+                setBackground(new Color(240, 248, 255));
 			}
 
 			public final void mouseExited(MouseEvent e) {
@@ -107,8 +103,12 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 		wblblState.setFont(new Font("Bender", Font.PLAIN, 12));
 		wblblState.setText(fav.state);
 		add(wblblState, "cell 0 2");
-
 	}
+
+    private boolean isSelected()
+    {
+        return AppDefine.currentStation != null && AppDefine.currentStation.getKey().equals(station.getKey());
+    }
 
 	/**
 	 * On success call back for StationWorker
@@ -117,7 +117,7 @@ public final class StationCell extends JPanel implements OnTaskCompleteListener 
 	public void onSuccess(StationData data) {
 
 		this.data = data;
-		if (selected) {
+		if (isSelected()) {
 			main.setStation(station, data);
 		}
 

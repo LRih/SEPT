@@ -180,20 +180,14 @@ public final class StationChart extends JPanel {
 
 		panel.validate();
 		panel.repaint();
-
-		if (chartLibDataSet.getSeries().get(0).getValues().size() == 0)
-			WebOptionPane.showMessageDialog(mainPanel,
-                "No data found for " + chartLibDataSet.getSeries().get(0).getTitle(), "Chart",
-                WebOptionPane.ERROR_MESSAGE);
-
 	}
 	/**
 	 * Set station data for this panel
 	 */
-	public void setStation(Station station) {
+	public void updateStation() {
 
-		wblblStation.setText(station.getName());
-		wblblState.setText(station.getState().getName());
+		wblblStation.setText(AppDefine.currentStation.getName());
+		wblblState.setText(AppDefine.currentStation.getState().getName());
 
 		updateChart(wcbChartType.getSelectedIndex());
 	}

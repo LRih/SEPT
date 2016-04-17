@@ -80,7 +80,7 @@ public final class StationHistory extends JPanel {
 	/**
 	 * Set station information to this Panel
 	 */
-	public void setStation() {
+	public void updateStation() {
 
 		reloadTable();
 

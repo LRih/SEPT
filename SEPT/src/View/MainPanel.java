@@ -141,27 +141,30 @@ public final class MainPanel extends JPanel {
 		pnMainContent.removeAll();
 		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
-		AppState.getInstance().shownDetail = index;
+        // always show detail if station is not selected
+        if (AppDefine.currentStation == null)
+            AppState.getInstance().shownDetail = AppDefine.STATION_DETAIL;
+        else
+            AppState.getInstance().shownDetail = index;
 
-		switch (index) {
-		// STATION_DETAIL
-		default:
-			if (AppDefine.currentStationData != null)
-				stationDetail.setStation();
-			pnMainContent.add(stationDetail, "cell 0 0, grow");
-			break;
-		// VIEW_CHART
-		case AppDefine.VIEW_CHART:
-			if (AppDefine.currentStationData != null)
-				stationChart.setStation(AppDefine.currentStation);
-			pnMainContent.add(stationChart, "cell 0 0, grow");
-			break;
-		// VIEW_HISTORY
-		case AppDefine.VIEW_HISTORY:
-			if (AppDefine.currentStationData != null)
-				stationHistory.setStation();
-			pnMainContent.add(stationHistory, "cell 0 0, grow");
-			break;
+		switch (AppState.getInstance().shownDetail) {
+            // VIEW_CHART
+            case AppDefine.VIEW_CHART:
+                if (AppDefine.currentStationData != null)
+                    stationChart.updateStation();
+                pnMainContent.add(stationChart, "cell 0 0, grow");
+                break;
+            // VIEW_HISTORY
+            case AppDefine.VIEW_HISTORY:
+                if (AppDefine.currentStationData != null)
+                    stationHistory.updateStation();
+                pnMainContent.add(stationHistory, "cell 0 0, grow");
+                break;
+            // STATION_DETAIL
+            default:
+                stationDetail.updateStation();
+                pnMainContent.add(stationDetail, "cell 0 0, grow");
+                break;
 		}
 		pnMainContent.validate();
 		pnMainContent.repaint();
@@ -172,21 +175,21 @@ public final class MainPanel extends JPanel {
      * Set Current Station data
      */
 	public void setStation(Station station, StationData data) {
-		
-		AppDefine.currentStation = station;
-		AppDefine.currentStationData = data;
+
+        AppDefine.currentStation = station;
+        AppDefine.currentStationData = data;
 
 		switch (AppState.getInstance().shownDetail) {
             case AppDefine.VIEW_CHART:
-                stationChart.setStation(station);
+                stationChart.updateStation();
                 showState(AppDefine.VIEW_CHART, this.getClass().getName());
                 break;
             case AppDefine.VIEW_HISTORY:
-                stationHistory.setStation();
+                stationHistory.updateStation();
                 showState(AppDefine.VIEW_HISTORY, this.getClass().getName());
                 break;
             default:
-                stationDetail.setStation();
+                stationDetail.updateStation();
                 showState(AppDefine.STATION_DETAIL, this.getClass().getName());
         }
 	}

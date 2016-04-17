@@ -81,7 +81,8 @@ public final class AppDefine {
 
         // check for invalid station and state from previous session
         AppState as = AppState.getInstance();
-        if (states.get(as.state) != null && states.get(as.state).getStation(as.station) != null)
+        boolean isValid = states.get(as.state) != null && states.get(as.state).getStation(as.station) != null;
+        if (isValid && favorites.exists(as.state, as.station))
             currentStation = states.get(as.state).getStation(as.station);
 
 	}

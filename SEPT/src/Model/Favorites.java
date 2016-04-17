@@ -87,6 +87,15 @@ public final class Favorites implements Serializable, Iterable<Favorite>
         return false;
     }
 
+
+    /**
+     * Checks if favorite exists.
+     */
+    public final boolean exists(String state, String station)
+    {
+        return favorites.containsKey(Station.getKey(state, station));
+    }
+
     /**
      * Returns the number of favorites.
      */

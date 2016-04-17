@@ -152,9 +152,7 @@ public final class StationDetail extends JPanel {
 
 		addListeners();
 
-		if (AppDefine.currentStation != null) {
-			setTexts(AppDefine.currentStation.getName(), AppDefine.currentStation.getState().getName());
-		}
+        updateStation();
 	}
 
 	private void addListeners() {
@@ -174,32 +172,45 @@ public final class StationDetail extends JPanel {
 		wblblRemoveFromFavourites.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				AppDefine.favorites.delete(AppDefine.currentStation);
+
 				try {
-					AppDefine.favorites.delete(AppDefine.currentStation);
 					FavoritesManager.save(AppDefine.favorites);
 				} catch (IOException e1) {
-				} finally {
-					AppState.getInstance().state = "";
-					AppState.getInstance().station = "";
 				}
+
+                AppState.getInstance().state = "";
+                AppState.getInstance().station = "";
+                AppDefine.currentStation = null;
+
 				mainPanel.frmMain.showMainScreen();
 			}
 		});
 
 	}
 
-	private void setTexts(String station, String state) {
-		wblblStation.setText(station);
-		wblblState.setText(state);
-	}
-
 	/**
 	 * set station information to this Panel
 	 */
-	public void setStation() {
+	public void updateStation() {
 
 		Station station = AppDefine.currentStation;
 		StationData data = AppDefine.currentStationData;
+
+        // null, don't show data
+        if (station == null || data == null) {
+            setVisible(false);
+            wbtnViewChart.setVisible(false);
+            wbtnViewWeatherHistory.setVisible(false);
+            wblblRemoveFromFavourites.setVisible(false);
+            return;
+        }
+        else {
+            setVisible(true);
+            wbtnViewChart.setVisible(true);
+            wbtnViewWeatherHistory.setVisible(true);
+            wblblRemoveFromFavourites.setVisible(true);
+        }
 
 		if (!data.getLatestReadings().isEmpty()) {
 			LatestReading r = data.getLatestReadings().get(0);
