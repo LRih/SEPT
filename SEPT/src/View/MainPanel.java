@@ -11,14 +11,8 @@ import com.alee.managers.notification.WebNotification;
 
 import Model.AppState;
 import Model.Favorite;
-import Model.Favorites;
-import Model.States;
 import Model.Station;
 import Model.StationData;
-import Utils.AppDefine;
-import Utils.AppStateManager;
-import Utils.DataManager;
-import Utils.FavoritesManager;
 
 import com.alee.laf.button.WebButton;
 
@@ -29,17 +23,15 @@ import java.awt.event.ActionEvent;
 /**
  * Main Panel UI
  */
-public class MainPanel extends JPanel {
+public final class MainPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	Main frmMain = null;
+	protected Main frmMain = null;
 	private JPanel pnMainContent;
-	StationDetail stationDetail;
-	StationChart stationChart;
-	StationHistory stationHistory;
-	Station station;
-	StationData stationData;
-	Station selected;
+	private StationDetail stationDetail;
+	private StationChart stationChart;
+	private StationHistory stationHistory;
+	private Station selected;
 	private Boolean shown;
 	private WebButton wbtnAddStation;
 
@@ -91,7 +83,7 @@ public class MainPanel extends JPanel {
 			
 			int row = 0;
 			int col = 0;
-			StationCell cell = null;
+			StationCell cell;
 
 			if (selected == null)
 				if (!AppState.getInstance().state.equals("") && !AppState.getInstance().station.equals("")) {
@@ -123,7 +115,7 @@ public class MainPanel extends JPanel {
 			}
 		} catch (Exception e1) {
 			
-			frmMain.showState(AppDefine.FIRST_SCREEN, this.getClass().getName());
+			frmMain.showState(AppDefine.FIRST_RUN_PANEL, this.getClass().getName());
 		}
 
 		addListeners();
@@ -133,7 +125,7 @@ public class MainPanel extends JPanel {
 
 		wbtnAddStation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmMain.showState(AppDefine.ADD_STATION, this.getClass().getName());
+				frmMain.showState(AppDefine.ADD_STATION_PANEL, this.getClass().getName());
 			}
 		});
 
@@ -150,8 +142,7 @@ public class MainPanel extends JPanel {
 		pnMainContent.removeAll();
 		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
-		AppState.getInstance().shownWindow = index;
-		AppStateManager.trySave();
+		AppState.getInstance().shownDetail = index;
 
 		switch (index) {
 		// STATION_DETAIL
@@ -186,10 +177,10 @@ public class MainPanel extends JPanel {
 		AppDefine.currentStation = station;
 		AppDefine.currentStationData = data;
 		
-		if (AppState.getInstance().shownWindow == AppDefine.VIEW_CHART) {
+		if (AppState.getInstance().shownDetail == AppDefine.VIEW_CHART) {
 			stationChart.setStation(station, data);
 			showState(AppDefine.VIEW_CHART, this.getClass().getName());
-		} else if (AppState.getInstance().shownWindow == AppDefine.VIEW_HISTORY) {
+		} else if (AppState.getInstance().shownDetail == AppDefine.VIEW_HISTORY) {
 			stationHistory.setStation();
 			showState(AppDefine.VIEW_HISTORY, this.getClass().getName());
 		} else {

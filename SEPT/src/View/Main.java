@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import com.alee.laf.WebLookAndFeel;
 
-import Utils.AppDefine;
 import Utils.AppStateManager;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
@@ -123,24 +122,14 @@ public final class Main {
 	 * Show appropriate main screen
 	 */
 	public void showMainScreen() {
-		try {
-			if (AppState.getInstance().stateIndex == AppDefine.ADD_STATION) {
-				showState(AppState.getInstance().stateIndex, this.getClass().getName());
-			} else {
-				// if there is no favorited station, show first screen
-				if (AppDefine.favorites.size() == 0)
-					throw new Exception("NO_FAVORITE_STATION");
-				else {
-					if (AppDefine.isFirstOpen)
-						showState(AppState.getInstance().stateIndex, this.getClass().getName());
-					else
-						showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
 
-				}
-			}
-		} catch (Exception e) {
-			showState(AppDefine.FIRST_SCREEN, this.getClass().getName());
-		}
+        // try restore previous session state
+        if (AppState.getInstance().shownWindow == AppDefine.ADD_STATION_PANEL)
+            showState(AppState.getInstance().shownWindow, this.getClass().getName());
+        else if (AppDefine.favorites.size() == 0) // if no favorites, show first screen
+            showState(AppDefine.FIRST_RUN_PANEL, this.getClass().getName());
+        else
+            showState(AppDefine.MAIN_PANEL, this.getClass().getName());
 	}
 
 	/**
@@ -157,34 +146,33 @@ public final class Main {
 		pnMain.removeAll();
 		pnMain.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
-		AppState.getInstance().stateIndex = index;
-		AppStateManager.trySave();
+		AppState.getInstance().shownWindow = index;
 
 		switch (index) {
-		// FIRSTSCREEN
-		case AppDefine.FIRST_SCREEN:
-			FirstScreen firstScreen = new FirstScreen(this);
-			pnMainBar.setBackground(new Color(255, 140, 0));
-			wbtnRefreshData.setVisible(false);
-			pnMain.add(firstScreen, "cell 0 0 31 1,grow");
-			break;
+            // FIRSTSCREEN
+            case AppDefine.FIRST_RUN_PANEL:
+                FirstRunPanel firstRunPanel = new FirstRunPanel(this);
+                pnMainBar.setBackground(new Color(255, 140, 0));
+                wbtnRefreshData.setVisible(false);
+                pnMain.add(firstRunPanel, "cell 0 0 31 1,grow");
+                break;
 
-		// ADD_STATION
-		case AppDefine.ADD_STATION:
-			AddStation addStation = new AddStation(this);
-			pnMainBar.setBackground(new Color(255, 140, 0));
-			wbtnRefreshData.setVisible(false);
-			pnMain.add(addStation, "cell 0 0 1 1,grow");
-			break;
+            // ADD_STATION
+            case AppDefine.ADD_STATION_PANEL:
+                AddStationPanel addStationPanel = new AddStationPanel(this);
+                pnMainBar.setBackground(new Color(255, 140, 0));
+                wbtnRefreshData.setVisible(false);
+                pnMain.add(addStationPanel, "cell 0 0 1 1,grow");
+                break;
 
-		// MAIN_SCREEN
-		case AppDefine.MAIN_SCREEN:
-			MainPanel mainPanel = new MainPanel(this);
-			pnMain.add(mainPanel, "cell 0 0 1 1,grow");
-			wbtnRefreshData.setVisible(true);
-			mainPanel.showState(AppState.getInstance().shownWindow, this.getClass().getName());
+            // MAIN_SCREEN
+            case AppDefine.MAIN_PANEL:
+                MainPanel mainPanel = new MainPanel(this);
+                pnMain.add(mainPanel, "cell 0 0 1 1,grow");
+                wbtnRefreshData.setVisible(true);
+                mainPanel.showState(AppState.getInstance().shownDetail, this.getClass().getName());
 
-			break;
+                break;
 
 		}
 		pnMain.validate();

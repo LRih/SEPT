@@ -10,7 +10,6 @@ import com.alee.laf.optionpane.WebOptionPane;
 
 import Model.Station;
 import Model.StationData;
-import Utils.AppDefine;
 
 import java.awt.event.ActionListener;
 import java.awt.Color;
@@ -29,7 +28,7 @@ import javax.swing.DefaultComboBoxModel;
 /**
  * Chart UI
  */
-public class StationChart extends JPanel {
+public final class StationChart extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private WebLabel wblblMildura;
@@ -179,8 +178,8 @@ public class StationChart extends JPanel {
 
 		if (chartLibDataSet.getSeries().get(0).getValues().size() == 0)
 			WebOptionPane.showMessageDialog(mainPanel,
-					"No data found for " + chartLibDataSet.getSeries().get(0).getTitle() + "!", "Chart",
-					WebOptionPane.ERROR_MESSAGE);
+                "No data found for " + chartLibDataSet.getSeries().get(0).getTitle(), "Chart",
+                WebOptionPane.ERROR_MESSAGE);
 
 	}
 	/**

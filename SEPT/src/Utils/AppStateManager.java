@@ -17,10 +17,10 @@ public final class AppStateManager
 
     private static String KEY_WINDOW_RECT = "windowRect";
     private static String KEY_SHOWN_WINDOW = "shownWindow";
-    private static String KEY_STATE_INDEX = "stateIndex";
+    private static String KEY_SHOWN_DETAIL = "shownDetail";
     private static String KEY_STATE = "state";
     private static String KEY_STATION = "station";
-    private static String KEY_V5 = "v5";
+    private static String KEY_CHART_INDEX = "chartIndex";
 
     /**
      * Tries to load the app state from the last session.
@@ -58,10 +58,10 @@ public final class AppStateManager
 
             state.windowRect = json.getString(KEY_WINDOW_RECT);
             state.shownWindow = json.getInt(KEY_SHOWN_WINDOW);
-            state.stateIndex = json.getInt(KEY_STATE_INDEX);
+            state.shownDetail = json.getInt(KEY_SHOWN_DETAIL);
             state.state = json.getString(KEY_STATE);
             state.station = json.getString(KEY_STATION);
-            state.v5 = json.getString(KEY_V5);
+            state.chartIndex = json.getInt(KEY_CHART_INDEX);
         }
         catch (JSONException e)
         {
@@ -109,10 +109,10 @@ public final class AppStateManager
         {
             json.put(KEY_WINDOW_RECT, appState.windowRect);
             json.put(KEY_SHOWN_WINDOW, appState.shownWindow);
-            json.put(KEY_STATE_INDEX, appState.stateIndex);
+            json.put(KEY_SHOWN_DETAIL, appState.shownDetail);
             json.put(KEY_STATE, appState.state);
             json.put(KEY_STATION, appState.station);
-            json.put(KEY_V5, appState.v5);
+            json.put(KEY_CHART_INDEX, appState.chartIndex);
         }
         catch (JSONException e)
         {

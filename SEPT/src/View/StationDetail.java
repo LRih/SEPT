@@ -12,7 +12,6 @@ import org.joda.time.format.DateTimeFormatter;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
-import Utils.AppDefine;
 import Utils.AppStateManager;
 import Utils.FavoritesManager;
 import net.miginfocom.swing.MigLayout;
@@ -25,7 +24,7 @@ import java.awt.event.MouseEvent;
 /**
  * Detail information UI in Main Screen
  */
-public class StationDetail extends JPanel {
+public final class StationDetail extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,8 +42,8 @@ public class StationDetail extends JPanel {
 	private DateTimeFormatter dtfOut;
 	private WebButton wbtnViewWeatherHistory;
 	private WebLabel wblblRemoveFromFavourites;
-	private JPanel panel;
-	private JPanel panel_1;
+	private JPanel panelFiller1;
+	private JPanel panelFiller2;
 	private WebButton wbtnViewChart;
 	private MainPanel mainPanel;
 
@@ -59,9 +58,9 @@ public class StationDetail extends JPanel {
 
 		setLayout(new MigLayout("", "[30%,grow][grow][30%]", "[grow][][][][][][][][grow][]"));
 
-		panel = new JPanel();
-		panel.setVisible(false);
-		add(panel, "cell 0 0,grow");
+		panelFiller1 = new JPanel();
+		panelFiller1.setVisible(false);
+		add(panelFiller1, "cell 0 0,grow");
 
 		wblblStation = new WebLabel();
 		wblblStation.setText("-");
@@ -136,9 +135,9 @@ public class StationDetail extends JPanel {
 		wbtnViewWeatherHistory.setDrawShade(false);
 		add(wbtnViewWeatherHistory, "cell 2 7");
 
-		panel_1 = new JPanel();
-		panel_1.setVisible(false);
-		add(panel_1, "cell 0 8,grow");
+		panelFiller2 = new JPanel();
+		panelFiller2.setVisible(false);
+		add(panelFiller2, "cell 0 8,grow");
 
 		wblblLastUpdate = new WebLabel();
 		wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
@@ -183,7 +182,6 @@ public class StationDetail extends JPanel {
 				} finally {
 					AppState.getInstance().state = "";
 					AppState.getInstance().station = "";
-					AppStateManager.trySave();
 				}
 				mainPanel.frmMain.showMainScreen();
 			}

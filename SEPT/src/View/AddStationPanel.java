@@ -15,7 +15,6 @@ import Model.AppState;
 import Model.Favorite;
 import Model.State;
 import Model.Station;
-import Utils.AppDefine;
 import Utils.AppStateManager;
 import Utils.FavoritesManager;
 
@@ -26,20 +25,20 @@ import java.awt.Color;
 /**
  * Add Station UI Panel
  */
-public class AddStation extends JPanel {
+public final class AddStationPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Main frmMain = null;
 	private WebComboBox wcbStates;
 	private WebComboBox wcbStations;
 	private WebButton wbtnBack;
-	private WebButton wbtnAddToMy;
+	private WebButton wbtnAddToMyFavorites;
 	private JPanel pnContent;
 
 	/**
 	 * Create the panel.
 	 */
-	public AddStation(Main m) {
+	public AddStationPanel(Main m) {
 		setBackground(Color.WHITE);
 		frmMain = m;
 
@@ -88,15 +87,15 @@ public class AddStation extends JPanel {
 		wcbStations.setDrawFocus(false);
 		pnAddStation.add(wcbStations, "cell 1 2,growx");
 
-		wbtnAddToMy = new WebButton();
-		wbtnAddToMy.setFont(new Font("Bender", Font.PLAIN, 13));
-		wbtnAddToMy.setForeground(new Color(0, 128, 0));
-		wbtnAddToMy.setDefaultButtonShadeColor(new Color(240, 255, 240));
-		wbtnAddToMy.setBottomSelectedBgColor(new Color(154, 205, 50));
-		wbtnAddToMy.setBottomBgColor(new Color(240, 255, 240));
-		wbtnAddToMy.setDrawShade(false);
-		wbtnAddToMy.setText("Add to My Favorites");
-		pnAddStation.add(wbtnAddToMy, "cell 1 3");
+		wbtnAddToMyFavorites = new WebButton();
+		wbtnAddToMyFavorites.setFont(new Font("Bender", Font.PLAIN, 13));
+		wbtnAddToMyFavorites.setForeground(new Color(0, 128, 0));
+		wbtnAddToMyFavorites.setDefaultButtonShadeColor(new Color(240, 255, 240));
+		wbtnAddToMyFavorites.setBottomSelectedBgColor(new Color(154, 205, 50));
+		wbtnAddToMyFavorites.setBottomBgColor(new Color(240, 255, 240));
+		wbtnAddToMyFavorites.setDrawShade(false);
+		wbtnAddToMyFavorites.setText("Add to My Favorites");
+		pnAddStation.add(wbtnAddToMyFavorites, "cell 1 3");
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
@@ -121,7 +120,7 @@ public class AddStation extends JPanel {
 			}
 		});
 
-		wbtnAddToMy.addActionListener(new ActionListener() {
+		wbtnAddToMyFavorites.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				Station station = AppDefine.states.get(wcbStates.getSelectedItem().toString())
@@ -146,9 +145,8 @@ public class AddStation extends JPanel {
 
 				AppState.getInstance().state = station.getState().getName();
 				AppState.getInstance().station = station.getName();
-				AppStateManager.trySave();
 
-				frmMain.showState(AppDefine.MAIN_SCREEN, this.getClass().getName());
+				frmMain.showState(AppDefine.MAIN_PANEL, this.getClass().getName());
 			}
 		});
 

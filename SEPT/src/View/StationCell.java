@@ -9,7 +9,6 @@ import Model.AppState;
 import Model.Favorite;
 import Model.Station;
 import Model.StationData;
-import Utils.AppDefine;
 import Utils.AppStateManager;
 import Utils.DataManager;
 import Utils.StationDataWorker;
@@ -23,16 +22,16 @@ import java.awt.event.MouseEvent;
 /**
  * A Station Cell for repeating in favorite list.
  */
-public class StationCell extends JPanel implements OnTaskCompleteListener {
+public final class StationCell extends JPanel implements OnTaskCompleteListener {
 
 	private static final long serialVersionUID = 1L;
 	private Station station = null;
 	private StationData data = null;
 	private Boolean selected = false;
 	private MainPanel main = null;
-	private WebLabel wblblMildura;
-	private WebLabel webLabel_2;
-	private WebLabel wblblVictoria;
+	private WebLabel wblblStation;
+	private WebLabel wblblTemp;
+	private WebLabel wblblState;
 	private StationDataWorker dataWorker;
 
 	/**
@@ -49,7 +48,6 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 				m.setStation(station, data);
 				AppState.getInstance().state = fav.state;
 				AppState.getInstance().station = fav.station;
-				AppStateManager.trySave();
 			}
 
 			// hover effect
@@ -80,15 +78,16 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 		setBackground(new Color(248, 248, 255));
 		setLayout(new MigLayout("", "[grow][][5%][]", "[][][]"));
 
-		wblblMildura = new WebLabel();
-		wblblMildura.setForeground(new Color(255, 69, 0));
-		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		wblblMildura.setText(fav.station);
-		add(wblblMildura, "cell 0 0 1 2,alignx left,grow");
+		wblblStation = new WebLabel();
+		wblblStation.setForeground(new Color(255, 69, 0));
+		wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		wblblStation.setText(fav.station);
+		add(wblblStation, "cell 0 0 1 2,alignx left,grow");
 
-		webLabel_2 = new WebLabel();
-		webLabel_2.setForeground(new Color(155, 155, 155));
-		webLabel_2.setFont(new Font("Futura", Font.PLAIN, 20));
+		wblblTemp = new WebLabel();
+		wblblTemp.setForeground(new Color(155, 155, 155));
+		wblblTemp.setFont(new Font("Futura", Font.PLAIN, 20));
+
 		if (this.data != null) {
 			try {
 				if (selected)
@@ -98,16 +97,16 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 			}
 
             if(data.getLatestReadings().size() > 0 && data.getLatestReadings().get(0).getAirTemp() != null)
-			    webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
+			    wblblTemp.setText(data.getLatestReadings().get(0).getAirTemp().toString());
 		} else
-			webLabel_2.setText("-");
+			wblblTemp.setText("-");
 		
-		add(webLabel_2, "cell 1 0 1 3,alignx center,aligny center");
+		add(wblblTemp, "cell 1 0 1 3,alignx center,aligny center");
 
-		wblblVictoria = new WebLabel();
-		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 12));
-		wblblVictoria.setText(fav.state);
-		add(wblblVictoria, "cell 0 2");
+		wblblState = new WebLabel();
+		wblblState.setFont(new Font("Bender", Font.PLAIN, 12));
+		wblblState.setText(fav.state);
+		add(wblblState, "cell 0 2");
 
 	}
 
@@ -125,15 +124,15 @@ public class StationCell extends JPanel implements OnTaskCompleteListener {
 
         main.frmMain.setMainBg(true);
 
-        wblblMildura.setText(station.getName());
-		wblblVictoria.setText(station.getState().getName());
+        wblblStation.setText(station.getName());
+		wblblState.setText(station.getState().getName());
 
         if(data.getLatestReadings().size() > 0 && data.getLatestReadings().get(0).getAirTemp() != null)
-            webLabel_2.setText(data.getLatestReadings().get(0).getAirTemp().toString());
+            wblblTemp.setText(data.getLatestReadings().get(0).getAirTemp().toString());
         else
-            webLabel_2.setText("-");
+            wblblTemp.setText("-");
 
-		webLabel_2.setForeground(new Color(34, 139, 34));
+		wblblTemp.setForeground(new Color(34, 139, 34));
 
 	}
 

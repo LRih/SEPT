@@ -1,22 +1,4 @@
-<<<<<<< HEAD
-[
-    {
-        "station": "Casey",
-        "state": "Antarctica"
-    },
-    {
-        "station": "Adelaide",
-        "state": "South Australia"
-    }
-]
-||||||| merged common ancestors
 [{
-    "station": "Bundoora",
-    "state": "Victoria"
+    "station": "Casey",
+    "state": "Antarctica"
 }]
-=======
-[{
-    "station": "Adele Island",
-    "state": "Western Australia"
-}]
->>>>>>> origin/master

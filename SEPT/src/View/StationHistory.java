@@ -15,7 +15,6 @@ import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
 import Model.LatestReading;
-import Utils.AppDefine;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.scroll.WebScrollPane;
 import java.awt.Component;
@@ -24,11 +23,11 @@ import com.alee.laf.table.WebTable;
 /**
  * Show all weather history table UI
  */
-public class StationHistory extends JPanel {
+public final class StationHistory extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private WebLabel wblblMildura;
-	private WebLabel wblblVictoria;
+	private WebLabel wblblStation;
+	private WebLabel wblblState;
 	private WebScrollPane webScrollPane;
 	private WebTable webTable;
 
@@ -50,17 +49,17 @@ public class StationHistory extends JPanel {
 		wbtnBack.setText("Back");
 		add(wbtnBack, "cell 0 0");
 
-		wblblMildura = new WebLabel();
-		wblblMildura.setText("-");
-		wblblMildura.setForeground(new Color(255, 69, 0));
-		wblblMildura.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+		wblblStation = new WebLabel();
+		wblblStation.setText("-");
+		wblblStation.setForeground(new Color(255, 69, 0));
+		wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 
-		add(wblblMildura, "cell 1 0");
+		add(wblblStation, "cell 1 0");
 
-		wblblVictoria = new WebLabel();
-		wblblVictoria.setFont(new Font("Bender", Font.PLAIN, 16));
-		wblblVictoria.setText("-");
-		add(wblblVictoria, "cell 2 0");
+		wblblState = new WebLabel();
+		wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
+		wblblState.setText("-");
+		add(wblblState, "cell 2 0");
 
 		webTable = new WebTable(new SampleTableModel());
 
@@ -85,8 +84,8 @@ public class StationHistory extends JPanel {
 
 		reloadTable();
 
-		wblblMildura.setText(AppDefine.currentStation.getName());
-		wblblVictoria.setText(AppDefine.currentStation.getState().getName());
+		wblblStation.setText(AppDefine.currentStation.getName());
+		wblblState.setText(AppDefine.currentStation.getState().getName());
 	}
 
 	private void initColumnSizes(JTable table) {

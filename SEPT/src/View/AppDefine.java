@@ -1,9 +1,11 @@
-package Utils;
+package View;
 
 import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import Utils.DataManager;
+import Utils.FavoritesManager;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -18,12 +20,11 @@ import Model.StationData;
 /**
  * initialises the front-end application
  */
+public final class AppDefine {
 
-public class AppDefine {
-
-	public static final int FIRST_SCREEN = 0;
-	public static final int ADD_STATION = 1;
-	public static final int MAIN_SCREEN = 2;
+	public static final int FIRST_RUN_PANEL = 0;
+	public static final int ADD_STATION_PANEL = 1;
+	public static final int MAIN_PANEL = 2;
 	public static final int VIEW_CHART = 3;
 	public static final int VIEW_HISTORY = 4;
 	public static final int STATION_DETAIL = 5;
@@ -46,10 +47,9 @@ public class AppDefine {
 	public static DateTimeFormatter dtfOut;
 	
 	/**
-     	* initialises ui elements
-	* @throws Exception e when invalid states format
-     	*/
-	
+	 * initialises ui elements
+	 * @throws Exception e when invalid states format
+     */
 	public static void initApp(JFrame mainFrame) {
 
 		dtfOut = DateTimeFormat.forPattern("HH:mm dd/MM");

@@ -1,0 +1,6 @@
+Here are links to the tools we used (all private):
+
+Slack: https://rmit-sept.slack.com/
+GitHub: https://github.com/QuanDhz/SEPT
+Trello: https://trello.com/sept9
+LeanTesting: https://leantesting.com/

@@ -11,10 +11,10 @@ public final class AppState
 
     public String windowRect;
     public int shownWindow;
-    public int stateIndex;
+    public int shownDetail;
     public String state;
     public String station;
-    public String v5;
+    public int chartIndex;
 
     private AppState()
     {
@@ -41,12 +41,12 @@ public final class AppState
      */
     public final void resetDefault()
     {
-        shownWindow = 0;
         windowRect = "100,100,1300,600";
-        stateIndex = -1;
+        shownWindow = -1;
+        shownDetail = -1;
         state = "";
         station = "";
-        v5 = "";
+        chartIndex = 0;
     }
 
 

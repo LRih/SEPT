@@ -5,7 +5,6 @@ import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
-import Utils.AppDefine;
 import Utils.SwingUtils;
 
 import javax.swing.SwingConstants;
@@ -19,7 +18,7 @@ import java.awt.event.ActionEvent;
 /**
  * First Screen UI. Show when user has no favorite station.
  */
-public class FirstScreen extends JPanel {
+public final class FirstRunPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private Main frmMain = null;
@@ -28,7 +27,7 @@ public class FirstScreen extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public FirstScreen(Main m) {
+	public FirstRunPanel(Main m) {
 		setBackground(new Color(255, 255, 255));
 		this.frmMain = m;
 		
@@ -65,7 +64,7 @@ public class FirstScreen extends JPanel {
 		
 		wbtnAddStation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmMain.showState(AppDefine.ADD_STATION, this.getClass().getName());
+				frmMain.showState(AppDefine.ADD_STATION_PANEL, this.getClass().getName());
 			}
 		});
 		
