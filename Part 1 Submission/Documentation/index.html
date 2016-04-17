@@ -26,6 +26,7 @@
                         <li><a href="#prerequisites" class="active">Prerequisites</a></li>
                         <li><a href="#how_to_run">How to Run</a></li>
                         <li><a href="#compiling-eclipse">Compiling with Eclipse</a></li>
+                        <li><a href="#compiling-terminal">Compiling with Terminal</a></li>
                         <li><a href="#license">License</a></li>
 
                         <li class="separator"></li>
@@ -47,13 +48,17 @@
                                 <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="blank">Java download</a>
                             </li>
                         </ul>
-
+                        
                         <h3 id="how_to_run">How to Run</h3>
-                        <p>Run command prompt/terminal depending on OS (or other preferred shell application). Navigate to the folder named <span class="code">Compiled Distribution</span> and run the following command:</p>
-                        <p class="code">java bom.jar</p>
+                        <p>Navigate to the folder named <span class="code">Compiled Distribution</span> and simply run it from the file explorer (mouse double click) or alternatively run the following command using command prompt/terminal depending on OS (or other preferred shell application):</p>
+                        <p class="code">sept.jar</p>
 
                         <h3 id="compiling-eclipse">Compiling with Eclipse</h3>
-                        <p>To compile the program in eclipse, import the program into the file explorer by entering <span class="code">File -> Import</span>. Then select <span class="code">Existing projects</span> and navigate to the root directory of the program (Source Code). The program should be in the workspace and you can compile by pressing <span class="code">F5</span>.</p>
+                        <p>To compile the program in eclipse, import the program into the current workspace by entering <span class="code">File -> Import</span>. Then select <span class="code">Existing projects</span> and navigate to the root directory of the program (folder <span class="code">Source Code</span>). The program should be in the workspace and you can compile by pressing <span class="code">F5</span>.</p>
+                        <img src="images/import.jpg" alt="Import"> 
+                        
+                        <h3 id="compiling-terminal">Compiling with Terminal</h3>
+                        <p>Navigate to the folder <span class="code">Source Code</span> and by using the <span class="code">javac</span> command, add all jar files in <span class="code">lib</span> to the class path and compile all <span class="code">.java</span> files setting <span class="code">View/Main.java</span> as the main class.</p>
 
                         <h3 id="license">License</h3>
                         <p>Write something about the licenses of the libraries we are using. So far:</p>
