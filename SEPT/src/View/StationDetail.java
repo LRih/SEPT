@@ -12,10 +12,9 @@ import org.joda.time.format.DateTimeFormatter;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
-import Utils.FavoritesManager;
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,235 +22,233 @@ import java.awt.event.MouseEvent;
 /**
  * Detail information UI in Main Screen
  */
-public final class StationDetail extends JPanel {
+public final class StationDetail extends JPanel
+{
+    private static final int TEMP_FREEZING = 0;
+    private static final int TEMP_COOL = 25;
 
-	private static final long serialVersionUID = 1L;
+    private WebLabel wblblStation;
+    private WebLabel wblblHumid;
+    private WebLabel wblblState;
+    private WebLabel wblblWindSse;
+    private WebLabel wblblRainSinceam;
+    private WebLabel wblblc;
+    private WebLabel wblblPressQmh;
+    private WebLabel wblblPress;
+    private WebLabel wblblAirTemp;
+    private WebLabel wblblDewPoint;
+    private WebLabel wblblLastUpdate;
 
-	private WebLabel wblblStation;
-	private WebLabel wblblHumid;
-	private WebLabel wblblState;
-	private WebLabel wblblWindSse;
-	private WebLabel wblblRainSinceam;
-	private WebLabel wblblc;
-	private WebLabel wblblPressQmh;
-	private WebLabel wblblPress;
-	private WebLabel wblblAirTemp;
-	private WebLabel wblblDewPoint;
-	private WebLabel wblblLastUpdate;
-	private DateTimeFormatter dtfOut;
-	private WebButton wbtnViewWeatherHistory;
-	private WebLabel wblblRemoveFromFavourites;
-	private JPanel panelFiller1;
-	private JPanel panelFiller2;
-	private WebButton wbtnViewChart;
-	private MainPanel mainPanel;
+    private WebButton wbtnViewChart;
+    private WebButton wbtnViewWeatherHistory;
+    private WebLabel wblblRemoveFromFavourites;
 
-	/**
-	 * Create the panel.
-	 */
-	public StationDetail(final MainPanel m) {
+    private Station station;
+    private StationData data;
 
-		mainPanel = m;
+    private DateTimeFormatter dtFormatter;
 
-		setBackground(new Color(176, 196, 222));
+    private OnActionListener _listenerAction;
+    private OnRemoveFavoriteClickListener _listenerRemoveFavorite;
 
-		setLayout(new MigLayout("", "[30%,grow][grow][30%]", "[grow][][][][][][][][grow][]"));
+    /**
+     * Create the panel.
+     */
+    public StationDetail()
+    {
+        setBackground(new Color(176, 196, 222));
 
-		panelFiller1 = new JPanel();
-		panelFiller1.setVisible(false);
-		add(panelFiller1, "cell 0 0,grow");
+        setLayout(new MigLayout("", "[30%,grow][grow][30%]", "[grow][][][][][][][][grow][]"));
 
-		wblblStation = new WebLabel();
-		wblblStation.setText("-");
-		wblblStation.setForeground(new Color(255, 69, 0));
-		wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+        JPanel panelFiller1 = new JPanel();
+        panelFiller1.setVisible(false);
+        add(panelFiller1, "cell 0 0,grow");
 
-		add(wblblStation, "cell 0 1 2 1");
+        wblblStation = new WebLabel();
+        wblblStation.setText("-");
+        wblblStation.setForeground(new Color(255, 69, 0));
+        wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 
-		wblblHumid = new WebLabel();
-		wblblHumid.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblHumid.setText("-");
-		add(wblblHumid, "cell 2 1,aligny bottom");
+        add(wblblStation, "cell 0 1 2 1");
 
-		wblblState = new WebLabel();
-		wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
-		wblblState.setText("-");
-		add(wblblState, "cell 0 2 2 1");
+        wblblHumid = new WebLabel();
+        wblblHumid.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblHumid.setText("-");
+        add(wblblHumid, "cell 2 1,aligny bottom");
 
-		wblblWindSse = new WebLabel();
-		wblblWindSse.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblWindSse.setText("-");
-		add(wblblWindSse, "cell 2 2");
+        wblblState = new WebLabel();
+        wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
+        wblblState.setText("-");
+        add(wblblState, "cell 0 2 2 1");
 
-		wblblRainSinceam = new WebLabel();
-		wblblRainSinceam.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblRainSinceam.setText("Rain since 9am: -");
-		add(wblblRainSinceam, "cell 2 3");
+        wblblWindSse = new WebLabel();
+        wblblWindSse.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblWindSse.setText("-");
+        add(wblblWindSse, "cell 2 2");
 
-		wblblc = new WebLabel();
-		wblblc.setForeground(new Color(255, 255, 255));
-		wblblc.setFont(new Font("Futura", Font.PLAIN, 50));
-		wblblc.setText("-°C");
-		add(wblblc, "cell 1 3 1 3,alignx left,aligny top");
+        wblblRainSinceam = new WebLabel();
+        wblblRainSinceam.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblRainSinceam.setText("Rain since 9am: -");
+        add(wblblRainSinceam, "cell 2 3");
 
-		wblblPressQmh = new WebLabel();
-		wblblPressQmh.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblPressQmh.setText("Press QNH hPa: -");
-		add(wblblPressQmh, "cell 2 4");
+        wblblc = new WebLabel();
+        wblblc.setForeground(new Color(255, 255, 255));
+        wblblc.setFont(new Font("Futura", Font.PLAIN, 50));
+        wblblc.setText("-°C");
+        add(wblblc, "cell 1 3 1 3,alignx left,aligny top");
 
-		wblblPress = new WebLabel();
-		wblblPress.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblPress.setText("Press MSL hPa: -");
-		add(wblblPress, "cell 2 5,aligny top");
+        wblblPressQmh = new WebLabel();
+        wblblPressQmh.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblPressQmh.setText("Press QNH hPa: -");
+        add(wblblPressQmh, "cell 2 4");
 
-		wblblAirTemp = new WebLabel();
-		wblblAirTemp.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblAirTemp.setText("App temp: -°C");
-		add(wblblAirTemp, "cell 1 6,aligny bottom");
+        wblblPress = new WebLabel();
+        wblblPress.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblPress.setText("Press MSL hPa: -");
+        add(wblblPress, "cell 2 5,aligny top");
 
-		wbtnViewChart = new WebButton();
-		wbtnViewChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wbtnViewChart.setDefaultButtonShadeColor(new Color(240, 255, 255));
-		wbtnViewChart.setBottomSelectedBgColor(new Color(224, 255, 255));
-		wbtnViewChart.setBottomBgColor(new Color(240, 248, 255));
-		wbtnViewChart.setDrawShade(false);
-		wbtnViewChart.setText("View Chart");
-		add(wbtnViewChart, "cell 2 6,alignx left,aligny bottom");
+        wblblAirTemp = new WebLabel();
+        wblblAirTemp.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblAirTemp.setText("App temp: -°C");
+        add(wblblAirTemp, "cell 1 6,aligny bottom");
 
-		wblblDewPoint = new WebLabel();
-		wblblDewPoint.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblDewPoint.setText("Dew Point: -°C");
-		add(wblblDewPoint, "cell 1 7");
+        wbtnViewChart = new WebButton();
+        wbtnViewChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wbtnViewChart.setDefaultButtonShadeColor(new Color(240, 255, 255));
+        wbtnViewChart.setBottomSelectedBgColor(new Color(224, 255, 255));
+        wbtnViewChart.setBottomBgColor(new Color(240, 248, 255));
+        wbtnViewChart.setDrawShade(false);
+        wbtnViewChart.setText("View Chart");
+        add(wbtnViewChart, "cell 2 6,alignx left,aligny bottom");
 
-		dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+        wblblDewPoint = new WebLabel();
+        wblblDewPoint.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblDewPoint.setText("Dew Point: -°C");
+        add(wblblDewPoint, "cell 1 7");
 
-		wbtnViewWeatherHistory = new WebButton();
-		wbtnViewWeatherHistory.setText("View Weather History");
-		wbtnViewWeatherHistory.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wbtnViewWeatherHistory.setDefaultButtonShadeColor(new Color(240, 255, 255));
-		wbtnViewWeatherHistory.setBottomSelectedBgColor(new Color(224, 255, 255));
-		wbtnViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
-		wbtnViewWeatherHistory.setDrawShade(false);
-		add(wbtnViewWeatherHistory, "cell 2 7");
+        dtFormatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 
-		panelFiller2 = new JPanel();
-		panelFiller2.setVisible(false);
-		add(panelFiller2, "cell 0 8,grow");
+        wbtnViewWeatherHistory = new WebButton();
+        wbtnViewWeatherHistory.setText("View Weather History");
+        wbtnViewWeatherHistory.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wbtnViewWeatherHistory.setDefaultButtonShadeColor(new Color(240, 255, 255));
+        wbtnViewWeatherHistory.setBottomSelectedBgColor(new Color(224, 255, 255));
+        wbtnViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
+        wbtnViewWeatherHistory.setDrawShade(false);
+        add(wbtnViewWeatherHistory, "cell 2 7");
 
-		wblblLastUpdate = new WebLabel();
-		wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
-		wblblLastUpdate.setText("Last update: -");
-		add(wblblLastUpdate, "cell 0 9 2 1,aligny bottom");
+        JPanel panelFiller2 = new JPanel();
+        panelFiller2.setVisible(false);
+        add(panelFiller2, "cell 0 8,grow");
 
-		wblblRemoveFromFavourites = new WebLabel();
-		wblblRemoveFromFavourites.setForeground(Color.RED);
-		wblblRemoveFromFavourites.setFont(new Font("Century Gothic", Font.ITALIC, 13));
-		wblblRemoveFromFavourites.setText("Remove from Favourites");
+        wblblLastUpdate = new WebLabel();
+        wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
+        wblblLastUpdate.setText("Last update: -");
+        add(wblblLastUpdate, "cell 0 9 2 1,aligny bottom");
 
-		add(wblblRemoveFromFavourites, "cell 2 9,alignx right,aligny bottom");
+        wblblRemoveFromFavourites = new WebLabel();
+        wblblRemoveFromFavourites.setForeground(Color.RED);
+        wblblRemoveFromFavourites.setFont(new Font("Century Gothic", Font.ITALIC, 13));
+        wblblRemoveFromFavourites.setText("Remove from Favourites");
 
-		addListeners();
+        add(wblblRemoveFromFavourites, "cell 2 9,alignx right,aligny bottom");
+
+        addListeners();
 
         updateStation();
-	}
+    }
 
-	private void addListeners() {
+    private void addListeners()
+    {
+        wbtnViewChart.addActionListener(new ActionListener()
+        {
+            public final void actionPerformed(ActionEvent e)
+            {
+                if (_listenerAction != null)
+                    _listenerAction.onViewChartClick();
+            }
+        });
 
-		wbtnViewChart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mainPanel.showState(AppDefine.VIEW_CHART, this.getClass().getName());
-			}
-		});
+        wbtnViewWeatherHistory.addActionListener(new ActionListener()
+        {
+            public final void actionPerformed(ActionEvent e)
+            {
+                if (_listenerAction != null)
+                    _listenerAction.onViewHistoryClick();
+            }
+        });
 
-		wbtnViewWeatherHistory.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mainPanel.showState(AppDefine.VIEW_HISTORY, this.getClass().getName());
-			}
-		});
+        wblblRemoveFromFavourites.addMouseListener(new MouseAdapter()
+        {
+            public final void mouseClicked(MouseEvent e)
+            {
+                if (_listenerRemoveFavorite != null)
+                    _listenerRemoveFavorite.onRemoveFavoriteClick(station);
+            }
+        });
+    }
 
-		wblblRemoveFromFavourites.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				AppDefine.favorites.delete(AppDefine.currentStation);
-
-				try {
-					FavoritesManager.save(AppDefine.favorites);
-				} catch (IOException e1) {
-				}
-
-                AppState.getInstance().state = "";
-                AppState.getInstance().station = "";
-                AppDefine.currentStation = null;
-
-				mainPanel.frmMain.showMainScreen();
-			}
-		});
-
-	}
-
-	/**
-	 * set station information to this Panel
-	 */
-	public void updateStation() {
-
-		Station station = AppDefine.currentStation;
-		StationData data = AppDefine.currentStationData;
-
-        // null, don't show data
-        if (station == null || data == null) {
+    private void updateStation()
+    {
+        // no station select so hide
+        if (station == null)
+        {
             setVisible(false);
-            wbtnViewChart.setVisible(false);
-            wbtnViewWeatherHistory.setVisible(false);
-            wblblRemoveFromFavourites.setVisible(false);
             return;
         }
-        else {
+        else
             setVisible(true);
-            wbtnViewChart.setVisible(true);
-            wbtnViewWeatherHistory.setVisible(true);
-            wblblRemoveFromFavourites.setVisible(true);
-        }
 
-		if (!data.getLatestReadings().isEmpty()) {
-			LatestReading r = data.getLatestReadings().get(0);
+        if (data != null && !data.getLatestReadings().isEmpty())
+        {
+            LatestReading r = data.getLatestReadings().get(0);
 
-			// change colours by Temperature
-			if (r.getAirTemp() != null) {
-                if (r.getAirTemp() < AppDefine.TEMP_FREEZING) {
+            // change colours by Temperature
+            if (r.getAirTemp() != null)
+            {
+                if (r.getAirTemp() < TEMP_FREEZING)
+                {
                     setBackground(new Color(176, 196, 222));
                     wblblc.setForeground(new Color(255, 255, 255));
-                } else if (r.getAirTemp() < AppDefine.TEMP_COOL) {
+                }
+                else if (r.getAirTemp() < TEMP_COOL)
+                {
                     setBackground(new Color(240, 248, 255));
                     wblblc.setForeground(new Color(30, 144, 255));
-                } else {
+                }
+                else
+                {
                     setBackground(new Color(255, 248, 220));
                     wblblc.setForeground(new Color(255, 99, 71));
                 }
                 wblblc.setText(r.getAirTemp() + "°C");
-            } else {
-				setBackground(new Color(176, 196, 222));
-				wblblc.setForeground(Color.black);
-				wblblc.setText("-°C");
-			}
+            }
+            else
+            {
+                setBackground(new Color(176, 196, 222));
+                wblblc.setForeground(Color.black);
+                wblblc.setText("-°C");
+            }
 
-			// set Text
-			wblblHumid.setText("Humid: " + (r.getRelativeHumidity() == null ? "-" : r.getRelativeHumidity()) + "%");
-			wblblStation.setText(station.getName());
-			wblblState.setText(station.getState().getName());
+            // set Text
+            wblblHumid.setText("Humid: " + (r.getRelativeHumidity() == null ? "-" : r.getRelativeHumidity()) + "%");
+            wblblStation.setText(station.getName());
+            wblblState.setText(station.getState().getName());
 
             // set wind format
             String windDir = r.getWindDir() == null ? "" : r.getWindDir();
             String windSpd = r.getWindSpdKmH() == null || r.getWindGustKmH() == null ? "" : r.getWindSpdKmH() + "-" + r.getWindGustKmH();
             wblblWindSse.setText("Wind: " + windDir + " " + windSpd + " km/h");
 
-			wblblRainSinceam.setText("Rain since 9am: " + (r.getRainTrace() == null ? "-" : r.getRainTrace()) + "mm");
-			wblblPressQmh.setText("Press QNH hPa: " + (r.getPressureQNH() == null ? "-" : r.getPressureQNH()));
-			wblblPress.setText("Press MSL hPa: " + (r.getPressureMSL() == null ? "-" : r.getPressureMSL()));
-			wblblAirTemp.setText("App temp: " + (r.getApparentTemp() == null ? "-" : r.getApparentTemp()) + "°C");
-			wblblDewPoint.setText("Dew Point: " + (r.getDewPt() == null ? "-" : r.getDewPt()) + "°C");
-			wblblLastUpdate.setText("Last update: " + dtfOut.print(r.getLocalDateTime()));
-		}
-        else {
+            wblblRainSinceam.setText("Rain since 9am: " + (r.getRainTrace() == null ? "-" : r.getRainTrace()) + "mm");
+            wblblPressQmh.setText("Press QNH hPa: " + (r.getPressureQNH() == null ? "-" : r.getPressureQNH()));
+            wblblPress.setText("Press MSL hPa: " + (r.getPressureMSL() == null ? "-" : r.getPressureMSL()));
+            wblblAirTemp.setText("App temp: " + (r.getApparentTemp() == null ? "-" : r.getApparentTemp()) + "°C");
+            wblblDewPoint.setText("Dew Point: " + (r.getDewPt() == null ? "-" : r.getDewPt()) + "°C");
+            wblblLastUpdate.setText("Last update: " + dtFormatter.print(r.getLocalDateTime()));
+        }
+        else
+        {
             // set empty temp
             setBackground(new Color(176, 196, 222));
             wblblc.setForeground(Color.black);
@@ -269,5 +266,36 @@ public final class StationDetail extends JPanel {
             wblblDewPoint.setText("Dew Point: -°C");
             wblblLastUpdate.setText("Last update: -");
         }
-	}
+    }
+
+    /**
+     * set station information to this Panel
+     */
+    public final void setStation(Station station, StationData data)
+    {
+        this.station = station;
+        this.data = data;
+
+        updateStation();
+    }
+
+    public final void setOnActionListener(OnActionListener listener)
+    {
+        _listenerAction = listener;
+    }
+    public final void setOnRemoveFavoriteClickListener(OnRemoveFavoriteClickListener listener)
+    {
+        _listenerRemoveFavorite = listener;
+    }
+
+
+    public interface OnActionListener
+    {
+        void onViewChartClick();
+        void onViewHistoryClick();
+    }
+    public interface OnRemoveFavoriteClickListener
+    {
+        void onRemoveFavoriteClick(Station station);
+    }
 }

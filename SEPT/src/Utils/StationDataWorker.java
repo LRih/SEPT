@@ -56,7 +56,7 @@ public final class StationDataWorker extends SwingWorker<StationData, Void>
         catch (Exception e)
         {
             if (listener != null)
-                listener.onFail(e);
+                listener.onFail();
         }
     }
 
@@ -87,6 +87,6 @@ public final class StationDataWorker extends SwingWorker<StationData, Void>
         /**
          * Called when data could not be obtained.
          */
-        void onFail(Exception e);
+        void onFail();
     }
 }

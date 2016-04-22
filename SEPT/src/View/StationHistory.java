@@ -11,191 +11,226 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import Model.Station;
+import Model.StationData;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 
 import Model.LatestReading;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.scroll.WebScrollPane;
+
 import java.awt.Component;
+
 import com.alee.laf.table.WebTable;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Show all weather history table UI
  */
-public final class StationHistory extends JPanel {
+public final class StationHistory extends JPanel
+{
+    private static final DateTimeFormatter DT_FORMATTER = DateTimeFormat.forPattern("HH:mm dd/MM");
 
-	private static final long serialVersionUID = 1L;
-	private WebLabel wblblStation;
-	private WebLabel wblblState;
-	private WebScrollPane webScrollPane;
-	private WebTable webTable;
+    private WebLabel wblblStation;
+    private WebLabel wblblState;
+    private WebTable webTable;
 
-	/**
-	 * Create the panel.
-	 */
-	public StationHistory(final MainPanel m) {
+    private StationData data;
 
-		setBackground(new Color(240, 248, 255));
-		setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
+    private OnBackClickListener _listener;
 
-		WebButton wbtnBack = new WebButton();
-		wbtnBack.setDrawShade(false);
-		wbtnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				m.showState(AppDefine.STATION_DETAIL, this.getClass().getName());
-			}
-		});
-		wbtnBack.setText("Back");
-		add(wbtnBack, "cell 0 0");
+    /**
+     * Create the panel.
+     */
+    public StationHistory()
+    {
+        setBackground(new Color(240, 248, 255));
+        setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
 
-		wblblStation = new WebLabel();
-		wblblStation.setText("-");
-		wblblStation.setForeground(new Color(255, 69, 0));
-		wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+        WebButton wbtnBack = new WebButton();
+        wbtnBack.setDrawShade(false);
+        wbtnBack.addActionListener(new ActionListener()
+        {
+            public final void actionPerformed(ActionEvent e)
+            {
+                if (_listener != null)
+                    _listener.onBackClick();
+            }
+        });
+        wbtnBack.setText("Back");
+        add(wbtnBack, "cell 0 0");
 
-		add(wblblStation, "cell 1 0");
+        wblblStation = new WebLabel();
+        wblblStation.setText("-");
+        wblblStation.setForeground(new Color(255, 69, 0));
+        wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 
-		wblblState = new WebLabel();
-		wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
-		wblblState.setText("-");
-		add(wblblState, "cell 2 0");
+        add(wblblStation, "cell 1 0");
 
-		webTable = new WebTable(new SampleTableModel());
+        wblblState = new WebLabel();
+        wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
+        wblblState.setText("-");
+        add(wblblState, "cell 2 0");
 
-		webScrollPane = new WebScrollPane(webTable);
-		webScrollPane.setDrawFocus(false);
-		add(webScrollPane, "cell 0 1 4 2,grow");
+        webTable = new WebTable(new SampleTableModel());
 
-		// Better column sizes
-		initColumnSizes(webTable);
+        WebScrollPane webScrollPane = new WebScrollPane(webTable);
+        webScrollPane.setDrawFocus(false);
+        add(webScrollPane, "cell 0 1 4 2,grow");
 
-	}
+        // Better column sizes
+        initColumnSizes(webTable);
 
-	private void reloadTable() {
-		webTable.setModel(new SampleTableModel());
-		initColumnSizes(webTable);
-	}
+    }
 
-	/**
-	 * Set station information to this Panel
-	 */
-	public void updateStation() {
+    private void reloadTable()
+    {
+        webTable.setModel(new SampleTableModel());
+        initColumnSizes(webTable);
+    }
 
-		reloadTable();
+    /**
+     * Set station information to this Panel
+     */
+    public final void setStation(Station station, StationData data)
+    {
+        this.data = data;
 
-		wblblStation.setText(AppDefine.currentStation.getName());
-		wblblState.setText(AppDefine.currentStation.getState().getName());
-	}
+        reloadTable();
 
-	private void initColumnSizes(JTable table) {
-		SampleTableModel model = (SampleTableModel) table.getModel();
-		TableColumn column;
-		Component comp;
-		int headerWidth;
-		int cellWidth;
-		Object[] longValues = model.longValues;
-		TableCellRenderer headerRenderer = table.getTableHeader().getDefaultRenderer();
+        if (station != null)
+        {
+            wblblStation.setText(station.getName());
+            wblblState.setText(station.getState().getName());
+        }
+    }
 
-		for (int i = 0; i < model.getColumnCount(); i++) {
-			column = table.getColumnModel().getColumn(i);
+    private void initColumnSizes(JTable table)
+    {
+        SampleTableModel model = (SampleTableModel)table.getModel();
+        TableColumn column;
+        Component comp;
+        int headerWidth;
+        int cellWidth;
+        Object[] longValues = model.longValues;
+        TableCellRenderer headerRenderer = table.getTableHeader().getDefaultRenderer();
 
-			comp = headerRenderer.getTableCellRendererComponent(null, column.getHeaderValue(), false, false, 0, 0);
-			headerWidth = comp.getPreferredSize().width;
+        for (int i = 0; i < model.getColumnCount(); i++)
+        {
+            column = table.getColumnModel().getColumn(i);
 
-			comp = table.getDefaultRenderer(model.getColumnClass(i)).getTableCellRendererComponent(table, longValues[i],
-					false, false, 0, i);
-			cellWidth = comp.getPreferredSize().width;
+            comp = headerRenderer.getTableCellRendererComponent(null, column.getHeaderValue(), false, false, 0, 0);
+            headerWidth = comp.getPreferredSize().width;
 
-			column.setPreferredWidth(Math.max(headerWidth, cellWidth));
-		}
-	}
+            comp = table.getDefaultRenderer(model.getColumnClass(i)).getTableCellRendererComponent(table, longValues[i],
+                false, false, 0, i);
+            cellWidth = comp.getPreferredSize().width;
 
-	/**
-	 * Sample Table Model for the UI
-	 */
-	public class SampleTableModel extends AbstractTableModel {
-		private static final long serialVersionUID = 1L;
-		private String[] columnNames = {
-			"Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
+            column.setPreferredWidth(Math.max(headerWidth, cellWidth));
+        }
+    }
+
+    public final void setOnBackClickListener(OnBackClickListener listener)
+    {
+        _listener = listener;
+    }
+
+
+    /**
+     * Sample Table Model for the UI
+     */
+    public class SampleTableModel extends AbstractTableModel
+    {
+        private static final long serialVersionUID = 1L;
+        private String[] columnNames = {
+            "Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
             "Wind Spd km/h", "Wind Gust km/h", "Wind Spd kts", "Wind Gust kts", "Press QNH", "Press MSL", "Rain since 9am" };
 
-		public final Object[] longValues = {
-			"Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
+        private final Object[] longValues = {
+            "Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
             "Wind Spd km/h", "Wind Gust km/h", "Wind Spd kts", "Wind Gust kts", "Press QNH", "Press MSL", "Rain since 9am" };
 
-		@Override
-		public int getColumnCount() {
-			return columnNames.length;
-		}
+        @Override
+        public int getColumnCount()
+        {
+            return columnNames.length;
+        }
 
-		@Override
-		public int getRowCount() {
-			if (AppDefine.currentStationData == null)
-				return 0;
+        @Override
+        public int getRowCount()
+        {
+            if (data == null)
+                return 0;
 
-			return AppDefine.currentStationData.getLatestReadings().size();
-		}
+            return data.getLatestReadings().size();
+        }
 
-		@Override
-		public String getColumnName(int col) {
-			return columnNames[col];
-		}
+        @Override
+        public String getColumnName(int col)
+        {
+            return columnNames[col];
+        }
 
-		@Override
-		public Object getValueAt(int row, int col) {
+        @Override
+        public Object getValueAt(int row, int col)
+        {
+            if (data == null)
+                return "-";
 
-			if (AppDefine.currentStationData == null)
-				return "-";
+            LatestReading reading = data.getLatestReadings().get(row);
+            switch (col)
+            {
+                case 0:
+                    return reading.getLocalDateTime() != null ? DT_FORMATTER.print(reading.getLocalDateTime()) : "-";
+                case 1:
+                    return reading.getAirTemp() != null ? reading.getAirTemp() + "" : "-";
+                case 2:
+                    return reading.getApparentTemp() != null ? reading.getApparentTemp() + "" : "-";
+                case 3:
+                    return reading.getDewPt() != null ? reading.getDewPt() + "" : "-";
+                case 4:
+                    return reading.getRelativeHumidity() != null ? reading.getRelativeHumidity() + "" : "-";
+                case 5:
+                    return reading.getDeltaTemp() != null ? reading.getDeltaTemp() + "" : "-";
+                case 6:
+                    return reading.getWindDir() != null ? reading.getWindDir() + "" : "-";
+                case 7:
+                    return reading.getWindSpdKmH() != null ? reading.getWindSpdKmH() + "" : "-";
+                case 8:
+                    return reading.getWindGustKmH() != null ? reading.getWindGustKmH() + "" : "-";
+                case 9:
+                    return reading.getWindSpdKts() != null ? reading.getWindSpdKts() + "" : "-";
+                case 10:
+                    return reading.getWindGustKts() != null ? reading.getWindGustKts() + "" : "-";
+                case 11:
+                    return reading.getPressureQNH() != null ? reading.getPressureQNH() + "" : "-";
+                case 12:
+                    return reading.getPressureMSL() != null ? reading.getPressureMSL() + "" : "-";
+                case 13:
+                    return reading.getRainTrace() != null ? reading.getRainTrace() + "mm" : "-";
+                default:
+                    return "-";
+            }
+        }
 
-			LatestReading reading = AppDefine.currentStationData.getLatestReadings().get(row);
-			switch (col) {
-			case 0:
-				return reading.getLocalDateTime() != null ? AppDefine.dtfOut.print(reading.getLocalDateTime()) : "-";
-			case 1:
-				return reading.getAirTemp() != null ? reading.getAirTemp() + "" : "-";
-			case 2:
-				return reading.getApparentTemp() != null ? reading.getApparentTemp() + "" : "-";
-			case 3:
-				return reading.getDewPt() != null ? reading.getDewPt() + "" : "-";
-			case 4:
-				return reading.getRelativeHumidity() != null ? reading.getRelativeHumidity() + "" : "-";
-			case 5:
-				return reading.getDeltaTemp() != null ? reading.getDeltaTemp() + "" : "-";
-			case 6:
-				return reading.getWindDir() != null ? reading.getWindDir() + "" : "-";
-			case 7:
-				return reading.getWindSpdKmH() != null ? reading.getWindSpdKmH() + "" : "-";
-			case 8:
-				return reading.getWindGustKmH() != null ? reading.getWindGustKmH() + "" : "-";
-			case 9:
-				return reading.getWindSpdKts() != null ? reading.getWindSpdKts() + "" : "-";
-			case 10:
-				return reading.getWindGustKts() != null ? reading.getWindGustKts() + "" : "-";
-			case 11:
-				return reading.getPressureQNH() != null ? reading.getPressureQNH() + "" : "-";
-			case 12:
-				return reading.getPressureMSL() != null ? reading.getPressureMSL() + "" : "-";
-			case 13:
-				return reading.getRainTrace() != null ? reading.getRainTrace() + "mm" : "-";
-			default:
-				return "-";
-			}
-		}
+        @Override
+        public Class getColumnClass(int c)
+        {
+            return longValues[c].getClass();
+        }
 
-		@Override
-		public Class getColumnClass(int c) {
-			return longValues[c].getClass();
-		}
+        @Override
+        public boolean isCellEditable(int row, int col)
+        {
+            return false;
+        }
 
-		@Override
-		public boolean isCellEditable(int row, int col) {
-			return false;
-		}
-
-		@Override
-		public void setValueAt(Object value, int row, int col) {
-			fireTableCellUpdated(row, col);
-		}
-	}
+        @Override
+        public void setValueAt(Object value, int row, int col)
+        {
+            fireTableCellUpdated(row, col);
+        }
+    }
 }

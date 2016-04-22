@@ -1,5 +1,8 @@
 package Model;
 
+import View.MainPanel;
+import View.StationChart;
+
 import java.awt.*;
 
 /**
@@ -12,9 +15,9 @@ public final class AppState
     public String windowRect;
     public int shownWindow;
     public int shownDetail;
+    public int chartIndex;
     public String state;
     public String station;
-    public int chartIndex;
 
     private AppState()
     {
@@ -47,6 +50,31 @@ public final class AppState
         state = "";
         station = "";
         chartIndex = 0;
+    }
+
+
+    /**
+     * Converts int encoded shown detail to enum.
+     *
+     * @return the enum object
+     */
+    public final MainPanel.PanelType getShownDetail()
+    {
+        if (shownDetail >= 0 && shownDetail < MainPanel.PanelType.values().length)
+            return MainPanel.PanelType.values()[shownDetail];
+        return MainPanel.PanelType.Detail;
+    }
+
+    /**
+     * Converts int encoded chart type to enum.
+     *
+     * @return the enum object
+     */
+    public final StationChart.ChartType getChartType()
+    {
+        if (chartIndex >= 0 && chartIndex < StationChart.ChartType.values().length)
+            return StationChart.ChartType.values()[chartIndex];
+        return StationChart.ChartType.Chart9AM;
     }
 
 

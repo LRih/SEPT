@@ -2,17 +2,10 @@ package View;
 
 import javax.swing.JPanel;
 
+import Model.*;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.scroll.WebScrollPane;
-import com.alee.managers.notification.NotificationIcon;
-import com.alee.managers.notification.NotificationManager;
-import com.alee.managers.notification.WebNotification;
-
-import Model.AppState;
-import Model.Favorite;
-import Model.Station;
-import Model.StationData;
 
 import com.alee.laf.button.WebButton;
 
@@ -23,190 +16,217 @@ import java.awt.event.ActionEvent;
 /**
  * Main Panel UI
  */
-public final class MainPanel extends JPanel {
+public final class MainPanel extends JPanel implements FavoriteCell.OnStationSelectListener, FavoriteCell.OnDataLoadListener
+{
+    private final JPanel pnMainContent;
+    private final JPanel pnFavorites;
+    private final WebButton wbtnAddStation;
 
-	private static final long serialVersionUID = 1L;
-	protected Main frmMain = null;
-	private JPanel pnMainContent;
-	private StationDetail stationDetail;
-	private StationChart stationChart;
-	private StationHistory stationHistory;
-	private Station selected;
-	private Boolean shown;
-	private WebButton wbtnAddStation;
+    private final StationDetail stationDetail;
+    private final StationChart stationChart;
+    private final StationHistory stationHistory;
 
-	/**
-	 * Create the panel.
-	 */
-	public MainPanel(Main m) {
-		setBackground(new Color(255, 255, 255));
-		frmMain = m;
+    private OnActionListener _listenerAction;
+    private FavoriteCell.OnStationSelectListener _listenerStationSelect;
+    private FavoriteCell.OnDataLoadListener _listenerDataLoad;
 
-		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][][160]"));
-
-		JPanel pnFavorites = new JPanel();
-		pnFavorites.setBackground(Color.WHITE);
-		pnFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
-
-		pnMainContent = new JPanel();
-		pnMainContent.setBackground(new Color(240, 248, 255));
-		add(pnMainContent, "cell 0 1 2 1,grow");
-
-		WebLabel wblblWeatherStations = new WebLabel();
-		wblblWeatherStations.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		wblblWeatherStations.setText("Favourite Stations");
-		add(wblblWeatherStations, "flowx,cell 0 2,gapx 15,gapy 5");
-
-		wbtnAddStation = new WebButton("Add station");
-		wbtnAddStation.setForeground(new Color(0, 100, 0));
-		wbtnAddStation.setDrawShade(false);
-		wbtnAddStation.setDefaultButtonShadeColor(new Color(154, 205, 50));
-		wbtnAddStation.setBottomSelectedBgColor(new Color(50, 205, 50));
-		wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
-		wbtnAddStation.setFont(new Font("Bender", Font.PLAIN, 13));
-		wbtnAddStation.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(wbtnAddStation, "cell 1 2,alignx right, gapx 0 15, gapy 5 0");
-
-		WebScrollPane webScrollPane = new WebScrollPane(pnFavorites, false, true);
-		webScrollPane.setDrawFocus(false);
-		webScrollPane.setPreferredSize(new Dimension(0, 0));
-		add(webScrollPane, "cell 0 3 2 1,grow, hmin 160");
-		
-		stationDetail = new StationDetail(this);
-		stationChart = new StationChart(this);
-		stationHistory = new StationHistory(this);
-
-        // show first run panel if no valid favorites
-        if (AppDefine.favorites.size() == 0)
-            frmMain.showState(AppDefine.FIRST_RUN_PANEL, this.getClass().getName());
-        else
-        {
-            // populate favorites list
-            AppState as = AppState.getInstance();
-
-            int row = 0;
-            int col = 0;
-            StationCell cell;
-
-            if (selected == null) {
-                if (AppDefine.states.get(as.state) != null && AppDefine.states.get(as.state).getStation(as.station) != null)
-                    selected = AppDefine.states.get(as.state).getStation(as.station);
-            }
-
-            boolean flag;
-            shown = false;
-            for (Favorite fav : AppDefine.favorites) {
-                flag = false;
-
-                if (selected != null) {
-                    if (fav.state.equals(selected.getState().getName()) && fav.station.equals(selected.getName()))
-                        flag = true;
-                } else {
-                    if (row == 0 && col == 0)
-                        flag = true;
-                }
-
-                cell = new StationCell(this, fav, flag);
-
-                if (col % 2 == 0)
-                    pnFavorites.add(cell, "cell 0 " + row + ", grow, gap 4");
-                else
-                    pnFavorites.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
-
-                col++;
-            }
-        }
-
-		addListeners();
-	}
-
-	private void addListeners() {
-
-		wbtnAddStation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmMain.showState(AppDefine.ADD_STATION_PANEL, this.getClass().getName());
-			}
-		});
-
-	}
-
-	/**
-     * Change App State
+    /**
+     * Create the panel.
      */
-	public void showState(int index, String from) {
+    public MainPanel()
+    {
+        setBackground(new Color(255, 255, 255));
 
-		if (AppDefine.DEBUGGING)
-			System.out.println("Class " + from + ": " + this.getClass().getName() + ".showState(" + index + ");");
+        setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][][160]"));
 
-		pnMainContent.removeAll();
-		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
+        pnFavorites = new JPanel();
+        pnFavorites.setBackground(Color.WHITE);
+        pnFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
 
-        // always show detail if station is not selected
-        if (AppDefine.currentStation == null)
-            AppState.getInstance().shownDetail = AppDefine.STATION_DETAIL;
-        else
-            AppState.getInstance().shownDetail = index;
+        pnMainContent = new JPanel();
+        pnMainContent.setBackground(new Color(240, 248, 255));
+        add(pnMainContent, "cell 0 1 2 1,grow");
 
-		switch (AppState.getInstance().shownDetail) {
+        WebLabel wblblWeatherStations = new WebLabel();
+        wblblWeatherStations.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+        wblblWeatherStations.setText("Favourite Stations");
+        add(wblblWeatherStations, "flowx,cell 0 2,gapx 15,gapy 5");
+
+        wbtnAddStation = new WebButton("Add station");
+        wbtnAddStation.setForeground(new Color(0, 100, 0));
+        wbtnAddStation.setDrawShade(false);
+        wbtnAddStation.setDefaultButtonShadeColor(new Color(154, 205, 50));
+        wbtnAddStation.setBottomSelectedBgColor(new Color(50, 205, 50));
+        wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
+        wbtnAddStation.setFont(new Font("Bender", Font.PLAIN, 13));
+        wbtnAddStation.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        add(wbtnAddStation, "cell 1 2,alignx right, gapx 0 15, gapy 5 0");
+
+        WebScrollPane webScrollPane = new WebScrollPane(pnFavorites, false, true);
+        webScrollPane.setDrawFocus(false);
+        webScrollPane.setPreferredSize(new Dimension(0, 0));
+        add(webScrollPane, "cell 0 3 2 1,grow, hmin 160");
+
+        stationDetail = new StationDetail();
+        stationChart = new StationChart();
+        stationHistory = new StationHistory();
+
+        addListeners();
+    }
+
+    private void addListeners()
+    {
+        OnBackClickListener listener = new OnBackClickListener()
+        {
+            public final void onBackClick()
+            {
+                showPanel(PanelType.Detail);
+            }
+        };
+
+        stationChart.setOnBackClickListener(listener);
+        stationHistory.setOnBackClickListener(listener);
+
+        stationDetail.setOnActionListener(new StationDetail.OnActionListener()
+        {
+            public final void onViewChartClick()
+            {
+                showPanel(PanelType.Chart);
+            }
+            public final void onViewHistoryClick()
+            {
+                showPanel(PanelType.History);
+            }
+        });
+
+        wbtnAddStation.addActionListener(new ActionListener()
+        {
+            public final void actionPerformed(ActionEvent e)
+            {
+                if (_listenerAction != null)
+                    _listenerAction.onAddClick();
+            }
+        });
+    }
+
+    /**
+     * Change panel shown.
+     */
+    public final void showPanel(PanelType type)
+    {
+        pnMainContent.removeAll();
+        pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
+
+        AppState.getInstance().shownDetail = type.ordinal();
+
+        switch (type)
+        {
             // VIEW_CHART
-            case AppDefine.VIEW_CHART:
-                if (AppDefine.currentStationData != null)
-                    stationChart.updateStation();
+            case Chart:
                 pnMainContent.add(stationChart, "cell 0 0, grow");
                 break;
+
             // VIEW_HISTORY
-            case AppDefine.VIEW_HISTORY:
-                if (AppDefine.currentStationData != null)
-                    stationHistory.updateStation();
+            case History:
                 pnMainContent.add(stationHistory, "cell 0 0, grow");
                 break;
+
             // STATION_DETAIL
             default:
-                stationDetail.updateStation();
                 pnMainContent.add(stationDetail, "cell 0 0, grow");
                 break;
-		}
-		pnMainContent.validate();
-		pnMainContent.repaint();
-
-	}
-
-	/**
-     * Set Current Station data
-     */
-	public void setStation(Station station, StationData data) {
-
-        AppDefine.currentStation = station;
-        AppDefine.currentStationData = data;
-
-		switch (AppState.getInstance().shownDetail) {
-            case AppDefine.VIEW_CHART:
-                stationChart.updateStation();
-                showState(AppDefine.VIEW_CHART, this.getClass().getName());
-                break;
-            case AppDefine.VIEW_HISTORY:
-                stationHistory.updateStation();
-                showState(AppDefine.VIEW_HISTORY, this.getClass().getName());
-                break;
-            default:
-                stationDetail.updateStation();
-                showState(AppDefine.STATION_DETAIL, this.getClass().getName());
         }
-	}
 
-	/**
-     * Show error notification when one of the station loaded failed.
+        pnMainContent.validate();
+        pnMainContent.repaint();
+    }
+
+    /**
+     * Populate panel with favorites.
      */
-	public void loadFail() {
-		if (!shown) {
-			shown = true;
-			final WebNotification notificationPopup = new WebNotification();
-			notificationPopup.setIcon(NotificationIcon.error);
-			notificationPopup.setDisplayTime(AppDefine.NOTIFICATION_CLOSE_TIME_MILLIS);
-			notificationPopup.setContent("No Internet Connection");
+    public final void setFavorites(Favorites favorites, States states, Station selectedStation)
+    {
+        pnFavorites.removeAll();
 
-			NotificationManager.showNotification(notificationPopup);
-		}
-	}
+        int row = 0;
+        int col = 0;
 
+        for (Favorite fav : favorites)
+        {
+            FavoriteCell cell = new FavoriteCell(states.get(fav.state).getStation(fav.station));
+            cell.updateSelected(selectedStation);
+            cell.setOnStationSelectListener(this);
+            cell.setOnDataLoadListener(this);
+
+            if (col % 2 == 0)
+                pnFavorites.add(cell, "cell 0 " + row + ", grow, gap 4");
+            else
+                pnFavorites.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
+
+            col++;
+        }
+    }
+    public final void setStation(Station station, StationData data)
+    {
+        stationChart.setStation(station, data);
+        stationHistory.setStation(station, data);
+        stationDetail.setStation(station, data);
+
+        // update selected favorite indicator
+        for (Component cell : pnFavorites.getComponents())
+            ((FavoriteCell)cell).updateSelected(station);
+
+        pnMainContent.validate();
+        pnMainContent.repaint();
+    }
+
+
+    public final void setOnActionListener(OnActionListener listener)
+    {
+        _listenerAction = listener;
+    }
+    public final void setOnRemoveFromFavoritesClickListener(StationDetail.OnRemoveFavoriteClickListener listener)
+    {
+        stationDetail.setOnRemoveFavoriteClickListener(listener);
+    }
+    public final void setOnStationSelectListener(FavoriteCell.OnStationSelectListener listener)
+    {
+        _listenerStationSelect = listener;
+    }
+    public final void setOnDataLoadListener(FavoriteCell.OnDataLoadListener listener)
+    {
+        _listenerDataLoad = listener;
+    }
+
+
+    public interface OnActionListener
+    {
+        void onAddClick();
+    }
+
+
+    /* Event callbacks */
+
+    public final void onStationSelect(Station station, StationData data)
+    {
+        if (_listenerStationSelect != null)
+            _listenerStationSelect.onStationSelect(station, data);
+    }
+
+    public final void onSuccess(Station station, StationData data)
+    {
+        if (_listenerDataLoad != null)
+            _listenerDataLoad.onSuccess(station, data);
+    }
+    public final void onFail()
+    {
+        if (_listenerDataLoad != null)
+            _listenerDataLoad.onFail();
+    }
+
+
+    public enum PanelType
+    {
+        Detail, Chart, History
+    }
 }
