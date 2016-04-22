@@ -3,7 +3,7 @@ package Model;
 import org.joda.time.LocalDate;
 
 /**
- * Data structure for storing historical daily station readings.
+ * Data structure for storing historical BOM daily station readings.
  */
 public final class HistoricalReading
 {

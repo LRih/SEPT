@@ -1,10 +1,10 @@
 package Model;
 
-import Utils.DataManager;
+import Utils.BOMUtils;
 import org.joda.time.LocalDateTime;
 
 /**
- * Data structure for storing recent station readings.
+ * Data structure for storing recent BOM station readings.
  */
 public final class LatestReading
 {
@@ -39,8 +39,8 @@ public final class LatestReading
 						 String cloudType, String windDir, Integer windSpdKmH, Integer windSpdKts, Integer windGustKmH,
 						 Integer windGustKts, Double pressureQNH, Double pressureMSL, String rainTrace) {
 		
-		this.localDateTime = DataManager.toDateTime(localDateTime);
-		this.utcDateTime = DataManager.toDateTime(utcDateTime);
+		this.localDateTime = BOMUtils.toDateTime(localDateTime);
+		this.utcDateTime = BOMUtils.toDateTime(utcDateTime);
 
 		this.latitude = latitude;
 		this.longitude = longitude;
