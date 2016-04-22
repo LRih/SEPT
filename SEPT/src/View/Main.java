@@ -171,6 +171,8 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         {
             public final void actionPerformed(ActionEvent e)
             {
+                notificationShown = false;
+
                 // set Top Bar Background to Grey
                 updateBackgroundColor(false);
 
