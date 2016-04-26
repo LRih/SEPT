@@ -33,7 +33,7 @@ public final class AppStateManager
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            Log.warn(AppStateManager.class, e.getMessage());
         }
     }
 
@@ -66,7 +66,7 @@ public final class AppStateManager
         catch (JSONException e)
         {
             // app state is corrupt, set app state to defaults
-            e.printStackTrace();
+            Log.warn(AppStateManager.class, e.getMessage());
             state.resetDefault();
         }
     }
@@ -82,7 +82,7 @@ public final class AppStateManager
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            Log.warn(AppStateManager.class, e.getMessage());
         }
     }
 
@@ -116,7 +116,7 @@ public final class AppStateManager
         }
         catch (JSONException e)
         {
-            e.printStackTrace();
+            Log.warn(AppStateManager.class, e.getMessage());
         }
 
         return json;

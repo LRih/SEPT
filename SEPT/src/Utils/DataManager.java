@@ -73,7 +73,7 @@ public final class DataManager
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            Log.warn(DataManager.class, e.getMessage());
         }
 
         // try to load weather data from cached file
@@ -115,8 +115,7 @@ public final class DataManager
         }
         catch (IOException|JSONException e)
         {
-            // TODO log
-            System.err.println(e.getMessage());
+            Log.info(DataManager.class, e.getMessage());
         }
 
         return null;
@@ -162,7 +161,7 @@ public final class DataManager
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            Log.warn(DataManager.class, e.getMessage());
         }
     }
     private synchronized static void tryCacheHistoricalBOMData(Station station, String json)
@@ -173,7 +172,7 @@ public final class DataManager
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            Log.warn(DataManager.class, e.getMessage());
         }
     }
 

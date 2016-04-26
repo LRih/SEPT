@@ -3,6 +3,7 @@ package View;
 import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
+import Utils.Log;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
 
@@ -121,6 +122,8 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
      */
     public final void onSuccess(StationData data)
     {
+        Log.info(getClass(), station.getName() + " data downloaded");
+
         if (_listenerDataLoad != null)
             _listenerDataLoad.onSuccess(station, data);
 

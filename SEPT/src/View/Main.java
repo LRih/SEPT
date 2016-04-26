@@ -3,6 +3,7 @@ package View;
 import Model.*;
 import Utils.DataManager;
 import Utils.FavoritesManager;
+import Utils.Log;
 import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.managers.notification.NotificationIcon;
 import com.alee.managers.notification.NotificationManager;
@@ -65,6 +66,13 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
      */
     public Main()
     {
+        // try to initialize logging
+        if (!Log.initializeLoggers())
+        {
+            WebOptionPane.showMessageDialog(frmMain, "Couldn't start loggin service.", "ERROR", WebOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+
         initializeData();
         initializeUI();
     }

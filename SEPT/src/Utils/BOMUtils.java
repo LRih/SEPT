@@ -62,7 +62,7 @@ public final class BOMUtils
             }
             catch (IOException | JSONException e)
             {
-                e.printStackTrace();
+                Log.warn(BOMUtils.class, e.getMessage());
             }
         }
 

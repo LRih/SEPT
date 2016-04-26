@@ -97,7 +97,7 @@ public final class FavoritesManager
         catch (JSONException e)
         {
             // all entries are corrupt, return empty favorites
-            e.printStackTrace();
+            Log.warn(FavoritesManager.class, e.getMessage());
             return favorites;
         }
 
@@ -112,7 +112,7 @@ public final class FavoritesManager
             catch (JSONException e)
             {
                 // entry is corrupt so ignore
-                e.printStackTrace();
+                Log.warn(FavoritesManager.class, e.getMessage());
             }
         }
 
@@ -141,7 +141,7 @@ public final class FavoritesManager
             catch (JSONException e)
             {
                 // ignore favorite when error occurred trying to save it
-                e.printStackTrace();
+                Log.warn(FavoritesManager.class, e.getMessage());
             }
         }
 
