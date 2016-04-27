@@ -183,33 +183,33 @@ public final class StationHistory extends JPanel
             switch (col)
             {
                 case 0:
-                    return reading.getLocalDateTime() != null ? DT_FORMATTER.print(reading.getLocalDateTime()) : "-";
+                    return reading.localDateTime != null ? DT_FORMATTER.print(reading.localDateTime) : "-";
                 case 1:
-                    return reading.getAirTemp() != null ? reading.getAirTemp() + "" : "-";
+                    return reading.airTemp != null ? reading.airTemp + "" : "-";
                 case 2:
-                    return reading.getApparentTemp() != null ? reading.getApparentTemp() + "" : "-";
+                    return reading.apparentTemp != null ? reading.apparentTemp + "" : "-";
                 case 3:
-                    return reading.getDewPt() != null ? reading.getDewPt() + "" : "-";
+                    return reading.dewPt != null ? reading.dewPt + "" : "-";
                 case 4:
-                    return reading.getRelativeHumidity() != null ? reading.getRelativeHumidity() + "" : "-";
+                    return reading.relativeHumidity != null ? reading.relativeHumidity + "" : "-";
                 case 5:
-                    return reading.getDeltaTemp() != null ? reading.getDeltaTemp() + "" : "-";
+                    return reading.deltaTemp != null ? reading.deltaTemp + "" : "-";
                 case 6:
-                    return reading.getWindDir() != null ? reading.getWindDir() + "" : "-";
+                    return reading.windDir != null ? reading.windDir + "" : "-";
                 case 7:
-                    return reading.getWindSpdKmH() != null ? reading.getWindSpdKmH() + "" : "-";
+                    return reading.windSpdKmH != null ? reading.windSpdKmH + "" : "-";
                 case 8:
-                    return reading.getWindGustKmH() != null ? reading.getWindGustKmH() + "" : "-";
+                    return reading.windGustKmH != null ? reading.windGustKmH + "" : "-";
                 case 9:
-                    return reading.getWindSpdKts() != null ? reading.getWindSpdKts() + "" : "-";
+                    return reading.windSpdKts != null ? reading.windSpdKts + "" : "-";
                 case 10:
-                    return reading.getWindGustKts() != null ? reading.getWindGustKts() + "" : "-";
+                    return reading.windGustKts != null ? reading.windGustKts + "" : "-";
                 case 11:
-                    return reading.getPressureQNH() != null ? reading.getPressureQNH() + "" : "-";
+                    return reading.pressureQNH != null ? reading.pressureQNH + "" : "-";
                 case 12:
-                    return reading.getPressureMSL() != null ? reading.getPressureMSL() + "" : "-";
+                    return reading.pressureMSL != null ? reading.pressureMSL + "" : "-";
                 case 13:
-                    return reading.getRainTrace() != null ? reading.getRainTrace() + "mm" : "-";
+                    return reading.rainTrace != null ? reading.rainTrace + "mm" : "-";
                 default:
                     return "-";
             }

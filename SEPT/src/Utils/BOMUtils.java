@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +59,7 @@ public final class BOMUtils
                 for (int j = 0; j < jsonMonth.length(); j++)
                     json.put(jsonMonth.getJSONObject(j));
             }
-            catch (IOException | JSONException e)
+            catch (Exception e)
             {
                 Log.warn(BOMUtils.class, e.getMessage());
             }
@@ -107,11 +106,34 @@ public final class BOMUtils
 
             String[] data = lines[i].split(",", -1); // -1 allows empty values
             JSONObject obj = new JSONObject();
+
             obj.put("date", data[1]);
-            obj.put("min", data[2].isEmpty() ? null : Double.parseDouble(data[2]));
-            obj.put("max", data[3].isEmpty() ? null : Double.parseDouble(data[3]));
+            obj.put("minTemp", data[2].isEmpty() ? null : Double.parseDouble(data[2]));
+            obj.put("maxTemp", data[3].isEmpty() ? null : Double.parseDouble(data[3]));
+
+            obj.put("rainfall", data[4].isEmpty() ? null : Double.parseDouble(data[4]));
+            obj.put("maxWindGustKmH", data[8].isEmpty() ? null : Double.parseDouble(data[8]));
+
             obj.put("temp9AM", data[10].isEmpty() ? null : Double.parseDouble(data[10]));
+            obj.put("relHumidity9AM", data[11].isEmpty() ? null : Integer.parseInt(data[11]));
+
+            if (!data[14].isEmpty())
+                obj.put("windSpd9AM", data[14].equals("CALM") ? 0 : Integer.parseInt(data[14]));
+            else
+                obj.put("windSpd9AM", (Integer)null);
+
+            obj.put("pressureMSL9AM", data[15].isEmpty() ? null : Double.parseDouble(data[15]));
+
+
             obj.put("temp3PM", data[16].isEmpty() ? null : Double.parseDouble(data[16]));
+            obj.put("relHumidity3PM", data[17].isEmpty() ? null : Integer.parseInt(data[17]));
+
+            if (!data[14].isEmpty())
+                obj.put("windSpd3PM", data[20].equals("CALM") ? 0 : Integer.parseInt(data[20]));
+            else
+                obj.put("windSpd3PM", (Integer)null);
+
+            obj.put("pressureMSL3PM", data[21].isEmpty() ? null : Double.parseDouble(data[21]));
 
             json.put(obj);
         }
@@ -172,10 +194,21 @@ public final class BOMUtils
     {
         return new HistoricalReading(
             obj.getString("date"),
-            obj.isNull("min") ? null : obj.getDouble("min"),
-            obj.isNull("max") ? null : obj.getDouble("max"),
+            obj.isNull("minTemp") ? null : obj.getDouble("minTemp"),
+            obj.isNull("maxTemp") ? null : obj.getDouble("maxTemp"),
+
+            obj.isNull("rainfall") ? null : obj.getDouble("rainfall"),
+            obj.isNull("maxWindGustKmH") ? null : obj.getDouble("maxWindGustKmH"),
+
             obj.isNull("temp9AM") ? null : obj.getDouble("temp9AM"),
-            obj.isNull("temp3PM") ? null : obj.getDouble("temp3PM")
+            obj.isNull("relHumidity9AM") ? null : obj.getInt("relHumidity9AM"),
+            obj.isNull("windSpd9AM") ? null : obj.getInt("windSpd9AM"),
+            obj.isNull("pressureMSL9AM") ? null : obj.getDouble("pressureMSL9AM"),
+
+            obj.isNull("temp3PM") ? null : obj.getDouble("temp3PM"),
+            obj.isNull("relHumidity3PM") ? null : obj.getInt("relHumidity3PM"),
+            obj.isNull("windSpd3PM") ? null : obj.getInt("windSpd3PM"),
+            obj.isNull("pressureMSL3PM") ? null : obj.getDouble("pressureMSL3PM")
         );
     }
 

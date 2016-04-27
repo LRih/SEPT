@@ -24,6 +24,7 @@ public final class OpenWeatherMapUtils
 
     public static List<Forecast> getForecasts(double latitude, double longitude) throws IOException, JSONException
     {
+        // TODO cache
         List<Forecast> forecasts = new ArrayList<>();
 
         String apiKey = "223aadb56b14736c60c8c712df70858e";

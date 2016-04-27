@@ -86,8 +86,8 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
         {
             List<LatestReading> readings = data.getLatestReadings();
 
-            if (readings.size() > 0 && readings.get(0).getAirTemp() != null)
-                wblblTemp.setText(readings.get(0).getAirTemp().toString());
+            if (readings.size() > 0 && readings.get(0).airTemp != null)
+                wblblTemp.setText(readings.get(0).airTemp.toString());
         }
         else
             wblblTemp.setText("-");
@@ -132,8 +132,8 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
         wblblStation.setText(station.getName());
         wblblState.setText(station.getState().getName());
 
-        if (data.getLatestReadings().size() > 0 && data.getLatestReadings().get(0).getAirTemp() != null)
-            wblblTemp.setText(data.getLatestReadings().get(0).getAirTemp().toString());
+        if (data.getLatestReadings().size() > 0 && data.getLatestReadings().get(0).airTemp != null)
+            wblblTemp.setText(data.getLatestReadings().get(0).airTemp.toString());
         else
             wblblTemp.setText("-");
 

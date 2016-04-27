@@ -140,15 +140,15 @@ public final class StationChart extends JPanel
             case Min:
                 serie = new JChartLibSerie("Daily Min");
                 for (HistoricalReading reading : data.getHistoricalReadings())
-                    if (reading.min != null)
-                        serie.addValue(reading.date.toDate(), reading.min);
+                    if (reading.minTemp != null)
+                        serie.addValue(reading.date.toDate(), reading.minTemp);
                 break;
 
             case Max:
                 serie = new JChartLibSerie("Daily Max");
                 for (HistoricalReading reading : data.getHistoricalReadings())
-                    if (reading.max != null)
-                        serie.addValue(reading.date.toDate(), reading.max);
+                    if (reading.maxTemp != null)
+                        serie.addValue(reading.date.toDate(), reading.maxTemp);
                 break;
         }
 
