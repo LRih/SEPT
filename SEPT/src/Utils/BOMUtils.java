@@ -118,7 +118,7 @@ public final class BOMUtils
             obj.put("relHumidity9AM", data[11].isEmpty() ? null : Integer.parseInt(data[11]));
 
             if (!data[14].isEmpty())
-                obj.put("windSpd9AM", data[14].equals("CALM") ? 0 : Integer.parseInt(data[14]));
+                obj.put("windSpd9AM", data[14].toLowerCase().equals("calm") ? 0 : Integer.parseInt(data[14]));
             else
                 obj.put("windSpd9AM", (Integer)null);
 
@@ -129,7 +129,7 @@ public final class BOMUtils
             obj.put("relHumidity3PM", data[17].isEmpty() ? null : Integer.parseInt(data[17]));
 
             if (!data[14].isEmpty())
-                obj.put("windSpd3PM", data[20].equals("CALM") ? 0 : Integer.parseInt(data[20]));
+                obj.put("windSpd3PM", data[20].toLowerCase().equals("calm") ? 0 : Integer.parseInt(data[20]));
             else
                 obj.put("windSpd3PM", (Integer)null);
 
