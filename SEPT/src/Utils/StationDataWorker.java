@@ -55,6 +55,8 @@ public final class StationDataWorker extends SwingWorker<StationData, Void>
         }
         catch (Exception e)
         {
+            Log.warn(StationDataWorker.class, e.getMessage());
+
             if (listener != null)
                 listener.onFail();
         }
