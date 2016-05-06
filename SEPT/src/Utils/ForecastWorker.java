@@ -38,10 +38,12 @@ public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
      */
     protected final List<Forecast> doInBackground() throws Exception
     {
-        StationData data = DataManager.getStationData(station);
+        // first try to load cached data (we only need lat/lon info)
+        StationData data = DataManager.getCachedStationData(station);
 
+        // failing that, load data from the net
         if (data == null)
-            throw new Exception("Could not load station data");
+            data = DataManager.getNetStationData(station);
 
         if (data.getLatestReadings().isEmpty())
             throw new Exception("Could not extract location from station data");
