@@ -1,7 +1,7 @@
 package Utils;
 
 import Model.Forecast;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,20 +36,47 @@ public final class OpenWeatherMapUtils
         JSONObject json = new JSONObject(NetUtils.get(url));
         JSONArray list = json.getJSONArray("list");
 
+        LocalDate curDate = null;
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_NORMAL;
+        String summary = "";
+        String description = "";
+
+        // traverse readings
         for (int i = 0; i < list.length(); i++)
         {
             JSONObject entry = list.getJSONObject(i);
             JSONObject main = entry.getJSONObject("main");
             JSONArray weather = entry.getJSONArray("weather");
 
-            forecasts.add(new Forecast(
-                new LocalDateTime(entry.getLong("dt") * 1000),
-                main.getDouble("temp_min"),
-                main.getDouble("temp_max"),
-                weather.length() > 0 ? weather.getJSONObject(0).getString("main") : "",
-                weather.length() > 0 ? weather.getJSONObject(0).getString("description") : ""
-            ));
+            LocalDate date = new LocalDate(entry.getLong("dt") * 1000);
+
+            // if dates don't match, means next day
+            if (curDate != null && date.getDayOfYear() != curDate.getDayOfYear())
+            {
+                forecasts.add(new Forecast(curDate, min, max, summary, description));
+                min = Double.MAX_VALUE;
+                max = Double.MIN_VALUE;
+                summary = "";
+                description = "";
+            }
+
+            curDate = date;
+
+            // update min/max
+            min = Math.min(min, main.getDouble("temp_min"));
+            max = Math.max(max, main.getDouble("temp_max"));
+
+            // get summary/descriptions
+            if (summary.equals("") && weather.length() > 0)
+                summary = weather.getJSONObject(0).getString("main");
+
+            if (description.equals("") && weather.length() > 0)
+                description = weather.getJSONObject(0).getString("description");
         }
+
+        // add last day
+        forecasts.add(new Forecast(curDate, min, max, summary, description));
 
         return forecasts;
     }

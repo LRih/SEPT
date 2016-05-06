@@ -1,6 +1,7 @@
 package Utils;
 
 import Model.Forecast;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 public class ForecastFactory
 {
     // TODO document
-    public static List<Forecast> getForecasts(double lat, double lon, Source src) throws IOException
+    public static List<Forecast> getForecasts(double lat, double lon, Source src) throws IOException, JSONException
     {
         switch (src)
         {

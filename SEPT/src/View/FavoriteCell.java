@@ -3,6 +3,7 @@ package View;
 import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
+import Utils.DataManager;
 import Utils.Log;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
@@ -79,18 +80,8 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
         add(wblblStation, "cell 0 0 1 2,alignx left,grow");
 
         wblblTemp = new WebLabel();
-        wblblTemp.setForeground(new Color(155, 155, 155));
         wblblTemp.setFont(new Font("Futura", Font.PLAIN, 20));
-
-        if (this.data != null)
-        {
-            List<LatestReading> readings = data.getLatestReadings();
-
-            if (readings.size() > 0 && readings.get(0).airTemp != null)
-                wblblTemp.setText(readings.get(0).airTemp.toString());
-        }
-        else
-            wblblTemp.setText("-");
+        wblblTemp.setForeground(new Color(34, 139, 34));
 
         add(wblblTemp, "cell 1 0 1 3,alignx center,aligny center");
 
@@ -98,12 +89,31 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
         wblblState.setFont(new Font("Bender", Font.PLAIN, 12));
         wblblState.setText(station.getState().getName());
         add(wblblState, "cell 0 2");
+
+        setStationData(DataManager.getCachedStationData(station));
     }
 
     public final void updateSelected(Station selectedStation)
     {
         isSelected = station == selectedStation;
         setBackground(isSelected ? COL_SELECTED : COL_NORMAL);
+    }
+
+    private void setStationData(StationData data)
+    {
+        this.data = data;
+        wblblTemp.setText("-");
+
+        if (data != null)
+        {
+            List<LatestReading> readings = data.getLatestReadings();
+
+            if (readings.size() > 0 && readings.get(0).airTemp != null)
+                wblblTemp.setText(readings.get(0).airTemp.toString());
+            wblblTemp.setForeground(new Color(34, 139, 34));
+        }
+        else
+            wblblTemp.setForeground(new Color(155, 155, 155));
     }
 
 
@@ -127,17 +137,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
         if (_listenerDataLoad != null)
             _listenerDataLoad.onSuccess(station, data);
 
-        this.data = data;
-
-        wblblStation.setText(station.getName());
-        wblblState.setText(station.getState().getName());
-
-        if (data.getLatestReadings().size() > 0 && data.getLatestReadings().get(0).airTemp != null)
-            wblblTemp.setText(data.getLatestReadings().get(0).airTemp.toString());
-        else
-            wblblTemp.setText("-");
-
-        wblblTemp.setForeground(new Color(34, 139, 34));
+        setStationData(data);
     }
 
     /**

@@ -1,7 +1,7 @@
 package Utils;
 
 import Model.Forecast;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +43,7 @@ public final class ForecastIOUtils
             JSONObject day = daily.getJSONObject(i);
 
             forecasts.add(new Forecast(
-                new LocalDateTime(day.getLong("time") * 1000),
+                new LocalDate(day.getLong("time") * 1000),
                 day.getDouble("temperatureMin"),
                 day.getDouble("temperatureMax"),
                 day.getString("icon"),

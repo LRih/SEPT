@@ -61,7 +61,7 @@ public final class BOMUtils
             }
             catch (Exception e)
             {
-                Log.warn(BOMUtils.class, e.getMessage());
+                Log.warn(BOMUtils.class, "[" + station.getName() + "] " + e.getMessage());
             }
         }
 
@@ -128,7 +128,7 @@ public final class BOMUtils
             obj.put("temp3PM", data[16].isEmpty() ? null : Double.parseDouble(data[16]));
             obj.put("relHumidity3PM", data[17].isEmpty() ? null : Integer.parseInt(data[17]));
 
-            if (!data[14].isEmpty())
+            if (!data[20].isEmpty())
                 obj.put("windSpd3PM", data[20].toLowerCase().equals("calm") ? 0 : Integer.parseInt(data[20]));
             else
                 obj.put("windSpd3PM", (Integer)null);

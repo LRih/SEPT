@@ -62,7 +62,6 @@ public final class FavoritesManager
      * Remove any favorites not listed in states.
      *
      * @param favorites the favorites instance to save
-     * @throws IOException if there is an IO error of any sort
      */
     public static void removeInvalidFavourites(Favorites favorites, States states)
     {
@@ -75,7 +74,10 @@ public final class FavoritesManager
 
         // delete all collected invalid favorites
         for (String key : invalidKeys)
+        {
             favorites.delete(key);
+            Log.info(Favorite.class, "Invalid favorite deleted: " + key);
+        }
     }
 
 

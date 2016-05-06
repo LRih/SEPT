@@ -23,6 +23,15 @@ Given the user has previously loaded station data while connected to the
 internet, when the app is launched without an internet connection then locally
 cached data will be loaded.
 
-— PART 2 —
-As a curious user, I want to check forecast from different sources.
-So that I can compare the accuracy and decide which source is more reliable.
+
+As a curious user, I want to check forecast from different sources so that I can compare the accuracy and
+decide which source is more reliable.
+No confirmation as of yet.
+
+As a user I want to view both general temperature trends and how temperature varies throughout the day.
+No confirmation as of yet.
+
+As a user I want to check what the weather is going to be in the near future so I can best choose the best
+day for arranging events.
+No confirmation as of yet.
+ 
