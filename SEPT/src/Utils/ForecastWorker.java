@@ -2,6 +2,7 @@ package Utils;
 
 import Model.Forecast;
 import Model.LatestReading;
+import Model.Station;
 import Model.StationData;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
 {
-    private StationData data;
+    private Station station;
     private ForecastFactory.Source source;
     private OnTaskCompleteListener listener;
 
@@ -20,11 +21,11 @@ public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
     /**
      * Creates a new worker instance.
      *
-     * @param data the station data for which to obtain forecast info
+     * @param station the station for which to obtain forecast info
      */
-    public ForecastWorker(StationData data, ForecastFactory.Source src)
+    public ForecastWorker(Station station, ForecastFactory.Source src)
     {
-        this.data = data;
+        this.station = station;
         this.source = src;
     }
 
@@ -37,7 +38,12 @@ public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
      */
     protected final List<Forecast> doInBackground() throws Exception
     {
-        if (data == null || data.getLatestReadings().isEmpty())
+        StationData data = DataManager.getStationData(station);
+
+        if (data == null)
+            throw new Exception("Could not load station data");
+
+        if (data.getLatestReadings().isEmpty())
             throw new Exception("Could not extract location from station data");
 
         LatestReading reading = data.getLatestReadings().get(0);
