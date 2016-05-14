@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import com.bitagentur.renderer.JChartLibPanel;
 import com.bitagentur.chart.JChartLibBaseChart;
@@ -32,7 +33,7 @@ public final class StationChart extends JPanel
 {
     private WebLabel wblblStation;
     private WebLabel wblblState;
-    private JChartLibPanel chartLibPanel;
+    private LineChart chartPanel;
     private JPanel panel;
     private WebComboBox wcbChartType;
 
@@ -94,9 +95,12 @@ public final class StationChart extends JPanel
         add(panel, "cell 0 1 4 1,grow");
         panel.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
-        chartLibPanel = new JChartLibPanel(null);
-        panel.add(chartLibPanel, "cell 0 0, grow");
-        chartLibPanel.setPreferredSize(new Dimension(600, 270));
+        chartPanel = new LineChart();
+        chartPanel.setTitle("Historical");
+        chartPanel.setXAxisText("Date");
+        chartPanel.setYAxisText("Temperature (°C)");
+        panel.add(chartPanel, "cell 0 0, grow");
+        chartPanel.setPreferredSize(new Dimension(600, 270));
 
         wcbChartType.addActionListener(new ActionListener()
         {
@@ -108,73 +112,68 @@ public final class StationChart extends JPanel
         });
     }
 
-    private JChartLibDataSet createDataset(ChartType type)
+    private void setDataset(ChartType type)
     {
-        final JChartLibDataSet dataset = new JChartLibDataSet();
+        chartPanel.clearDatasets();
 
         if (data == null)
-        {
-            int[] tempData = {};
-            dataset.addDataSerie("N/A", tempData);
-            return dataset;
-        }
+            return;
 
-        JChartLibSerie serie = null;
+        double[] values = new double[data.getHistoricalReadings().size()];
+
+        List<HistoricalReading> readings = data.getHistoricalReadings();
 
         switch (type)
         {
             case Chart9AM:
-                serie = new JChartLibSerie("Daily 9am");
-                for (HistoricalReading reading : data.getHistoricalReadings())
-                    if (reading.temp9AM != null)
-                        serie.addValue(reading.date.toDate(), reading.temp9AM);
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).temp9AM != null)
+                        values[i] = readings.get(i).temp9AM;
+                chartPanel.addDataset("Daily 9am", values);
                 break;
 
             case Chart3PM:
-                serie = new JChartLibSerie("Daily 3pm");
-                for (HistoricalReading reading : data.getHistoricalReadings())
-                    if (reading.temp3PM != null)
-                        serie.addValue(reading.date.toDate(), reading.temp3PM);
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).temp3PM != null)
+                        values[i] = readings.get(i).temp3PM;
+                chartPanel.addDataset("Daily 3pm", values);
                 break;
 
             case Min:
-                serie = new JChartLibSerie("Daily Min");
-                for (HistoricalReading reading : data.getHistoricalReadings())
-                    if (reading.minTemp != null)
-                        serie.addValue(reading.date.toDate(), reading.minTemp);
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).minTemp != null)
+                        values[i] = readings.get(i).minTemp;
+                chartPanel.addDataset("Daily Min", values);
                 break;
 
             case Max:
-                serie = new JChartLibSerie("Daily Max");
-                for (HistoricalReading reading : data.getHistoricalReadings())
-                    if (reading.maxTemp != null)
-                        serie.addValue(reading.date.toDate(), reading.maxTemp);
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).maxTemp != null)
+                        values[i] = readings.get(i).maxTemp;
+                chartPanel.addDataset("Daily Max", values);
                 break;
         }
-
-        dataset.addDataSerie(serie);
-
-        return dataset;
     }
 
-    private JChartLibBaseChart createChart(JChartLibDataSet dataset)
+    private String[] getXAxisValues()
     {
-        // create the chart with title and axis names
-        return new JChartLibLineChart(
-            "", // chart title
-            "day", // x axis text
-            "temperature (°C)", // y axis text
-            dataset);
+        if (data == null)
+            return new String[] { };
+
+        String[] values = new String[data.getHistoricalReadings().size()];
+
+        List<HistoricalReading> readings = data.getHistoricalReadings();
+
+        for (int i = 0; i < values.length; i++)
+            values[i] = readings.get(i).date.getDayOfMonth() + "/" + readings.get(i).date.getMonthOfYear();
+
+        return values;
     }
 
     private void updateChart()
     {
-        panel.removeAll();
-
-        JChartLibDataSet chartLibDataSet = createDataset(ChartType.values()[wcbChartType.getSelectedIndex()]);
-        JChartLibBaseChart baseChart = createChart(chartLibDataSet);
-        chartLibPanel = new JChartLibPanel(baseChart);
-        panel.add(chartLibPanel, "cell 0 0, grow");
+        chartPanel.setXValues(getXAxisValues());
+        setDataset(ChartType.values()[wcbChartType.getSelectedIndex()]);
 
         panel.validate();
         panel.repaint();
