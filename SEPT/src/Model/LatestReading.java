@@ -1,6 +1,6 @@
 package Model;
 
-import Utils.BOMUtils;
+import Data.BOMUtils;
 import org.joda.time.LocalDateTime;
 
 /**

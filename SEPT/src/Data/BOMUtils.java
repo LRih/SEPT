@@ -1,8 +1,10 @@
-package Utils;
+package Data;
 
 import Model.HistoricalReading;
 import Model.LatestReading;
 import Model.Station;
+import Utils.Log;
+import Utils.NetUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.json.JSONArray;

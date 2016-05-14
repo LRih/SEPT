@@ -3,7 +3,7 @@ package View;
 import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
-import Utils.DataManager;
+import Data.DataManager;
 import Utils.Log;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;

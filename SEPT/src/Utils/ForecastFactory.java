@@ -1,5 +1,7 @@
 package Utils;
 
+import Data.ForecastIOUtils;
+import Data.OpenWeatherMapUtils;
 import Model.Forecast;
 import org.json.JSONException;
 
@@ -13,14 +15,28 @@ import java.util.List;
 public class ForecastFactory
 {
     // TODO document
-    public static List<Forecast> getForecasts(double lat, double lon, Source src) throws IOException, JSONException
+    public static List<Forecast> getNetForecasts(double lat, double lon, Source src) throws IOException, JSONException
     {
         switch (src)
         {
             case ForecastIO:
-                return ForecastIOUtils.getForecasts(lat, lon);
+                return ForecastIOUtils.getNetForecasts(lat, lon);
             case OpenWeatherMap:
-                return OpenWeatherMapUtils.getForecasts(lat, lon);
+                return OpenWeatherMapUtils.getNetForecasts(lat, lon);
+            default:
+                return new ArrayList<>();
+        }
+    }
+
+    // TODO document
+    public static List<Forecast> getCachedForecasts(double lat, double lon, Source src) throws IOException, JSONException
+    {
+        switch (src)
+        {
+            case ForecastIO:
+                return ForecastIOUtils.getCachedForecasts(lat, lon);
+            case OpenWeatherMap:
+                return OpenWeatherMapUtils.getCachedForecasts(lat, lon);
             default:
                 return new ArrayList<>();
         }

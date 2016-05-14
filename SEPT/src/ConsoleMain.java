@@ -13,7 +13,7 @@ public final class ConsoleMain
         System.out.println("Forecast IO");
         try
         {
-            for (Forecast f : ForecastFactory.getForecasts(-37.83, 144.98, ForecastFactory.Source.ForecastIO))
+            for (Forecast f : ForecastFactory.getNetForecasts(-37.83, 144.98, ForecastFactory.Source.ForecastIO))
             {
                 System.out.println("[" + f.date + "] Min: " + f.min + ", Max: " + f.max);
                 System.out.println("Summary: " + f.summary + ", Desc: " + f.description);
@@ -28,7 +28,7 @@ public final class ConsoleMain
         System.out.println("OpenWeatherMap");
         try
         {
-            for (Forecast f : ForecastFactory.getForecasts(-37.83, 144.98, ForecastFactory.Source.OpenWeatherMap))
+            for (Forecast f : ForecastFactory.getNetForecasts(-37.83, 144.98, ForecastFactory.Source.OpenWeatherMap))
             {
                 System.out.println("[" + f.date + "] Min: " + f.min + ", Max: " + f.max);
                 System.out.println("Summary: " + f.summary + ", Desc: " + f.description);

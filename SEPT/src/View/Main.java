@@ -1,7 +1,7 @@
 package View;
 
 import Model.*;
-import Utils.DataManager;
+import Data.DataManager;
 import Utils.FavoritesManager;
 import Utils.Log;
 import com.alee.laf.optionpane.WebOptionPane;

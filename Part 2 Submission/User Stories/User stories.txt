@@ -1,0 +1,37 @@
+1. As a user I want to keep track of weather stations I view frequently.
+Given the user is viewing the "Add Station" screen and have a station selected,
+when they click the "Add to My Favourites" button then the station will be added
+to the favourites list.
+
+2. As a user I want to find weather stations closest to my physical location.
+No confirmation as of yet.
+
+3. As a paranoid weather sceptic I want to always have the most updated data displayed.
+Given the user is connected to the internet, when the app is launched then the
+most recent data will be automatically fetched.
+
+4. As a user I want to have data displayed in graphical form to better understand the trends in weather patterns.
+Given the user is on the main screen and has a station selected, when
+"View Chart" is clicked then charts are shown to the user.
+
+5. As a curious user I want to be able to view Antarctic weather data in addition to weather data from Australia.
+Given the user is viewing the "Add Station" screen, when the state "Antarctica"
+is selected then the user has the option of selecting a station from Antarctica.
+
+6. As a user I want to be able to access weather data (albeit outdated) even without an internet connection.
+Given the user has previously loaded station data while connected to the
+internet, when the app is launched without an internet connection then locally
+cached data will be loaded.
+
+
+7. As a curious user, I want to check forecast from different sources so that I can compare the accuracy and
+decide which source is more reliable.
+No confirmation as of yet.
+
+8. As a user I want to view both general temperature trends and how temperature varies throughout the day.
+No confirmation as of yet.
+
+9. As a user I want to check what the weather is going to be in the near future so I can best choose the best
+day for arranging events.
+No confirmation as of yet.
+ 

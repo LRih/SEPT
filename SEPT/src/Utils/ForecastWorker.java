@@ -1,5 +1,6 @@
 package Utils;
 
+import Data.DataManager;
 import Model.Forecast;
 import Model.LatestReading;
 import Model.Station;
@@ -50,7 +51,7 @@ public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
 
         LatestReading reading = data.getLatestReadings().get(0);
 
-        return ForecastFactory.getForecasts(reading.latitude, reading.longitude, source);
+        return ForecastFactory.getNetForecasts(reading.latitude, reading.longitude, source);
     }
 
     /**

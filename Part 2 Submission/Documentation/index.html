@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>BOM Weather Documentation</title>
+        <script type="text/javascript" src="jquery.js"></script> 
+        <script type="text/javascript" src="script.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="container">
+                    <h1>BOM Weather Documentation</h1>
+                </div>
+            </header>
+            <section>
+                <div class="container">
+                    <ul class="docs-nav">
+
+                        <li><strong>Getting Started</strong></li>
+                        <li><a href="#prerequisites" class="active">Prerequisites</a></li>
+                        <li><a href="#how_to_run">How to Run</a></li>
+                        <li><a href="#compiling-eclipse">Compiling with Eclipse</a></li>
+                        <li><a href="#compiling-terminal">Compiling with Terminal</a></li>
+                        <li><a href="#license">License</a></li>
+
+                        <li class="separator"></li>
+
+                        <li><strong>API</strong></li>
+                        <li><a href="#documentation">Documentation</a></li>
+
+                    </ul>
+
+                    <div class="docs-content">
+
+                        <h2>Getting Started</h2>
+                        <h3 id="prerequisites">Prerequisites</h3>
+                        <p>The following are required to run BOM Weather:</p>
+                        <ul>
+                            <li>An internet connection for downloading weather data</li>
+                            <li>
+                                The Java JDK is required to compile and run BOM Weather. Link:<br>
+                                <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="blank">Java download</a>
+                            </li>
+                        </ul>
+                        
+                        <h3 id="how_to_run">How to Run</h3>
+                        <p>Navigate to the folder named <span class="code">Compiled Distribution</span> and simply run it from the file explorer (mouse double click) or alternatively run the following command using command prompt/terminal depending on OS (or other preferred shell application):</p>
+                        <p class="code">sept.jar</p>
+
+                        <h3 id="compiling-eclipse">Compiling with Eclipse</h3>
+                        <p>To compile the program in eclipse, import the program into the current workspace by entering <span class="code">File -> Import</span>. Then select <span class="code">Existing projects</span> and navigate to the root directory of the program (folder <span class="code">Source Code</span>). The program should be in the workspace and you can compile by pressing <span class="code">F5</span>.</p>
+                        <img src="images/import.jpg" alt="Import"> 
+                        
+                        <h3 id="compiling-terminal">Compiling with Terminal</h3>
+                        <p>Navigate to the folder <span class="code">Source Code</span> and by using the <span class="code">javac</span> command, add all jar files in <span class="code">lib</span> to the class path and compile all <span class="code">.java</span> files setting <span class="code">View/Main.java</span> as the main class.</p>
+
+                        <h3 id="license">License</h3>
+                        <ul>
+                            <li>JChartLib: <a href="http://www.suvi.org/jchartlib" target="blank">http://www.suvi.org/jchartlib</a> Operates under the GPL License and is used in accordance with the guidelines surrounding it.</li>
+							
+                            <li>Joda-Time: <a href="http://www.joda.org/joda-time" target="blank">http://www.joda.org/joda-time</a> Joda utilises the  <a href="http://www.apache.org/licenses/LICENSE-2.0" target="blank">Apache 2.0 License</a> 
+							and is used in a way that complies with its terms and conditions.</li>
+							
+                            <li>org.json: <a href="http://mvnrepository.com/artifact/org.json/json" target="blank">http://mvnrepository.com/artifact/org.json/json</a> The JSON library is used under its own license,
+							stated <a href="http://json.org/license.html" target="blank">here</a> - which is essentially a GPL license bar the condition 
+							that "The Software shall be used for Good, not Evil."</li>
+							
+                            <li>Mig Layout: <a href="http://www.miglayout.com" target="blank">http://www.miglayout.com</a> uses a BSD license and thus must include the clause © 2011 MiG InfoCom AB</li>
+							
+                            <li>WebLaF: <a href="http://weblookandfeel.com" target="blank">http://weblookandfeel.com</a> - the company 'Alee Software' has allowed non-commercial use under the GPLv3 license.</li>
+                        </ul>
+                        
+                        <hr>
+                        
+                        <h2>API</h2>
+                        <h3 id="documentation">Documentation</h3>
+                        <p>API Documentation can be accessed here: <a href="apidoc/index.html" target="blank">link</a></p>
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>

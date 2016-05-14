@@ -1,6 +1,9 @@
-package Utils;
+package Data;
 
 import Model.*;
+import Utils.FileUtils;
+import Utils.Log;
+import Utils.NetUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

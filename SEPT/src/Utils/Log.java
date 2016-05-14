@@ -67,6 +67,14 @@ public final class Log
         log(Level.WARNING, cls, msg);
     }
 
+    /**
+     * Convenience function for logging severe.
+     */
+    public static void severe(Class cls, String msg)
+    {
+        log(Level.SEVERE, cls, msg);
+    }
+
     private static void log(Level level, Class cls, String msg)
     {
         String text = String.format("[%s] %s", cls, msg);
