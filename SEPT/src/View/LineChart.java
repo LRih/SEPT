@@ -70,13 +70,10 @@ public final class LineChart extends JPanel
 
         drawText(g);
 
-        // don't draw minor axis if panel too small
-        if (getWidth() >= PADDING * 4 && getHeight() >= PADDING * 4)
-            drawMinorAxis(g);
-
+        drawMinorAxis(g);
         drawAxis(g);
 
-        drawLine(g);
+        drawLines(g);
     }
 
     private void drawText(Graphics2D g)
@@ -161,8 +158,13 @@ public final class LineChart extends JPanel
 
     private void drawMinorAxis(Graphics2D g)
     {
-        drawMinorXAxis(g);
-        drawMinorYAxis(g);
+        // don't draw minor axis if panel too small
+        if (getWidth() >= PADDING * 4)
+            drawMinorXAxis(g);
+
+        // don't draw minor axis if panel too small
+        if (getHeight() >= PADDING * 4)
+            drawMinorYAxis(g);
     }
     private void drawMinorXAxis(Graphics2D g)
     {
@@ -262,7 +264,7 @@ public final class LineChart extends JPanel
         g.drawLine(PADDING, y, getWidth() - PADDING_RIGHT, y); // horizontal axis
     }
 
-    private void drawLine(Graphics2D g)
+    private void drawLines(Graphics2D g)
     {
         g.setClip(PADDING, PADDING, getWidth() - PADDING - PADDING_RIGHT, getHeight() - PADDING * 2);
 

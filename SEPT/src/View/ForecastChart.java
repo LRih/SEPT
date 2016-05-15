@@ -1,6 +1,7 @@
 package View;
 
 import Model.Forecast;
+import Utils.SwingUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +15,10 @@ import java.util.List;
 public final class ForecastChart extends JPanel
 {
     private static final int PADDING = 60;
+    private static final int PADDING_BOTTOM = 90;
 
     private static final float AXIS_WIDTH = 1.5f;
+    private static final float MINOR_AXIS_WIDTH = 1f;
 
     private static final Font FONT_TITLE = new Font("Century Gothic", Font.BOLD, 20);
     private static final Font FONT_AXIS = new Font("Century Gothic", Font.BOLD, 14);
@@ -23,9 +26,10 @@ public final class ForecastChart extends JPanel
 
     private static final Color COL_TEXT = new Color(70, 70, 70);
     private static final Color COL_AXIS = new Color(160, 160, 160);
+    private static final Color COL_MINOR_AXIS = new Color(224, 224, 224);
 
-    private static final Color COL_MIN = new Color(36, 162, 32);
-    private static final Color COL_MAX = new Color(255, 127, 0);
+    private static final Color COL_MIN = new Color(23, 118, 182);
+    private static final Color COL_MAX = new Color(216, 36, 31);
 
     private String title = "";
     private String xAxisText = "";
@@ -36,10 +40,28 @@ public final class ForecastChart extends JPanel
     private double min = Float.MAX_VALUE;
     private double max = Float.MIN_VALUE;
 
+    private Image[] images;
+
 
     public ForecastChart()
     {
         setBackground(Color.WHITE);
+        initializeImages();
+    }
+
+    private void initializeImages()
+    {
+        images = new Image[]
+        {
+            SwingUtils.createImage("/Images/clear.png"),
+            SwingUtils.createImage("/Images/partly_cloudy.png"),
+            SwingUtils.createImage("/Images/cloudy.png"),
+            SwingUtils.createImage("/Images/rain.png"),
+            SwingUtils.createImage("/Images/wind.png"),
+            SwingUtils.createImage("/Images/fog.png"),
+            SwingUtils.createImage("/Images/sleet.png"),
+            SwingUtils.createImage("/Images/snow.png"),
+        };
     }
 
 
@@ -124,11 +146,11 @@ public final class ForecastChart extends JPanel
 
         // constrain axis to chart bounds
         int y = (int)getY(0);
-        y = Math.min(Math.max(y, PADDING), getHeight() - PADDING);
+        y = Math.min(Math.max(y, PADDING), getHeight() - PADDING_BOTTOM);
 
         // set axis to bottom when no forecasts
         if(forecasts.isEmpty())
-            y = getHeight() - PADDING;
+            y = getHeight() - PADDING_BOTTOM;
 
         g.drawLine(PADDING, y, getWidth() - PADDING, y); // horizontal axis
     }
@@ -141,7 +163,7 @@ public final class ForecastChart extends JPanel
         // calculate bar width
         float width = getWidth() - PADDING * 2;
 
-        float barSep = width / 80;
+        float barSep = 0;
         float forecastSep = width / 30;
         float bar = (width - forecastSep * (forecasts.size() + 1) - barSep * forecasts.size()) / (forecasts.size() * 2);
 
@@ -180,30 +202,46 @@ public final class ForecastChart extends JPanel
                 g.drawString(temp, x1 + bar / 2 - (float)rect.getCenterX(), (y1 < y2 ? y1 : y2) + (float)rect.getCenterY());
         }
 
-        // draw the text below forecast
+        // draw the text and image below forecast
         metrics = g.getFontMetrics(FONT_FORECAST);
         g.setFont(FONT_FORECAST);
-        g.setColor(COL_TEXT);
 
         for (int i = 0; i < forecasts.size(); i++)
         {
+            Forecast forecast = forecasts.get(i);
+
             float x = PADDING + forecastSep + i * (barSep + bar * 2 + forecastSep) + bar + barSep / 2;
-            float y = getHeight() - PADDING;
+            float y = getHeight() - PADDING_BOTTOM;
+
+            String date = forecast.date.getDayOfMonth() + "/" + forecast.date.getMonthOfYear();
+            Rectangle2D rect = metrics.getStringBounds(date, g);
+
+            // draw summary image
+            Image img = getImage(forecast.summary);
+            if (img != null)
+            {
+                float totalImgHeight = PADDING_BOTTOM - (float)rect.getHeight() - 8;
+                int imgY = (int)(getHeight() - totalImgHeight - 4);
+
+                // scale image to fit
+                int imgWidth = (int)(bar * 2);
+                int imgHeight = (int)(imgWidth / (float)img.getWidth(null) * img.getHeight(null));
+
+                if (imgHeight > totalImgHeight)
+                {
+                    imgWidth *= totalImgHeight / (float)imgHeight;
+                    imgHeight *= totalImgHeight / (float)imgHeight;
+                }
+
+                g.drawImage(img, (int)(x - imgWidth / 2), (int)(imgY + (totalImgHeight - imgHeight) / 2), imgWidth, imgHeight, null);
+            }
 
             // don't draw text if width too small
             if (getWidth() >= PADDING * 6)
             {
-                String date = forecasts.get(i).date.getDayOfMonth() + "/" + forecasts.get(i).date.getMonthOfYear();
-                Rectangle2D rect = metrics.getStringBounds(date, g);
+                g.setColor(COL_TEXT);
                 g.drawString(date, x - (float)rect.getCenterX(), y + (float)rect.getHeight());
             }
-
-            // don't draw text if width too small
-            Rectangle2D rect = metrics.getStringBounds(forecasts.get(i).summary, g);
-            if (getWidth() >= PADDING * 8)
-                g.drawString(forecasts.get(i).summary, x - (float)rect.getCenterX(), y + (float)rect.getHeight() * 2);
-            else if (getWidth() >= PADDING * 6)
-                g.drawString(forecasts.get(i).summary, x - (float)rect.getCenterX(), y + (float)rect.getHeight() * (i % 2 == 0 ? 2 : 3));
         }
     }
 
@@ -212,31 +250,56 @@ public final class ForecastChart extends JPanel
      */
     private double getY(double value)
     {
-        int height = getHeight() - PADDING * 2;
+        int height = getHeight() - PADDING - PADDING_BOTTOM;
 
         if (min < 0 && max > 0) // both positive and negative values, draw axis in the middle
         {
             double top = PADDING + height / 8f;
-            double bottom = getHeight() - PADDING - height / 8f;
+            double bottom = getHeight() - PADDING_BOTTOM - height / 8f;
 
             return bottom - (bottom - top) * (value - min) / (max - min);
         }
         else if (min >= 0) // all positive
         {
             double top = PADDING + height / 8f;
-            double bottom = getHeight() - PADDING;
+            double bottom = getHeight() - PADDING_BOTTOM;
 
             return bottom - (bottom - top) * value / max;
         }
         else if (max <= 0) // all negative
         {
             double top = PADDING;
-            double bottom = getHeight() - PADDING - height / 8f;
+            double bottom = getHeight() - PADDING_BOTTOM - height / 8f;
 
             return bottom - (bottom - top) * (value - min) / -min;
         }
 
         return 0;
+    }
+
+    private Image getImage(String summary)
+    {
+        // normalize to lower case
+        summary = summary.toLowerCase();
+
+        if (summary.contains("clear"))
+            return images[0];
+        else if (summary.contains("partly") && summary.contains("cloud"))
+            return images[1];
+        else if (summary.contains("cloud"))
+            return images[2];
+        else if (summary.contains("rain"))
+            return images[3];
+        else if (summary.contains("wind"))
+            return images[4];
+        else if (summary.contains("fog"))
+            return images[5];
+        else if (summary.contains("sleet"))
+            return images[6];
+        else if (summary.contains("snow"))
+            return images[7];
+
+        return null;
     }
 
 

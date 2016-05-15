@@ -1,7 +1,10 @@
 package Utils;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -21,7 +24,31 @@ public final class SwingUtils
         if (imgURL != null)
             return new ImageIcon(imgURL, description);
 
-        System.err.println("Couldn't find file: " + path);
+        Log.warn(SwingUtils.class, "Couldn't find file: " + path);
+        return null;
+    }
+
+    /**
+     * Get jar embedded image.
+     *
+     * @return an Image, or null if the path was invalid.
+     */
+    public static Image createImage(String path)
+    {
+        URL imgURL = SwingUtils.class.getResource(path);
+
+        try
+        {
+            if (imgURL != null)
+                return ImageIO.read(imgURL);
+        }
+        catch (IOException e)
+        {
+            Log.warn(SwingUtils.class, "Couldn't load file: " + path);
+            return null;
+        }
+
+        Log.warn(SwingUtils.class, "Couldn't find file: " + path);
         return null;
     }
 }
