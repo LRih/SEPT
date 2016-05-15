@@ -205,7 +205,7 @@ public final class LineChart extends JPanel
 
         // draw above mean
         int value = (int)median;
-        int y = (int)getY(value, min, max);
+        int y = (int)getY(value);
 
         while (y >= PADDING)
         {
@@ -220,12 +220,12 @@ public final class LineChart extends JPanel
             g.drawString(text, x - (float)rect.getWidth(), y - (float)rect.getCenterY());
 
             value += interval;
-            y = (int)getY(value, min, max);
+            y = (int)getY(value);
         }
 
         // draw below mean
         value = (int)median - interval;
-        y = (int)getY(value, min, max);
+        y = (int)getY(value);
 
         while (y <= getHeight() - PADDING)
         {
@@ -240,7 +240,7 @@ public final class LineChart extends JPanel
             g.drawString(text, x - (float)rect.getWidth(), y - (float)rect.getCenterY());
 
             value -= interval;
-            y = (int)getY(value, min, max);
+            y = (int)getY(value);
         }
     }
 
@@ -252,7 +252,7 @@ public final class LineChart extends JPanel
         g.drawLine(PADDING, PADDING, PADDING, getHeight() - PADDING); // vertical axis
 
         // constrain axis to chart bounds
-        int y = (int)getY(0, min, max);
+        int y = (int)getY(0);
         y = Math.min(Math.max(y, PADDING), getHeight() - PADDING);
 
         // set axis to bottom when no datasets
@@ -280,10 +280,10 @@ public final class LineChart extends JPanel
     private Path2D getLinePath(double[] values)
     {
         Path2D path = new Path2D.Float();
-        path.moveTo(getX(0), getY(values[0], min, max));
+        path.moveTo(getX(0), getY(values[0]));
 
         for (int i = 1; i < values.length; i++)
-            path.lineTo(getX(i), getY(values[i], min, max));
+            path.lineTo(getX(i), getY(values[i]));
 
         return path;
     }
@@ -305,7 +305,7 @@ public final class LineChart extends JPanel
     /**
      * Get y-coord of value based on min/max values.
      */
-    private double getY(double value, double min, double max)
+    private double getY(double value)
     {
         int height = getHeight() - PADDING * 2;
         float top = PADDING + height / 8f;
