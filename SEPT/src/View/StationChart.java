@@ -17,11 +17,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-import com.bitagentur.renderer.JChartLibPanel;
-import com.bitagentur.chart.JChartLibBaseChart;
-import com.bitagentur.chart.JChartLibLineChart;
-import com.bitagentur.data.JChartLibDataSet;
-import com.bitagentur.data.JChartLibSerie;
 import com.alee.laf.combobox.WebComboBox;
 
 import javax.swing.DefaultComboBoxModel;
