@@ -5,6 +5,8 @@ import Utils.SwingUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +14,16 @@ import java.util.List;
 /**
  * A component for drawing bar charts for forecasts.
  */
-public final class ForecastChart extends JPanel
+public final class ForecastChart extends JPanel implements ActionListener
 {
+    // number of ticks to complete animation
+    private static final int ANIMATION_TICKS = 30;
+    private static final int ANIMATION_FPS = 60;
+
     private static final int PADDING = 60;
     private static final int PADDING_BOTTOM = 90;
 
     private static final float AXIS_WIDTH = 1.5f;
-    private static final float MINOR_AXIS_WIDTH = 1f;
 
     private static final Font FONT_TITLE = new Font("Century Gothic", Font.BOLD, 20);
     private static final Font FONT_AXIS = new Font("Century Gothic", Font.BOLD, 14);
@@ -26,7 +31,6 @@ public final class ForecastChart extends JPanel
 
     private static final Color COL_TEXT = new Color(70, 70, 70);
     private static final Color COL_AXIS = new Color(160, 160, 160);
-    private static final Color COL_MINOR_AXIS = new Color(224, 224, 224);
 
     private static final Color COL_MIN = new Color(23, 118, 182);
     private static final Color COL_MAX = new Color(216, 36, 31);
@@ -41,12 +45,18 @@ public final class ForecastChart extends JPanel
     private double max = Float.MIN_VALUE;
 
     private Image[] images;
+    
+    // used for animations
+    private int aniProgress;
+    private Timer timer;
 
 
     public ForecastChart()
     {
         setBackground(Color.WHITE);
         initializeImages();
+
+        timer = new Timer(1000 / ANIMATION_FPS, this);
     }
 
     private void initializeImages()
@@ -173,10 +183,11 @@ public final class ForecastChart extends JPanel
             String temp = String.valueOf(forecasts.get(i).min);
             Rectangle2D rect = metrics.getStringBounds(temp, g);
 
-            g.setColor(COL_MIN);
+            int alpha = (int)(255 * aniProgress / (float)ANIMATION_TICKS);
+            g.setColor(new Color(COL_MIN.getRed(), COL_MIN.getGreen(), COL_MIN.getBlue(), alpha));
 
             int x1 = (int)(PADDING + forecastSep + i * (barSep + bar * 2 + forecastSep));
-            int y1 = (int)getY(forecasts.get(i).min);
+            int y1 = (int)getY(forecasts.get(i).min * aniProgress / (float)ANIMATION_TICKS);
             int y2 = (int)getY(0);
 
             g.fillRect(x1, y1 < y2 ? y1 : y2, (int)bar, Math.abs(y2 - y1));
@@ -189,10 +200,11 @@ public final class ForecastChart extends JPanel
             temp = String.valueOf(forecasts.get(i).max);
             rect = metrics.getStringBounds(temp, g);
 
-            g.setColor(COL_MAX);
+            alpha = (int)(255 * aniProgress / (float)ANIMATION_TICKS);
+            g.setColor(new Color(COL_MAX.getRed(), COL_MAX.getGreen(), COL_MAX.getBlue(), alpha));
 
             x1 = (int)(PADDING + forecastSep + bar + barSep + i * (barSep + bar * 2 + forecastSep));
-            y1 = (int)getY(forecasts.get(i).max);
+            y1 = (int)getY(forecasts.get(i).max * aniProgress / (float)ANIMATION_TICKS);
             y2 = (int)getY(0);
 
             g.fillRect(x1, y1 < y2 ? y1 : y2, (int)bar, Math.abs(y2 - y1));
@@ -320,22 +332,41 @@ public final class ForecastChart extends JPanel
             if (forecast.max > max)
                 max = forecast.max;
 
-        invalidate();
+        repaint();
+
+        // start animation
+        aniProgress = 0;
+        timer.start();
     }
 
     public final void setTitle(String title)
     {
         this.title = title;
-        invalidate();
+        repaint();
     }
     public final void setXAxisText(String text)
     {
         this.xAxisText = text;
-        invalidate();
+        repaint();
     }
     public final void setYAxisText(String text)
     {
         this.yAxisText = text;
-        invalidate();
+        repaint();
+    }
+
+    /**
+     * Timer callback.
+     */
+    public final void actionPerformed(ActionEvent e)
+    {
+        if (aniProgress < ANIMATION_TICKS)
+            aniProgress++;
+
+        repaint();
+
+        // if animation is not done, repeat timer
+        if (aniProgress < ANIMATION_TICKS)
+            timer.start();
     }
 }

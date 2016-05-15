@@ -2,6 +2,8 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -10,8 +12,12 @@ import java.util.List;
 /**
  * A component for drawing simple charts.
  */
-public final class LineChart extends JPanel
+public final class LineChart extends JPanel implements ActionListener
 {
+    // number of ticks to complete animation
+    private static final int ANIMATION_TICKS = 30;
+    private static final int ANIMATION_FPS = 60;
+
     private static final int PADDING = 60;
     private static final int PADDING_RIGHT = 120;
     private static final int LABEL_SIZE = 20;
@@ -52,10 +58,16 @@ public final class LineChart extends JPanel
     private double min = Float.MAX_VALUE;
     private double max = Float.MIN_VALUE;
 
+    // used for animations
+    private final List<Integer> aniProgressList = new ArrayList<>();
+    private Timer timer;
+
 
     public LineChart()
     {
         setBackground(Color.WHITE);
+
+        timer = new Timer(1000 / ANIMATION_FPS, this);
     }
 
 
@@ -272,20 +284,23 @@ public final class LineChart extends JPanel
         {
             g.setColor(COL_LINES[i % COL_LINES.length]);
             g.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g.draw(getLinePath(datasets.get(i)));
+            g.draw(getLinePath(datasets.get(i), i));
         }
 
         g.setClip(null);
     }
 
 
-    private Path2D getLinePath(double[] values)
+    private Path2D getLinePath(double[] values, int datasetIndex)
     {
+        double median = (min + max) / 2;
+        double aniLeftPercent = aniProgressList.get(datasetIndex) / (float)ANIMATION_TICKS;
+
         Path2D path = new Path2D.Float();
-        path.moveTo(getX(0), getY(values[0]));
+        path.moveTo(getX(0), getY(values[0] - (values[0] - median) * aniLeftPercent));
 
         for (int i = 1; i < values.length; i++)
-            path.lineTo(getX(i), getY(values[i]));
+            path.lineTo(getX(i), getY(values[i] - (values[i] - median) * aniLeftPercent));
 
         return path;
     }
@@ -320,7 +335,7 @@ public final class LineChart extends JPanel
     public final void setXValues(String[] values)
     {
         xValues = values;
-        invalidate();
+        repaint();
     }
     public final void addDataset(String name, double[] values)
     {
@@ -329,6 +344,7 @@ public final class LineChart extends JPanel
 
         datasetNames.add(name);
         datasets.add(values);
+        aniProgressList.add(ANIMATION_TICKS);
 
         // calculate new min
         for (double value : values)
@@ -340,40 +356,67 @@ public final class LineChart extends JPanel
             if (value > max)
                 max = value;
 
-        invalidate();
+        repaint();
+        timer.start();
     }
 
     public final void clearDatasets()
     {
         datasetNames.clear();
         datasets.clear();
+        aniProgressList.clear();
 
         min = Float.MAX_VALUE;
         max = Float.MIN_VALUE;
 
-        invalidate();
+        repaint();
     }
     public final void clearValues()
     {
         xValues = new String[] { };
         clearDatasets();
 
-        invalidate();
+        repaint();
     }
 
     public final void setTitle(String title)
     {
         this.title = title;
-        invalidate();
+        repaint();
     }
     public final void setXAxisText(String text)
     {
         this.xAxisText = text;
-        invalidate();
+        repaint();
     }
     public final void setYAxisText(String text)
     {
         this.yAxisText = text;
-        invalidate();
+        repaint();
+    }
+
+    /**
+     * Timer callback.
+     */
+    public final void actionPerformed(ActionEvent e)
+    {
+        boolean isAnimationDone = true;
+
+        for (int i = 0; i < aniProgressList.size(); i++)
+        {
+            int tick = aniProgressList.get(i);
+
+            if (tick > 1)
+                isAnimationDone = false;
+
+            if (tick > 0)
+                aniProgressList.set(i, tick - 1);
+        }
+
+        repaint();
+
+        // if animation is not done, repeat timer
+        if (!isAnimationDone)
+            timer.start();
     }
 }
