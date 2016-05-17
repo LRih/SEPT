@@ -15,18 +15,26 @@ import java.util.List;
 public final class ForecastDialog extends JDialog implements ForecastWorker.OnTaskCompleteListener
 {
     private ForecastChart chart = new ForecastChart();
+    private JPanel pnProgressBar = new JPanel();
 
-    public ForecastDialog(Window owner, Station station)
+    public ForecastDialog(Frame owner, Station station)
     {
-        super(owner, "Forecast");
+        super(owner, "Forecast", true);
 
         setBounds(100, 100, 1000, 400);
 
-        chart.setTitle("Forecast IO");
+        // initialize components
+        chart.setTitle("Forecast IO: " + station.getName());
         chart.setYAxisText("Temperature (°C)");
-        add(chart);
 
-        setVisible(true);
+        JProgressBar progressBar = new JProgressBar();
+        progressBar.setIndeterminate(true);
+
+        // add components to dialog
+        pnProgressBar.setBackground(Color.WHITE);
+        pnProgressBar.setLayout(new GridBagLayout());
+        pnProgressBar.add(progressBar);
+        add(pnProgressBar);
 
         // load forecasts from the web
         ForecastWorker worker = new ForecastWorker(station, ForecastFactory.Source.ForecastIO);
@@ -35,14 +43,27 @@ public final class ForecastDialog extends JDialog implements ForecastWorker.OnTa
     }
 
     /**
+     * Hide progress bar and show chart.
+     */
+    private void showChart()
+    {
+        remove(pnProgressBar);
+        add(chart);
+
+        validate();
+        repaint();
+    }
+
+    /**
      * Callbacks for forecast worker
      */
     public final void onTaskSuccess(List<Forecast> forecasts)
     {
+        showChart();
         chart.setForecasts(forecasts);
     }
     public final void onTaskFail()
     {
-        // ignored
+        showChart();
     }
 }

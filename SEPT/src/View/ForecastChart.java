@@ -146,6 +146,7 @@ public final class ForecastChart extends JPanel implements ActionListener
         FontMetrics metrics = g.getFontMetrics(FONT_FORECAST);
         Rectangle2D rect = metrics.getStringBounds(text, g);
 
+        // draw text in middle of chart when no data loaded
         g.setFont(FONT_FORECAST);
         g.setColor(COL_AXIS);
         g.drawString(text, getWidth() / 2f - (float)rect.getCenterX(), getHeight() / 2f - (float)rect.getCenterY());

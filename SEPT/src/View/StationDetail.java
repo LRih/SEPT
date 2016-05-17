@@ -144,7 +144,7 @@ public final class StationDetail extends JPanel
         wbtnViewForecast.setBottomSelectedBgColor(new Color(224, 255, 255));
         wbtnViewForecast.setBottomBgColor(new Color(240, 248, 255));
         wbtnViewForecast.setDrawShade(false);
-        wbtnViewForecast.setText("View Forecast (tmp)");
+        wbtnViewForecast.setText("View Forecast");
         add(wbtnViewForecast, "cell 2 6");
 
         JPanel panelFiller2 = new JPanel();

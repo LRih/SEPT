@@ -676,3 +676,977 @@ May 17, 2016 2:15:38 PM Utils.Log log
 INFO: [class View.ForecastChart] New range, min: -36.8, max: 1.401298464324817E-45
 May 17, 2016 2:16:44 PM Utils.Log log
 INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:20:10 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:20:10 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:20:10 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:20:10 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:20:11 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:20:11 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (Cape Poinsett) (data available)
+May 17, 2016 2:20:12 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:20:13 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:20:14 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey (Cape Poinsett), source: ForecastIO
+May 17, 2016 2:20:14 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:20:14 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:20:16 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey (Cape Poinsett) forecast from ForecastIO downloaded
+May 17, 2016 2:20:16 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -36.8, max: 1.401298464324817E-45
+May 17, 2016 2:20:23 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:20:23 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:20:24 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:20:24 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:20:26 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:20:26 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:20:32 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:22:57 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:22:57 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:22:57 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:22:58 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:22:59 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:22:59 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:22:59 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:22:59 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:22:59 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:23:02 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:23:02 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:23:02 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:23:04 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:23:04 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:23:08 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:25:47 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:25:48 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:25:48 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:25:48 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:25:48 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:25:48 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:25:50 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:25:50 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:25:50 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:25:51 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:25:51 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:25:54 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:26:10 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:26:11 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:26:12 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:26:13 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:26:13 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:26:13 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:26:13 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:26:13 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:26:13 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:26:13 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:26:15 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:26:15 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:29:05 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:29:34 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:29:36 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:29:36 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:29:36 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:29:36 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:29:36 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:29:37 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:29:37 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:29:37 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:29:39 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:29:39 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:29:42 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:30:49 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:30:51 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:30:51 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:30:51 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:30:51 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:30:51 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:30:52 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:30:52 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:30:52 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:30:54 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:30:54 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:30:59 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:33:18 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:33:18 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:33:18 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:33:18 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:33:18 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:33:18 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:33:18 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:33:19 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:33:19 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:33:19 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:33:19 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:33:19 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:33:19 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:33:19 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:33:20 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:33:20 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:33:20 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:33:20 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:33:20 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:33:22 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:33:22 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:33:22 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:33:23 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:33:23 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:34:58 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:35:34 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:35:35 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:35:35 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:35:35 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:35:35 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:35:36 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:35:36 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:35:36 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:35:36 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:35:36 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:35:37 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:35:37 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:35:37 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:35:39 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:35:39 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:35:45 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:36:07 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:36:07 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:36:07 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:36:08 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:36:09 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:36:09 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:36:09 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:36:09 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:36:09 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:36:11 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:36:11 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:36:11 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:36:15 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:36:15 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:36:19 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:36:32 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:36:32 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:36:32 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:36:32 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:36:32 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:36:32 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:36:32 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:36:33 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:36:33 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:36:33 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:36:33 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:36:33 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:36:33 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:36:33 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:36:34 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:36:34 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:36:34 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:36:34 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:36:34 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:36:37 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:36:37 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:36:37 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:36:39 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:36:39 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:36:43 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:37:21 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:37:21 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:37:21 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:37:21 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:37:22 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:37:23 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:37:23 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:37:23 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:37:23 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:37:23 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:37:24 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:37:31 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:37:33 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:37:33 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:37:33 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:37:33 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:37:33 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:37:35 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:37:35 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:37:35 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:37:36 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:37:36 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:37:39 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:37:39 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:37:40 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey, source: ForecastIO
+May 17, 2016 2:37:40 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:37:40 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:37:40 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey forecast from ForecastIO downloaded
+May 17, 2016 2:37:40 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -33.11, max: 1.401298464324817E-45
+May 17, 2016 2:37:41 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (Cape Poinsett) (data available)
+May 17, 2016 2:37:45 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:37:45 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:37:47 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (Cape Poinsett) (data available)
+May 17, 2016 2:37:50 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:38:59 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:39:00 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:39:00 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:39:00 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:39:00 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:39:01 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:39:01 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (Cape Poinsett) (data available)
+May 17, 2016 2:39:01 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:39:01 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:39:17 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey (Cape Poinsett), source: ForecastIO
+May 17, 2016 2:39:17 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:39:17 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:39:19 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey (Cape Poinsett) forecast from ForecastIO downloaded
+May 17, 2016 2:39:19 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -36.8, max: 1.401298464324817E-45
+May 17, 2016 2:39:20 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:39:26 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:39:26 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:39:26 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:39:26 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:39:27 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:39:28 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:39:28 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (Cape Poinsett) (data available)
+May 17, 2016 2:39:28 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:39:28 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:39:30 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey (Cape Poinsett), source: ForecastIO
+May 17, 2016 2:39:30 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:39:30 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:39:31 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:39:31 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:39:31 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey (Cape Poinsett) forecast from ForecastIO downloaded
+May 17, 2016 2:39:31 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -36.8, max: 1.401298464324817E-45
+May 17, 2016 2:39:32 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:39:32 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:39:32 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (Cape Poinsett) (data available)
+May 17, 2016 2:39:35 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:39:35 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:39:37 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:39:37 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:39:38 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:39:38 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:39:38 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:39:39 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:39:39 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:39:41 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:40:19 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:40:21 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:40:21 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:40:21 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:40:21 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:40:21 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:40:30 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:40:30 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:40:30 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:40:31 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:40:31 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:45:32 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:46:05 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:46:05 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:46:05 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:46:05 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:46:05 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:46:05 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:46:05 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:46:06 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:46:06 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:46:06 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:46:06 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:46:06 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:46:06 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:46:06 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:46:07 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:46:07 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:46:07 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:46:07 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:46:07 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:46:09 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey, source: ForecastIO
+May 17, 2016 2:46:09 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:46:09 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:46:10 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey forecast from ForecastIO downloaded
+May 17, 2016 2:46:10 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -33.11, max: 1.401298464324817E-45
+May 17, 2016 2:46:12 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:46:12 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:46:13 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:46:13 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:46:13 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:46:14 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:46:14 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:46:19 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:46:19 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:46:20 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey, source: ForecastIO
+May 17, 2016 2:46:20 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:46:20 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:46:21 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey forecast from ForecastIO downloaded
+May 17, 2016 2:46:21 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -33.11, max: 1.401298464324817E-45
+May 17, 2016 2:46:25 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (Cape Poinsett) (data available)
+May 17, 2016 2:46:26 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey (Cape Poinsett), source: ForecastIO
+May 17, 2016 2:46:26 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:46:26 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:46:27 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey (Cape Poinsett) forecast from ForecastIO downloaded
+May 17, 2016 2:46:27 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -36.8, max: 1.401298464324817E-45
+May 17, 2016 2:46:31 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:46:31 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:46:32 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:46:32 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:46:33 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:46:33 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:46:34 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:46:34 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:46:35 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:46:35 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:46:37 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey, source: ForecastIO
+May 17, 2016 2:46:37 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:46:38 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:46:38 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey forecast from ForecastIO downloaded
+May 17, 2016 2:46:38 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -33.11, max: 1.401298464324817E-45
+May 17, 2016 2:46:42 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully
+May 17, 2016 2:47:01 PM Utils.Log log
+INFO: [class Utils.AppStateManager] Existing app state loaded
+May 17, 2016 2:47:01 PM Utils.Log log
+INFO: [class Utils.FavoritesManager] Loading existing favorites
+May 17, 2016 2:47:01 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:47:01 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Casey (Cape Poinsett)
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey (Cape Poinsett)
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey (Cape Poinsett)
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Starting to download data for Ballarat
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:47:02 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:47:03 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey (Cape Poinsett) data downloaded
+May 17, 2016 2:47:03 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Casey data downloaded
+May 17, 2016 2:47:03 PM Utils.Log log
+INFO: [class View.Main] Station selected: Casey (data available)
+May 17, 2016 2:47:03 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: -23.1, max: 0.4
+May 17, 2016 2:47:03 PM Utils.Log log
+INFO: [class Utils.StationDataWorker] Ballarat data downloaded
+May 17, 2016 2:47:04 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Casey, source: ForecastIO
+May 17, 2016 2:47:04 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Casey
+May 17, 2016 2:47:04 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Casey
+May 17, 2016 2:47:06 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Casey forecast from ForecastIO downloaded
+May 17, 2016 2:47:06 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: -33.11, max: 1.401298464324817E-45
+May 17, 2016 2:47:08 PM Utils.Log log
+INFO: [class View.Main] Station selected: Ballarat (data available)
+May 17, 2016 2:47:08 PM Utils.Log log
+INFO: [class View.LineChart] New range, min: 6.7, max: 26.8
+May 17, 2016 2:47:09 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Starting to get forecast info for Ballarat, source: ForecastIO
+May 17, 2016 2:47:09 PM Utils.Log log
+INFO: [class Data.DataManager] Loading cached data for Ballarat
+May 17, 2016 2:47:09 PM Utils.Log log
+INFO: [class Data.DataManager] Cached data successfully loaded for Ballarat
+May 17, 2016 2:47:10 PM Utils.Log log
+INFO: [class Utils.ForecastWorker] Ballarat forecast from ForecastIO downloaded
+May 17, 2016 2:47:10 PM Utils.Log log
+INFO: [class View.ForecastChart] New range, min: 2.42, max: 15.77
+May 17, 2016 2:47:20 PM Utils.Log log
+INFO: [class Utils.AppStateManager] App state saved successfully

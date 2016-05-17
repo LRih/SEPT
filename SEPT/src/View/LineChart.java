@@ -280,6 +280,7 @@ public final class LineChart extends JPanel implements ActionListener
 
     private void drawLines(Graphics2D g)
     {
+        // set clip so line does not draw outside the axis
         g.setClip(PADDING, PADDING, getWidth() - PADDING - PADDING_RIGHT, getHeight() - PADDING * 2);
 
         for (int i = 0; i < datasets.size(); i++)
