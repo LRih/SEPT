@@ -1,7 +1,6 @@
 package View;
 
 import Model.Forecast;
-import Utils.AppStateManager;
 import Utils.Log;
 import Utils.SwingUtils;
 
@@ -197,7 +196,10 @@ public final class ForecastChart extends JPanel implements ActionListener
 
             // don't draw text if width too small
             if (getWidth() >= PADDING * 6)
-                g.drawString(temp, x1 + bar / 2 - (float)rect.getCenterX(), (y1 < y2 ? y1 : y2) + (float)rect.getCenterY());
+            {
+                float yText = y1 + (float)(y1 < y2 ? rect.getCenterY() : rect.getHeight());
+                g.drawString(temp, x1 + bar / 2 - (float)rect.getCenterX(), yText);
+            }
 
             // max value
             temp = String.valueOf(forecasts.get(i).max);
@@ -214,7 +216,10 @@ public final class ForecastChart extends JPanel implements ActionListener
 
             // don't draw text if width too small
             if (getWidth() >= PADDING * 6)
-                g.drawString(temp, x1 + bar / 2 - (float)rect.getCenterX(), (y1 < y2 ? y1 : y2) + (float)rect.getCenterY());
+            {
+                float yText = y1 + (float)(y1 < y2 ? rect.getCenterY() : rect.getHeight());
+                g.drawString(temp, x1 + bar / 2 - (float)rect.getCenterX(), yText);
+            }
         }
 
         // draw the text and image below forecast
