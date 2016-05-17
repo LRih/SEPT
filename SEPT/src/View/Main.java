@@ -245,6 +245,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
     private void showPanel(PanelType type)
     {
         AppState.getInstance().shownWindow = type.ordinal();
+        Log.info(getClass(), "Panel changed to " + type.name());
 
         pnContent.removeAll();
         pnContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));

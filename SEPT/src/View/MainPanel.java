@@ -3,6 +3,7 @@ package View;
 import javax.swing.JPanel;
 
 import Model.*;
+import Utils.Log;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.scroll.WebScrollPane;
@@ -124,6 +125,7 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
         pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
         AppState.getInstance().shownDetail = type.ordinal();
+        Log.info(getClass(), "Panel changed to " + type.name());
 
         switch (type)
         {

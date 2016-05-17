@@ -74,7 +74,7 @@ public final class AppState
     {
         if (chartIndex >= 0 && chartIndex < StationChart.ChartType.values().length)
             return StationChart.ChartType.values()[chartIndex];
-        return StationChart.ChartType.Chart9AM;
+        return StationChart.ChartType.MaxTemp;
     }
 
 

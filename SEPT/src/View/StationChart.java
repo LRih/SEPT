@@ -6,6 +6,7 @@ import Model.AppState;
 import Model.HistoricalReading;
 import Model.Station;
 import Model.StationData;
+import Utils.Log;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
@@ -78,8 +79,12 @@ public final class StationChart extends JPanel
         wcbChartType = new WebComboBox();
         wcbChartType.setDrawFocus(false);
         wcbChartType.setFont(new Font("Bender", Font.PLAIN, 13));
-        wcbChartType.setModel(
-            new DefaultComboBoxModel(new String[] { "Daily 9AM", "Daily 3PM", "Daily Min", "Daily Max" }));
+        wcbChartType.setModel(new DefaultComboBoxModel(new String[]
+        {
+            "Min temp.", "Max temp.", "Rainfall", "Max wind gust (km/h)",
+            "Temp. 9AM", "Rel. humidity 9AM", "Wind spd 9AM", "Pressure 9AM",
+            "Temp. 3PM", "Rel. humidity 3PM", "Wind spd 3PM", "Pressure 3PM"
+        }));
         add(wcbChartType, "cell 3 0,alignx right");
 
         if (AppState.getInstance().chartIndex >= 0 && AppState.getInstance().chartIndex < ChartType.values().length)
@@ -114,40 +119,85 @@ public final class StationChart extends JPanel
         if (data == null)
             return;
 
+        String name = (String)wcbChartType.getSelectedItem();
         double[] values = new double[data.getHistoricalReadings().size()];
 
         List<HistoricalReading> readings = data.getHistoricalReadings();
 
         switch (type)
         {
-            case Chart9AM:
-                for (int i = 0; i < values.length; i++)
-                    if (readings.get(i).temp9AM != null)
-                        values[i] = readings.get(i).temp9AM;
-                chartPanel.addDataset("Daily 9am", values);
-                break;
-
-            case Chart3PM:
-                for (int i = 0; i < values.length; i++)
-                    if (readings.get(i).temp3PM != null)
-                        values[i] = readings.get(i).temp3PM;
-                chartPanel.addDataset("Daily 3pm", values);
-                break;
-
-            case Min:
+            case MinTemp:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).minTemp != null)
                         values[i] = readings.get(i).minTemp;
-                chartPanel.addDataset("Daily Min", values);
                 break;
 
-            case Max:
+            case MaxTemp:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).maxTemp != null)
                         values[i] = readings.get(i).maxTemp;
-                chartPanel.addDataset("Daily Max", values);
                 break;
+
+            case Rainfall:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).rainfall != null)
+                        values[i] = readings.get(i).rainfall;
+                break;
+
+            case MaxWindGustKmH:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).maxWindGustKmH != null)
+                        values[i] = readings.get(i).maxWindGustKmH;
+                break;
+
+            case Temp9AM:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).temp9AM != null)
+                        values[i] = readings.get(i).temp9AM;
+                break;
+            case RelHumidity9AM:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).relHumidity9AM != null)
+                        values[i] = readings.get(i).relHumidity9AM;
+                break;
+            case WindSpd9AM:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).windSpd9AM != null)
+                        values[i] = readings.get(i).windSpd9AM;
+                break;
+            case PressureMSL9AM:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).pressureMSL9AM != null)
+                        values[i] = readings.get(i).pressureMSL9AM;
+                break;
+
+            case Temp3PM:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).temp3PM != null)
+                        values[i] = readings.get(i).temp3PM;
+                break;
+            case RelHumidity3PM:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).relHumidity3PM != null)
+                        values[i] = readings.get(i).relHumidity3PM;
+                break;
+            case WindSpd3PM:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).windSpd3PM != null)
+                        values[i] = readings.get(i).windSpd3PM;
+                break;
+            case PressureMSL3PM:
+                for (int i = 0; i < values.length; i++)
+                    if (readings.get(i).pressureMSL3PM != null)
+                        values[i] = readings.get(i).pressureMSL3PM;
+                break;
+
+            default:
+                Log.warn(getClass(), "Invalid chart type: " + type.name());
+                return;
         }
+
+        chartPanel.addDataset(name, values);
     }
 
     private String[] getXAxisValues()
@@ -167,8 +217,12 @@ public final class StationChart extends JPanel
 
     private void updateChart()
     {
+        ChartType type = ChartType.values()[wcbChartType.getSelectedIndex()];
+
         chartPanel.setXValues(getXAxisValues());
-        setDataset(ChartType.values()[wcbChartType.getSelectedIndex()]);
+        setDataset(type);
+
+        Log.info(getClass(), "Chart changed to " + type.name());
 
         panel.validate();
         panel.repaint();
@@ -198,6 +252,8 @@ public final class StationChart extends JPanel
 
     public enum ChartType
     {
-        Chart9AM, Chart3PM, Min, Max
+        MinTemp, MaxTemp, Rainfall, MaxWindGustKmH,
+        Temp9AM, RelHumidity9AM, WindSpd9AM, PressureMSL9AM,
+        Temp3PM, RelHumidity3PM, WindSpd3PM, PressureMSL3PM
     }
 }
