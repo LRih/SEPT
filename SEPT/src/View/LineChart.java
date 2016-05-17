@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -54,14 +56,15 @@ public final class LineChart extends JPanel implements ActionListener
     private String yAxisText = "";
 
     private String[] xValues = new String[] { };
-    private final List<String> datasetNames = new ArrayList<>();
-    private final List<double[]> datasets = new ArrayList<>();
+
+    // linked hash map to preserve insertion order
+    private final LinkedHashMap<String, double[]> datasets = new LinkedHashMap<>();
 
     private double min = Float.MAX_VALUE;
     private double max = Float.MIN_VALUE;
 
     // used for animations
-    private final List<Integer> aniProgressList = new ArrayList<>();
+    private final HashMap<String, Integer> aniProgressList = new HashMap<>();
     private Timer timer;
 
 
@@ -70,6 +73,16 @@ public final class LineChart extends JPanel implements ActionListener
         setBackground(Color.WHITE);
 
         timer = new Timer(1000 / ANIMATION_FPS, this);
+    }
+
+
+    /**
+     * Restart animation for all datasets.
+     */
+    public final void animate()
+    {
+        for (String name : aniProgressList.keySet())
+            aniProgressList.put(name, ANIMATION_TICKS);
     }
 
 
@@ -143,17 +156,20 @@ public final class LineChart extends JPanel implements ActionListener
 
         g.setFont(FONT_MINOR_AXIS);
 
-        for (int i = 0; i < datasetNames.size(); i++)
+        int index = 0;
+        for (String name : datasets.keySet())
         {
-            Rectangle2D rect = metrics.getStringBounds(datasetNames.get(i), g);
+            Rectangle2D rect = metrics.getStringBounds(name, g);
             float x = getWidth() - PADDING_RIGHT + MINOR_AXIS_EXTRA;
-            float y = PADDING + i * (LABEL_SIZE + MINOR_AXIS_EXTRA);
+            float y = PADDING + index * (LABEL_SIZE + MINOR_AXIS_EXTRA);
 
-            g.setColor(COL_LINES[i % COL_LINES.length]);
+            g.setColor(COL_LINES[index % COL_LINES.length]);
             g.fillRect((int)x, (int)y, LABEL_SIZE, LABEL_SIZE);
 
             g.setColor(COL_TEXT);
-            g.drawString(datasetNames.get(i), x + LABEL_SIZE + MINOR_AXIS_EXTRA, y + LABEL_SIZE / 2f - (float)rect.getCenterY());
+            g.drawString(name, x + LABEL_SIZE + MINOR_AXIS_EXTRA, y + LABEL_SIZE / 2f - (float)rect.getCenterY());
+
+            index++;
         }
     }
     private void drawEmptyText(Graphics2D g)
@@ -283,21 +299,24 @@ public final class LineChart extends JPanel implements ActionListener
         // set clip so line does not draw outside the axis
         g.setClip(PADDING, PADDING, getWidth() - PADDING - PADDING_RIGHT, getHeight() - PADDING * 2);
 
-        for (int i = 0; i < datasets.size(); i++)
+        int index = 0;
+        for (String name : datasets.keySet())
         {
-            g.setColor(COL_LINES[i % COL_LINES.length]);
+            g.setColor(COL_LINES[index % COL_LINES.length]);
             g.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g.draw(getLinePath(datasets.get(i), i));
+            g.draw(getLinePath(datasets.get(name), name));
+
+            index++;
         }
 
         g.setClip(null);
     }
 
 
-    private Path2D getLinePath(double[] values, int datasetIndex)
+    private Path2D getLinePath(double[] values, String name)
     {
         double median = (min + max) / 2;
-        double aniLeftPercent = aniProgressList.get(datasetIndex) / (float)ANIMATION_TICKS;
+        double aniLeftPercent = aniProgressList.get(name) / (float)ANIMATION_TICKS;
 
         Path2D path = new Path2D.Float();
         path.moveTo(getX(0), getY(values[0] - (values[0] - median) * aniLeftPercent));
@@ -340,14 +359,20 @@ public final class LineChart extends JPanel implements ActionListener
         xValues = values;
         repaint();
     }
+
     public final void addDataset(String name, double[] values)
     {
+        if (datasets.containsKey(name))
+        {
+            Log.warn(getClass(), "Dataset " + name + " already exists");
+            return;
+        }
+
         if (values.length == 0)
             return;
 
-        datasetNames.add(name);
-        datasets.add(values);
-        aniProgressList.add(ANIMATION_TICKS);
+        datasets.put(name, values);
+        aniProgressList.put(name, ANIMATION_TICKS);
 
         // calculate new min
         for (double value : values)
@@ -364,10 +389,20 @@ public final class LineChart extends JPanel implements ActionListener
 
         Log.info(getClass(), "New range, min: " + min + ", max: " + max);
     }
+    public final void removeDataset(String name)
+    {
+        if (!datasets.containsKey(name))
+        {
+            Log.warn(getClass(), "Dataset " + name + " doesn't exist");
+            return;
+        }
+
+        datasets.remove(name);
+        aniProgressList.remove(name);
+    }
 
     public final void clearDatasets()
     {
-        datasetNames.clear();
         datasets.clear();
         aniProgressList.clear();
 
@@ -407,15 +442,15 @@ public final class LineChart extends JPanel implements ActionListener
     {
         boolean isAnimationDone = true;
 
-        for (int i = 0; i < aniProgressList.size(); i++)
+        for (String name : aniProgressList.keySet())
         {
-            int tick = aniProgressList.get(i);
+            int tick = aniProgressList.get(name);
 
             if (tick > 1)
                 isAnimationDone = false;
 
             if (tick > 0)
-                aniProgressList.set(i, tick - 1);
+                aniProgressList.put(name, tick - 1);
         }
 
         repaint();

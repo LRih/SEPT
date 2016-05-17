@@ -21,7 +21,8 @@ public final class ForecastDialog extends JDialog implements ForecastWorker.OnTa
     {
         super(owner, "Forecast", true);
 
-        setBounds(100, 100, 1000, 400);
+        setSize(1000, 400);
+        setLocationRelativeTo(null); // center dialog on screen
 
         // initialize components
         chart.setTitle("Forecast IO: " + station.getName());

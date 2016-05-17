@@ -112,6 +112,28 @@ public final class StationChart extends JPanel
         });
     }
 
+    private void updateChart()
+    {
+        ChartType type = ChartType.values()[wcbChartType.getSelectedIndex()];
+
+        chartPanel.setXValues(getXAxisValues());
+        setDataset(type);
+
+        Log.info(getClass(), "Chart changed to " + type.name());
+
+        panel.validate();
+        panel.repaint();
+    }
+
+    /**
+     * Replay chart animation.
+     */
+    public final void animate()
+    {
+        chartPanel.animate();
+    }
+
+
     private void setDataset(ChartType type)
     {
         chartPanel.clearDatasets();
@@ -215,18 +237,6 @@ public final class StationChart extends JPanel
         return values;
     }
 
-    private void updateChart()
-    {
-        ChartType type = ChartType.values()[wcbChartType.getSelectedIndex()];
-
-        chartPanel.setXValues(getXAxisValues());
-        setDataset(type);
-
-        Log.info(getClass(), "Chart changed to " + type.name());
-
-        panel.validate();
-        panel.repaint();
-    }
 
     /**
      * Set station data for this panel.

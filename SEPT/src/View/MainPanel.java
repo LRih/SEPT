@@ -132,6 +132,7 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
             // VIEW_CHART
             case Chart:
                 pnMainContent.add(stationChart, "cell 0 0, grow");
+                stationChart.animate();
                 break;
 
             // VIEW_HISTORY

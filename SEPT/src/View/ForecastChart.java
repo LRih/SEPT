@@ -185,8 +185,7 @@ public final class ForecastChart extends JPanel implements ActionListener
             String temp = String.valueOf(forecasts.get(i).min);
             Rectangle2D rect = metrics.getStringBounds(temp, g);
 
-            int alpha = (int)(255 * aniProgress / (float)ANIMATION_TICKS);
-            g.setColor(new Color(COL_MIN.getRed(), COL_MIN.getGreen(), COL_MIN.getBlue(), alpha));
+            g.setColor(new Color(COL_MIN.getRed(), COL_MIN.getGreen(), COL_MIN.getBlue(), getAlpha(forecasts.get(i).min)));
 
             int x1 = (int)(PADDING + forecastSep + i * (barSep + bar * 2 + forecastSep));
             int y1 = (int)getY(forecasts.get(i).min * aniProgress / (float)ANIMATION_TICKS);
@@ -205,8 +204,7 @@ public final class ForecastChart extends JPanel implements ActionListener
             temp = String.valueOf(forecasts.get(i).max);
             rect = metrics.getStringBounds(temp, g);
 
-            alpha = (int)(255 * aniProgress / (float)ANIMATION_TICKS);
-            g.setColor(new Color(COL_MAX.getRed(), COL_MAX.getGreen(), COL_MAX.getBlue(), alpha));
+            g.setColor(new Color(COL_MAX.getRed(), COL_MAX.getGreen(), COL_MAX.getBlue(), getAlpha(forecasts.get(i).max)));
 
             x1 = (int)(PADDING + forecastSep + bar + barSep + i * (barSep + bar * 2 + forecastSep));
             y1 = (int)getY(forecasts.get(i).max * aniProgress / (float)ANIMATION_TICKS);
@@ -295,6 +293,16 @@ public final class ForecastChart extends JPanel implements ActionListener
         }
 
         return 0;
+    }
+
+    /**
+     * Get alpha value for drawing bars.
+     */
+    private int getAlpha(double value)
+    {
+        double divisor = value >= 0 ? max : min;
+        int alpha = (int)(55 * Math.abs(value / divisor) + 200 * aniProgress / (float)ANIMATION_TICKS);
+        return Math.min(Math.max(alpha, 0), 255);
     }
 
     private Image getImage(String summary)
