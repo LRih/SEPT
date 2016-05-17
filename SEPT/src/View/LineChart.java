@@ -46,7 +46,11 @@ public final class LineChart extends JPanel implements ActionListener
         new Color(216, 36, 31),
         new Color(182, 23, 118),
         new Color(23, 182, 182),
-        new Color(182, 182, 23)
+        new Color(182, 182, 23),
+        new Color(23, 118, 255),
+        new Color(182, 118, 255),
+        new Color(182, 118, 23),
+        new Color(118, 118, 118)
     };
 
     private String title = "";
