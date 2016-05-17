@@ -39,6 +39,8 @@ public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
      */
     protected final List<Forecast> doInBackground() throws Exception
     {
+        Log.info(getClass(), "Starting to get forecast info for " + station.getName() + ", source: " + source.name());
+
         // first try to load cached data (we only need lat/lon info)
         StationData data = DataManager.getCachedStationData(station);
 
@@ -62,15 +64,17 @@ public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
         // call success or fail depending on result
         try
         {
+            Log.info(getClass(), station.getName() + " forecast from " + source.name() + " downloaded");
+
             if (listener != null)
-                listener.onSuccess(get());
+                listener.onTaskSuccess(get());
         }
         catch (Exception e)
         {
-            Log.warn(ForecastWorker.class, e.getMessage());
+            Log.warn(getClass(), e.getMessage());
 
             if (listener != null)
-                listener.onFail();
+                listener.onTaskFail();
         }
     }
 
@@ -96,11 +100,11 @@ public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
          *
          * @param forecasts the obtained forecasts
          */
-        void onSuccess(List<Forecast> forecasts);
+        void onTaskSuccess(List<Forecast> forecasts);
 
         /**
          * Called when forecasts could not be obtained.
          */
-        void onFail();
+        void onTaskFail();
     }
 }

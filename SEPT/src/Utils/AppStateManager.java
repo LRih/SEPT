@@ -46,7 +46,10 @@ public final class AppStateManager
     {
         // don't do anything if app state doesn't exist
         if (!new File(FILE_PATH).exists())
+        {
+            Log.info(AppStateManager.class, "No app state found");
             return;
+        }
 
         String data = FileUtils.loadText(FILE_PATH);
         AppState state = AppState.getInstance();
@@ -69,6 +72,8 @@ public final class AppStateManager
             Log.warn(AppStateManager.class, e.getMessage());
             state.resetDefault();
         }
+
+        Log.info(AppStateManager.class, "Existing app state loaded");
     }
 
     /**
@@ -79,6 +84,7 @@ public final class AppStateManager
         try
         {
             save();
+            Log.info(AppStateManager.class, "App state saved successfully");
         }
         catch (IOException e)
         {

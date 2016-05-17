@@ -41,6 +41,7 @@ public final class StationDetail extends JPanel
 
     private WebButton wbtnViewChart;
     private WebButton wbtnViewWeatherHistory;
+    private WebButton wbtnViewForecast;
     private WebLabel wblblRemoveFromFavourites;
 
     private Station station;
@@ -137,6 +138,15 @@ public final class StationDetail extends JPanel
         wbtnViewWeatherHistory.setDrawShade(false);
         add(wbtnViewWeatherHistory, "cell 2 7");
 
+        wbtnViewForecast = new WebButton();
+        wbtnViewForecast.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wbtnViewForecast.setDefaultButtonShadeColor(new Color(240, 255, 255));
+        wbtnViewForecast.setBottomSelectedBgColor(new Color(224, 255, 255));
+        wbtnViewForecast.setBottomBgColor(new Color(240, 248, 255));
+        wbtnViewForecast.setDrawShade(false);
+        wbtnViewForecast.setText("View Forecast (tmp)");
+        add(wbtnViewForecast, "cell 2 6");
+
         JPanel panelFiller2 = new JPanel();
         panelFiller2.setVisible(false);
         add(panelFiller2, "cell 0 8,grow");
@@ -166,6 +176,15 @@ public final class StationDetail extends JPanel
             {
                 if (_listenerAction != null)
                     _listenerAction.onViewChartClick();
+            }
+        });
+
+        wbtnViewForecast.addActionListener(new ActionListener()
+        {
+            public final void actionPerformed(ActionEvent e)
+            {
+                if (_listenerAction != null)
+                    _listenerAction.onViewForecastClick();
             }
         });
 
@@ -292,6 +311,7 @@ public final class StationDetail extends JPanel
     public interface OnActionListener
     {
         void onViewChartClick();
+        void onViewForecastClick();
         void onViewHistoryClick();
     }
     public interface OnRemoveFavoriteClickListener

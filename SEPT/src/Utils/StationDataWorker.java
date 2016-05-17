@@ -38,7 +38,7 @@ public final class StationDataWorker extends SwingWorker<StationData, Void>
 
         // fail when data is null
         if (data == null)
-            throw new Exception("Could not get station data");
+            throw new Exception("Could not download station data");
 
         return data;
     }
@@ -51,15 +51,17 @@ public final class StationDataWorker extends SwingWorker<StationData, Void>
         // call success or fail depending on result
         try
         {
+            Log.info(getClass(), station.getName() + " data downloaded");
+
             if (listener != null)
-                listener.onSuccess(get());
+                listener.onTaskSuccess(get());
         }
         catch (Exception e)
         {
-            Log.warn(StationDataWorker.class, e.getMessage());
+            Log.warn(getClass(), e.getMessage());
 
             if (listener != null)
-                listener.onFail();
+                listener.onTaskFail();
         }
     }
 
@@ -85,11 +87,11 @@ public final class StationDataWorker extends SwingWorker<StationData, Void>
          *
          * @param data the obtained data
          */
-        void onSuccess(StationData data);
+        void onTaskSuccess(StationData data);
 
         /**
          * Called when data could not be obtained.
          */
-        void onFail();
+        void onTaskFail();
     }
 }

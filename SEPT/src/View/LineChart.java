@@ -1,5 +1,7 @@
 package View;
 
+import Utils.Log;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -358,6 +360,8 @@ public final class LineChart extends JPanel implements ActionListener
 
         repaint();
         timer.start();
+
+        Log.info(getClass(), "New range, min: " + min + ", max: " + max);
     }
 
     public final void clearDatasets()

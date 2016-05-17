@@ -31,7 +31,7 @@ import java.io.IOException;
 /**
  * App Main
  */
-public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, StationDetail.OnRemoveFavoriteClickListener, FavoriteCell.OnStationSelectListener, FavoriteCell.OnDataLoadListener
+public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, StationDetail.OnRemoveFavoriteClickListener, FavoriteCell.OnStationSelectListener, FavoriteCell.OnDataLoadListener, MainPanel.OnViewForecastClickListener
 {
     private static final int NOTIFICATION_CLOSE_TIME_MILLIS = 5000;
 
@@ -89,6 +89,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         catch (Exception e)
         {
             WebOptionPane.showMessageDialog(frmMain, "\"stations.json\" missing or invalid, closing.", "ERROR", WebOptionPane.ERROR_MESSAGE);
+            Log.severe(DataManager.class, "\"stations.json\" missing or invalid");
             System.exit(0);
         }
 
@@ -101,7 +102,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         }
         catch (IOException e)
         {
-            // no problem
+            Log.severe(FavoritesManager.class, "Error loading favorites");
         }
 
         // check for invalid station and state from previous session
@@ -213,6 +214,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
                 showPanel(PanelType.AddFavorite);
             }
         });
+        pnMain.setOnViewForecastListener(this);
         pnMain.setOnRemoveFromFavoritesClickListener(this);
         pnMain.setOnStationSelectListener(this);
         pnMain.setOnDataLoadListener(this);
@@ -335,11 +337,15 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         {
             AppState.getInstance().state = "";
             AppState.getInstance().station = "";
+
+            Log.info(getClass(), "Station deselected");
         }
         else
         {
             AppState.getInstance().state = station.getState().getName();
             AppState.getInstance().station = station.getName();
+
+            Log.info(getClass(), "Station selected: " + station.getName() + (data == null ? " (no data)" : " (data available)"));
         }
 
         // update main panel
@@ -348,6 +354,11 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
 
 
     /* Event callbacks */
+
+    public final void onViewForecastClick()
+    {
+        new ForecastDialog(frmMain, selectedStation).setVisible(true);
+    }
 
     public final void onAddFavoriteClick(Station station)
     {
@@ -362,6 +373,8 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         try
         {
             FavoritesManager.save(favorites);
+
+            Log.info(FavoritesManager.class, "Favorite added: " + station.getName());
         }
         catch (IOException e)
         {
@@ -381,6 +394,8 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         try
         {
             FavoritesManager.save(favorites);
+
+            Log.info(FavoritesManager.class, "Favorite removed: " + station.getName());
         }
         catch (IOException e)
         {

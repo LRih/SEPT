@@ -94,6 +94,8 @@ public final class DataManager
      */
     public static StationData getNetStationData(Station station) throws IOException, JSONException
     {
+        Log.info(DataManager.class, "Starting to download data for " + station.getName());
+
         String jsonMain = NetUtils.get(station.getUrl());
         tryCacheLatestBOMData(station, jsonMain); // cache data locally
 
@@ -112,9 +114,15 @@ public final class DataManager
      */
     public static StationData getCachedStationData(Station station)
     {
+        Log.info(DataManager.class, "Loading cached data for " + station.getName());
+
         try
         {
-            return createStationData(loadLatestBOMCacheData(station), loadHistoricalBOMCacheData(station));
+            StationData data = createStationData(loadLatestBOMCacheData(station), loadHistoricalBOMCacheData(station));
+
+            Log.info(DataManager.class, "Cached data successfully loaded for " + station.getName());
+
+            return data;
         }
         catch (IOException|JSONException e)
         {

@@ -1,6 +1,8 @@
 package View;
 
 import Model.Forecast;
+import Utils.AppStateManager;
+import Utils.Log;
 import Utils.SwingUtils;
 
 import javax.swing.*;
@@ -311,6 +313,8 @@ public final class ForecastChart extends JPanel implements ActionListener
         else if (summary.contains("snow"))
             return images[7];
 
+        Log.warn(getClass(), "Unsupported summary detected: " + summary);
+
         return null;
     }
 
@@ -337,6 +341,8 @@ public final class ForecastChart extends JPanel implements ActionListener
         // start animation
         aniProgress = 0;
         timer.start();
+
+        Log.info(getClass(), "New range, min: " + min + ", max: " + max);
     }
 
     public final void setTitle(String title)

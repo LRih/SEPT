@@ -130,10 +130,8 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     /**
      * On success callback for StationWorker
      */
-    public final void onSuccess(StationData data)
+    public final void onTaskSuccess(StationData data)
     {
-        Log.info(getClass(), station.getName() + " data downloaded");
-
         if (_listenerDataLoad != null)
             _listenerDataLoad.onSuccess(station, data);
 
@@ -143,7 +141,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     /**
      * On fail call back for StationWorker
      */
-    public final void onFail()
+    public final void onTaskFail()
     {
         if (_listenerDataLoad != null)
             _listenerDataLoad.onFail();

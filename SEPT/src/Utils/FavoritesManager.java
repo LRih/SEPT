@@ -42,7 +42,12 @@ public final class FavoritesManager
     {
         // return empty list if file doesn't exist
         if (!new File(FILE_PATH).exists())
+        {
+            Log.info(FavoritesManager.class, "No favorites found");
             return new Favorites();
+        }
+
+        Log.info(FavoritesManager.class, "Loading existing favorites");
 
         return toFavorites(FileUtils.loadText(FILE_PATH));
     }
