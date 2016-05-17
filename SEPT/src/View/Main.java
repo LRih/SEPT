@@ -64,7 +64,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
     /**
      * Create the application.
      */
-    public Main()
+    private Main()
     {
         // try to initialize logging
         if (!Log.initializeLoggers())
@@ -148,7 +148,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         frmMain.setTitle("Bom Weather");
         frmMain.setBounds(AppState.getInstance().getWindowRect());
 
-        frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmMain.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         pnFirstRun = new FirstRunPanel();
         pnAddFavorite = new AddFavoritePanel(states);
@@ -180,6 +180,8 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         {
             public final void actionPerformed(ActionEvent e)
             {
+                Log.info(getClass(), "Refresh started");
+
                 notificationShown = false;
 
                 // set Top Bar Background to Grey
@@ -413,7 +415,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         setStation(station, data);
     }
 
-    public final void onSuccess(Station station, StationData data)
+    public final void onDataLoadSuccess(Station station, StationData data)
     {
         // update main panel data selected station matches downloaded data
         if (station == selectedStation)
@@ -422,7 +424,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         updateBackgroundColor(true);
     }
 
-    public final void onFail()
+    public final void onDataLoadFail()
     {
         showNoInternetNotification();
         updateBackgroundColor(false);

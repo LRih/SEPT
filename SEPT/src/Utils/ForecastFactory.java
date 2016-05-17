@@ -14,7 +14,9 @@ import java.util.List;
  */
 public class ForecastFactory
 {
-    // TODO document
+    /**
+     * Get forecasts from the web from specified source.
+     */
     public static List<Forecast> getNetForecasts(double lat, double lon, Source src) throws IOException, JSONException
     {
         switch (src)
@@ -28,8 +30,10 @@ public class ForecastFactory
         }
     }
 
-    // TODO document
-    public static List<Forecast> getCachedForecasts(double lat, double lon, Source src) throws IOException, JSONException
+    /**
+     * Get cached forecasts from specified source.
+     */
+    public static List<Forecast> getCachedForecasts(double lat, double lon, Source src) throws JSONException
     {
         switch (src)
         {

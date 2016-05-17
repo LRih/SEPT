@@ -27,27 +27,27 @@ public final class StationDetail extends JPanel
     private static final int TEMP_FREEZING = 0;
     private static final int TEMP_COOL = 25;
 
-    private WebLabel wblblStation;
-    private WebLabel wblblHumid;
-    private WebLabel wblblState;
-    private WebLabel wblblWindSse;
-    private WebLabel wblblRainSinceam;
-    private WebLabel wblblc;
-    private WebLabel wblblPressQmh;
-    private WebLabel wblblPress;
-    private WebLabel wblblAirTemp;
-    private WebLabel wblblDewPoint;
-    private WebLabel wblblLastUpdate;
+    private final WebLabel wblblStation;
+    private final WebLabel wblblHumid;
+    private final WebLabel wblblState;
+    private final WebLabel wblblWindSse;
+    private final WebLabel wblblRainSinceam;
+    private final WebLabel wblblc;
+    private final WebLabel wblblPressQmh;
+    private final WebLabel wblblPress;
+    private final WebLabel wblblAirTemp;
+    private final WebLabel wblblDewPoint;
+    private final WebLabel wblblLastUpdate;
 
-    private WebButton wbtnViewChart;
-    private WebButton wbtnViewWeatherHistory;
-    private WebButton wbtnViewForecast;
-    private WebLabel wblblRemoveFromFavourites;
+    private final WebButton wbtnViewChart;
+    private final WebButton wbtnViewWeatherHistory;
+    private final WebButton wbtnViewForecast;
+    private final WebLabel wblblRemoveFromFavourites;
 
     private Station station;
     private StationData data;
 
-    private DateTimeFormatter dtFormatter;
+    private final DateTimeFormatter dtFormatter;
 
     private OnActionListener _listenerAction;
     private OnRemoveFavoriteClickListener _listenerRemoveFavorite;

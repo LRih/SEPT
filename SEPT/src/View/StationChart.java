@@ -27,11 +27,11 @@ import javax.swing.DefaultComboBoxModel;
  */
 public final class StationChart extends JPanel
 {
-    private WebLabel wblblStation;
-    private WebLabel wblblState;
-    private LineChart chartPanel;
-    private JPanel panel;
-    private WebComboBox wcbChartType;
+    private final WebLabel wblblStation;
+    private final WebLabel wblblState;
+    private final LineChart chartPanel;
+    private final JPanel panel;
+    private final WebComboBox wcbChartType;
 
     private StationData data;
 

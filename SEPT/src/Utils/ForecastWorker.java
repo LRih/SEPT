@@ -14,8 +14,8 @@ import java.util.List;
  */
 public final class ForecastWorker extends SwingWorker<List<Forecast>, Void>
 {
-    private Station station;
-    private ForecastFactory.Source source;
+    private final Station station;
+    private final ForecastFactory.Source source;
     private OnTaskCompleteListener listener;
 
 

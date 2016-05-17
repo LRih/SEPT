@@ -18,11 +18,11 @@ import java.util.List;
  */
 public final class FavoritesManager
 {
-    private static String FILE_PATH = "favourites.json";
-    private static int JSON_INDENT = 4;
+    private static final String FILE_PATH = "favourites.json";
+    private static final int JSON_INDENT = 4;
 
-    private static String KEY_STATE = "state";
-    private static String KEY_STATION = "station";
+    private static final String KEY_STATE = "state";
+    private static final String KEY_STATION = "station";
 
 
     private FavoritesManager()

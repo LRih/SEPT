@@ -11,7 +11,7 @@ import javax.swing.*;
  */
 public final class StationDataWorker extends SwingWorker<StationData, Void>
 {
-    private Station station;
+    private final Station station;
     private OnTaskCompleteListener listener;
 
 

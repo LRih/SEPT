@@ -14,8 +14,8 @@ import java.util.List;
  */
 public final class ForecastDialog extends JDialog implements ForecastWorker.OnTaskCompleteListener
 {
-    private ForecastChart chart = new ForecastChart();
-    private JPanel pnProgressBar = new JPanel();
+    private final ForecastChart chart = new ForecastChart();
+    private final JPanel pnProgressBar = new JPanel();
 
     public ForecastDialog(Frame owner, Station station)
     {

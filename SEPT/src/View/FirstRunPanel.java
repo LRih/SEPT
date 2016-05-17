@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
  */
 public final class FirstRunPanel extends JPanel
 {
-    private WebButton wbtnAddStation;
+    private final WebButton wbtnAddStation;
 
     private OnAddListener _listener;
 

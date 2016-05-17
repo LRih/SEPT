@@ -226,15 +226,15 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
             _listenerStationSelect.onStationSelect(station, data);
     }
 
-    public final void onSuccess(Station station, StationData data)
+    public final void onDataLoadSuccess(Station station, StationData data)
     {
         if (_listenerDataLoad != null)
-            _listenerDataLoad.onSuccess(station, data);
+            _listenerDataLoad.onDataLoadSuccess(station, data);
     }
-    public final void onFail()
+    public final void onDataLoadFail()
     {
         if (_listenerDataLoad != null)
-            _listenerDataLoad.onFail();
+            _listenerDataLoad.onDataLoadFail();
     }
 
 

@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public final class DataManager
 {
-    private static String STATIONS_FILE_PATH = "stations.json";
+    private static final String STATIONS_FILE_PATH = "stations.json";
 
 
     private DataManager()

@@ -49,7 +49,7 @@ public final class ForecastChart extends JPanel implements ActionListener
     
     // used for animations
     private int aniProgress;
-    private Timer timer;
+    private final Timer timer;
 
 
     public ForecastChart()

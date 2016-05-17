@@ -8,10 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * A component for drawing simple charts.
@@ -65,7 +63,7 @@ public final class LineChart extends JPanel implements ActionListener
 
     // used for animations
     private final HashMap<String, Integer> aniProgressList = new HashMap<>();
-    private Timer timer;
+    private final Timer timer;
 
 
     public LineChart()

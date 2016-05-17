@@ -12,15 +12,15 @@ import java.io.IOException;
  */
 public final class AppStateManager
 {
-    private static String FILE_PATH = "appstate.json";
-    private static int JSON_INDENT = 4;
+    private static final String FILE_PATH = "appstate.json";
+    private static final int JSON_INDENT = 4;
 
-    private static String KEY_WINDOW_RECT = "windowRect";
-    private static String KEY_SHOWN_WINDOW = "shownWindow";
-    private static String KEY_SHOWN_DETAIL = "shownDetail";
-    private static String KEY_CHART_INDEX = "chartIndex";
-    private static String KEY_STATE = "state";
-    private static String KEY_STATION = "station";
+    private static final String KEY_WINDOW_RECT = "windowRect";
+    private static final String KEY_SHOWN_WINDOW = "shownWindow";
+    private static final String KEY_SHOWN_DETAIL = "shownDetail";
+    private static final String KEY_CHART_INDEX = "chartIndex";
+    private static final String KEY_STATE = "state";
+    private static final String KEY_STATION = "station";
 
     /**
      * Tries to load the app state from the last session.
@@ -42,7 +42,7 @@ public final class AppStateManager
      *
      * @throws IOException if there is an IO error of any sort
      */
-    public static void load() throws IOException
+    private static void load() throws IOException
     {
         // don't do anything if app state doesn't exist
         if (!new File(FILE_PATH).exists())
@@ -97,7 +97,7 @@ public final class AppStateManager
      *
      * @throws IOException if there is an IO error of any sort
      */
-    public static void save() throws IOException
+    private static void save() throws IOException
     {
         FileUtils.saveText(toJSON(AppState.getInstance()).toString(JSON_INDENT), FILE_PATH);
     }

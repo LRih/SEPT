@@ -33,9 +33,9 @@ public final class StationHistory extends JPanel
 {
     private static final DateTimeFormatter DT_FORMATTER = DateTimeFormat.forPattern("HH:mm dd/MM");
 
-    private WebLabel wblblStation;
-    private WebLabel wblblState;
-    private WebTable webTable;
+    private final WebLabel wblblStation;
+    private final WebLabel wblblState;
+    private final WebTable webTable;
 
     private StationData data;
 
@@ -144,7 +144,7 @@ public final class StationHistory extends JPanel
     public class SampleTableModel extends AbstractTableModel
     {
         private static final long serialVersionUID = 1L;
-        private String[] columnNames = {
+        private final String[] columnNames = {
             "Local Time", "Tmp", "App Tmp", "Dew Point", "Real Hum", "Delta-T", "Wind Dir",
             "Wind Spd km/h", "Wind Gust km/h", "Wind Spd kts", "Wind Gust kts", "Press QNH", "Press MSL", "Rain since 9am" };
 

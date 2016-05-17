@@ -4,7 +4,6 @@ import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
 import Data.DataManager;
-import Utils.Log;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.label.WebLabel;
 
@@ -25,9 +24,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     private static final Color COL_NORMAL = new Color(248, 248, 255);
     private static final Color COL_SELECTED = new Color(88, 186, 199);
 
-    private final WebLabel wblblStation;
     private final WebLabel wblblTemp;
-    private final WebLabel wblblState;
 
     private final Station station;
     private StationData data;
@@ -73,7 +70,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
         setBackground(new Color(248, 248, 255));
         setLayout(new MigLayout("", "[grow][][5%][]", "[][][]"));
 
-        wblblStation = new WebLabel();
+        WebLabel wblblStation = new WebLabel();
         wblblStation.setForeground(new Color(255, 69, 0));
         wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 16));
         wblblStation.setText(station.getName());
@@ -85,7 +82,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
 
         add(wblblTemp, "cell 1 0 1 3,alignx center,aligny center");
 
-        wblblState = new WebLabel();
+        WebLabel wblblState = new WebLabel();
         wblblState.setFont(new Font("Bender", Font.PLAIN, 12));
         wblblState.setText(station.getState().getName());
         add(wblblState, "cell 0 2");
@@ -133,7 +130,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     public final void onTaskSuccess(StationData data)
     {
         if (_listenerDataLoad != null)
-            _listenerDataLoad.onSuccess(station, data);
+            _listenerDataLoad.onDataLoadSuccess(station, data);
 
         setStationData(data);
     }
@@ -144,7 +141,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     public final void onTaskFail()
     {
         if (_listenerDataLoad != null)
-            _listenerDataLoad.onFail();
+            _listenerDataLoad.onDataLoadFail();
     }
 
 
@@ -154,7 +151,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     }
     public interface OnDataLoadListener
     {
-        void onSuccess(Station station, StationData data);
-        void onFail();
+        void onDataLoadSuccess(Station station, StationData data);
+        void onDataLoadFail();
     }
 }

@@ -19,12 +19,12 @@ import java.util.List;
  */
 public final class BOMUtils
 {
-    private static int JSON_INDENT = 4;
+    private static final int JSON_INDENT = 4;
 
     /**
      * Number of past months to fetch for historical readings.
      */
-    private static int MONTHS_FETCH_COUNT = 3;
+    private static final int MONTHS_FETCH_COUNT = 3;
 
 
     private BOMUtils()
