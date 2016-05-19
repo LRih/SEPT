@@ -23,7 +23,6 @@ Given the user has previously loaded station data while connected to the
 internet, when the app is launched without an internet connection then locally
 cached data will be loaded.
 
-
 7. As a curious user, I want to check forecast from different sources so that I can compare the accuracy and
 decide which source is more reliable.
 No confirmation as of yet.

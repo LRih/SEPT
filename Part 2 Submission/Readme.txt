@@ -9,6 +9,9 @@ Percentage:
 25%
 
 Contribution description:
+Graphing classes
+Logging class
+Factory method
 
 
 --------------------------------------------
@@ -31,6 +34,7 @@ Percentage:
 25%
 
 Contribution description:
+Acceptance tests
 
 
 --------------------------------------------
