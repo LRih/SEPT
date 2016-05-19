@@ -1,10 +1,20 @@
 import Model.*;
+import Utils.ForecastFactory;
+import Utils.Log;
+import Utils.SwingUtils;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public final class Tests
 {
+    @BeforeClass
+    public static void preTest()
+    {
+        Log.initializeLoggers();
+    }
+
     /**
      * Test added state properly added
      */
@@ -215,5 +225,40 @@ public final class Tests
 
         favorites.delete(station1);
         assertEquals(favorites.size(), 0);
+    }
+
+
+    /**
+     * Getting uncached Forecast IO forecast
+     */
+    @Test
+    public void testGetUncachedForecastIO()
+    {
+        assertNull(ForecastFactory.getCachedForecasts(-1.337, -1.337, ForecastFactory.Source.ForecastIO));
+    }
+
+    /**
+     * Getting uncached OpenWeatherMap forecast
+     */
+    @Test
+    public void testGetUncachedOpenWeatherMap()
+    {
+        assertNull(ForecastFactory.getCachedForecasts(-1.337, -1.337, ForecastFactory.Source.OpenWeatherMap));
+    }
+
+    /**
+     * Test load weather image
+     */
+    @Test
+    public void testLoadWeatherImage()
+    {
+        assertNotNull(SwingUtils.createImage("/Images/clear.png"));
+        assertNotNull(SwingUtils.createImage("/Images/cloudy.png"));
+        assertNotNull(SwingUtils.createImage("/Images/fog.png"));
+        assertNotNull(SwingUtils.createImage("/Images/partly_cloudy.png"));
+        assertNotNull(SwingUtils.createImage("/Images/rain.png"));
+        assertNotNull(SwingUtils.createImage("/Images/sleet.png"));
+        assertNotNull(SwingUtils.createImage("/Images/snow.png"));
+        assertNotNull(SwingUtils.createImage("/Images/wind.png"));
     }
 }
