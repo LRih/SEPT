@@ -133,7 +133,7 @@ public final class MainPanel extends JPanel
 	 */
 	public final void showPanel(PanelType type) {
 		pnMainContent.removeAll();
-		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow][200]"));
+		pnMainContent.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow]", "[grow][200]"));
 
 		AppState.getInstance().shownDetail = type.ordinal();
 		Log.info(getClass(), "Panel changed to " + type.name());
