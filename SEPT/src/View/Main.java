@@ -4,6 +4,8 @@ import Model.*;
 import Data.DataManager;
 import Utils.FavoritesManager;
 import Utils.Log;
+import Utils.SwingUtils;
+
 import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.managers.notification.NotificationIcon;
 import com.alee.managers.notification.NotificationManager;
@@ -19,16 +21,19 @@ import Utils.AppStateManager;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.button.WebButton;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.nio.channels.SelectableChannel;
 import java.awt.Dimension;
+import com.alee.extended.image.WebImage;
 
 /**
  * App Main
@@ -52,6 +57,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
     private Station selectedStation;
     private StationData selectedStationData;
     private boolean notificationShown;
+    private WebImage imageLoading;
 
     /**
      * Launch the application.
@@ -130,11 +136,16 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         frmMain.getContentPane().add(pnMainBar, "cell 0 0,grow");
         pnMainBar.setLayout(new MigLayout("", "[grow][10%]", "[]"));
 
+        Image img = SwingUtils.createImage("/Images/logo_small.png");
+        imageLoading = new WebImage(img);
+        imageLoading.setSize(62, 50);
+        pnMainBar.add(imageLoading, "flowx,cell 0 0");
+        
         WebLabel wblblBomWeather = new WebLabel();
         wblblBomWeather.setForeground(new Color(255, 255, 255));
         wblblBomWeather.setFont(Style.FONT_20);
         wblblBomWeather.setText("BOM Weather");
-        pnMainBar.add(wblblBomWeather, "cell 0 0");
+        pnMainBar.add(wblblBomWeather, "flowx,cell 0 0");
 
         wbtnRefreshData = new WebButton();
         wbtnRefreshData.setForeground(new Color(25, 25, 112));
