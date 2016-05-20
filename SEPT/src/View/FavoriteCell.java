@@ -21,9 +21,6 @@ import java.util.List;
  */
 public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
 {
-    private static final Color COL_NORMAL = new Color(248, 248, 255);
-    private static final Color COL_SELECTED = new Color(88, 186, 199);
-
     private final WebLabel wblblTemp;
 
     private final Station station;
@@ -58,11 +55,11 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
             // hover effect
             public final void mouseEntered(MouseEvent e)
             {
-                setBackground(isSelected ? COL_SELECTED : new Color(240, 248, 255));
+                setBackground(isSelected ? Style.CELL_SELECTED : Style.MAIN_PANEL_BACKGROUND);
             }
             public final void mouseExited(MouseEvent e)
             {
-                setBackground(isSelected ? COL_SELECTED : COL_NORMAL);
+                setBackground(isSelected ? Style.CELL_SELECTED : Style.CELL_NORMAL);
             }
         });
 
@@ -72,18 +69,18 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
 
         WebLabel wblblStation = new WebLabel();
         wblblStation.setForeground(new Color(255, 69, 0));
-        wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+        wblblStation.setFont(Style.FONT_16);
         wblblStation.setText(station.getName());
         add(wblblStation, "cell 0 0 1 2,alignx left,grow");
 
         wblblTemp = new WebLabel();
-        wblblTemp.setFont(new Font("Futura", Font.PLAIN, 20));
+        wblblTemp.setFont(Style.FONT_FUTURA_20);
         wblblTemp.setForeground(new Color(34, 139, 34));
 
         add(wblblTemp, "cell 1 0 1 3,alignx center,aligny center");
 
         WebLabel wblblState = new WebLabel();
-        wblblState.setFont(new Font("Bender", Font.PLAIN, 12));
+        wblblState.setFont(Style.FONT_BENDER_12);
         wblblState.setText(station.getState().getName());
         add(wblblState, "cell 0 2");
 
@@ -93,7 +90,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     public final void updateSelected(Station selectedStation)
     {
         isSelected = station == selectedStation;
-        setBackground(isSelected ? COL_SELECTED : COL_NORMAL);
+        setBackground(isSelected ? Style.CELL_SELECTED : Style.CELL_NORMAL);
     }
 
     private void setStationData(StationData data)

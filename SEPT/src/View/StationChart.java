@@ -42,11 +42,11 @@ public final class StationChart extends JPanel
      */
     public StationChart()
     {
-        setBackground(new Color(240, 248, 255));
+        setBackground(Style.MAIN_PANEL_BACKGROUND);
         setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
 
         WebButton wbtnBack = new WebButton();
-        wbtnBack.setFont(new Font("Bender", Font.PLAIN, 13));
+        wbtnBack.setFont(Style.FONT_BENDER_13);
         wbtnBack.setDrawShade(false);
         wbtnBack.addActionListener(new ActionListener()
         {
@@ -62,23 +62,23 @@ public final class StationChart extends JPanel
         wblblStation = new WebLabel();
         wblblStation.setText("-");
         wblblStation.setForeground(new Color(255, 69, 0));
-        wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+        wblblStation.setFont(Style.FONT_30);
 
         add(wblblStation, "cell 1 0");
 
         wblblState = new WebLabel();
-        wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
+        wblblState.setFont(Style.FONT_BENDER_16);
         wblblState.setText("-");
         add(wblblState, "cell 2 0,alignx trailing");
 
         WebLabel wblblSelectChart = new WebLabel();
-        wblblSelectChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblSelectChart.setFont(Style.FONT_13);
         wblblSelectChart.setText("Select Chart");
         add(wblblSelectChart, "flowx,cell 3 0,alignx right,aligny center");
 
         wcbChartType = new WebComboBox();
         wcbChartType.setDrawFocus(false);
-        wcbChartType.setFont(new Font("Bender", Font.PLAIN, 13));
+        wcbChartType.setFont(Style.FONT_BENDER_13);
         wcbChartType.setModel(new DefaultComboBoxModel(new String[]
         {
             "Min temp.", "Max temp.", "Rainfall", "Max wind gust (km/h)",
@@ -152,66 +152,90 @@ public final class StationChart extends JPanel
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).minTemp != null)
                         values[i] = readings.get(i).minTemp;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
 
             case MaxTemp:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).maxTemp != null)
                         values[i] = readings.get(i).maxTemp;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
 
             case Rainfall:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).rainfall != null)
                         values[i] = readings.get(i).rainfall;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
 
             case MaxWindGustKmH:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).maxWindGustKmH != null)
                         values[i] = readings.get(i).maxWindGustKmH;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
 
             case Temp9AM:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).temp9AM != null)
                         values[i] = readings.get(i).temp9AM;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
             case RelHumidity9AM:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).relHumidity9AM != null)
                         values[i] = readings.get(i).relHumidity9AM;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
             case WindSpd9AM:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).windSpd9AM != null)
                         values[i] = readings.get(i).windSpd9AM;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
             case PressureMSL9AM:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).pressureMSL9AM != null)
                         values[i] = readings.get(i).pressureMSL9AM;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
 
             case Temp3PM:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).temp3PM != null)
                         values[i] = readings.get(i).temp3PM;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
             case RelHumidity3PM:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).relHumidity3PM != null)
                         values[i] = readings.get(i).relHumidity3PM;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
             case WindSpd3PM:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).windSpd3PM != null)
                         values[i] = readings.get(i).windSpd3PM;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
             case PressureMSL3PM:
                 for (int i = 0; i < values.length; i++)
                     if (readings.get(i).pressureMSL3PM != null)
                         values[i] = readings.get(i).pressureMSL3PM;
+                    else if (i > 0)
+                        values[i] = values[i - 1];
                 break;
 
             default:

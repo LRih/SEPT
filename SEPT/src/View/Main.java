@@ -129,7 +129,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
 
         WebLabel wblblBomWeather = new WebLabel();
         wblblBomWeather.setForeground(new Color(255, 255, 255));
-        wblblBomWeather.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+        wblblBomWeather.setFont(Style.FONT_20);
         wblblBomWeather.setText("BOM Weather");
         pnMainBar.add(wblblBomWeather, "cell 0 0");
 

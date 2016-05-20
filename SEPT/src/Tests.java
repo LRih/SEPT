@@ -2,13 +2,19 @@ import Model.*;
 import Utils.ForecastFactory;
 import Utils.Log;
 import Utils.SwingUtils;
+import Utils.TextUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.*;
 
 public final class Tests
 {
+    /**
+     * Initialize loggers for tests.
+     */
     @BeforeClass
     public static void preTest()
     {
@@ -260,5 +266,21 @@ public final class Tests
         assertNotNull(SwingUtils.createImage("/Images/sleet.png"));
         assertNotNull(SwingUtils.createImage("/Images/snow.png"));
         assertNotNull(SwingUtils.createImage("/Images/wind.png"));
+    }
+
+    /**
+     * Test MD5 hashing algorithm
+     */
+    @Test
+    public void testMD5HashAlgorithm()
+    {
+        try
+        {
+            assertEquals(TextUtils.md5("ForecastIO,100,100"), "c319189aeeb10062c71f9f248f9d6ea0");
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            fail();
+        }
     }
 }

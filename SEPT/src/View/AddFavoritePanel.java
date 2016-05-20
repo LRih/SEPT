@@ -15,8 +15,6 @@ import com.alee.laf.label.WebLabel;
 import Model.State;
 import Model.Station;
 
-import java.awt.Font;
-
 import com.alee.laf.combobox.WebComboBox;
 
 import java.awt.Color;
@@ -48,7 +46,7 @@ public final class AddFavoritePanel extends JPanel
         setLayout(new MigLayout("", "[20%][grow]", "[][grow]"));
 
         wbtnBack = new WebButton();
-        wbtnBack.setFont(new Font("Bender", Font.PLAIN, 13));
+        wbtnBack.setFont(Style.FONT_BENDER_13);
         wbtnBack.setText("< Back");
         add(wbtnBack, "cell 0 0");
 
@@ -69,7 +67,7 @@ public final class AddFavoritePanel extends JPanel
         WebLabel wblblAddStation = new WebLabel();
         pnAddStation.add(wblblAddStation, "cell 1 0");
         wblblAddStation.setForeground(new Color(0, 0, 0));
-        wblblAddStation.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+        wblblAddStation.setFont(Style.FONT_16);
         wblblAddStation.setText("Find your station");
 
         WebLabel wblblSelectState = new WebLabel();
@@ -77,7 +75,7 @@ public final class AddFavoritePanel extends JPanel
         pnAddStation.add(wblblSelectState, "cell 0 1,alignx trailing");
 
         wcbStates = new WebComboBox();
-        wcbStates.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wcbStates.setFont(Style.FONT_13);
         wcbStates.setDrawFocus(false);
         pnAddStation.add(wcbStates, "cell 1 1,growx");
 
@@ -86,12 +84,12 @@ public final class AddFavoritePanel extends JPanel
         pnAddStation.add(wblblSelectStation, "cell 0 2,alignx trailing");
 
         wcbStations = new WebComboBox();
-        wcbStations.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wcbStations.setFont(Style.FONT_13);
         wcbStations.setDrawFocus(false);
         pnAddStation.add(wcbStations, "cell 1 2,growx");
 
         wbtnAddToMyFavorites = new WebButton();
-        wbtnAddToMyFavorites.setFont(new Font("Bender", Font.PLAIN, 13));
+        wbtnAddToMyFavorites.setFont(Style.FONT_BENDER_13);
         wbtnAddToMyFavorites.setForeground(new Color(0, 128, 0));
         wbtnAddToMyFavorites.setDefaultButtonShadeColor(new Color(240, 255, 240));
         wbtnAddToMyFavorites.setBottomSelectedBgColor(new Color(154, 205, 50));

@@ -46,7 +46,7 @@ public final class StationHistory extends JPanel
      */
     public StationHistory()
     {
-        setBackground(new Color(240, 248, 255));
+        setBackground(Style.MAIN_PANEL_BACKGROUND);
         setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
 
         WebButton wbtnBack = new WebButton();
@@ -65,12 +65,12 @@ public final class StationHistory extends JPanel
         wblblStation = new WebLabel();
         wblblStation.setText("-");
         wblblStation.setForeground(new Color(255, 69, 0));
-        wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+        wblblStation.setFont(Style.FONT_30);
 
         add(wblblStation, "cell 1 0");
 
         wblblState = new WebLabel();
-        wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
+        wblblState.setFont(Style.FONT_BENDER_16);
         wblblState.setText("-");
         add(wblblState, "cell 2 0");
 

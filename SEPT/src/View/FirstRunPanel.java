@@ -31,7 +31,7 @@ public final class FirstRunPanel extends JPanel
      */
     public FirstRunPanel()
     {
-        setBackground(new Color(255, 255, 255));
+        setBackground(Color.WHITE);
 
         setLayout(new MigLayout("", "[grow][center][grow]", "[grow][grow][center][center][center][center][grow][grow][grow]"));
 
@@ -43,11 +43,11 @@ public final class FirstRunPanel extends JPanel
         wbtnAddStation.setBottomSelectedBgColor(new Color(154, 205, 50));
         wbtnAddStation.setDrawShade(false);
         wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
-        wbtnAddStation.setFont(new Font("Bender", Font.PLAIN, 13));
+        wbtnAddStation.setFont(Style.FONT_BENDER_13);
         add(wbtnAddStation, "cell 1 3");
 
         WebLabel wblblWelcomeToBom = new WebLabel();
-        wblblWelcomeToBom.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblWelcomeToBom.setFont(Style.FONT_13);
         wblblWelcomeToBom.setForeground(new Color(255, 140, 0));
         wblblWelcomeToBom.setFontSize(20);
         wblblWelcomeToBom.setHorizontalAlignment(SwingConstants.LEFT);
@@ -55,7 +55,7 @@ public final class FirstRunPanel extends JPanel
         add(wblblWelcomeToBom, "cell 1 4");
 
         WebLabel wblblClickaddStation = new WebLabel();
-        wblblClickaddStation.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblClickaddStation.setFont(Style.FONT_13);
         wblblClickaddStation.setText("Click \"Add Station\" to get started");
         add(wblblClickaddStation, "cell 1 5");
 

@@ -37,7 +37,7 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
      */
     public MainPanel()
     {
-        setBackground(new Color(255, 255, 255));
+        setBackground(Color.WHITE);
 
         setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][][160]"));
 
@@ -46,11 +46,11 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
         pnFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
 
         pnMainContent = new JPanel();
-        pnMainContent.setBackground(new Color(240, 248, 255));
+        pnMainContent.setBackground(Style.MAIN_PANEL_BACKGROUND);
         add(pnMainContent, "cell 0 1 2 1,grow");
 
         WebLabel wblblWeatherStations = new WebLabel();
-        wblblWeatherStations.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+        wblblWeatherStations.setFont(Style.FONT_16);
         wblblWeatherStations.setText("Favourite Stations");
         add(wblblWeatherStations, "flowx,cell 0 2,gapx 15,gapy 5");
 
@@ -60,7 +60,7 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
         wbtnAddStation.setDefaultButtonShadeColor(new Color(154, 205, 50));
         wbtnAddStation.setBottomSelectedBgColor(new Color(50, 205, 50));
         wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
-        wbtnAddStation.setFont(new Font("Bender", Font.PLAIN, 13));
+        wbtnAddStation.setFont(Style.FONT_BENDER_13);
         wbtnAddStation.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         add(wbtnAddStation, "cell 1 2,alignx right, gapx 0 15, gapy 5 0");
 

@@ -68,62 +68,62 @@ public final class StationDetail extends JPanel
         wblblStation = new WebLabel();
         wblblStation.setText("-");
         wblblStation.setForeground(new Color(255, 69, 0));
-        wblblStation.setFont(new Font("Century Gothic", Font.PLAIN, 30));
+        wblblStation.setFont(Style.FONT_30);
 
         add(wblblStation, "cell 0 1 2 1");
 
         wblblHumid = new WebLabel();
-        wblblHumid.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblHumid.setFont(Style.FONT_13);
         wblblHumid.setText("-");
         add(wblblHumid, "cell 2 1,aligny bottom");
 
         wblblState = new WebLabel();
-        wblblState.setFont(new Font("Bender", Font.PLAIN, 16));
+        wblblState.setFont(Style.FONT_BENDER_16);
         wblblState.setText("-");
         add(wblblState, "cell 0 2 2 1");
 
         wblblWindSse = new WebLabel();
-        wblblWindSse.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblWindSse.setFont(Style.FONT_13);
         wblblWindSse.setText("-");
         add(wblblWindSse, "cell 2 2");
 
         wblblRainSinceam = new WebLabel();
-        wblblRainSinceam.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblRainSinceam.setFont(Style.FONT_13);
         wblblRainSinceam.setText("Rain since 9am: -");
         add(wblblRainSinceam, "cell 2 3");
 
         wblblc = new WebLabel();
         wblblc.setForeground(new Color(255, 255, 255));
-        wblblc.setFont(new Font("Futura", Font.PLAIN, 50));
+        wblblc.setFont(Style.FONT_FUTURA_50);
         wblblc.setText("-°C");
         add(wblblc, "cell 1 3 1 3,alignx left,aligny top");
 
         wblblPressQmh = new WebLabel();
-        wblblPressQmh.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblPressQmh.setFont(Style.FONT_13);
         wblblPressQmh.setText("Press QNH hPa: -");
         add(wblblPressQmh, "cell 2 4");
 
         wblblPress = new WebLabel();
-        wblblPress.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblPress.setFont(Style.FONT_13);
         wblblPress.setText("Press MSL hPa: -");
         add(wblblPress, "cell 2 5,aligny top");
 
         wblblAirTemp = new WebLabel();
-        wblblAirTemp.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblAirTemp.setFont(Style.FONT_13);
         wblblAirTemp.setText("App temp: -°C");
         add(wblblAirTemp, "cell 1 6,aligny bottom");
 
         wbtnViewChart = new WebButton();
-        wbtnViewChart.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wbtnViewChart.setFont(Style.FONT_13);
         wbtnViewChart.setDefaultButtonShadeColor(new Color(240, 255, 255));
         wbtnViewChart.setBottomSelectedBgColor(new Color(224, 255, 255));
-        wbtnViewChart.setBottomBgColor(new Color(240, 248, 255));
+        wbtnViewChart.setBottomBgColor(Style.MAIN_PANEL_BACKGROUND);
         wbtnViewChart.setDrawShade(false);
         wbtnViewChart.setText("View Chart");
         add(wbtnViewChart, "cell 2 6,alignx left,aligny bottom");
 
         wblblDewPoint = new WebLabel();
-        wblblDewPoint.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wblblDewPoint.setFont(Style.FONT_13);
         wblblDewPoint.setText("Dew Point: -°C");
         add(wblblDewPoint, "cell 1 7");
 
@@ -131,18 +131,18 @@ public final class StationDetail extends JPanel
 
         wbtnViewWeatherHistory = new WebButton();
         wbtnViewWeatherHistory.setText("View Weather History");
-        wbtnViewWeatherHistory.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wbtnViewWeatherHistory.setFont(Style.FONT_13);
         wbtnViewWeatherHistory.setDefaultButtonShadeColor(new Color(240, 255, 255));
         wbtnViewWeatherHistory.setBottomSelectedBgColor(new Color(224, 255, 255));
-        wbtnViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
+        wbtnViewWeatherHistory.setBottomBgColor(Style.MAIN_PANEL_BACKGROUND);
         wbtnViewWeatherHistory.setDrawShade(false);
         add(wbtnViewWeatherHistory, "cell 2 7");
 
         wbtnViewForecast = new WebButton();
-        wbtnViewForecast.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+        wbtnViewForecast.setFont(Style.FONT_13);
         wbtnViewForecast.setDefaultButtonShadeColor(new Color(240, 255, 255));
         wbtnViewForecast.setBottomSelectedBgColor(new Color(224, 255, 255));
-        wbtnViewForecast.setBottomBgColor(new Color(240, 248, 255));
+        wbtnViewForecast.setBottomBgColor(Style.MAIN_PANEL_BACKGROUND);
         wbtnViewForecast.setDrawShade(false);
         wbtnViewForecast.setText("View Forecast");
         add(wbtnViewForecast, "cell 2 6");
