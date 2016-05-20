@@ -46,7 +46,7 @@ public final class StationHistory extends JPanel
      */
     public StationHistory()
     {
-        setBackground(Style.MAIN_PANEL_BACKGROUND);
+    	setBackground(Color.WHITE);
         setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
 
         WebButton wbtnBack = new WebButton();

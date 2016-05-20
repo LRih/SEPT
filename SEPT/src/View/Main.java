@@ -142,6 +142,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
         wbtnRefreshData.setBottomSelectedBgColor(new Color(224, 255, 255));
         wbtnRefreshData.setBottomBgColor(new Color(240, 255, 255));
         wbtnRefreshData.setDrawShade(false);
+        wbtnRefreshData.setFont(Style.FONT_BENDER_13);
         wbtnRefreshData.setText("Refresh Data");
         pnMainBar.add(wbtnRefreshData, "cell 1 0,aligny center, alignx right");
 
@@ -190,7 +191,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
                 // set Top Bar Background to Grey
                 updateBackgroundColor(false);
                 
-                pnMain.setBlockUI(true);
+                setBlockUI(true);
 
                 // reload data
                 showMainScreen();
@@ -420,6 +421,11 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
     {
         setStation(station, data);
     }
+    
+    private void setBlockUI(boolean isBlocked) {
+    	pnMain.setBlockUI(isBlocked);
+        wbtnRefreshData.setEnabled(!isBlocked);
+    }
 
     public final void onDataLoadSuccess(Station station, StationData data)
     {
@@ -428,14 +434,15 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
             setStation(station, data);
 
         updateBackgroundColor(true);
-        pnMain.setBlockUI(false);
+        setBlockUI(false);
+        
     }
 
     public final void onDataLoadFail()
     {
         showNoInternetNotification();
         updateBackgroundColor(false);
-        pnMain.setBlockUI(false);
+        setBlockUI(false);
     }
 
 

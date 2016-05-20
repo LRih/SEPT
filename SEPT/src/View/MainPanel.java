@@ -141,13 +141,13 @@ public final class MainPanel extends JPanel
 		switch (type) {
 		// VIEW_CHART
 		case Chart:
-			pnMainContent.add(stationChart, "cell 0 0, grow");
+			pnMainContent.add(stationChart, "cell 0 0 1 2, grow");
 			stationChart.animate();
 			break;
 
 		// VIEW_HISTORY
 		case History:
-			pnMainContent.add(stationHistory, "cell 0 0, grow");
+			pnMainContent.add(stationHistory, "cell 0 0 1 2, grow");
 			break;
 
 		// STATION_DETAIL

@@ -191,7 +191,8 @@ public final class StationDetail extends JPanel {
 
 		wblblRemoveFromFavourites.addMouseListener(new MouseAdapter() {
 			public final void mouseClicked(MouseEvent e) {
-				if (_listenerRemoveFavorite != null)
+				if (_listenerRemoveFavorite != null
+						&& wblblRemoveFromFavourites.isEnabled())
 					_listenerRemoveFavorite.onRemoveFavoriteClick(station);
 			}
 		});
@@ -296,6 +297,7 @@ public final class StationDetail extends JPanel {
 	public void setBlockUI(boolean isBlockUI) {
 		wbtnViewChart.setEnabled(isBlockUI);
 		wbtnViewWeatherHistory.setEnabled(isBlockUI);
+		wblblRemoveFromFavourites.setEnabled(isBlockUI);
 
 	}
 }
