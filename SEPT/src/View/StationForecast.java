@@ -41,16 +41,23 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 
 	private Station station;
 	private StationData data;
+	private WebLabel wblblForecast;
 
 	/**
 	 * Create the panel.
 	 */
 	public StationForecast() {
 		setBackground(new Color(169, 169, 169));
-		setLayout(new MigLayout("ins 0 0 0 0", "[grow]", "[15][grow]"));
+		setLayout(new MigLayout("ins 0 0 0 0", "[grow][150]", "[15][grow]"));
+		
+		wblblForecast = new WebLabel();
+		wblblForecast.setForeground(new Color(255, 255, 255));
+		wblblForecast.setFont(Style.FONT_16);
+		wblblForecast.setText("Forecast");
+		add(wblblForecast, "cell 0 0, gapx 15 0");
 
 		pnChart = new Panel();
-		add(pnChart, "cell 0 1,grow");
+		add(pnChart, "cell 0 1 2 1,grow");
 		pnChart.setLayout(new MigLayout("ins 0 0 0 0", "[grow]", "[grow]"));
 
 		forecastChart = new ForecastChart();
@@ -67,7 +74,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		radioForecastIO.setSelectedForeground(new Color(0, 100, 0));
 		radioForecastIO.setBottomSelectedBgColor(Color.WHITE);
 		radioForecastIO.setBottomBgColor(Color.WHITE);
-		radioForecastIO.setFont(Style.FONT_BENDER_13);
+		radioForecastIO.setFont(Style.FONT_BENDER_12);
 
 		WebToggleButton radioOpenWeatherMap = new WebToggleButton("OpenWeatherMap");
 		radioOpenWeatherMap.addActionListener(new ActionListener() {
@@ -80,7 +87,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		radioOpenWeatherMap.setSelectedForeground(new Color(0, 100, 0));
 		radioOpenWeatherMap.setBottomSelectedBgColor(new Color(240, 255, 240));
 		radioOpenWeatherMap.setBottomBgColor(Color.WHITE);
-		radioOpenWeatherMap.setFont(Style.FONT_BENDER_13);
+		radioOpenWeatherMap.setFont(Style.FONT_BENDER_12);
 
 		// save to appstate and restore when open
 		if (AppState.getInstance().forecastSource == Source.ForecastIO)
@@ -90,15 +97,16 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 
 		groupForcast = new WebButtonGroup(true, radioForecastIO, radioOpenWeatherMap);
 		groupForcast.setButtonsDrawFocus(false);
-		add(groupForcast, "cell 0 0,alignx right, gapx 15 15, gapy 10 5");
+		groupForcast.setShadeWidth(0);
+		add(groupForcast, "cell 1 0,alignx right,gapx 0 15,gapy 7 3");
 
 	}
 	
 	public void updateBackgroundColor(boolean hasInternetConnection) {
 		if (hasInternetConnection)
-			setBackground(new Color(34, 139, 34));
+			setBackground(Style.INTERNET_ON_BACKGROUND);
 		else
-			setBackground(new Color(169, 169, 169));
+			setBackground(Style.INTERNET_OFF_BACKGROUND);
 	}
 
 	private void updateStation() {
@@ -150,7 +158,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		pnChart.setLayout(new MigLayout("ins 0 0 0 0", "[grow]", "[grow]"));
 
 		// initialize components
-		forecastChart.setTitle("Forecast IO: " + station.getName());
+//		forecastChart.setTitle("Forecast IO: " + station.getName());
 		forecastChart.setYAxisText("Temperature (°C)");
 		pnChart.add(forecastChart, "cell 0 0 1 1, grow");
 

@@ -164,9 +164,9 @@ public final class MainPanel extends JPanel
 	public void updateBackgroundColor(boolean hasInternetConnection) {
 		stationForecast.updateBackgroundColor(hasInternetConnection);
 		if (hasInternetConnection)
-			pnStationList.setBackground(new Color(34, 139, 34));
+			pnStationList.setBackground(Style.INTERNET_ON_BACKGROUND);
 		else
-			pnStationList.setBackground(new Color(169, 169, 169));
+			pnStationList.setBackground(Style.INTERNET_OFF_BACKGROUND);
 	}
 
 	/**

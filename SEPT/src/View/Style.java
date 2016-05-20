@@ -7,6 +7,9 @@ import java.awt.*;
  */
 public final class Style
 {
+	public static final Color INTERNET_ON_BACKGROUND = new Color(63, 160, 77);
+	public static final Color INTERNET_OFF_BACKGROUND = new Color(169, 169, 169);
+	
     public static final Color MAIN_PANEL_BACKGROUND = new Color(240, 248, 255);
     public static final Color CELL_NORMAL = new Color(245, 245, 245);
     public static final Color CELL_SELECTED = new Color(225, 225, 225);

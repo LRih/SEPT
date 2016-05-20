@@ -126,7 +126,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
 
         // Top Bar
         pnMainBar = new JPanel();
-        pnMainBar.setBackground(new Color(169, 169, 169));
+        pnMainBar.setBackground(Style.INTERNET_OFF_BACKGROUND);
         frmMain.getContentPane().add(pnMainBar, "cell 0 0,grow");
         pnMainBar.setLayout(new MigLayout("", "[grow][10%]", "[]"));
 
@@ -327,9 +327,9 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
     {
     	pnMain.updateBackgroundColor(hasInternetConnection);
         if (hasInternetConnection)
-            pnMainBar.setBackground(new Color(34, 139, 34));
+            pnMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
         else
-            pnMainBar.setBackground(new Color(169, 169, 169));
+            pnMainBar.setBackground(Style.INTERNET_OFF_BACKGROUND);
     }
 
     private void setStation(Station station, StationData data)
