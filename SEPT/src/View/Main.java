@@ -288,14 +288,14 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
 
     private void showFirstRunPanel()
     {
-        pnMainBar.setBackground(new Color(255, 140, 0));
+        pnMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
         wbtnRefreshData.setVisible(false);
         pnContent.add(pnFirstRun, "cell 0 0 31 1,grow");
     }
 
     private void showAddFavoritePanel()
     {
-        pnMainBar.setBackground(new Color(255, 140, 0));
+//        pnMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
         wbtnRefreshData.setVisible(false);
         pnContent.add(pnAddFavorite, "cell 0 0 1 1,grow");
     }
