@@ -321,6 +321,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
      */
     private void updateBackgroundColor(boolean hasInternetConnection)
     {
+    	pnMain.updateBackgroundColor(hasInternetConnection);
         if (hasInternetConnection)
             pnMainBar.setBackground(new Color(34, 139, 34));
         else
