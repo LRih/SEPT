@@ -5,6 +5,8 @@ import View.StationChart;
 
 import java.awt.*;
 
+import Utils.ForecastFactory.Source;
+
 /**
  * Stores various attributes of app state. Singleton class.
  */
@@ -18,6 +20,7 @@ public final class AppState
     public int chartIndex;
     public String state;
     public String station;
+    public Source forecastSource;
 
     private AppState()
     {
@@ -50,6 +53,7 @@ public final class AppState
         state = "";
         station = "";
         chartIndex = 0;
+        forecastSource = Source.ForecastIO;
     }
 
 

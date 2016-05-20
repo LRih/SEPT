@@ -4,6 +4,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import Model.AppState;
 import Model.Forecast;
 import Model.LatestReading;
 import Model.Station;
@@ -82,7 +83,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		radioOpenWeatherMap.setFont(Style.FONT_BENDER_13);
 
 		// save to appstate and restore when open
-		if (true)
+		if (AppState.getInstance().forecastSource == Source.ForecastIO)
 			radioForecastIO.doClick();
 		else
 			radioOpenWeatherMap.doClick();
@@ -101,6 +102,9 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	}
 
 	private void updateStation() {
+		
+		AppState.getInstance().forecastSource = forecastSource;
+		
 		// no station select so hide
 		if (station == null) {
 			setVisible(false);
