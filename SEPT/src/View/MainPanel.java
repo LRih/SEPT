@@ -118,13 +118,22 @@ public final class MainPanel extends JPanel
 			}
 		});
 	}
+	
+	public void setBlockUI(boolean isEnable) {
+		stationChart.setBlockUI(!isEnable);
+		stationHistory.setBlockUI(!isEnable);
+		stationDetail.setBlockUI(!isEnable);
+		stationForecast.setBlockUI(!isEnable);
+		
+		wbtnAddStation.setEnabled(!isEnable);
+	}
 
 	/**
 	 * Change panel shown.
 	 */
 	public final void showPanel(PanelType type) {
 		pnMainContent.removeAll();
-		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow][160]"));
+		pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow][200]"));
 
 		AppState.getInstance().shownDetail = type.ordinal();
 		Log.info(getClass(), "Panel changed to " + type.name());
@@ -144,7 +153,7 @@ public final class MainPanel extends JPanel
 		// STATION_DETAIL
 		default:
 			pnMainContent.add(stationDetail, "cell 0 0, grow");
-			pnMainContent.add(stationForecast, "cell 0 1, growx, hmin 160");
+			pnMainContent.add(stationForecast, "cell 0 1, growx, hmin 200");
 			break;
 		}
 
@@ -153,6 +162,7 @@ public final class MainPanel extends JPanel
 	}
 
 	public void updateBackgroundColor(boolean hasInternetConnection) {
+		stationForecast.updateBackgroundColor(hasInternetConnection);
 		if (hasInternetConnection)
 			pnStationList.setBackground(new Color(34, 139, 34));
 		else

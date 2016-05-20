@@ -27,6 +27,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.nio.channels.SelectableChannel;
 import java.awt.Dimension;
 
 /**
@@ -188,6 +189,8 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
 
                 // set Top Bar Background to Grey
                 updateBackgroundColor(false);
+                
+                pnMain.setBlockUI(true);
 
                 // reload data
                 showMainScreen();
@@ -425,12 +428,14 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
             setStation(station, data);
 
         updateBackgroundColor(true);
+        pnMain.setBlockUI(false);
     }
 
     public final void onDataLoadFail()
     {
         showNoInternetNotification();
         updateBackgroundColor(false);
+        pnMain.setBlockUI(false);
     }
 
 

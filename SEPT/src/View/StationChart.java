@@ -290,4 +290,9 @@ public final class StationChart extends JPanel
         Temp9AM, RelHumidity9AM, WindSpd9AM, PressureMSL9AM,
         Temp3PM, RelHumidity3PM, WindSpd3PM, PressureMSL3PM
     }
+
+
+	public void setBlockUI(boolean isBlockUI) {
+		wcbChartType.setEnabled(isBlockUI);
+	}
 }

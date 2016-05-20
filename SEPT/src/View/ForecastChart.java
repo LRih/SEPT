@@ -18,7 +18,7 @@ import java.util.List;
 public final class ForecastChart extends JPanel implements ActionListener
 {
     // number of ticks to complete animation
-    private static final int ANIMATION_TICKS = 30;
+    private static final int ANIMATION_TICKS = 10;
     private static final int ANIMATION_FPS = 60;
 
     private static final int PADDING = 60;

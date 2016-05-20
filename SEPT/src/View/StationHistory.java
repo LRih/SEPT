@@ -233,4 +233,8 @@ public final class StationHistory extends JPanel
             fireTableCellUpdated(row, col);
         }
     }
+
+	public void setBlockUI(boolean isBlockUI) {
+		
+	}
 }
