@@ -27,6 +27,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.awt.Dimension;
 
 /**
  * App Main
@@ -118,6 +119,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
     private void initializeUI()
     {
         frmMain = new JFrame();
+        frmMain.setMinimumSize(new Dimension(1000, 750));
         frmMain.getContentPane().setBackground(Color.WHITE);
         frmMain.getContentPane().setLayout(new MigLayout("ins 0, gapy 0", "[grow]", "[60][grow]"));
 
@@ -320,7 +322,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
     private void updateBackgroundColor(boolean hasInternetConnection)
     {
         if (hasInternetConnection)
-            pnMainBar.setBackground(new Color(255, 140, 0));
+            pnMainBar.setBackground(new Color(34, 139, 34));
         else
             pnMainBar.setBackground(new Color(169, 169, 169));
     }

@@ -8,8 +8,8 @@ import java.awt.*;
 public final class Style
 {
     public static final Color MAIN_PANEL_BACKGROUND = new Color(240, 248, 255);
-    public static final Color CELL_NORMAL = new Color(248, 248, 255);
-    public static final Color CELL_SELECTED = new Color(88, 186, 199);
+    public static final Color CELL_NORMAL = new Color(245, 245, 245);
+    public static final Color CELL_SELECTED = new Color(225, 225, 225);
 
 
     public static final Font FONT_13 = new Font("Century Gothic", Font.PLAIN, 13);

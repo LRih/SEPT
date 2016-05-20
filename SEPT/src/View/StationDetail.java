@@ -117,7 +117,7 @@ public final class StationDetail extends JPanel
         wbtnViewChart.setFont(Style.FONT_13);
         wbtnViewChart.setDefaultButtonShadeColor(new Color(240, 255, 255));
         wbtnViewChart.setBottomSelectedBgColor(new Color(224, 255, 255));
-        wbtnViewChart.setBottomBgColor(Style.MAIN_PANEL_BACKGROUND);
+        wbtnViewChart.setBottomBgColor(new Color(240, 248, 255));
         wbtnViewChart.setDrawShade(false);
         wbtnViewChart.setText("View Chart");
         add(wbtnViewChart, "cell 2 6,alignx left,aligny bottom");
@@ -134,7 +134,7 @@ public final class StationDetail extends JPanel
         wbtnViewWeatherHistory.setFont(Style.FONT_13);
         wbtnViewWeatherHistory.setDefaultButtonShadeColor(new Color(240, 255, 255));
         wbtnViewWeatherHistory.setBottomSelectedBgColor(new Color(224, 255, 255));
-        wbtnViewWeatherHistory.setBottomBgColor(Style.MAIN_PANEL_BACKGROUND);
+        wbtnViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
         wbtnViewWeatherHistory.setDrawShade(false);
         add(wbtnViewWeatherHistory, "cell 2 7");
 
@@ -142,9 +142,10 @@ public final class StationDetail extends JPanel
         wbtnViewForecast.setFont(Style.FONT_13);
         wbtnViewForecast.setDefaultButtonShadeColor(new Color(240, 255, 255));
         wbtnViewForecast.setBottomSelectedBgColor(new Color(224, 255, 255));
-        wbtnViewForecast.setBottomBgColor(Style.MAIN_PANEL_BACKGROUND);
+        wbtnViewForecast.setBottomBgColor(new Color(240, 248, 255));
         wbtnViewForecast.setDrawShade(false);
         wbtnViewForecast.setText("View Forecast");
+        wbtnViewForecast.setVisible(false);
         add(wbtnViewForecast, "cell 2 6");
 
         JPanel panelFiller2 = new JPanel();

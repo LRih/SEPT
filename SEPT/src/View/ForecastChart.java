@@ -242,7 +242,7 @@ public final class ForecastChart extends JPanel implements ActionListener
                 int imgY = (int)(getHeight() - totalImgHeight - 4);
 
                 // scale image to fit
-                int imgWidth = (int)(bar * 2);
+                int imgWidth = (int)(bar);
                 int imgHeight = (int)(imgWidth / (float)img.getWidth(null) * img.getHeight(null));
 
                 if (imgHeight > totalImgHeight)
@@ -258,7 +258,7 @@ public final class ForecastChart extends JPanel implements ActionListener
             if (getWidth() >= PADDING * 6)
             {
                 g.setColor(COL_TEXT);
-                g.drawString(date, x - (float)rect.getCenterX(), y + (float)rect.getHeight());
+                g.drawString(date, x - (float)rect.getCenterX(), y + (float)rect.getHeight() + 15);
             }
         }
     }

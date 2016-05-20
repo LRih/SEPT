@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.border.LineBorder;
 
 /**
  * A Station Cell for repeating in favorite list.
@@ -55,16 +56,16 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
             // hover effect
             public final void mouseEntered(MouseEvent e)
             {
-                setBackground(isSelected ? Style.CELL_SELECTED : Style.MAIN_PANEL_BACKGROUND);
+            	setBorder(new LineBorder(isSelected ? Style.CELL_SELECTED : new Color(160, 160, 160)));
             }
             public final void mouseExited(MouseEvent e)
             {
-                setBackground(isSelected ? Style.CELL_SELECTED : Style.CELL_NORMAL);
+            	setBorder(new LineBorder(isSelected ? Style.CELL_SELECTED : Style.CELL_NORMAL));
             }
         });
 
-        setBorder(null);
-        setBackground(new Color(248, 248, 255));
+        setBorder(new LineBorder(new Color(245, 245, 245)));
+        setBackground(new Color(250, 250, 250));
         setLayout(new MigLayout("", "[grow][][5%][]", "[][][]"));
 
         WebLabel wblblStation = new WebLabel();
@@ -90,7 +91,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     public final void updateSelected(Station selectedStation)
     {
         isSelected = station == selectedStation;
-        setBackground(isSelected ? Style.CELL_SELECTED : Style.CELL_NORMAL);
+        setBorder(new LineBorder(isSelected ? Style.CELL_SELECTED : Style.CELL_NORMAL));
     }
 
     private void setStationData(StationData data)

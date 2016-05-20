@@ -13,6 +13,7 @@ import com.alee.laf.button.WebButton;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 /**
  * Main Panel UI
@@ -26,23 +27,25 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
     private final StationDetail stationDetail;
     private final StationChart stationChart;
     private final StationHistory stationHistory;
+    private final StationForecast stationForecast;
 
     private OnActionListener _listenerAction;
     private OnViewForecastClickListener _listenerViewForecastClick;
     private FavoriteCell.OnStationSelectListener _listenerStationSelect;
     private FavoriteCell.OnDataLoadListener _listenerDataLoad;
+    private JPanel pnForecast;
 
     /**
      * Create the panel.
      */
     public MainPanel()
     {
-        setBackground(Color.WHITE);
+        setBackground(new Color(34, 139, 34));
 
         setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][][160]"));
 
         pnFavorites = new JPanel();
-        pnFavorites.setBackground(Color.WHITE);
+        pnFavorites.setBackground(new Color(255, 255, 255));
         pnFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
 
         pnMainContent = new JPanel();
@@ -50,9 +53,10 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
         add(pnMainContent, "cell 0 1 2 1,grow");
 
         WebLabel wblblWeatherStations = new WebLabel();
+        wblblWeatherStations.setForeground(new Color(255, 255, 255));
         wblblWeatherStations.setFont(Style.FONT_16);
         wblblWeatherStations.setText("Favourite Stations");
-        add(wblblWeatherStations, "flowx,cell 0 2,gapx 15,gapy 5");
+        add(wblblWeatherStations, "flowx,cell 0 3,gapx 15,gapy 5");
 
         wbtnAddStation = new WebButton("Add station");
         wbtnAddStation.setForeground(new Color(0, 100, 0));
@@ -62,16 +66,17 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
         wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
         wbtnAddStation.setFont(Style.FONT_BENDER_13);
         wbtnAddStation.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        add(wbtnAddStation, "cell 1 2,alignx right, gapx 0 15, gapy 5 0");
+        add(wbtnAddStation, "cell 1 3,alignx right,gapx 0 15,gapy 5 0");
 
         WebScrollPane webScrollPane = new WebScrollPane(pnFavorites, false, true);
         webScrollPane.setDrawFocus(false);
         webScrollPane.setPreferredSize(new Dimension(0, 0));
-        add(webScrollPane, "cell 0 3 2 1,grow, hmin 160");
+        add(webScrollPane, "cell 0 4 2 1,hmin 160,grow");
 
         stationDetail = new StationDetail();
         stationChart = new StationChart();
         stationHistory = new StationHistory();
+        stationForecast = new StationForecast();
 
         addListeners();
     }
@@ -122,7 +127,7 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
     public final void showPanel(PanelType type)
     {
         pnMainContent.removeAll();
-        pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
+        pnMainContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow][160]"));
 
         AppState.getInstance().shownDetail = type.ordinal();
         Log.info(getClass(), "Panel changed to " + type.name());
@@ -143,6 +148,7 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
             // STATION_DETAIL
             default:
                 pnMainContent.add(stationDetail, "cell 0 0, grow");
+                pnMainContent.add(stationForecast, "cell 0 1, growx, hmin 160");
                 break;
         }
 
@@ -180,6 +186,7 @@ public final class MainPanel extends JPanel implements FavoriteCell.OnStationSel
         stationChart.setStation(station, data);
         stationHistory.setStation(station, data);
         stationDetail.setStation(station, data);
+        stationForecast.setStation(station, data);
 
         // update selected favorite indicator
         for (Component cell : pnFavorites.getComponents())
