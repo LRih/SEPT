@@ -41,7 +41,7 @@ public final class MainPanel extends JPanel
 	public MainPanel() {
 		setBackground(new Color(34, 139, 34));
 
-		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][]"));
+		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][200][]"));
 
 		pnFavorites = new JPanel();
 		pnFavorites.setBackground(new Color(255, 255, 255));
@@ -50,14 +50,17 @@ public final class MainPanel extends JPanel
 		pnMainContent = new JPanel();
 		pnMainContent.setBackground(Style.MAIN_PANEL_BACKGROUND);
 		add(pnMainContent, "cell 0 1 2 1,grow");
+		
+		stationForecast = new StationForecast();
+		add(stationForecast, "cell 0 2 2 1, growx, hmin 200");
 
 		pnStationList = new JPanel();
-		add(pnStationList, "cell 0 2 2 1,grow");
+		add(pnStationList, "cell 0 3 2 1,grow");
 		pnStationList.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[60][grow]"));
 		pnStationList.setBackground(new Color(169, 169, 169));
 
 		WebLabel wblblWeatherStations = new WebLabel();
-		pnStationList.add(wblblWeatherStations, "cell 0 0, gapx 15 0");
+		pnStationList.add(wblblWeatherStations, "cell 0 0, gapx 15 0, gapy 8 8");
 		wblblWeatherStations.setForeground(new Color(255, 255, 255));
 		wblblWeatherStations.setFont(Style.FONT_16);
 		wblblWeatherStations.setText("Favourite Stations");
@@ -80,7 +83,7 @@ public final class MainPanel extends JPanel
 		stationDetail = new StationDetail();
 		stationChart = new StationChart();
 		stationHistory = new StationHistory();
-		stationForecast = new StationForecast();
+		
 
 		addListeners();
 	}
@@ -127,7 +130,7 @@ public final class MainPanel extends JPanel
 	 */
 	public final void showPanel(PanelType type) {
 		pnMainContent.removeAll();
-		pnMainContent.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow]", "[grow][200]"));
+		pnMainContent.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow]", "[grow]"));
 
 		AppState.getInstance().shownDetail = type.ordinal();
 		Log.info(getClass(), "Panel changed to " + type.name());
@@ -135,19 +138,18 @@ public final class MainPanel extends JPanel
 		switch (type) {
 		// VIEW_CHART
 		case Chart:
-			pnMainContent.add(stationChart, "cell 0 0 1 2, grow");
+			pnMainContent.add(stationChart, "cell 0 0 1 1, grow");
 			stationChart.animate();
 			break;
 
 		// VIEW_HISTORY
 		case History:
-			pnMainContent.add(stationHistory, "cell 0 0 1 2, grow");
+			pnMainContent.add(stationHistory, "cell 0 0 1 1, grow");
 			break;
 
 		// STATION_DETAIL
 		default:
-			pnMainContent.add(stationDetail, "cell 0 0, grow");
-			pnMainContent.add(stationForecast, "cell 0 1, growx, hmin 200");
+			pnMainContent.add(stationDetail, "cell 0 0 1 1, grow");
 			break;
 		}
 
