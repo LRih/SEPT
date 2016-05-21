@@ -319,10 +319,12 @@ public final class StationChart extends JPanel {
 
 	protected void checkboxChanged(WebCheckBox checkbox, ChartType type) {
 		if (checkbox.isSelected()) {
+			// set legend color
 			checkbox.setForeground(Style.LINE_COLORS[current_color % Style.LINE_COLORS.length]);
 			checkbox.setBorderColor(Style.LINE_COLORS[current_color % Style.LINE_COLORS.length]);
 			setDataset(type);
 		} else {
+			// remove legend color
 			checkbox.setForeground(Color.black);
 			checkbox.setBorderColor(Color.gray);
 			removeDataset(type);
@@ -331,13 +333,13 @@ public final class StationChart extends JPanel {
 
 	protected void radioChanged(ChartGroup group, boolean isSelected) {
 
-		// reset color
+		// reset color index
 		current_color = 0;
 
 		// clear data set, reset max, min
 		chartPanel.clearDatasets();
 
-		// disable all checkboxes
+		// disable all other checkboxes
 		disableCheckboxes(group);
 
 		// update group of checkboxes
@@ -379,10 +381,13 @@ public final class StationChart extends JPanel {
 			break;
 		case RainFall:
 			chartPanel.setYAxisText("Rain fall (mm)");
-			if (isEnabled)
+			if (isEnabled) {
+				radioRainFall.setForeground(Style.LINE_COLORS[current_color % Style.LINE_COLORS.length]);
 				setDataset(ChartType.Rainfall);
-			else
+			} else {
+				radioRainFall.setForeground(Color.black);
 				removeDataset(ChartType.Rainfall);
+			}
 			break;
 
 		}
@@ -408,10 +413,10 @@ public final class StationChart extends JPanel {
 	}
 
 	private void updateChart() {
-		
+
 		// reset color
 		current_color = 0;
-		
+
 		// reset max min
 		chartPanel.clearDatasets();
 
