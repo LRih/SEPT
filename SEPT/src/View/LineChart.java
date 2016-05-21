@@ -449,6 +449,10 @@ public final class LineChart extends JPanel implements ActionListener
         this.yAxisText = text;
         repaint();
     }
+    
+    public final String[] getXValues() {
+    	return xValues;
+    }
 
     public final void setMaxDataPoints(int max)
     {

@@ -134,7 +134,7 @@ public final class Main
 		
 		// main frame
 		frmMain = new JFrame();
-		frmMain.setMinimumSize(new Dimension(1000, 800));
+		frmMain.setMinimumSize(new Dimension(1000, 860));
 		frmMain.setBackground(Color.WHITE);
 		frmMain.setTitle("Bom Weather");
 		frmMain.setBounds(AppState.getInstance().getWindowRect());

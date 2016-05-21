@@ -56,7 +56,7 @@ public final class MainPanel extends JPanel
 
 		pnStationList = new JPanel();
 		add(pnStationList, "cell 0 3 2 1,grow");
-		pnStationList.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[60][grow]"));
+		pnStationList.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[30][grow]"));
 		pnStationList.setBackground(new Color(169, 169, 169));
 
 		WebLabel wblblWeatherStations = new WebLabel();
