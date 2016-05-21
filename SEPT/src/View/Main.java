@@ -181,7 +181,6 @@ public final class Main
 		panelFirstRun = new FirstRunPanel();
 		frameLoading.setLoadingText("add favorite panel");
 		panelAddFavorite = new AddFavoritePanel(states);
-		
 
 		frameLoading.setLoadingText("main panel");
 		panelMain = new MainPanel();

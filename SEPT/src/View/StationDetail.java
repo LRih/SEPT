@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
  */
 public final class StationDetail extends JPanel {
 	private static final int TEMP_FREEZING = 0;
-	private static final int TEMP_COOL = 25;
+	private static final int TEMP_COOL = 20;
 
 	private final WebLabel labelStation;
 	private final WebLabel labelHumid;
@@ -194,14 +194,14 @@ public final class StationDetail extends JPanel {
 			// change colours by Temperature
 			if (r.airTemp != null) {
 				if (r.airTemp < TEMP_FREEZING) {
-					setBackground(new Color(176, 196, 222));
-					labelc.setForeground(new Color(255, 255, 255));
+					setBackground(Style.STATION_DETAIL_BACKGROUND);
+					labelc.setForeground(new Color(2, 136, 209));
 				} else if (r.airTemp < TEMP_COOL) {
-					setBackground(new Color(240, 248, 255));
-					labelc.setForeground(new Color(30, 144, 255));
+					setBackground(Style.WEATHER_COOL_BACKGROUND);
+					labelc.setForeground(Style.WEATHER_COOL_LABEL);
 				} else {
-					setBackground(new Color(255, 248, 220));
-					labelc.setForeground(new Color(255, 99, 71));
+					setBackground(Style.WEATHER_HOT_BACKGROUND);
+					labelc.setForeground(Style.WEATHER_HOT_LABEL);
 				}
 				labelc.setText(r.airTemp + "°C");
 			} else {

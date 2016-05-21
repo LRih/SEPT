@@ -37,7 +37,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	private static final Color COL_AXIS = new Color(160, 160, 160);
 
 	private static final Color COL_MIN = new Color(23, 118, 182);
-	private static final Color COL_MAX = new Color(216, 36, 31);
+	private static final Color COL_MAX = new Color(244, 81, 30);
 
 	public static final int NO_DATA = 1;
 	public static final int LOADING_DATA = 2;

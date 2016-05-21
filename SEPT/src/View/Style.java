@@ -11,7 +11,7 @@ public final class Style
 	public static final Color INTERNET_OFF_BACKGROUND = new Color(169, 169, 169);
 	
 	public static final Color MAIN_PANEL_BACKGROUND = new Color(240, 248, 255);
-    public static final Color STATION_DETAIL_BACKGROUND = new Color(176, 196, 222);
+    public static final Color STATION_DETAIL_BACKGROUND = new Color(179, 229, 252);
     public static final Color LOADING_FRAME_BACKGROUND = new Color(0, 128, 0);
     
     public static final Color CELL_NORMAL = new Color(245, 245, 245);
@@ -19,6 +19,12 @@ public final class Style
     public static final Color CELL_BACKGROUND = new Color(250, 250, 250);
     public static final Color CELL_STATION_LABEL = new Color(255, 69, 0);
     public static final Color ADD_STATION_BUTTON = new Color(0, 100, 0);
+    
+    public static final Color WEATHER_COOL_LABEL = new Color(79, 195, 247);
+    public static final Color WEATHER_COOL_BACKGROUND = new Color(225, 245, 243);
+    
+    public static final Color WEATHER_HOT_LABEL = new Color(249, 168, 37);
+    public static final Color WEATHER_HOT_BACKGROUND = new Color(255, 253, 231);
     
     public static final Color[] LINE_COLORS =
         {
