@@ -121,10 +121,12 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 
 			// block UI while loading
 			groupForcast.setEnabled(false);
-		} else {
-			// set empty temp
+			
+		} 
 
-		}
+		// clear forecast
+		forecastChart.setStatus(ForecastChart.LOADING_DATA);
+		forecastChart.clearForecast();
 	}
 
 	/**
@@ -164,6 +166,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	}
 
 	public final void onTaskFail() {
+		forecastChart.setStatus(ForecastChart.NO_INTERNET);
 		showChart();
 	}
 
