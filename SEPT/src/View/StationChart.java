@@ -36,7 +36,7 @@ import java.awt.event.ItemEvent;
  */
 public final class StationChart extends JPanel {
 	private final WebLabel wblblStation;
-	private final WebLabel wblblState;
+//	private final WebLabel wblblState;
 	private final LineChart chartPanel;
 	private final JPanel panel;
 	// private final WebComboBox wcbChartType;
@@ -90,10 +90,10 @@ public final class StationChart extends JPanel {
 
 		add(wblblStation, "cell 1 0");
 
-		wblblState = new WebLabel();
-		wblblState.setFont(Style.FONT_BENDER_16);
-		wblblState.setText("-");
-		add(wblblState, "cell 2 0,alignx trailing");
+//		wblblState = new WebLabel();
+//		wblblState.setFont(Style.FONT_BENDER_16);
+//		wblblState.setText("-");
+//		add(wblblState, "cell 2 0,alignx trailing");
 
 		// WebLabel wblblSelectChart = new WebLabel();
 		// wblblSelectChart.setFont(Style.FONT_13);
@@ -426,11 +426,13 @@ public final class StationChart extends JPanel {
 
 	}
 
+	boolean selectedYet = false;
 	private void reselectCheckboxes() {
 
 		if (radioRainFall.isSelected()) {
 			radioRainFall.setSelected(false);
 			radioRainFall.setSelected(true);
+			selectedYet = true;
 		} else {
 			reselectCheckbox(checkboxTemp9am);
 			reselectCheckbox(checkboxTemp3pm);
@@ -444,6 +446,11 @@ public final class StationChart extends JPanel {
 			reselectCheckbox(checkboxHumid9am);
 			reselectCheckbox(checkboxHumid3pm);
 		}
+		
+		// if first time open panel
+		// show Temperature by default
+		if (!selectedYet)
+			radioTemperature.setSelected(true);
 
 	}
 
@@ -451,6 +458,7 @@ public final class StationChart extends JPanel {
 		if (checkbox.isSelected()) {
 			checkbox.setSelected(false);
 			checkbox.setSelected(true);
+			selectedYet = true;
 		}
 	}
 
@@ -599,7 +607,7 @@ public final class StationChart extends JPanel {
 
 		if (station != null) {
 			wblblStation.setText(station.getName());
-			wblblState.setText(station.getState().getName());
+//			wblblState.setText(station.getState().getName());
 		}
 
 		updateChart();
