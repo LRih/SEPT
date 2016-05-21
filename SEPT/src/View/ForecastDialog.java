@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Window for showing the forecast.
  */
+@Deprecated
 public final class ForecastDialog extends JDialog implements ForecastWorker.OnTaskCompleteListener
 {
     private final ForecastChart chart = new ForecastChart();

@@ -62,12 +62,12 @@ public final class AppStateManager {
 			state.state = json.getString(KEY_STATE);
 			state.station = json.getString(KEY_STATION);
 			switch (json.getString(KEY_FORECAST)) {
-			case "OpenWeatherMap":
-				state.forecastSource = Source.OpenWeatherMap;
-				break;
-			default:
-				state.forecastSource = Source.ForecastIO;
-				break;
+				case "OpenWeatherMap":
+					state.forecastSource = Source.OpenWeatherMap;
+					break;
+				default:
+					state.forecastSource = Source.ForecastIO;
+					break;
 			}
 		} catch (JSONException e) {
 			// app state is corrupt, set app state to defaults

@@ -3,14 +3,15 @@ package View;
 import Model.Forecast;
 import Utils.Log;
 import Utils.SwingUtils;
+import org.joda.time.LocalTime;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,8 +22,10 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	private static final int ANIMATION_TICKS = 10;
 	private static final int ANIMATION_FPS = 60;
 
-	private static final int PADDING = 60;
+	private static final int PADDING = 25;
 	private static final int PADDING_BOTTOM = 90;
+	private static final int DATE_PADDING_TOP = 15;
+	private static final int IMG_PADDING = 4;
 
 	private static final float AXIS_WIDTH = 1.5f;
 
@@ -45,6 +48,9 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	private double min = Float.MAX_VALUE;
 	private double max = Float.MIN_VALUE;
 
+    // format for displaying temperature
+    private DecimalFormat df = new DecimalFormat("#0.00");
+
 	private Image[] images;
 
 	// used for animations
@@ -60,16 +66,21 @@ public final class ForecastChart extends JPanel implements ActionListener {
 
 	private void initializeImages() {
 		
-		Date now = new Date();
+		LocalTime now = LocalTime.now();
 		String night = "";
-		if (now.getHours() >= 18 || now.getHours() <= 6)
+		if (now.getHourOfDay() >= 18 || now.getHourOfDay() <= 6)
 			night = "_night";
 
-		images = new Image[] { SwingUtils.createImage("/Images/clear" + night + ".png"),
-				SwingUtils.createImage("/Images/partly_cloudy" + night + ".png"), SwingUtils.createImage("/Images/cloudy.png"),
-				SwingUtils.createImage("/Images/rain" + night + ".png"), SwingUtils.createImage("/Images/wind.png"),
-				SwingUtils.createImage("/Images/fog" + night + ".png"), SwingUtils.createImage("/Images/sleet.png"),
-				SwingUtils.createImage("/Images/snow" + night + ".png"), };
+		images = new Image[] {
+            SwingUtils.createImage("/Images/clear" + night + ".png"),
+            SwingUtils.createImage("/Images/partly_cloudy" + night + ".png"),
+            SwingUtils.createImage("/Images/cloudy.png"),
+            SwingUtils.createImage("/Images/rain" + night + ".png"),
+            SwingUtils.createImage("/Images/wind.png"),
+            SwingUtils.createImage("/Images/fog" + night + ".png"),
+            SwingUtils.createImage("/Images/sleet.png"),
+            SwingUtils.createImage("/Images/snow" + night + ".png")
+        };
 	}
 
 	public final void paintComponent(Graphics graphics) {
@@ -172,7 +183,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
 
 		for (int i = 0; i < forecasts.size(); i++) {
 			// min value
-			String temp = String.valueOf(forecasts.get(i).min);
+			String temp = df.format(forecasts.get(i).min);
 			Rectangle2D rect = metrics.getStringBounds(temp, g);
 
 			g.setColor(
@@ -191,7 +202,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
 			}
 
 			// max value
-			temp = String.valueOf(forecasts.get(i).max);
+			temp = df.format(forecasts.get(i).max);
 			rect = metrics.getStringBounds(temp, g);
 
 			g.setColor(
@@ -226,12 +237,12 @@ public final class ForecastChart extends JPanel implements ActionListener {
 			// draw summary image
 			Image img = getImage(forecast.summary);
 			if (img != null) {
-				float totalImgHeight = PADDING_BOTTOM - (float) rect.getHeight() - 8;
-				int imgY = (int) (getHeight() - totalImgHeight - 4);
+				float totalImgHeight = PADDING_BOTTOM - (float) rect.getHeight() - IMG_PADDING * 2 - DATE_PADDING_TOP;
+				int imgY = (int) (getHeight() - totalImgHeight - IMG_PADDING);
 
 				// scale image to fit
-				int imgWidth = (int) (bar);
-				int imgHeight = (int) (imgWidth / (float) img.getWidth(null) * img.getHeight(null));
+				int imgWidth = (int)bar;
+				int imgHeight = (int) (imgWidth / (float) img.getWidth(null) * img.getHeight(null)); // maintain aspect ratio
 
 				if (imgHeight > totalImgHeight) {
 					imgWidth *= totalImgHeight / (float) imgHeight;
@@ -245,7 +256,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
 			// don't draw text if width too small
 			if (getWidth() >= PADDING * 6) {
 				g.setColor(COL_TEXT);
-				g.drawString(date, x - (float) rect.getCenterX(), y + (float) rect.getHeight() + 15);
+				g.drawString(date, x - (float) rect.getCenterX(), y + (float) rect.getHeight() + DATE_PADDING_TOP);
 			}
 		}
 	}
@@ -285,7 +296,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	 */
 	private int getAlpha(double value) {
 		double divisor = value >= 0 ? max : min;
-		int alpha = (int) (55 * Math.abs(value / divisor) + 200 * aniProgress / (float) ANIMATION_TICKS);
+		int alpha = (int) (75 * Math.abs(value / divisor) + 180 * aniProgress / (float) ANIMATION_TICKS);
 		return Math.min(Math.max(alpha, 0), 255);
 	}
 

@@ -30,7 +30,6 @@ public final class MainPanel extends JPanel
 	private final StationForecast stationForecast;
 
 	private OnActionListener _listenerAction;
-	private OnViewForecastClickListener _listenerViewForecastClick;
 	private FavoriteCell.OnStationSelectListener _listenerStationSelect;
 	private FavoriteCell.OnDataLoadListener _listenerDataLoad;
 
@@ -99,11 +98,6 @@ public final class MainPanel extends JPanel
 		stationDetail.setOnActionListener(new StationDetail.OnActionListener() {
 			public final void onViewChartClick() {
 				showPanel(PanelType.Chart);
-			}
-
-			public final void onViewForecastClick() {
-				if (_listenerViewForecastClick != null)
-					_listenerViewForecastClick.onViewForecastClick();
 			}
 
 			public final void onViewHistoryClick() {
@@ -211,10 +205,6 @@ public final class MainPanel extends JPanel
 		_listenerAction = listener;
 	}
 
-	public final void setOnViewForecastListener(OnViewForecastClickListener listener) {
-		_listenerViewForecastClick = listener;
-	}
-
 	public final void setOnRemoveFromFavoritesClickListener(StationDetail.OnRemoveFavoriteClickListener listener) {
 		stationDetail.setOnRemoveFavoriteClickListener(listener);
 	}
@@ -246,10 +236,6 @@ public final class MainPanel extends JPanel
 	public final void onDataLoadFail() {
 		if (_listenerDataLoad != null)
 			_listenerDataLoad.onDataLoadFail();
-	}
-
-	public interface OnViewForecastClickListener {
-		void onViewForecastClick();
 	}
 
 	public enum PanelType {

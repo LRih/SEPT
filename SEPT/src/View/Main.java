@@ -38,7 +38,7 @@ import com.alee.extended.image.WebImage;
 /**
  * App Main
  */
-public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, StationDetail.OnRemoveFavoriteClickListener, FavoriteCell.OnStationSelectListener, FavoriteCell.OnDataLoadListener, MainPanel.OnViewForecastClickListener
+public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, StationDetail.OnRemoveFavoriteClickListener, FavoriteCell.OnStationSelectListener, FavoriteCell.OnDataLoadListener
 {
     private static final int NOTIFICATION_CLOSE_TIME_MILLIS = 5000;
 
@@ -233,7 +233,6 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
                 showPanel(PanelType.AddFavorite);
             }
         });
-        pnMain.setOnViewForecastListener(this);
         pnMain.setOnRemoveFromFavoritesClickListener(this);
         pnMain.setOnStationSelectListener(this);
         pnMain.setOnDataLoadListener(this);
@@ -375,12 +374,6 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
 
 
     /* Event callbacks */
-
-    public final void onViewForecastClick()
-    {
-        new ForecastDialog(frmMain, selectedStation).setVisible(true);
-    }
-
     public final void onAddFavoriteClick(Station station)
     {
         // when favorite already exists

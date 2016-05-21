@@ -1,20 +1,15 @@
 package View;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 
 import Model.AppState;
 import Model.Forecast;
-import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
-import Utils.ForecastFactory;
 import Utils.ForecastWorker;
 import Utils.ForecastFactory.Source;
 
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.Panel;
 import java.util.List;
 import net.miginfocom.swing.MigLayout;
@@ -22,10 +17,7 @@ import net.miginfocom.swing.MigLayout;
 import com.alee.extended.panel.WebButtonGroup;
 import com.alee.laf.button.WebToggleButton;
 import com.alee.laf.combobox.WebComboBox;
-import java.awt.Font;
 import com.alee.laf.label.WebLabel;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -133,7 +125,6 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 			// set empty temp
 
 		}
-
 	}
 
 	/**
@@ -158,8 +149,6 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		pnChart.setLayout(new MigLayout("ins 0 0 0 0", "[grow]", "[grow]"));
 
 		// initialize components
-//		forecastChart.setTitle("Forecast IO: " + station.getName());
-		forecastChart.setYAxisText("Temperature (°C)");
 		pnChart.add(forecastChart, "cell 0 0 1 1, grow");
 
 		pnChart.validate();
