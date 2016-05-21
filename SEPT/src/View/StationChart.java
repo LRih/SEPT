@@ -315,6 +315,7 @@ public final class StationChart extends JPanel {
 		pnSelectData.add(wblblZoom, "cell 0 12 3 1, gapy 15");
 
 		sliderZoom = new WebSlider();
+		sliderZoom.setFocusable(false);
 		sliderZoom.setMinimum(3);
 		sliderZoom.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
