@@ -45,7 +45,7 @@ public class FrameLoading extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 100);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 128, 0));
+		contentPane.setBackground(Style.LOADING_FRAME_BACKGROUND);
 		contentPane.setBorder(new LineBorder(new Color(144, 238, 144)));
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("ins -5 -15 -5 -15, gapy 0", "[grow]", "[grow]"));
@@ -65,7 +65,7 @@ public class FrameLoading extends JFrame {
 		panelWelcome.setLayout(new MigLayout("ins 10 15 10 0", "[grow]", "[grow]"));
 		
 		WebLabel labelBomWeather = new WebLabel();
-		labelBomWeather.setForeground(new Color(255, 255, 255));
+		labelBomWeather.setForeground(Color.white);
 		labelBomWeather.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 		labelBomWeather.setFontSize(30);
 		labelBomWeather.setText("BOM Weather");

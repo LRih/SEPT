@@ -124,6 +124,7 @@ public final class Main
 		// flash screen
 		FrameLoading frameLoading = new FrameLoading();
 		
+		// calculate position based on previous session position
 		Rectangle screen = AppState.getInstance().getWindowRect();
 		int flash_screen_width = 450;
 		int flash_screen_height = 100;

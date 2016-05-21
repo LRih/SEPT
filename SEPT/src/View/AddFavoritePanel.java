@@ -66,7 +66,7 @@ public final class AddFavoritePanel extends JPanel
 
         WebLabel labelAddStation = new WebLabel();
         panelAddStation.add(labelAddStation, "cell 1 0");
-        labelAddStation.setForeground(new Color(0, 0, 0));
+        labelAddStation.setForeground(Color.black);
         labelAddStation.setFont(Style.FONT_16);
         labelAddStation.setText("Find your station");
 

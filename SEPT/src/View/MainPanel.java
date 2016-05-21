@@ -39,7 +39,7 @@ public final class MainPanel extends JPanel
 	 * Create the panel.
 	 */
 	public MainPanel() {
-		setBackground(new Color(34, 139, 34));
+		setBackground(Style.MAIN_PANEL_BACKGROUND);
 
 		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][199][]"));
 
@@ -67,7 +67,7 @@ public final class MainPanel extends JPanel
 
 		buttonAddStation = new WebButton("Add station");
 		pnStationList.add(buttonAddStation, "cell 1 0,alignx right, gapx 0 15");
-		buttonAddStation.setForeground(new Color(0, 100, 0));
+		buttonAddStation.setForeground(Style.ADD_STATION_BUTTON);
 		buttonAddStation.setDrawShade(false);
 		buttonAddStation.setDefaultButtonShadeColor(new Color(154, 205, 50));
 		buttonAddStation.setBottomSelectedBgColor(new Color(50, 205, 50));

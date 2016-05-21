@@ -54,7 +54,7 @@ public final class StationDetail extends JPanel {
 	 * Create the panel.
 	 */
 	public StationDetail() {
-		setBackground(new Color(176, 196, 222));
+		setBackground(Style.STATION_DETAIL_BACKGROUND);
 
 		setLayout(new MigLayout("", "[30%,grow][grow][30%]", "[grow][][][][][][][][grow][]"));
 
@@ -64,7 +64,7 @@ public final class StationDetail extends JPanel {
 
 		labelStation = new WebLabel();
 		labelStation.setText("-");
-		labelStation.setForeground(new Color(255, 69, 0));
+		labelStation.setForeground(Style.CELL_STATION_LABEL);
 		labelStation.setFont(Style.FONT_30);
 
 		add(labelStation, "cell 0 1 2 1");
@@ -90,7 +90,7 @@ public final class StationDetail extends JPanel {
 		add(labelRainSinceam, "cell 2 3");
 
 		labelc = new WebLabel();
-		labelc.setForeground(new Color(255, 255, 255));
+		labelc.setForeground(Color.white);
 		labelc.setFont(Style.FONT_FUTURA_50);
 		labelc.setText("-°C");
 		add(labelc, "cell 1 3 1 3,alignx left,aligny top");

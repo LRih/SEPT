@@ -64,12 +64,12 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
             }
         });
 
-        setBorder(new LineBorder(new Color(245, 245, 245)));
-        setBackground(new Color(250, 250, 250));
+        setBorder(new LineBorder(Style.CELL_NORMAL));
+        setBackground(Style.CELL_BACKGROUND);
         setLayout(new MigLayout("", "[grow][][5%][]", "[][][]"));
 
         WebLabel labelStation = new WebLabel();
-        labelStation.setForeground(new Color(255, 69, 0));
+        labelStation.setForeground(Style.CELL_STATION_LABEL);
         labelStation.setFont(Style.FONT_16);
         labelStation.setText(station.getName());
         add(labelStation, "cell 0 0 1 2,alignx left,grow");

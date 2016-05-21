@@ -64,7 +64,7 @@ public final class StationHistory extends JPanel
 
         labelStation = new WebLabel();
         labelStation.setText("-");
-        labelStation.setForeground(new Color(255, 69, 0));
+        labelStation.setForeground(Style.CELL_STATION_LABEL);
         labelStation.setFont(Style.FONT_30);
 
         add(labelStation, "cell 1 0");

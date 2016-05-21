@@ -98,7 +98,7 @@ public final class StationChart extends JPanel {
 		buttonBack.setText("Back");
 
 		panelSelectData = new JPanel();
-		panelSelectData.setBackground(new Color(255, 255, 255));
+		panelSelectData.setBackground(Color.white);
 		add(panelSelectData, "cell 4 0 1 2,grow");
 		panelSelectData.setLayout(new MigLayout("", "[14%][50%][36%]", "[][][][][][][][][][][][][][][][][][][]"));
 

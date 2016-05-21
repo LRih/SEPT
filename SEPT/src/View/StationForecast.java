@@ -39,11 +39,11 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	 * Create the panel.
 	 */
 	public StationForecast() {
-		setBackground(new Color(169, 169, 169));
+		setBackground(Style.INTERNET_OFF_BACKGROUND);
 		setLayout(new MigLayout("ins 0 0 0 0", "[grow][150]", "[15][grow]"));
 
 		labelForecast = new WebLabel();
-		labelForecast.setForeground(new Color(255, 255, 255));
+		labelForecast.setForeground(Color.white);
 		labelForecast.setFont(Style.FONT_16);
 		labelForecast.setText("Weather Forecast");
 		add(labelForecast, "cell 0 0, gapx 15 0");
@@ -63,7 +63,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 			}
 		});
 		radioForecastIO.setForeground(Color.BLACK);
-		radioForecastIO.setSelectedForeground(new Color(0, 100, 0));
+		radioForecastIO.setSelectedForeground(Style.ADD_STATION_BUTTON);
 		radioForecastIO.setBottomSelectedBgColor(Color.WHITE);
 		radioForecastIO.setBottomBgColor(Color.WHITE);
 		radioForecastIO.setFont(Style.FONT_BENDER_12);
@@ -76,7 +76,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 			}
 		});
 		radioOpenWeatherMap.setForeground(Color.BLACK);
-		radioOpenWeatherMap.setSelectedForeground(new Color(0, 100, 0));
+		radioOpenWeatherMap.setSelectedForeground(Style.ADD_STATION_BUTTON);
 		radioOpenWeatherMap.setBottomSelectedBgColor(new Color(240, 255, 240));
 		radioOpenWeatherMap.setBottomBgColor(Color.WHITE);
 		radioOpenWeatherMap.setFont(Style.FONT_BENDER_12);
