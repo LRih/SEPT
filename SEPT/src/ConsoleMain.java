@@ -1,5 +1,5 @@
 import Model.Forecast;
-import Utils.ForecastFactory;
+import Data.ForecastFactory;
 
 import java.io.IOException;
 

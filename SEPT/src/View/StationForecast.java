@@ -7,7 +7,7 @@ import Model.Forecast;
 import Model.Station;
 import Model.StationData;
 import Utils.ForecastWorker;
-import Utils.ForecastFactory.Source;
+import Data.ForecastFactory.Source;
 
 import java.awt.Color;
 import java.awt.Panel;

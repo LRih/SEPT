@@ -2,7 +2,7 @@ package View;
 
 import Model.Forecast;
 import Model.Station;
-import Utils.ForecastFactory;
+import Data.ForecastFactory;
 import Utils.ForecastWorker;
 
 import javax.swing.*;

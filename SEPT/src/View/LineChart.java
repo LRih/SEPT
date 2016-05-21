@@ -38,21 +38,6 @@ public final class LineChart extends JPanel implements ActionListener
     private static final Color COL_AXIS = new Color(160, 160, 160);
     private static final Color COL_MINOR_AXIS = new Color(224, 224, 224);
 
-    private static final Color[] COL_LINES =
-    {
-        new Color(23, 118, 182),
-        new Color(255, 127, 0),
-        new Color(36, 162, 32),
-        new Color(216, 36, 31),
-        new Color(182, 23, 118),
-        new Color(23, 182, 182),
-        new Color(182, 182, 23),
-        new Color(23, 118, 255),
-        new Color(182, 118, 255),
-        new Color(182, 118, 23),
-        new Color(118, 118, 118)
-    };
-
     private String title = "";
     private String xAxisText = "";
     private String yAxisText = "";
@@ -61,6 +46,7 @@ public final class LineChart extends JPanel implements ActionListener
 
     // linked hash map to preserve insertion order
     private final LinkedHashMap<String, double[]> datasets = new LinkedHashMap<>();
+    private final HashMap<String, Color> colors = new HashMap<>();
 
     private double min = Float.MAX_VALUE;
     private double max = Float.MIN_VALUE;
@@ -165,7 +151,7 @@ public final class LineChart extends JPanel implements ActionListener
             float x = getWidth() - PADDING_RIGHT + MINOR_AXIS_EXTRA;
             float y = PADDING + index * (LABEL_SIZE + MINOR_AXIS_EXTRA);
 
-            g.setColor(COL_LINES[index % COL_LINES.length]);
+            g.setColor(colors.get(name));
             g.fillRect((int)x, (int)y, LABEL_SIZE, LABEL_SIZE);
 
             g.setColor(COL_TEXT);
@@ -304,7 +290,7 @@ public final class LineChart extends JPanel implements ActionListener
         int index = 0;
         for (String name : datasets.keySet())
         {
-            g.setColor(COL_LINES[index % COL_LINES.length]);
+            g.setColor(colors.get(name));
             g.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g.draw(getLinePath(datasets.get(name), name));
 
@@ -362,7 +348,7 @@ public final class LineChart extends JPanel implements ActionListener
         repaint();
     }
 
-    public final void addDataset(String name, double[] values)
+    public final void addDataset(String name, Color color, double[] values)
     {
         if (datasets.containsKey(name))
         {
@@ -374,6 +360,7 @@ public final class LineChart extends JPanel implements ActionListener
             return;
 
         datasets.put(name, values);
+        colors.put(name, color);
         aniProgressList.put(name, ANIMATION_TICKS);
 
         // calculate new min
@@ -400,12 +387,14 @@ public final class LineChart extends JPanel implements ActionListener
         }
 
         datasets.remove(name);
+        colors.remove(name);
         aniProgressList.remove(name);
     }
 
     public final void clearDatasets()
     {
         datasets.clear();
+        colors.clear();
         aniProgressList.clear();
 
         min = Float.MAX_VALUE;
@@ -419,6 +408,11 @@ public final class LineChart extends JPanel implements ActionListener
         clearDatasets();
 
         repaint();
+    }
+
+    public final int getLineCount()
+    {
+        return datasets.keySet().size();
     }
 
     public final void setTitle(String title)

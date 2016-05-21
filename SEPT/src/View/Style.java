@@ -14,6 +14,21 @@ public final class Style
     public static final Color CELL_NORMAL = new Color(245, 245, 245);
     public static final Color CELL_SELECTED = new Color(225, 225, 225);
 
+    public static final Color[] LINE_COLORS =
+        {
+            new Color(23, 118, 182),
+            new Color(255, 127, 0),
+            new Color(36, 162, 32),
+            new Color(216, 36, 31),
+            new Color(182, 23, 118),
+            new Color(23, 182, 182),
+            new Color(182, 182, 23),
+            new Color(23, 118, 255),
+            new Color(182, 118, 255),
+            new Color(182, 118, 23),
+            new Color(118, 118, 118)
+        };
+
 
     public static final Font FONT_13 = new Font("Century Gothic", Font.PLAIN, 13);
     public static final Font FONT_16 = new Font("Century Gothic", Font.PLAIN, 16);

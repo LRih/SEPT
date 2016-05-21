@@ -5,7 +5,7 @@ import View.StationChart;
 
 import java.awt.*;
 
-import Utils.ForecastFactory.Source;
+import Data.ForecastFactory.Source;
 
 /**
  * Stores various attributes of app state. Singleton class.

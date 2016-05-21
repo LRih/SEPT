@@ -243,7 +243,8 @@ public final class StationChart extends JPanel
                 return;
         }
 
-        chartPanel.addDataset(name, values);
+        Color col = Style.LINE_COLORS[chartPanel.getLineCount() % Style.LINE_COLORS.length];
+        chartPanel.addDataset(name, col, values);
     }
 
     private String[] getXAxisValues()

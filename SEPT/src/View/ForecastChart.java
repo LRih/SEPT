@@ -373,16 +373,8 @@ public final class ForecastChart extends JPanel implements ActionListener {
 		Log.info(getClass(), "New range, min: " + min + ", max: " + max);
 	}
 
-	public void clearForecast() {
-		forecasts.clear();
-
-		min = Float.MAX_VALUE;
-		max = Float.MIN_VALUE;
-
-		aniProgress = ANIMATION_TICKS;
-		timer.stop();
-
-		repaint();
+	public final void clearForecast() {
+		setForecasts(new ArrayList<Forecast>());
 	}
 
 	public final void setTitle(String title) {

@@ -1,8 +1,10 @@
-package Utils;
+package Data;
 
-import Data.ForecastIOUtils;
-import Data.OpenWeatherMapUtils;
 import Model.Forecast;
+import Model.LatestReading;
+import Model.Station;
+import Model.StationData;
+import Utils.Log;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -33,6 +35,27 @@ public class ForecastFactory
     /**
      * Get cached forecasts from specified source.
      */
+    public static List<Forecast> getCachedForecasts(Station station, Source src) throws JSONException
+    {
+        Log.info(ForecastFactory.class, "Loading cached forecast for " + station.getName());
+
+        // first try to load cached data (we only need lat/lon info)
+        StationData data = DataManager.getCachedStationData(station);
+
+        // return fail if cached station data or lat/lon info. does not exist
+        if (data == null || data.getLatestReadings().isEmpty())
+        {
+            Log.info(ForecastFactory.class, "Unable to load cached forecast for " + station.getName());
+            return null;
+        }
+
+        LatestReading reading = data.getLatestReadings().get(0);
+        List<Forecast> forecasts = getCachedForecasts(reading.latitude, reading.longitude, src);
+
+        Log.info(DataManager.class, "Cached data successfully loaded for " + station.getName());
+
+        return forecasts;
+    }
     public static List<Forecast> getCachedForecasts(double lat, double lon, Source src) throws JSONException
     {
         switch (src)

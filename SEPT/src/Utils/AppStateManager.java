@@ -1,7 +1,7 @@
 package Utils;
 
 import Model.AppState;
-import Utils.ForecastFactory.Source;
+import Data.ForecastFactory.Source;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,6 +1,7 @@
 package Utils;
 
 import Data.DataManager;
+import Data.ForecastFactory;
 import Model.Forecast;
 import Model.LatestReading;
 import Model.Station;

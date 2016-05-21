@@ -1,5 +1,5 @@
 import Model.*;
-import Utils.ForecastFactory;
+import Data.ForecastFactory;
 import Utils.Log;
 import Utils.SwingUtils;
 import Utils.TextUtils;
