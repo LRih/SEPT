@@ -43,6 +43,7 @@ public final class LineChart extends JPanel implements ActionListener
     private String yAxisText = "";
 
     private String[] xValues = new String[] { };
+    private int maxDataPoints;
 
     // linked hash map to preserve insertion order
     private final LinkedHashMap<String, double[]> datasets = new LinkedHashMap<>();
@@ -190,7 +191,7 @@ public final class LineChart extends JPanel implements ActionListener
         g.setFont(FONT_MINOR_AXIS);
         g.setStroke(new BasicStroke(MINOR_AXIS_WIDTH));
 
-        int interval = (int)(xValues.length / (getWidth() / 100f));
+        int interval = (int)(maxDataPoints / (getWidth() / 100f));
 
         if (interval == 0)
             interval = 1;
@@ -198,7 +199,7 @@ public final class LineChart extends JPanel implements ActionListener
         if (datasets.isEmpty())
             return;
 
-        for (int i = 0; i < xValues.length; i += interval)
+        for (int i = getStartIndex(); i < xValues.length; i += interval)
         {
             Rectangle2D rect = metrics.getStringBounds(xValues[i], g);
             int x = (int)getX(i);
@@ -306,10 +307,12 @@ public final class LineChart extends JPanel implements ActionListener
         double median = (min + max) / 2;
         double aniLeftPercent = aniProgressList.get(name) / (float)ANIMATION_TICKS;
 
-        Path2D path = new Path2D.Float();
-        path.moveTo(getX(0), getY(values[0] - (values[0] - median) * aniLeftPercent));
+        int start = getStartIndex();
 
-        for (int i = 1; i < values.length; i++)
+        Path2D path = new Path2D.Float();
+        path.moveTo(getX(start), getY(values[start] - (values[start] - median) * aniLeftPercent));
+
+        for (int i = start + 1; i < values.length; i++)
             path.lineTo(getX(i), getY(values[i] - (values[i] - median) * aniLeftPercent));
 
         return path;
@@ -326,7 +329,7 @@ public final class LineChart extends JPanel implements ActionListener
         if (xValues.length == 1)
             return left;
 
-        return left + width / ((float)xValues.length - 1) * index;
+        return left + width / ((float)maxDataPoints - 1) * (index - getStartIndex());
     }
 
     /**
@@ -341,10 +344,20 @@ public final class LineChart extends JPanel implements ActionListener
         return bottom - (bottom - top) * (value - min) / (max - min);
     }
 
+    /**
+     * Based on max data points.
+     */
+    private int getStartIndex()
+    {
+        return xValues.length - maxDataPoints;
+    }
+
 
     public final void setXValues(String[] values)
     {
         xValues = values;
+        maxDataPoints = values.length;
+
         repaint();
     }
 
@@ -428,6 +441,13 @@ public final class LineChart extends JPanel implements ActionListener
     public final void setYAxisText(String text)
     {
         this.yAxisText = text;
+        repaint();
+    }
+
+    public final void setMaxDataPoints(int max)
+    {
+        maxDataPoints = Math.min(max, xValues.length);
+
         repaint();
     }
 
