@@ -326,12 +326,9 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	 * Get alpha value for drawing bars.
 	 */
 	private int getAlpha(double value) {
-        return 255;
-
-        // no longer animate alpha
-//		double divisor = value >= 0 ? max : min;
-//		int alpha = (int) (75 * Math.abs(value / divisor) + 180 * aniProgress / (float) ANIMATION_TICKS);
-//		return Math.min(Math.max(alpha, 0), 255);
+		double divisor = value >= 0 ? max : min;
+		int alpha = (int) (75 * Math.abs(value / divisor) + 180);
+		return Math.min(Math.max(alpha, 0), 255);
 	}
 
 	private Image getImage(String summary) {

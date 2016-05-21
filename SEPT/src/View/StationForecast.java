@@ -146,33 +146,15 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	}
 
 	/**
-	 * show chart.
-	 */
-	private void showChart() {
-
-		// realease UI
-		groupForcast.setEnabled(true);
-
-		pnChart.removeAll();
-		pnChart.setLayout(new MigLayout("ins 0 0 0 0", "[grow]", "[grow]"));
-
-		// initialize components
-		pnChart.add(forecastChart, "cell 0 0 1 1, grow");
-
-		pnChart.validate();
-		pnChart.repaint();
-	}
-
-	/**
 	 * Callbacks for forecast worker
 	 */
 	public final void onTaskSuccess(List<Forecast> forecasts) {
-		showChart();
+		groupForcast.setEnabled(true);
 		forecastChart.setForecasts(forecasts);
 	}
 
 	public final void onTaskFail() {
-		showChart();
+		groupForcast.setEnabled(true);
 	}
 
 	public void setBlockUI(boolean isBlockUI) {
