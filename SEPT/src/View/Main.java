@@ -126,7 +126,7 @@ public final class Main implements AddFavoritePanel.OnAddFavoriteClickListener, 
     private void initializeUI()
     {
         frmMain = new JFrame();
-        frmMain.setMinimumSize(new Dimension(1000, 750));
+        frmMain.setMinimumSize(new Dimension(1000, 800));
         frmMain.getContentPane().setBackground(Color.WHITE);
         frmMain.getContentPane().setLayout(new MigLayout("ins 0, gapy 0", "[grow]", "[60][grow]"));
 

@@ -28,7 +28,7 @@ public final class LineChart extends JPanel implements ActionListener
 
     private static final float AXIS_WIDTH = 1.5f;
     private static final float MINOR_AXIS_WIDTH = 1f;
-    private static final float LINE_WIDTH = 5f;
+    private static final float LINE_WIDTH = 2f;
 
     private static final Font FONT_TITLE = new Font("Century Gothic", Font.BOLD, 20);
     private static final Font FONT_AXIS = new Font("Century Gothic", Font.BOLD, 14);
@@ -403,17 +403,23 @@ public final class LineChart extends JPanel implements ActionListener
         colors.remove(name);
         aniProgressList.remove(name);
     }
-
-    public final void clearDatasets()
-    {
-        datasets.clear();
-        colors.clear();
+    
+    public final void resetChart() {
+    	colors.clear();
         aniProgressList.clear();
 
         min = Float.MAX_VALUE;
         max = Float.MIN_VALUE;
 
         repaint();
+    }
+
+    public final void clearDatasets()
+    {
+        datasets.clear();
+        
+        resetChart();
+        
     }
     public final void clearValues()
     {
