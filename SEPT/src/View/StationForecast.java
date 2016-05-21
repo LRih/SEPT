@@ -25,8 +25,6 @@ import java.awt.event.ActionEvent;
 public class StationForecast extends JPanel implements ForecastWorker.OnTaskCompleteListener {
 
 	private final ForecastChart forecastChart;
-	private WebComboBox cbForecastSource;
-	private WebLabel labelForecastSource;
 	private WebButtonGroup groupForcast;
 
 	private Source forecastSource;
@@ -34,6 +32,8 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 
 	private Station station;
 	private WebLabel wblblForecast;
+
+    private ForecastWorker worker;
 
 	/**
 	 * Create the panel.
@@ -123,8 +123,11 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 				forecastChart.clearForecast();
 			}
 
+            if (worker != null)
+                worker.cancel(true);
+
 			// load forecasts from the web
-			ForecastWorker worker = new ForecastWorker(station, forecastSource);
+			worker = new ForecastWorker(station, forecastSource);
 			worker.setOnTaskCompleteListener(this);
 			worker.execute();
 
