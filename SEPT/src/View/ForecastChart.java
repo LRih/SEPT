@@ -38,11 +38,13 @@ public final class ForecastChart extends JPanel implements ActionListener {
 
 	private static final Color COL_MIN = new Color(23, 118, 182);
 	private static final Color COL_MAX = new Color(216, 36, 31);
-	
+
 	public static final int NO_DATA = 1;
 	public static final int LOADING_DATA = 2;
 	public static final int NO_INTERNET = 3;
-	
+
+	public static final boolean ANIMATE_OFF = false;
+
 	// 0 no data 1 loading 2 no internet
 	private int status = NO_DATA;
 
@@ -148,7 +150,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
 		g.drawString(yAxisText, PADDING / 3f - (float) rect.getCenterX(), getHeight() / 2f - (float) rect.getCenterY());
 		g.rotate(rad, x, y);
 	}
-	
+
 	public void setStatus(int status) {
 		this.status = status;
 	}
@@ -156,13 +158,13 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	private void drawEmptyText(Graphics2D g) {
 		if (!forecasts.isEmpty())
 			return;
-		
+
 		String text = "no data";
 		if (status == LOADING_DATA)
 			text = "loading data..";
 		else if (status == NO_INTERNET)
 			text = "no internet connection";
-		
+
 		FontMetrics metrics = g.getFontMetrics(FONT_FORECAST);
 		Rectangle2D rect = metrics.getStringBounds(text, g);
 
@@ -349,6 +351,10 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	}
 
 	public final void setForecasts(List<Forecast> forecasts) {
+		setForecasts(forecasts, true);
+	}
+
+	public final void setForecasts(List<Forecast> forecasts, boolean animated) {
 		this.forecasts = forecasts;
 
 		min = Float.MAX_VALUE;
@@ -366,9 +372,14 @@ public final class ForecastChart extends JPanel implements ActionListener {
 
 		repaint();
 
-		// start animation
-		aniProgress = 0;
-		timer.start();
+		if (animated) {
+			// start animation
+			aniProgress = 0;
+			timer.start();
+		} else {
+			// no animation
+			aniProgress = ANIMATION_TICKS;
+		}
 
 		Log.info(getClass(), "New range, min: " + min + ", max: " + max);
 	}

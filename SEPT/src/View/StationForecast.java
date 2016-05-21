@@ -171,7 +171,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	 */
 	public final void onTaskSuccess(List<Forecast> forecasts) {
 		showChart();
-		forecastChart.setForecasts(forecasts);
+		forecastChart.setForecasts(forecasts, ForecastChart.ANIMATE_OFF);
 	}
 
 	public final void onTaskFail() {
