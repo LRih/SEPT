@@ -134,6 +134,7 @@ public final class Main
 		frameLoading.setVisible(true);
 		
 		// main frame
+		frameLoading.setLoadingText("main frame");
 		frameMain = new JFrame();
 		frameMain.setMinimumSize(new Dimension(1000, 837));
 		frameMain.setBackground(Color.WHITE);
@@ -144,6 +145,7 @@ public final class Main
 		frameMain.getContentPane().setLayout(new MigLayout("ins 0, gapy 0", "[grow]", "[60][grow]"));
 
 		// Top Bar
+		frameLoading.setLoadingText("main bar");
 		panelMainBar = new JPanel();
 		panelMainBar.setBackground(Style.INTERNET_OFF_BACKGROUND);
 		frameMain.getContentPane().add(panelMainBar, "cell 0 0,grow");
@@ -160,6 +162,7 @@ public final class Main
 		labelBomWeather.setText("BOM Weather");
 		panelMainBar.add(labelBomWeather, "flowx,cell 0 0");
 
+		frameLoading.setLoadingText("components");
 		buttonRefreshData = new WebButton();
 		buttonRefreshData.setForeground(new Color(25, 25, 112));
 		buttonRefreshData.setDefaultButtonShadeColor(new Color(240, 255, 255));
@@ -170,19 +173,28 @@ public final class Main
 		buttonRefreshData.setText("Refresh Data");
 		panelMainBar.add(buttonRefreshData, "cell 1 0,aligny center, alignx right");
 
+		frameLoading.setLoadingText("content panel");
 		panelContent = new JPanel();
 		frameMain.getContentPane().add(panelContent, "cell 0 1,grow");
 
+		frameLoading.setLoadingText("first run panel");
 		panelFirstRun = new FirstRunPanel();
+		frameLoading.setLoadingText("add favorite panel");
 		panelAddFavorite = new AddFavoritePanel(states);
+		
+
+		frameLoading.setLoadingText("main panel");
 		panelMain = new MainPanel();
 
 		// set initial data
+		frameLoading.setLoadingText("station");
 		panelMain.setStation(selectedStation, selectedStationData);
-
-		showPreviousSession();
-		addListeners();
 		
+		frameLoading.setLoadingText("station data");
+		showPreviousSession();
+		
+		frameLoading.setLoadingText("event listeners");
+		addListeners();
 		frameLoading.setVisible(false);
 
 	}
