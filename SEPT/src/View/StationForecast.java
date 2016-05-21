@@ -31,9 +31,9 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	private Panel pnChart;
 
 	private Station station;
-	private WebLabel wblblForecast;
+	private WebLabel labelForecast;
 
-    private ForecastWorker worker;
+	private ForecastWorker worker;
 
 	/**
 	 * Create the panel.
@@ -41,12 +41,12 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	public StationForecast() {
 		setBackground(new Color(169, 169, 169));
 		setLayout(new MigLayout("ins 0 0 0 0", "[grow][150]", "[15][grow]"));
-		
-		wblblForecast = new WebLabel();
-		wblblForecast.setForeground(new Color(255, 255, 255));
-		wblblForecast.setFont(Style.FONT_16);
-		wblblForecast.setText("Forecast");
-		add(wblblForecast, "cell 0 0, gapx 15 0");
+
+		labelForecast = new WebLabel();
+		labelForecast.setForeground(new Color(255, 255, 255));
+		labelForecast.setFont(Style.FONT_16);
+		labelForecast.setText("Weather Forecast");
+		add(labelForecast, "cell 0 0, gapx 15 0");
 
 		pnChart = new Panel();
 		add(pnChart, "cell 0 1 2 1,grow");
@@ -93,7 +93,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		add(groupForcast, "cell 1 0,alignx right,gapx 0 15,gapy 7 3");
 
 	}
-	
+
 	public void updateBackgroundColor(boolean hasInternetConnection) {
 		if (hasInternetConnection)
 			setBackground(Style.INTERNET_ON_BACKGROUND);
@@ -102,9 +102,9 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	}
 
 	private void updateStation() {
-		
+
 		AppState.getInstance().forecastSource = forecastSource;
-		
+
 		// no station select so hide
 		if (station == null) {
 			setVisible(false);
@@ -115,16 +115,17 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		if (station != null) {
 			// get cached data if exist
 			List<Forecast> cachedForecast = ForecastFactory.getCachedForecasts(station, forecastSource);
-			if (cachedForecast != null)
+			if (cachedForecast != null) {
 				forecastChart.setForecasts(cachedForecast);
-			else {
+				labelForecast.setText("Next " + (cachedForecast.size() - 1) + " days forecast");
+			} else {
 				// clear forecast
 				forecastChart.setStatus(ForecastChart.LOADING_DATA);
 				forecastChart.clearForecast();
 			}
 
-            if (worker != null)
-                worker.cancel(true);
+			if (worker != null)
+				worker.cancel(true);
 
 			// load forecasts from the web
 			worker = new ForecastWorker(station, forecastSource);
@@ -151,6 +152,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	public final void onTaskSuccess(List<Forecast> forecasts) {
 		groupForcast.setEnabled(true);
 		forecastChart.setForecasts(forecasts);
+		labelForecast.setText("Next " + (forecasts.size() - 1) + " days forecast");
 	}
 
 	public final void onTaskFail() {

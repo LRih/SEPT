@@ -41,7 +41,7 @@ public final class MainPanel extends JPanel
 	public MainPanel() {
 		setBackground(new Color(34, 139, 34));
 
-		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][200][]"));
+		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][199][]"));
 
 		pnFavorites = new JPanel();
 		pnFavorites.setBackground(new Color(255, 255, 255));
@@ -56,11 +56,11 @@ public final class MainPanel extends JPanel
 
 		pnStationList = new JPanel();
 		add(pnStationList, "cell 0 3 2 1,grow");
-		pnStationList.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[30][grow]"));
+		pnStationList.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[28][grow]"));
 		pnStationList.setBackground(new Color(169, 169, 169));
 
 		WebLabel wblblWeatherStations = new WebLabel();
-		pnStationList.add(wblblWeatherStations, "cell 0 0, gapx 15 0, gapy 8 8");
+		pnStationList.add(wblblWeatherStations, "cell 0 0, gapx 15 0, gapy 6 8");
 		wblblWeatherStations.setForeground(new Color(255, 255, 255));
 		wblblWeatherStations.setFont(Style.FONT_16);
 		wblblWeatherStations.setText("Favourite Stations");
@@ -78,7 +78,7 @@ public final class MainPanel extends JPanel
 		WebScrollPane webScrollPane = new WebScrollPane(pnFavorites, false, true);
 		webScrollPane.setDrawFocus(false);
 		webScrollPane.setPreferredSize(new Dimension(0, 0));
-		pnStationList.add(webScrollPane, "cell 0 1 2 1,hmin 160,grow");
+		pnStationList.add(webScrollPane, "cell 0 1 2 1,hmin 158,grow");
 
 		stationDetail = new StationDetail();
 		stationChart = new StationChart();

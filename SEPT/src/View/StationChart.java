@@ -70,7 +70,7 @@ public final class StationChart extends JPanel {
 	 */
 	public StationChart() {
 		setBackground(Color.WHITE);
-		setLayout(new MigLayout("", "[50][][][grow][200]", "[][grow]"));
+		setLayout(new MigLayout("ins 5 5 5 5, gapy 0", "[50][][][grow][200]", "[][grow]"));
 
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -213,7 +213,7 @@ public final class StationChart extends JPanel {
 			}
 		});
 		radioPressure.setRolloverDarkBorderOnly(true);
-		radioPressure.setText("Pressure");
+		radioPressure.setText("Pressure (hPa)");
 		pnSelectData.add(radioPressure, "cell 0 7 3 1, gapy 5 0");
 
 		checkboxPressure9am = new WebCheckBox();
@@ -247,7 +247,7 @@ public final class StationChart extends JPanel {
 			}
 		});
 		radioHumidity.setRolloverDarkBorderOnly(true);
-		radioHumidity.setText("Humidity");
+		radioHumidity.setText("Humidity (%)");
 		pnSelectData.add(radioHumidity, "cell 0 9 3 1, gapy 5 0");
 
 		checkboxHumid9am = new WebCheckBox();
@@ -361,13 +361,13 @@ public final class StationChart extends JPanel {
 			updateCheckbox(checkboxWindGust, isEnabled);
 			break;
 		case Pressure:
-			chartPanel.setYAxisText("Pressure");
+			chartPanel.setYAxisText("Pressure (hPa)");
 			chartPanel.setXValues(getXAxisValues());
 			updateCheckbox(checkboxPressure9am, isEnabled);
 			updateCheckbox(checkboxPressure3pm, isEnabled);
 			break;
 		case Humidity:
-			chartPanel.setYAxisText("Humidity");
+			chartPanel.setYAxisText("Humidity (%)");
 			chartPanel.setXValues(getXAxisValues());
 			updateCheckbox(checkboxHumid9am, isEnabled);
 			updateCheckbox(checkboxHumid3pm, isEnabled);
