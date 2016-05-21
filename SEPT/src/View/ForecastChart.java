@@ -76,10 +76,13 @@ public final class ForecastChart extends JPanel implements ActionListener {
             SwingUtils.createImage("/Images/partly_cloudy" + night + ".png"),
             SwingUtils.createImage("/Images/cloudy" + night + ".png"),
             SwingUtils.createImage("/Images/rain" + night + ".png"),
-            SwingUtils.createImage("/Images/mist" + night + ".png"),
+            SwingUtils.createImage("/Images/hail" + night + ".png"),
+            SwingUtils.createImage("/Images/storm" + night + ".png"),
+            SwingUtils.createImage("/Images/wind" + night + ".png"),
             SwingUtils.createImage("/Images/fog" + night + ".png"),
             SwingUtils.createImage("/Images/sleet" + night + ".png"),
-            SwingUtils.createImage("/Images/snow" + night + ".png")
+            SwingUtils.createImage("/Images/snow" + night + ".png"),
+            SwingUtils.createImage("/Images/dunno" + night + ".png"),
         };
 	}
 
@@ -312,18 +315,21 @@ public final class ForecastChart extends JPanel implements ActionListener {
 			return images[2];
 		else if (summary.contains("rain"))
 			return images[3];
-		else if (summary.contains("wind"))
+		else if (summary.contains("hail"))
 			return images[4];
-		else if (summary.contains("fog"))
+		else if (summary.contains("storm"))
 			return images[5];
-		else if (summary.contains("sleet"))
+		else if (summary.contains("wind"))
 			return images[6];
-		else if (summary.contains("snow"))
+		else if (summary.contains("fog"))
 			return images[7];
+		else if (summary.contains("sleet"))
+			return images[8];
+		else if (summary.contains("snow"))
+			return images[9];
 
 		Log.warn(getClass(), "Unsupported summary detected: " + summary);
-
-		return null;
+		return images[10];
 	}
 
 	public final void setForecasts(List<Forecast> forecasts) {
