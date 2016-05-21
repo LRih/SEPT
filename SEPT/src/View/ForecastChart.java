@@ -78,7 +78,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
             SwingUtils.createImage("/Images/rain" + night + ".png"),
             SwingUtils.createImage("/Images/hail" + night + ".png"),
             SwingUtils.createImage("/Images/storm" + night + ".png"),
-            SwingUtils.createImage("/Images/wind" + night + ".png"),
+            SwingUtils.createImage("/Images/windy" + night + ".png"),
             SwingUtils.createImage("/Images/fog" + night + ".png"),
             SwingUtils.createImage("/Images/sleet" + night + ".png"),
             SwingUtils.createImage("/Images/snow" + night + ".png"),
