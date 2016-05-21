@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import Model.AppState;
 import Model.HistoricalReading;
+import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
 import Utils.Log;
@@ -36,7 +37,7 @@ import com.alee.laf.slider.WebSlider;
  * Chart UI
  */
 public final class StationChart extends JPanel {
-//	private final WebLabel wblblState;
+	// private final WebLabel wblblState;
 	private final LineChart chartPanel;
 	private final JPanel panel;
 	// private final WebComboBox wcbChartType;
@@ -71,10 +72,10 @@ public final class StationChart extends JPanel {
 		setBackground(Color.WHITE);
 		setLayout(new MigLayout("", "[50][][][grow][200]", "[][grow]"));
 
-//		wblblState = new WebLabel();
-//		wblblState.setFont(Style.FONT_BENDER_16);
-//		wblblState.setText("-");
-//		add(wblblState, "cell 2 0,alignx trailing");
+		// wblblState = new WebLabel();
+		// wblblState.setFont(Style.FONT_BENDER_16);
+		// wblblState.setText("-");
+		// add(wblblState, "cell 2 0,alignx trailing");
 
 		// WebLabel wblblSelectChart = new WebLabel();
 		// wblblSelectChart.setFont(Style.FONT_13);
@@ -106,19 +107,19 @@ public final class StationChart extends JPanel {
 		chartPanel.setYAxisText("Temperature (°C)");
 		panel.add(chartPanel, "cell 0 0, grow");
 		chartPanel.setPreferredSize(new Dimension(600, 270));
-				chartPanel.setLayout(new MigLayout("", "[46px]", "[25px]"));
-		
-				WebButton wbtnBack = new WebButton();
-				chartPanel.add(wbtnBack, "cell 0 0,alignx left,aligny top");
-				wbtnBack.setFont(Style.FONT_BENDER_13);
-				wbtnBack.setDrawShade(false);
-				wbtnBack.addActionListener(new ActionListener() {
-					public final void actionPerformed(ActionEvent e) {
-						if (_listener != null)
-							_listener.onBackClick();
-					}
-				});
-				wbtnBack.setText("Back");
+		chartPanel.setLayout(new MigLayout("", "[46px]", "[25px]"));
+
+		WebButton wbtnBack = new WebButton();
+		chartPanel.add(wbtnBack, "cell 0 0,alignx left,aligny top");
+		wbtnBack.setFont(Style.FONT_BENDER_13);
+		wbtnBack.setDrawShade(false);
+		wbtnBack.addActionListener(new ActionListener() {
+			public final void actionPerformed(ActionEvent e) {
+				if (_listener != null)
+					_listener.onBackClick();
+			}
+		});
+		wbtnBack.setText("Back");
 
 		pnSelectData = new JPanel();
 		pnSelectData.setBackground(new Color(255, 255, 255));
@@ -308,18 +309,18 @@ public final class StationChart extends JPanel {
 		pnSelectData.add(radioRainFall, "cell 0 11 3 1, gapy 5 0");
 
 		UnselectableButtonGroup.group(radioHumidity, radioPressure, radioRainFall, radioTemperature, radioWind);
-		
+
 		wblblZoom = new WebLabel();
 		wblblZoom.setText("Zoom");
 		pnSelectData.add(wblblZoom, "cell 0 12 3 1, gapy 15");
-		
+
 		sliderZoom = new WebSlider();
 		sliderZoom.setMinimum(3);
 		sliderZoom.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				
+
 				chartPanel.setMaxDataPoints(sliderZoom.getValue());
-				wblblZoom.setText("Zoom: "+sliderZoom.getValue()+" day(s).");
+				wblblZoom.setText("View: Last " + sliderZoom.getValue() + " day(s).");
 			}
 		});
 		pnSelectData.add(sliderZoom, "cell 0 13 3 1");
@@ -341,10 +342,9 @@ public final class StationChart extends JPanel {
 	}
 
 	protected void radioChanged(ChartGroup group, boolean isSelected) {
-		
-//		System.out.println(chartPanel.getXValues().length);
-		
-		
+
+		// System.out.println(chartPanel.getXValues().length);
+
 		// reset color index
 		current_color = 0;
 
@@ -356,9 +356,9 @@ public final class StationChart extends JPanel {
 
 		// update group of checkboxes
 		updateGroup(group, isSelected);
-		
+
 		sliderZoom.setMaximum(chartPanel.getXValues().length);
-		
+
 		chartPanel.setMaxDataPoints(sliderZoom.getValue());
 
 	}
@@ -445,6 +445,7 @@ public final class StationChart extends JPanel {
 	boolean selectedYet = false;
 	private WebLabel wblblZoom;
 	private WebSlider sliderZoom;
+
 	private void reselectCheckboxes() {
 
 		if (radioRainFall.isSelected()) {
@@ -464,7 +465,7 @@ public final class StationChart extends JPanel {
 			reselectCheckbox(checkboxHumid9am);
 			reselectCheckbox(checkboxHumid3pm);
 		}
-		
+
 		// if first time open panel
 		// show Temperature by default
 		if (!selectedYet)
@@ -498,9 +499,16 @@ public final class StationChart extends JPanel {
 
 		String name = type.toString();
 
-		double[] values = new double[data.getHistoricalReadings().size()];
-
+		double[] values;
 		List<HistoricalReading> readings = data.getHistoricalReadings();
+
+		if (sliderZoom.getValue() == 2) {
+			values = new double[data.getLatestReadings().size()];
+//			List<LatestReading> latest_readings = data.getLatestReadings();
+			// switch to latest reading
+		} else {
+			values = new double[data.getHistoricalReadings().size()];
+		}
 
 		switch (type) {
 		case MinTemp:
@@ -624,9 +632,9 @@ public final class StationChart extends JPanel {
 		this.data = data;
 
 		if (station != null) {
-//			wblblStation.setText(station.getName());
+			// wblblStation.setText(station.getName());
 			chartPanel.setTitle(station.getName());
-//			wblblState.setText(station.getState().getName());
+			// wblblState.setText(station.getState().getName());
 		}
 
 		updateChart();
