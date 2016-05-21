@@ -375,8 +375,13 @@ public final class ForecastChart extends JPanel implements ActionListener {
 
 	public void clearForecast() {
 		forecasts.clear();
+
+		min = Float.MAX_VALUE;
+		max = Float.MIN_VALUE;
+
 		aniProgress = ANIMATION_TICKS;
 		timer.stop();
+
 		repaint();
 	}
 

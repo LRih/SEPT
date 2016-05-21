@@ -166,7 +166,6 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	}
 
 	public final void onTaskFail() {
-		forecastChart.setStatus(ForecastChart.NO_INTERNET);
 		showChart();
 	}
 
