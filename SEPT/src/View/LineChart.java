@@ -21,7 +21,7 @@ public final class LineChart extends JPanel implements ActionListener
     private static final int ANIMATION_FPS = 60;
 
     private static final int PADDING = 60;
-    private static final int PADDING_RIGHT = 120;
+    private static final int PADDING_RIGHT = 0;
     private static final int LABEL_SIZE = 20;
 
     private static final int MINOR_AXIS_EXTRA = 6;
@@ -98,7 +98,7 @@ public final class LineChart extends JPanel implements ActionListener
 
         drawTitle(g);
         drawAxisText(g);
-        drawDatasetNames(g);
+//        drawDatasetNames(g);
         drawEmptyText(g);
     }
 
