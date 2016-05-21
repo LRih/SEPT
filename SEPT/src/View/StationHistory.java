@@ -33,9 +33,9 @@ public final class StationHistory extends JPanel
 {
     private static final DateTimeFormatter DT_FORMATTER = DateTimeFormat.forPattern("HH:mm dd/MM");
 
-    private final WebLabel wblblStation;
-    private final WebLabel wblblState;
-    private final WebTable webTable;
+    private final WebLabel labelStation;
+    private final WebLabel labelState;
+    private final WebTable tableHistory;
 
     private StationData data;
 
@@ -49,9 +49,9 @@ public final class StationHistory extends JPanel
     	setBackground(Color.WHITE);
         setLayout(new MigLayout("", "[10%][][][grow]", "[][grow]"));
 
-        WebButton wbtnBack = new WebButton();
-        wbtnBack.setDrawShade(false);
-        wbtnBack.addActionListener(new ActionListener()
+        WebButton buttonBack = new WebButton();
+        buttonBack.setDrawShade(false);
+        buttonBack.addActionListener(new ActionListener()
         {
             public final void actionPerformed(ActionEvent e)
             {
@@ -59,36 +59,36 @@ public final class StationHistory extends JPanel
                     _listener.onBackClick();
             }
         });
-        wbtnBack.setText("Back");
-        add(wbtnBack, "cell 0 0");
+        buttonBack.setText("Back");
+        add(buttonBack, "cell 0 0");
 
-        wblblStation = new WebLabel();
-        wblblStation.setText("-");
-        wblblStation.setForeground(new Color(255, 69, 0));
-        wblblStation.setFont(Style.FONT_30);
+        labelStation = new WebLabel();
+        labelStation.setText("-");
+        labelStation.setForeground(new Color(255, 69, 0));
+        labelStation.setFont(Style.FONT_30);
 
-        add(wblblStation, "cell 1 0");
+        add(labelStation, "cell 1 0");
 
-        wblblState = new WebLabel();
-        wblblState.setFont(Style.FONT_BENDER_16);
-        wblblState.setText("-");
-        add(wblblState, "cell 2 0");
+        labelState = new WebLabel();
+        labelState.setFont(Style.FONT_BENDER_16);
+        labelState.setText("-");
+        add(labelState, "cell 2 0");
 
-        webTable = new WebTable(new SampleTableModel());
+        tableHistory = new WebTable(new SampleTableModel());
 
-        WebScrollPane webScrollPane = new WebScrollPane(webTable);
+        WebScrollPane webScrollPane = new WebScrollPane(tableHistory);
         webScrollPane.setDrawFocus(false);
         add(webScrollPane, "cell 0 1 4 2,grow");
 
         // Better column sizes
-        initColumnSizes(webTable);
+        initColumnSizes(tableHistory);
 
     }
 
     private void reloadTable()
     {
-        webTable.setModel(new SampleTableModel());
-        initColumnSizes(webTable);
+        tableHistory.setModel(new SampleTableModel());
+        initColumnSizes(tableHistory);
     }
 
     /**
@@ -102,8 +102,8 @@ public final class StationHistory extends JPanel
 
         if (station != null)
         {
-            wblblStation.setText(station.getName());
-            wblblState.setText(station.getState().getName());
+            labelStation.setText(station.getName());
+            labelState.setText(station.getState().getName());
         }
     }
 

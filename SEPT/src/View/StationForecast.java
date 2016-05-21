@@ -28,7 +28,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	private WebButtonGroup groupForcast;
 
 	private Source forecastSource;
-	private Panel pnChart;
+	private Panel panelChart;
 
 	private Station station;
 	private WebLabel labelForecast;
@@ -48,12 +48,12 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		labelForecast.setText("Weather Forecast");
 		add(labelForecast, "cell 0 0, gapx 15 0");
 
-		pnChart = new Panel();
-		add(pnChart, "cell 0 1 2 1,grow");
-		pnChart.setLayout(new MigLayout("ins 0 0 0 0", "[grow]", "[grow]"));
+		panelChart = new Panel();
+		add(panelChart, "cell 0 1 2 1,grow");
+		panelChart.setLayout(new MigLayout("ins 0 0 0 0", "[grow]", "[grow]"));
 
 		forecastChart = new ForecastChart();
-		pnChart.add(forecastChart, "cell 0 0 1 1, grow");
+		panelChart.add(forecastChart, "cell 0 0 1 1, grow");
 
 		WebToggleButton radioForecastIO = new WebToggleButton("Forecast.io");
 		radioForecastIO.addActionListener(new ActionListener() {

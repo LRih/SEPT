@@ -24,10 +24,10 @@ import java.awt.Color;
  */
 public final class AddFavoritePanel extends JPanel
 {
-    private final WebComboBox wcbStates;
-    private final WebComboBox wcbStations;
-    private final WebButton wbtnBack;
-    private final WebButton wbtnAddToMyFavorites;
+    private final WebComboBox comboboxStates;
+    private final WebComboBox comboboxStations;
+    private final WebButton buttonBack;
+    private final WebButton buttonAddToMyFavorites;
 
     private final States states;
 
@@ -45,62 +45,62 @@ public final class AddFavoritePanel extends JPanel
 
         setLayout(new MigLayout("", "[20%][grow]", "[][grow]"));
 
-        wbtnBack = new WebButton();
-        wbtnBack.setFont(Style.FONT_BENDER_13);
-        wbtnBack.setText("< Back");
-        add(wbtnBack, "cell 0 0");
+        buttonBack = new WebButton();
+        buttonBack.setFont(Style.FONT_BENDER_13);
+        buttonBack.setText("< Back");
+        add(buttonBack, "cell 0 0");
 
-        JPanel pnContent = new JPanel();
-        pnContent.setBackground(Color.WHITE);
-        add(pnContent, "cell 0 1 2 1,grow");
-        pnContent.setLayout(new MigLayout("", "[20%][grow][20%]", "[grow][grow][grow]"));
+        JPanel panelContent = new JPanel();
+        panelContent.setBackground(Color.WHITE);
+        add(panelContent, "cell 0 1 2 1,grow");
+        panelContent.setLayout(new MigLayout("", "[20%][grow][20%]", "[grow][grow][grow]"));
 
-        JPanel panel_2 = new JPanel();
-        panel_2.setBackground(Color.WHITE);
-        pnContent.add(panel_2, "cell 0 1,grow");
+        JPanel panelPlaceHolder = new JPanel();
+        panelPlaceHolder.setBackground(Color.WHITE);
+        panelContent.add(panelPlaceHolder, "cell 0 1,grow");
 
-        JPanel pnAddStation = new JPanel();
-        pnAddStation.setBackground(Color.WHITE);
-        pnContent.add(pnAddStation, "cell 1 1,grow");
-        pnAddStation.setLayout(new MigLayout("", "[grow][70%,grow]", "[][][][]"));
+        JPanel panelAddStation = new JPanel();
+        panelAddStation.setBackground(Color.WHITE);
+        panelContent.add(panelAddStation, "cell 1 1,grow");
+        panelAddStation.setLayout(new MigLayout("", "[grow][70%,grow]", "[][][][]"));
 
-        WebLabel wblblAddStation = new WebLabel();
-        pnAddStation.add(wblblAddStation, "cell 1 0");
-        wblblAddStation.setForeground(new Color(0, 0, 0));
-        wblblAddStation.setFont(Style.FONT_16);
-        wblblAddStation.setText("Find your station");
+        WebLabel labelAddStation = new WebLabel();
+        panelAddStation.add(labelAddStation, "cell 1 0");
+        labelAddStation.setForeground(new Color(0, 0, 0));
+        labelAddStation.setFont(Style.FONT_16);
+        labelAddStation.setText("Find your station");
 
-        WebLabel wblblSelectState = new WebLabel();
-        wblblSelectState.setText("Select State");
-        pnAddStation.add(wblblSelectState, "cell 0 1,alignx trailing");
+        WebLabel labelSelectState = new WebLabel();
+        labelSelectState.setText("Select State");
+        panelAddStation.add(labelSelectState, "cell 0 1,alignx trailing");
 
-        wcbStates = new WebComboBox();
-        wcbStates.setFont(Style.FONT_13);
-        wcbStates.setDrawFocus(false);
-        pnAddStation.add(wcbStates, "cell 1 1,growx");
+        comboboxStates = new WebComboBox();
+        comboboxStates.setFont(Style.FONT_13);
+        comboboxStates.setDrawFocus(false);
+        panelAddStation.add(comboboxStates, "cell 1 1,growx");
 
-        WebLabel wblblSelectStation = new WebLabel();
-        wblblSelectStation.setText("Select Station");
-        pnAddStation.add(wblblSelectStation, "cell 0 2,alignx trailing");
+        WebLabel labelSelectStation = new WebLabel();
+        labelSelectStation.setText("Select Station");
+        panelAddStation.add(labelSelectStation, "cell 0 2,alignx trailing");
 
-        wcbStations = new WebComboBox();
-        wcbStations.setFont(Style.FONT_13);
-        wcbStations.setDrawFocus(false);
-        pnAddStation.add(wcbStations, "cell 1 2,growx");
+        comboboxStations = new WebComboBox();
+        comboboxStations.setFont(Style.FONT_13);
+        comboboxStations.setDrawFocus(false);
+        panelAddStation.add(comboboxStations, "cell 1 2,growx");
 
-        wbtnAddToMyFavorites = new WebButton();
-        wbtnAddToMyFavorites.setFont(Style.FONT_BENDER_13);
-        wbtnAddToMyFavorites.setForeground(new Color(0, 128, 0));
-        wbtnAddToMyFavorites.setDefaultButtonShadeColor(new Color(240, 255, 240));
-        wbtnAddToMyFavorites.setBottomSelectedBgColor(new Color(154, 205, 50));
-        wbtnAddToMyFavorites.setBottomBgColor(new Color(240, 255, 240));
-        wbtnAddToMyFavorites.setDrawShade(false);
-        wbtnAddToMyFavorites.setText("Add to My Favorites");
-        pnAddStation.add(wbtnAddToMyFavorites, "cell 1 3");
+        buttonAddToMyFavorites = new WebButton();
+        buttonAddToMyFavorites.setFont(Style.FONT_BENDER_13);
+        buttonAddToMyFavorites.setForeground(new Color(0, 128, 0));
+        buttonAddToMyFavorites.setDefaultButtonShadeColor(new Color(240, 255, 240));
+        buttonAddToMyFavorites.setBottomSelectedBgColor(new Color(154, 205, 50));
+        buttonAddToMyFavorites.setBottomBgColor(new Color(240, 255, 240));
+        buttonAddToMyFavorites.setDrawShade(false);
+        buttonAddToMyFavorites.setText("Add to My Favorites");
+        panelAddStation.add(buttonAddToMyFavorites, "cell 1 3");
 
         JPanel panelFiller = new JPanel();
         panelFiller.setBackground(Color.WHITE);
-        pnContent.add(panelFiller, "cell 2 1,grow");
+        panelContent.add(panelFiller, "cell 2 1,grow");
 
         addListeners();
 
@@ -109,7 +109,7 @@ public final class AddFavoritePanel extends JPanel
 
     private void addListeners()
     {
-        wbtnBack.addActionListener(new ActionListener()
+        buttonBack.addActionListener(new ActionListener()
         {
             public final void actionPerformed(ActionEvent e)
             {
@@ -118,20 +118,20 @@ public final class AddFavoritePanel extends JPanel
             }
         });
 
-        wcbStates.addActionListener(new ActionListener()
+        comboboxStates.addActionListener(new ActionListener()
         {
             public final void actionPerformed(ActionEvent e)
             {
-                loadStationsByState(wcbStates.getSelectedItem().toString());
+                loadStationsByState(comboboxStates.getSelectedItem().toString());
             }
         });
 
-        wbtnAddToMyFavorites.addActionListener(new ActionListener()
+        buttonAddToMyFavorites.addActionListener(new ActionListener()
         {
             public final void actionPerformed(ActionEvent e)
             {
                 if (_listenerAddFavorite != null)
-                    _listenerAddFavorite.onAddFavoriteClick(states.get(wcbStates.getSelectedItem().toString()).getStation(wcbStations.getSelectedItem().toString()));
+                    _listenerAddFavorite.onAddFavoriteClick(states.get(comboboxStates.getSelectedItem().toString()).getStation(comboboxStations.getSelectedItem().toString()));
             }
         });
 
@@ -140,8 +140,8 @@ public final class AddFavoritePanel extends JPanel
     private void loadData()
     {
         loadStates();
-        if (wcbStates.getItemCount() > 0)
-            wcbStates.setSelectedIndex(0);
+        if (comboboxStates.getItemCount() > 0)
+            comboboxStates.setSelectedIndex(0);
     }
 
     private void loadStates()
@@ -149,7 +149,7 @@ public final class AddFavoritePanel extends JPanel
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         for (State state : states)
             model.addElement(state.getName());
-        wcbStates.setModel(model);
+        comboboxStates.setModel(model);
     }
 
     private void loadStationsByState(String name)
@@ -157,7 +157,7 @@ public final class AddFavoritePanel extends JPanel
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         for (Station station : states.get(name))
             model.addElement(station.getName());
-        wcbStations.setModel(model);
+        comboboxStations.setModel(model);
     }
 
     public final void setOnBackClickListener(OnBackClickListener listener)

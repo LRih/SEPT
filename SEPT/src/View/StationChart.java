@@ -37,15 +37,15 @@ import com.alee.laf.slider.WebSlider;
  * Chart UI
  */
 public final class StationChart extends JPanel {
-	// private final WebLabel wblblState;
+	// private final WebLabel labelState;
 	private final LineChart chartPanel;
-	private final JPanel panel;
+	private final JPanel panelMain;
 	// private final WebComboBox wcbChartType;
 
 	private StationData data;
 
 	private OnBackClickListener _listener;
-	private JPanel pnSelectData;
+	private JPanel panelSelectData;
 	private WebRadioButton radioTemperature;
 	private WebCheckBox checkboxTempMin;
 	private WebCheckBox checkboxTempMax;
@@ -72,35 +72,35 @@ public final class StationChart extends JPanel {
 		setBackground(Color.WHITE);
 		setLayout(new MigLayout("ins 5 5 5 5, gapy 0", "[50][][][grow][200]", "[][grow]"));
 
-		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		add(panel, "cell 0 0 4 2,grow");
-		panel.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
+		panelMain = new JPanel();
+		panelMain.setBackground(Color.WHITE);
+		add(panelMain, "cell 0 0 4 2,grow");
+		panelMain.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
 		chartPanel = new LineChart();
 		chartPanel.setTitle("Historical");
 		chartPanel.setXAxisText("Date");
 		chartPanel.setYAxisText("Temperature (°C)");
-		panel.add(chartPanel, "cell 0 0, grow");
+		panelMain.add(chartPanel, "cell 0 0, grow");
 		chartPanel.setPreferredSize(new Dimension(600, 270));
 		chartPanel.setLayout(new MigLayout("", "[46px]", "[25px]"));
 
-		WebButton wbtnBack = new WebButton();
-		chartPanel.add(wbtnBack, "cell 0 0,alignx left,aligny top");
-		wbtnBack.setFont(Style.FONT_BENDER_13);
-		wbtnBack.setDrawShade(false);
-		wbtnBack.addActionListener(new ActionListener() {
+		WebButton buttonBack = new WebButton();
+		chartPanel.add(buttonBack, "cell 0 0,alignx left,aligny top");
+		buttonBack.setFont(Style.FONT_BENDER_13);
+		buttonBack.setDrawShade(false);
+		buttonBack.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				if (_listener != null)
 					_listener.onBackClick();
 			}
 		});
-		wbtnBack.setText("Back");
+		buttonBack.setText("Back");
 
-		pnSelectData = new JPanel();
-		pnSelectData.setBackground(new Color(255, 255, 255));
-		add(pnSelectData, "cell 4 0 1 2,grow");
-		pnSelectData.setLayout(new MigLayout("", "[14%][50%][36%]", "[][][][][][][][][][][][][][][][][][][]"));
+		panelSelectData = new JPanel();
+		panelSelectData.setBackground(new Color(255, 255, 255));
+		add(panelSelectData, "cell 4 0 1 2,grow");
+		panelSelectData.setLayout(new MigLayout("", "[14%][50%][36%]", "[][][][][][][][][][][][][][][][][][][]"));
 
 		radioTemperature = new WebRadioButton();
 		radioTemperature.addItemListener(new ItemListener() {
@@ -110,7 +110,7 @@ public final class StationChart extends JPanel {
 		});
 		radioTemperature.setRolloverDarkBorderOnly(true);
 		radioTemperature.setText("Temperature (°C)");
-		pnSelectData.add(radioTemperature, "cell 0 0 3 2,gapy 5 0");
+		panelSelectData.add(radioTemperature, "cell 0 0 3 2,gapy 5 0");
 
 		checkboxTemp9am = new WebCheckBox();
 		checkboxTemp9am.setAnimated(false);
@@ -122,7 +122,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxTemp9am.setRolloverDarkBorderOnly(true);
 		checkboxTemp9am.setText("9am");
-		pnSelectData.add(checkboxTemp9am, "cell 1 2");
+		panelSelectData.add(checkboxTemp9am, "cell 1 2");
 
 		checkboxTemp3pm = new WebCheckBox();
 		checkboxTemp3pm.setAnimated(false);
@@ -134,7 +134,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxTemp3pm.setRolloverDarkBorderOnly(true);
 		checkboxTemp3pm.setText("3pm");
-		pnSelectData.add(checkboxTemp3pm, "cell 2 2");
+		panelSelectData.add(checkboxTemp3pm, "cell 2 2");
 
 		checkboxTempMin = new WebCheckBox();
 		checkboxTempMin.setAnimated(false);
@@ -146,7 +146,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxTempMin.setRolloverDarkBorderOnly(true);
 		checkboxTempMin.setText("Min");
-		pnSelectData.add(checkboxTempMin, "cell 1 3");
+		panelSelectData.add(checkboxTempMin, "cell 1 3");
 
 		checkboxTempMax = new WebCheckBox();
 		checkboxTempMax.setAnimated(false);
@@ -158,7 +158,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxTempMax.setRolloverDarkBorderOnly(true);
 		checkboxTempMax.setText("Max");
-		pnSelectData.add(checkboxTempMax, "cell 2 3");
+		panelSelectData.add(checkboxTempMax, "cell 2 3");
 
 		radioWind = new WebRadioButton();
 		radioWind.addItemListener(new ItemListener() {
@@ -168,7 +168,7 @@ public final class StationChart extends JPanel {
 		});
 		radioWind.setRolloverDarkBorderOnly(true);
 		radioWind.setText("Wind Speed (km/h)");
-		pnSelectData.add(radioWind, "cell 0 4 3 1, gapy 5 0");
+		panelSelectData.add(radioWind, "cell 0 4 3 1, gapy 5 0");
 
 		checkboxWind9am = new WebCheckBox();
 		checkboxWind9am.setAnimated(false);
@@ -180,7 +180,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxWind9am.setRolloverDarkBorderOnly(true);
 		checkboxWind9am.setText("9am");
-		pnSelectData.add(checkboxWind9am, "cell 1 5");
+		panelSelectData.add(checkboxWind9am, "cell 1 5");
 
 		checkboxWind3pm = new WebCheckBox();
 		checkboxWind3pm.setAnimated(false);
@@ -192,7 +192,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxWind3pm.setRolloverDarkBorderOnly(true);
 		checkboxWind3pm.setText("3pm");
-		pnSelectData.add(checkboxWind3pm, "cell 2 5");
+		panelSelectData.add(checkboxWind3pm, "cell 2 5");
 
 		checkboxWindGust = new WebCheckBox();
 		checkboxWindGust.setAnimated(false);
@@ -204,7 +204,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxWindGust.setRolloverDarkBorderOnly(true);
 		checkboxWindGust.setText("Max Gust");
-		pnSelectData.add(checkboxWindGust, "cell 1 6");
+		panelSelectData.add(checkboxWindGust, "cell 1 6");
 
 		radioPressure = new WebRadioButton();
 		radioPressure.addItemListener(new ItemListener() {
@@ -214,7 +214,7 @@ public final class StationChart extends JPanel {
 		});
 		radioPressure.setRolloverDarkBorderOnly(true);
 		radioPressure.setText("Pressure (hPa)");
-		pnSelectData.add(radioPressure, "cell 0 7 3 1, gapy 5 0");
+		panelSelectData.add(radioPressure, "cell 0 7 3 1, gapy 5 0");
 
 		checkboxPressure9am = new WebCheckBox();
 		checkboxPressure9am.setAnimated(false);
@@ -226,7 +226,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxPressure9am.setRolloverDarkBorderOnly(true);
 		checkboxPressure9am.setText("9am");
-		pnSelectData.add(checkboxPressure9am, "cell 1 8");
+		panelSelectData.add(checkboxPressure9am, "cell 1 8");
 
 		checkboxPressure3pm = new WebCheckBox();
 		checkboxPressure3pm.setAnimated(false);
@@ -238,7 +238,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxPressure3pm.setRolloverDarkBorderOnly(true);
 		checkboxPressure3pm.setText("3pm");
-		pnSelectData.add(checkboxPressure3pm, "cell 2 8");
+		panelSelectData.add(checkboxPressure3pm, "cell 2 8");
 
 		radioHumidity = new WebRadioButton();
 		radioHumidity.addItemListener(new ItemListener() {
@@ -248,7 +248,7 @@ public final class StationChart extends JPanel {
 		});
 		radioHumidity.setRolloverDarkBorderOnly(true);
 		radioHumidity.setText("Humidity (%)");
-		pnSelectData.add(radioHumidity, "cell 0 9 3 1, gapy 5 0");
+		panelSelectData.add(radioHumidity, "cell 0 9 3 1, gapy 5 0");
 
 		checkboxHumid9am = new WebCheckBox();
 		checkboxHumid9am.setAnimated(false);
@@ -260,7 +260,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxHumid9am.setRolloverDarkBorderOnly(true);
 		checkboxHumid9am.setText("9am");
-		pnSelectData.add(checkboxHumid9am, "cell 1 10");
+		panelSelectData.add(checkboxHumid9am, "cell 1 10");
 
 		checkboxHumid3pm = new WebCheckBox();
 		checkboxHumid3pm.setAnimated(false);
@@ -272,7 +272,7 @@ public final class StationChart extends JPanel {
 		});
 		checkboxHumid3pm.setRolloverDarkBorderOnly(true);
 		checkboxHumid3pm.setText("3pm");
-		pnSelectData.add(checkboxHumid3pm, "cell 2 10");
+		panelSelectData.add(checkboxHumid3pm, "cell 2 10");
 
 		radioRainFall = new WebRadioButton();
 		radioRainFall.addItemListener(new ItemListener() {
@@ -282,13 +282,13 @@ public final class StationChart extends JPanel {
 		});
 		radioRainFall.setRolloverDarkBorderOnly(true);
 		radioRainFall.setText("Rain Fall (mm)");
-		pnSelectData.add(radioRainFall, "cell 0 11 3 1, gapy 5 0");
+		panelSelectData.add(radioRainFall, "cell 0 11 3 1, gapy 5 0");
 
 		UnselectableButtonGroup.group(radioHumidity, radioPressure, radioRainFall, radioTemperature, radioWind);
 
-		wblblZoom = new WebLabel();
-		wblblZoom.setText("Zoom");
-		pnSelectData.add(wblblZoom, "cell 0 12 3 1, gapy 15");
+		labelZoom = new WebLabel();
+		labelZoom.setText("Zoom");
+		panelSelectData.add(labelZoom, "cell 0 12 3 1, gapy 15");
 
 		sliderZoom = new WebSlider();
 		sliderZoom.setFocusable(false);
@@ -297,10 +297,10 @@ public final class StationChart extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 
 				chartPanel.setMaxDataPoints(sliderZoom.getValue());
-				wblblZoom.setText("View: Last " + sliderZoom.getValue() + " day(s).");
+				labelZoom.setText("View: Last " + sliderZoom.getValue() + " day(s).");
 			}
 		});
-		pnSelectData.add(sliderZoom, "cell 0 13 3 1");
+		panelSelectData.add(sliderZoom, "cell 0 13 3 1");
 
 	}
 
@@ -420,7 +420,7 @@ public final class StationChart extends JPanel {
 	}
 
 	boolean selectedYet = false;
-	private WebLabel wblblZoom;
+	private WebLabel labelZoom;
 	private WebSlider sliderZoom;
 
 	private void reselectCheckboxes() {
@@ -609,9 +609,9 @@ public final class StationChart extends JPanel {
 		this.data = data;
 
 		if (station != null) {
-			// wblblStation.setText(station.getName());
+			// labelStation.setText(station.getName());
 			chartPanel.setTitle(station.getName());
-			// wblblState.setText(station.getState().getName());
+			// labelState.setText(station.getState().getName());
 		}
 
 		updateChart();

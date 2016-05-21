@@ -44,14 +44,14 @@ public final class Main
 		FavoriteCell.OnStationSelectListener, FavoriteCell.OnDataLoadListener {
 	private static final int NOTIFICATION_CLOSE_TIME_MILLIS = 5000;
 
-	private JFrame frmMain;
-	private JPanel pnMainBar;
-	private JPanel pnContent;
-	private WebButton wbtnRefreshData;
+	private JFrame frameMain;
+	private JPanel panelMainBar;
+	private JPanel panelContent;
+	private WebButton buttonRefreshData;
 
-	private FirstRunPanel pnFirstRun;
-	private AddFavoritePanel pnAddFavorite;
-	private MainPanel pnMain;
+	private FirstRunPanel panelFirstRun;
+	private AddFavoritePanel panelAddFavorite;
+	private MainPanel panelMain;
 
 	private States states;
 	private Favorites favorites;
@@ -66,7 +66,7 @@ public final class Main
 	 */
 	public static void main(String[] args) {
 		WebLookAndFeel.install();
-		new Main().frmMain.setVisible(true);
+		new Main().frameMain.setVisible(true);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public final class Main
 
 		// try to initialize logging
 		if (!Log.initializeLoggers()) {
-			WebOptionPane.showMessageDialog(frmMain, "Couldn't start loggin service.", "ERROR",
+			WebOptionPane.showMessageDialog(frameMain, "Couldn't start loggin service.", "ERROR",
 					WebOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
@@ -95,7 +95,7 @@ public final class Main
 		try {
 			states = DataManager.loadStates();
 		} catch (Exception e) {
-			WebOptionPane.showMessageDialog(frmMain, "\"stations.json\" missing or invalid, closing.", "ERROR",
+			WebOptionPane.showMessageDialog(frameMain, "\"stations.json\" missing or invalid, closing.", "ERROR",
 					WebOptionPane.ERROR_MESSAGE);
 			Log.severe(DataManager.class, "\"stations.json\" missing or invalid");
 			System.exit(0);
@@ -133,51 +133,51 @@ public final class Main
 		frameLoading.setVisible(true);
 		
 		// main frame
-		frmMain = new JFrame();
-		frmMain.setMinimumSize(new Dimension(1000, 860));
-		frmMain.setBackground(Color.WHITE);
-		frmMain.setTitle("Bom Weather");
-		frmMain.setBounds(AppState.getInstance().getWindowRect());
+		frameMain = new JFrame();
+		frameMain.setMinimumSize(new Dimension(1000, 837));
+		frameMain.setBackground(Color.WHITE);
+		frameMain.setTitle("Bom Weather");
+		frameMain.setBounds(AppState.getInstance().getWindowRect());
 
-		frmMain.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frmMain.getContentPane().setLayout(new MigLayout("ins 0, gapy 0", "[grow]", "[60][grow]"));
+		frameMain.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frameMain.getContentPane().setLayout(new MigLayout("ins 0, gapy 0", "[grow]", "[60][grow]"));
 
 		// Top Bar
-		pnMainBar = new JPanel();
-		pnMainBar.setBackground(Style.INTERNET_OFF_BACKGROUND);
-		frmMain.getContentPane().add(pnMainBar, "cell 0 0,grow");
-		pnMainBar.setLayout(new MigLayout("", "[grow][10%]", "[]"));
+		panelMainBar = new JPanel();
+		panelMainBar.setBackground(Style.INTERNET_OFF_BACKGROUND);
+		frameMain.getContentPane().add(panelMainBar, "cell 0 0,grow");
+		panelMainBar.setLayout(new MigLayout("", "[grow][10%]", "[]"));
 
 		Image img = SwingUtils.createImage("/Images/logo_small.png");
 		imageLoading = new WebImage(img);
 		imageLoading.setSize(62, 50);
-		pnMainBar.add(imageLoading, "flowx,cell 0 0");
+		panelMainBar.add(imageLoading, "flowx,cell 0 0");
 
-		WebLabel wblblBomWeather = new WebLabel();
-		wblblBomWeather.setForeground(new Color(255, 255, 255));
-		wblblBomWeather.setFont(Style.FONT_20);
-		wblblBomWeather.setText("BOM Weather");
-		pnMainBar.add(wblblBomWeather, "flowx,cell 0 0");
+		WebLabel labelBomWeather = new WebLabel();
+		labelBomWeather.setForeground(new Color(255, 255, 255));
+		labelBomWeather.setFont(Style.FONT_20);
+		labelBomWeather.setText("BOM Weather");
+		panelMainBar.add(labelBomWeather, "flowx,cell 0 0");
 
-		wbtnRefreshData = new WebButton();
-		wbtnRefreshData.setForeground(new Color(25, 25, 112));
-		wbtnRefreshData.setDefaultButtonShadeColor(new Color(240, 255, 255));
-		wbtnRefreshData.setBottomSelectedBgColor(new Color(224, 255, 255));
-		wbtnRefreshData.setBottomBgColor(new Color(240, 255, 255));
-		wbtnRefreshData.setDrawShade(false);
-		wbtnRefreshData.setFont(Style.FONT_BENDER_13);
-		wbtnRefreshData.setText("Refresh Data");
-		pnMainBar.add(wbtnRefreshData, "cell 1 0,aligny center, alignx right");
+		buttonRefreshData = new WebButton();
+		buttonRefreshData.setForeground(new Color(25, 25, 112));
+		buttonRefreshData.setDefaultButtonShadeColor(new Color(240, 255, 255));
+		buttonRefreshData.setBottomSelectedBgColor(new Color(224, 255, 255));
+		buttonRefreshData.setBottomBgColor(new Color(240, 255, 255));
+		buttonRefreshData.setDrawShade(false);
+		buttonRefreshData.setFont(Style.FONT_BENDER_13);
+		buttonRefreshData.setText("Refresh Data");
+		panelMainBar.add(buttonRefreshData, "cell 1 0,aligny center, alignx right");
 
-		pnContent = new JPanel();
-		frmMain.getContentPane().add(pnContent, "cell 0 1,grow");
+		panelContent = new JPanel();
+		frameMain.getContentPane().add(panelContent, "cell 0 1,grow");
 
-		pnFirstRun = new FirstRunPanel();
-		pnAddFavorite = new AddFavoritePanel(states);
-		pnMain = new MainPanel();
+		panelFirstRun = new FirstRunPanel();
+		panelAddFavorite = new AddFavoritePanel(states);
+		panelMain = new MainPanel();
 
 		// set initial data
-		pnMain.setStation(selectedStation, selectedStationData);
+		panelMain.setStation(selectedStation, selectedStationData);
 
 		showPreviousSession();
 		addListeners();
@@ -188,17 +188,17 @@ public final class Main
 
 	private void addListeners() {
 		// on close listener
-		frmMain.addWindowListener(new WindowAdapter() {
+		frameMain.addWindowListener(new WindowAdapter() {
 			public final void windowClosing(WindowEvent e) {
 				// store Current Window Location and Size
-				AppState.getInstance().setWindowRect(frmMain.getLocationOnScreen(), frmMain.getSize());
+				AppState.getInstance().setWindowRect(frameMain.getLocationOnScreen(), frameMain.getSize());
 				AppStateManager.trySave();
 
 			}
 		});
 
 		// refresh button pressed
-		wbtnRefreshData.addActionListener(new ActionListener() {
+		buttonRefreshData.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				Log.info(getClass(), "Refresh started");
 
@@ -214,27 +214,27 @@ public final class Main
 			}
 		});
 
-		pnFirstRun.setOnAddListener(new FirstRunPanel.OnAddListener() {
+		panelFirstRun.setOnAddListener(new FirstRunPanel.OnAddListener() {
 			public final void onAddClick() {
 				showPanel(PanelType.AddFavorite);
 			}
 		});
 
-		pnAddFavorite.setOnBackClickListener(new OnBackClickListener() {
+		panelAddFavorite.setOnBackClickListener(new OnBackClickListener() {
 			public final void onBackClick() {
 				showMainScreen();
 			}
 		});
-		pnAddFavorite.setOnAddFavoriteClickListener(this);
+		panelAddFavorite.setOnAddFavoriteClickListener(this);
 
-		pnMain.setOnActionListener(new MainPanel.OnActionListener() {
+		panelMain.setOnActionListener(new MainPanel.OnActionListener() {
 			public final void onAddClick() {
 				showPanel(PanelType.AddFavorite);
 			}
 		});
-		pnMain.setOnRemoveFromFavoritesClickListener(this);
-		pnMain.setOnStationSelectListener(this);
-		pnMain.setOnDataLoadListener(this);
+		panelMain.setOnRemoveFromFavoritesClickListener(this);
+		panelMain.setOnStationSelectListener(this);
+		panelMain.setOnDataLoadListener(this);
 	}
 
 	private void showPreviousSession() {
@@ -260,8 +260,8 @@ public final class Main
 		AppState.getInstance().shownWindow = type.ordinal();
 		Log.info(getClass(), "Panel changed to " + type.name());
 
-		pnContent.removeAll();
-		pnContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
+		panelContent.removeAll();
+		panelContent.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
 
 		switch (type) {
 		case FirstRun:
@@ -275,33 +275,33 @@ public final class Main
 			break;
 		}
 
-		pnContent.validate();
-		pnContent.repaint();
+		panelContent.validate();
+		panelContent.repaint();
 	}
 
 	private void showFirstRunPanel() {
-		pnMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
-		wbtnRefreshData.setVisible(false);
-		pnContent.add(pnFirstRun, "cell 0 0 31 1,grow");
+		panelMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
+		buttonRefreshData.setVisible(false);
+		panelContent.add(panelFirstRun, "cell 0 0 31 1,grow");
 	}
 
 	private void showAddFavoritePanel() {
-		// pnMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
-		wbtnRefreshData.setVisible(false);
-		pnContent.add(pnAddFavorite, "cell 0 0 1 1,grow");
+		// panelMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
+		buttonRefreshData.setVisible(false);
+		panelContent.add(panelAddFavorite, "cell 0 0 1 1,grow");
 	}
 
 	private void showMainPanel() {
-		pnContent.add(pnMain, "cell 0 0 1 1,grow");
-		wbtnRefreshData.setVisible(true);
+		panelContent.add(panelMain, "cell 0 0 1 1,grow");
+		buttonRefreshData.setVisible(true);
 
 		// always show detail if no station selected
 		if (selectedStation != null)
-			pnMain.showPanel(AppState.getInstance().getShownDetail());
+			panelMain.showPanel(AppState.getInstance().getShownDetail());
 		else
-			pnMain.showPanel(MainPanel.PanelType.Detail);
+			panelMain.showPanel(MainPanel.PanelType.Detail);
 
-		pnMain.setFavorites(favorites, states, selectedStation);
+		panelMain.setFavorites(favorites, states, selectedStation);
 	}
 
 	/**
@@ -323,11 +323,11 @@ public final class Main
 	 * Change Background when user has Internet/No Internet
 	 */
 	private void updateBackgroundColor(boolean hasInternetConnection) {
-		pnMain.updateBackgroundColor(hasInternetConnection);
+		panelMain.updateBackgroundColor(hasInternetConnection);
 		if (hasInternetConnection)
-			pnMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
+			panelMainBar.setBackground(Style.INTERNET_ON_BACKGROUND);
 		else
-			pnMainBar.setBackground(Style.INTERNET_OFF_BACKGROUND);
+			panelMainBar.setBackground(Style.INTERNET_OFF_BACKGROUND);
 	}
 
 	private void setStation(Station station, StationData data) {
@@ -354,14 +354,14 @@ public final class Main
 		}
 
 		// update main panel
-		pnMain.setStation(station, data);
+		panelMain.setStation(station, data);
 	}
 
 	/* Event callbacks */
 	public final void onAddFavoriteClick(Station station) {
 		// when favorite already exists
 		if (!favorites.add(station)) {
-			WebOptionPane.showMessageDialog(frmMain, "You already have this station in your Favorites.", "",
+			WebOptionPane.showMessageDialog(frameMain, "You already have this station in your Favorites.", "",
 					WebOptionPane.WARNING_MESSAGE);
 			return;
 		}
@@ -372,7 +372,7 @@ public final class Main
 
 			Log.info(FavoritesManager.class, "Favorite added: " + station.getName());
 		} catch (IOException e) {
-			WebOptionPane.showMessageDialog(frmMain, "Failed to save favorites.", "", WebOptionPane.WARNING_MESSAGE);
+			WebOptionPane.showMessageDialog(frameMain, "Failed to save favorites.", "", WebOptionPane.WARNING_MESSAGE);
 			return;
 		}
 
@@ -389,7 +389,7 @@ public final class Main
 
 			Log.info(FavoritesManager.class, "Favorite removed: " + station.getName());
 		} catch (IOException e) {
-			WebOptionPane.showMessageDialog(frmMain, "Failed to save favorites.", "", WebOptionPane.WARNING_MESSAGE);
+			WebOptionPane.showMessageDialog(frameMain, "Failed to save favorites.", "", WebOptionPane.WARNING_MESSAGE);
 			return;
 		}
 
@@ -402,8 +402,8 @@ public final class Main
 	}
 
 	private void setBlockUI(boolean isBlocked) {
-		pnMain.setBlockUI(isBlocked);
-		wbtnRefreshData.setEnabled(!isBlocked);
+		panelMain.setBlockUI(isBlocked);
+		buttonRefreshData.setEnabled(!isBlocked);
 	}
 
 	public final void onDataLoadSuccess(Station station, StationData data) {

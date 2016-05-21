@@ -20,9 +20,9 @@ import javax.swing.UIManager;
  */
 public final class MainPanel extends JPanel
 		implements FavoriteCell.OnStationSelectListener, FavoriteCell.OnDataLoadListener {
-	private final JPanel pnMainContent;
-	private final JPanel pnFavorites;
-	private final WebButton wbtnAddStation;
+	private final JPanel panelMainContent;
+	private final JPanel panelFavorites;
+	private final WebButton buttonAddStation;
 
 	private final StationDetail stationDetail;
 	private final StationChart stationChart;
@@ -43,13 +43,13 @@ public final class MainPanel extends JPanel
 
 		setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[][grow][199][]"));
 
-		pnFavorites = new JPanel();
-		pnFavorites.setBackground(new Color(255, 255, 255));
-		pnFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
+		panelFavorites = new JPanel();
+		panelFavorites.setBackground(new Color(255, 255, 255));
+		panelFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[grow][grow]", ""));
 
-		pnMainContent = new JPanel();
-		pnMainContent.setBackground(Style.MAIN_PANEL_BACKGROUND);
-		add(pnMainContent, "cell 0 1 2 1,grow");
+		panelMainContent = new JPanel();
+		panelMainContent.setBackground(Style.MAIN_PANEL_BACKGROUND);
+		add(panelMainContent, "cell 0 1 2 1,grow");
 		
 		stationForecast = new StationForecast();
 		add(stationForecast, "cell 0 2 2 1, growx, hmin 200");
@@ -59,23 +59,23 @@ public final class MainPanel extends JPanel
 		pnStationList.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow][20%]", "[28][grow]"));
 		pnStationList.setBackground(new Color(169, 169, 169));
 
-		WebLabel wblblWeatherStations = new WebLabel();
-		pnStationList.add(wblblWeatherStations, "cell 0 0, gapx 15 0, gapy 6 8");
-		wblblWeatherStations.setForeground(new Color(255, 255, 255));
-		wblblWeatherStations.setFont(Style.FONT_16);
-		wblblWeatherStations.setText("Favourite Stations");
+		WebLabel labelWeatherStations = new WebLabel();
+		pnStationList.add(labelWeatherStations, "cell 0 0, gapx 15 0, gapy 6 8");
+		labelWeatherStations.setForeground(new Color(255, 255, 255));
+		labelWeatherStations.setFont(Style.FONT_16);
+		labelWeatherStations.setText("Favourite Stations");
 
-		wbtnAddStation = new WebButton("Add station");
-		pnStationList.add(wbtnAddStation, "cell 1 0,alignx right, gapx 0 15");
-		wbtnAddStation.setForeground(new Color(0, 100, 0));
-		wbtnAddStation.setDrawShade(false);
-		wbtnAddStation.setDefaultButtonShadeColor(new Color(154, 205, 50));
-		wbtnAddStation.setBottomSelectedBgColor(new Color(50, 205, 50));
-		wbtnAddStation.setBottomBgColor(new Color(240, 255, 240));
-		wbtnAddStation.setFont(Style.FONT_BENDER_13);
-		wbtnAddStation.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		buttonAddStation = new WebButton("Add station");
+		pnStationList.add(buttonAddStation, "cell 1 0,alignx right, gapx 0 15");
+		buttonAddStation.setForeground(new Color(0, 100, 0));
+		buttonAddStation.setDrawShade(false);
+		buttonAddStation.setDefaultButtonShadeColor(new Color(154, 205, 50));
+		buttonAddStation.setBottomSelectedBgColor(new Color(50, 205, 50));
+		buttonAddStation.setBottomBgColor(new Color(240, 255, 240));
+		buttonAddStation.setFont(Style.FONT_BENDER_13);
+		buttonAddStation.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		WebScrollPane webScrollPane = new WebScrollPane(pnFavorites, false, true);
+		WebScrollPane webScrollPane = new WebScrollPane(panelFavorites, false, true);
 		webScrollPane.setDrawFocus(false);
 		webScrollPane.setPreferredSize(new Dimension(0, 0));
 		pnStationList.add(webScrollPane, "cell 0 1 2 1,hmin 158,grow");
@@ -108,7 +108,7 @@ public final class MainPanel extends JPanel
 			}
 		});
 
-		wbtnAddStation.addActionListener(new ActionListener() {
+		buttonAddStation.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				if (_listenerAction != null)
 					_listenerAction.onAddClick();
@@ -122,15 +122,15 @@ public final class MainPanel extends JPanel
 		stationDetail.setBlockUI(!isEnable);
 		stationForecast.setBlockUI(!isEnable);
 		
-		wbtnAddStation.setEnabled(!isEnable);
+		buttonAddStation.setEnabled(!isEnable);
 	}
 
 	/**
 	 * Change panel shown.
 	 */
 	public final void showPanel(PanelType type) {
-		pnMainContent.removeAll();
-		pnMainContent.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow]", "[grow]"));
+		panelMainContent.removeAll();
+		panelMainContent.setLayout(new MigLayout("ins 0 0 0 0, gapy 0", "[grow]", "[grow]"));
 
 		AppState.getInstance().shownDetail = type.ordinal();
 		Log.info(getClass(), "Panel changed to " + type.name());
@@ -138,23 +138,23 @@ public final class MainPanel extends JPanel
 		switch (type) {
 		// VIEW_CHART
 		case Chart:
-			pnMainContent.add(stationChart, "cell 0 0 1 1, grow");
+			panelMainContent.add(stationChart, "cell 0 0 1 1, grow");
 			stationChart.animate();
 			break;
 
 		// VIEW_HISTORY
 		case History:
-			pnMainContent.add(stationHistory, "cell 0 0 1 1, grow");
+			panelMainContent.add(stationHistory, "cell 0 0 1 1, grow");
 			break;
 
 		// STATION_DETAIL
 		default:
-			pnMainContent.add(stationDetail, "cell 0 0 1 1, grow");
+			panelMainContent.add(stationDetail, "cell 0 0 1 1, grow");
 			break;
 		}
 
-		pnMainContent.validate();
-		pnMainContent.repaint();
+		panelMainContent.validate();
+		panelMainContent.repaint();
 	}
 
 	public void updateBackgroundColor(boolean hasInternetConnection) {
@@ -169,8 +169,8 @@ public final class MainPanel extends JPanel
 	 * Populate panel with favorites.
 	 */
 	public final void setFavorites(Favorites favorites, States states, Station selectedStation) {
-		pnFavorites.removeAll();
-		pnFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[][grow]", "[]"));
+		panelFavorites.removeAll();
+		panelFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[][grow]", "[]"));
 
 		int row = 0;
 		int col = 0;
@@ -182,9 +182,9 @@ public final class MainPanel extends JPanel
 			cell.setOnDataLoadListener(this);
 
 			if (col % 2 == 0)
-				pnFavorites.add(cell, "cell 0 " + row + ", width max(50%), gap 4");
+				panelFavorites.add(cell, "cell 0 " + row + ", width max(50%), gap 4");
 			else
-				pnFavorites.add(cell, "cell 1 " + (row++) + ", growx, gap 0 4");
+				panelFavorites.add(cell, "cell 1 " + (row++) + ", growx, gap 0 4");
 
 			col++;
 		}
@@ -198,11 +198,11 @@ public final class MainPanel extends JPanel
 		stationForecast.setStation(station);
 
 		// update selected favorite indicator
-		for (Component cell : pnFavorites.getComponents())
+		for (Component cell : panelFavorites.getComponents())
 			((FavoriteCell) cell).updateSelected(station);
 
-		pnMainContent.validate();
-		pnMainContent.repaint();
+		panelMainContent.validate();
+		panelMainContent.repaint();
 	}
 
 	public final void setOnActionListener(OnActionListener listener) {

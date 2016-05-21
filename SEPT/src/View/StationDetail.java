@@ -26,21 +26,21 @@ public final class StationDetail extends JPanel {
 	private static final int TEMP_FREEZING = 0;
 	private static final int TEMP_COOL = 25;
 
-	private final WebLabel wblblStation;
-	private final WebLabel wblblHumid;
-	private final WebLabel wblblState;
-	private final WebLabel wblblWindSse;
-	private final WebLabel wblblRainSinceam;
-	private final WebLabel wblblc;
-	private final WebLabel wblblPressQmh;
-	private final WebLabel wblblPress;
-	private final WebLabel wblblAirTemp;
-	private final WebLabel wblblDewPoint;
-	private final WebLabel wblblLastUpdate;
+	private final WebLabel labelStation;
+	private final WebLabel labelHumid;
+	private final WebLabel labelState;
+	private final WebLabel labelWindSse;
+	private final WebLabel labelRainSinceam;
+	private final WebLabel labelc;
+	private final WebLabel labelPressQmh;
+	private final WebLabel labelPress;
+	private final WebLabel labelAirTemp;
+	private final WebLabel labelDewPoint;
+	private final WebLabel labelLastUpdate;
 
-	private final WebButton wbtnViewChart;
-	private final WebButton wbtnViewWeatherHistory;
-	private final WebLabel wblblRemoveFromFavourites;
+	private final WebButton buttonViewChart;
+	private final WebButton buttonViewWeatherHistory;
+	private final WebLabel labelRemoveFromFavourites;
 
 	private Station station;
 	private StationData data;
@@ -62,94 +62,94 @@ public final class StationDetail extends JPanel {
 		panelFiller1.setVisible(false);
 		add(panelFiller1, "cell 0 0,grow");
 
-		wblblStation = new WebLabel();
-		wblblStation.setText("-");
-		wblblStation.setForeground(new Color(255, 69, 0));
-		wblblStation.setFont(Style.FONT_30);
+		labelStation = new WebLabel();
+		labelStation.setText("-");
+		labelStation.setForeground(new Color(255, 69, 0));
+		labelStation.setFont(Style.FONT_30);
 
-		add(wblblStation, "cell 0 1 2 1");
+		add(labelStation, "cell 0 1 2 1");
 
-		wblblHumid = new WebLabel();
-		wblblHumid.setFont(Style.FONT_13);
-		wblblHumid.setText("-");
-		add(wblblHumid, "cell 2 1,aligny bottom");
+		labelHumid = new WebLabel();
+		labelHumid.setFont(Style.FONT_13);
+		labelHumid.setText("-");
+		add(labelHumid, "cell 2 1,aligny bottom");
 
-		wblblState = new WebLabel();
-		wblblState.setFont(Style.FONT_BENDER_16);
-		wblblState.setText("-");
-		add(wblblState, "cell 0 2 2 1");
+		labelState = new WebLabel();
+		labelState.setFont(Style.FONT_BENDER_16);
+		labelState.setText("-");
+		add(labelState, "cell 0 2 2 1");
 
-		wblblWindSse = new WebLabel();
-		wblblWindSse.setFont(Style.FONT_13);
-		wblblWindSse.setText("-");
-		add(wblblWindSse, "cell 2 2");
+		labelWindSse = new WebLabel();
+		labelWindSse.setFont(Style.FONT_13);
+		labelWindSse.setText("-");
+		add(labelWindSse, "cell 2 2");
 
-		wblblRainSinceam = new WebLabel();
-		wblblRainSinceam.setFont(Style.FONT_13);
-		wblblRainSinceam.setText("Rain since 9am: -");
-		add(wblblRainSinceam, "cell 2 3");
+		labelRainSinceam = new WebLabel();
+		labelRainSinceam.setFont(Style.FONT_13);
+		labelRainSinceam.setText("Rain since 9am: -");
+		add(labelRainSinceam, "cell 2 3");
 
-		wblblc = new WebLabel();
-		wblblc.setForeground(new Color(255, 255, 255));
-		wblblc.setFont(Style.FONT_FUTURA_50);
-		wblblc.setText("-°C");
-		add(wblblc, "cell 1 3 1 3,alignx left,aligny top");
+		labelc = new WebLabel();
+		labelc.setForeground(new Color(255, 255, 255));
+		labelc.setFont(Style.FONT_FUTURA_50);
+		labelc.setText("-°C");
+		add(labelc, "cell 1 3 1 3,alignx left,aligny top");
 
-		wblblPressQmh = new WebLabel();
-		wblblPressQmh.setFont(Style.FONT_13);
-		wblblPressQmh.setText("Press QNH hPa: -");
-		add(wblblPressQmh, "cell 2 4");
+		labelPressQmh = new WebLabel();
+		labelPressQmh.setFont(Style.FONT_13);
+		labelPressQmh.setText("Press QNH hPa: -");
+		add(labelPressQmh, "cell 2 4");
 
-		wblblPress = new WebLabel();
-		wblblPress.setFont(Style.FONT_13);
-		wblblPress.setText("Press MSL hPa: -");
-		add(wblblPress, "cell 2 5,aligny top");
+		labelPress = new WebLabel();
+		labelPress.setFont(Style.FONT_13);
+		labelPress.setText("Press MSL hPa: -");
+		add(labelPress, "cell 2 5,aligny top");
 
-		wblblAirTemp = new WebLabel();
-		wblblAirTemp.setFont(Style.FONT_13);
-		wblblAirTemp.setText("App temp: -°C");
-		add(wblblAirTemp, "cell 1 6,aligny bottom");
+		labelAirTemp = new WebLabel();
+		labelAirTemp.setFont(Style.FONT_13);
+		labelAirTemp.setText("App temp: -°C");
+		add(labelAirTemp, "cell 1 6,aligny bottom");
 
-		wbtnViewChart = new WebButton();
-		wbtnViewChart.setFont(Style.FONT_13);
-		wbtnViewChart.setDefaultButtonShadeColor(new Color(240, 255, 255));
-		wbtnViewChart.setBottomSelectedBgColor(new Color(224, 255, 255));
-		wbtnViewChart.setBottomBgColor(new Color(240, 248, 255));
-		wbtnViewChart.setDrawShade(false);
-		wbtnViewChart.setText("View Chart");
-		add(wbtnViewChart, "cell 2 6,alignx left,aligny bottom");
+		buttonViewChart = new WebButton();
+		buttonViewChart.setFont(Style.FONT_13);
+		buttonViewChart.setDefaultButtonShadeColor(new Color(240, 255, 255));
+		buttonViewChart.setBottomSelectedBgColor(new Color(224, 255, 255));
+		buttonViewChart.setBottomBgColor(new Color(240, 248, 255));
+		buttonViewChart.setDrawShade(false);
+		buttonViewChart.setText("View Chart");
+		add(buttonViewChart, "cell 2 6,alignx left,aligny bottom");
 
-		wblblDewPoint = new WebLabel();
-		wblblDewPoint.setFont(Style.FONT_13);
-		wblblDewPoint.setText("Dew Point: -°C");
-		add(wblblDewPoint, "cell 1 7");
+		labelDewPoint = new WebLabel();
+		labelDewPoint.setFont(Style.FONT_13);
+		labelDewPoint.setText("Dew Point: -°C");
+		add(labelDewPoint, "cell 1 7");
 
 		dtFormatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 
-		wbtnViewWeatherHistory = new WebButton();
-		wbtnViewWeatherHistory.setText("View Weather History");
-		wbtnViewWeatherHistory.setFont(Style.FONT_13);
-		wbtnViewWeatherHistory.setDefaultButtonShadeColor(new Color(240, 255, 255));
-		wbtnViewWeatherHistory.setBottomSelectedBgColor(new Color(224, 255, 255));
-		wbtnViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
-		wbtnViewWeatherHistory.setDrawShade(false);
-		add(wbtnViewWeatherHistory, "cell 2 7");
+		buttonViewWeatherHistory = new WebButton();
+		buttonViewWeatherHistory.setText("View Weather History");
+		buttonViewWeatherHistory.setFont(Style.FONT_13);
+		buttonViewWeatherHistory.setDefaultButtonShadeColor(new Color(240, 255, 255));
+		buttonViewWeatherHistory.setBottomSelectedBgColor(new Color(224, 255, 255));
+		buttonViewWeatherHistory.setBottomBgColor(new Color(240, 248, 255));
+		buttonViewWeatherHistory.setDrawShade(false);
+		add(buttonViewWeatherHistory, "cell 2 7");
 
 		JPanel panelFiller2 = new JPanel();
 		panelFiller2.setVisible(false);
 		add(panelFiller2, "cell 0 8,grow");
 
-		wblblLastUpdate = new WebLabel();
-		wblblLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
-		wblblLastUpdate.setText("Last update: -");
-		add(wblblLastUpdate, "cell 0 9 2 1,aligny bottom");
+		labelLastUpdate = new WebLabel();
+		labelLastUpdate.setFont(new Font("Century Gothic", Font.ITALIC, 11));
+		labelLastUpdate.setText("Last update: -");
+		add(labelLastUpdate, "cell 0 9 2 1,aligny bottom");
 
-		wblblRemoveFromFavourites = new WebLabel();
-		wblblRemoveFromFavourites.setForeground(Color.RED);
-		wblblRemoveFromFavourites.setFont(new Font("Century Gothic", Font.ITALIC, 13));
-		wblblRemoveFromFavourites.setText("Remove from Favourites");
+		labelRemoveFromFavourites = new WebLabel();
+		labelRemoveFromFavourites.setForeground(Color.RED);
+		labelRemoveFromFavourites.setFont(new Font("Century Gothic", Font.ITALIC, 13));
+		labelRemoveFromFavourites.setText("Remove from Favourites");
 
-		add(wblblRemoveFromFavourites, "cell 2 9,alignx right,aligny bottom");
+		add(labelRemoveFromFavourites, "cell 2 9,alignx right,aligny bottom");
 
 		addListeners();
 
@@ -157,24 +157,24 @@ public final class StationDetail extends JPanel {
 	}
 
 	private void addListeners() {
-		wbtnViewChart.addActionListener(new ActionListener() {
+		buttonViewChart.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				if (_listenerAction != null)
 					_listenerAction.onViewChartClick();
 			}
 		});
 
-		wbtnViewWeatherHistory.addActionListener(new ActionListener() {
+		buttonViewWeatherHistory.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				if (_listenerAction != null)
 					_listenerAction.onViewHistoryClick();
 			}
 		});
 
-		wblblRemoveFromFavourites.addMouseListener(new MouseAdapter() {
+		labelRemoveFromFavourites.addMouseListener(new MouseAdapter() {
 			public final void mouseClicked(MouseEvent e) {
 				if (_listenerRemoveFavorite != null
-						&& wblblRemoveFromFavourites.isEnabled())
+						&& labelRemoveFromFavourites.isEnabled())
 					_listenerRemoveFavorite.onRemoveFavoriteClick(station);
 			}
 		});
@@ -195,54 +195,54 @@ public final class StationDetail extends JPanel {
 			if (r.airTemp != null) {
 				if (r.airTemp < TEMP_FREEZING) {
 					setBackground(new Color(176, 196, 222));
-					wblblc.setForeground(new Color(255, 255, 255));
+					labelc.setForeground(new Color(255, 255, 255));
 				} else if (r.airTemp < TEMP_COOL) {
 					setBackground(new Color(240, 248, 255));
-					wblblc.setForeground(new Color(30, 144, 255));
+					labelc.setForeground(new Color(30, 144, 255));
 				} else {
 					setBackground(new Color(255, 248, 220));
-					wblblc.setForeground(new Color(255, 99, 71));
+					labelc.setForeground(new Color(255, 99, 71));
 				}
-				wblblc.setText(r.airTemp + "°C");
+				labelc.setText(r.airTemp + "°C");
 			} else {
 				setBackground(new Color(176, 196, 222));
-				wblblc.setForeground(Color.black);
-				wblblc.setText("-°C");
+				labelc.setForeground(Color.black);
+				labelc.setText("-°C");
 			}
 
 			// set Text
-			wblblHumid.setText("Humid: " + (r.relativeHumidity == null ? "-" : r.relativeHumidity) + "%");
-			wblblStation.setText(station.getName());
-			wblblState.setText(station.getState().getName());
+			labelHumid.setText("Humid: " + (r.relativeHumidity == null ? "-" : r.relativeHumidity) + "%");
+			labelStation.setText(station.getName());
+			labelState.setText(station.getState().getName());
 
 			// set wind format
 			String windDir = r.windDir == null ? "" : r.windDir;
 			String windSpd = r.windSpdKmH == null || r.windGustKmH == null ? "" : r.windSpdKmH + "-" + r.windGustKmH;
-			wblblWindSse.setText("Wind: " + windDir + " " + windSpd + " km/h");
+			labelWindSse.setText("Wind: " + windDir + " " + windSpd + " km/h");
 
-			wblblRainSinceam.setText("Rain since 9am: " + (r.rainTrace == null ? "-" : r.rainTrace) + "mm");
-			wblblPressQmh.setText("Press QNH hPa: " + (r.pressureQNH == null ? "-" : r.pressureQNH));
-			wblblPress.setText("Press MSL hPa: " + (r.pressureMSL == null ? "-" : r.pressureMSL));
-			wblblAirTemp.setText("App temp: " + (r.apparentTemp == null ? "-" : r.apparentTemp) + "°C");
-			wblblDewPoint.setText("Dew Point: " + (r.dewPt == null ? "-" : r.dewPt) + "°C");
-			wblblLastUpdate.setText("Last update: " + dtFormatter.print(r.localDateTime));
+			labelRainSinceam.setText("Rain since 9am: " + (r.rainTrace == null ? "-" : r.rainTrace) + "mm");
+			labelPressQmh.setText("Press QNH hPa: " + (r.pressureQNH == null ? "-" : r.pressureQNH));
+			labelPress.setText("Press MSL hPa: " + (r.pressureMSL == null ? "-" : r.pressureMSL));
+			labelAirTemp.setText("App temp: " + (r.apparentTemp == null ? "-" : r.apparentTemp) + "°C");
+			labelDewPoint.setText("Dew Point: " + (r.dewPt == null ? "-" : r.dewPt) + "°C");
+			labelLastUpdate.setText("Last update: " + dtFormatter.print(r.localDateTime));
 		} else {
 			// set empty temp
 			setBackground(new Color(176, 196, 222));
-			wblblc.setForeground(Color.black);
-			wblblc.setText("-°C");
+			labelc.setForeground(Color.black);
+			labelc.setText("-°C");
 
 			// set Text
-			wblblHumid.setText("Humid: -%");
-			wblblStation.setText(station.getName());
-			wblblState.setText(station.getState().getName());
-			wblblWindSse.setText("Wind: -km/h");
-			wblblRainSinceam.setText("Rain since 9am: -mm");
-			wblblPressQmh.setText("Press QNH hPa: -");
-			wblblPress.setText("Press MSL hPa: -");
-			wblblAirTemp.setText("App temp: -°C");
-			wblblDewPoint.setText("Dew Point: -°C");
-			wblblLastUpdate.setText("Last update: -");
+			labelHumid.setText("Humid: -%");
+			labelStation.setText(station.getName());
+			labelState.setText(station.getState().getName());
+			labelWindSse.setText("Wind: -km/h");
+			labelRainSinceam.setText("Rain since 9am: -mm");
+			labelPressQmh.setText("Press QNH hPa: -");
+			labelPress.setText("Press MSL hPa: -");
+			labelAirTemp.setText("App temp: -°C");
+			labelDewPoint.setText("Dew Point: -°C");
+			labelLastUpdate.setText("Last update: -");
 		}
 	}
 
@@ -274,9 +274,9 @@ public final class StationDetail extends JPanel {
 	}
 
 	public void setBlockUI(boolean isBlockUI) {
-		wbtnViewChart.setEnabled(isBlockUI);
-		wbtnViewWeatherHistory.setEnabled(isBlockUI);
-		wblblRemoveFromFavourites.setEnabled(isBlockUI);
+		buttonViewChart.setEnabled(isBlockUI);
+		buttonViewWeatherHistory.setEnabled(isBlockUI);
+		labelRemoveFromFavourites.setEnabled(isBlockUI);
 
 	}
 }

@@ -22,7 +22,7 @@ import javax.swing.border.LineBorder;
  */
 public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
 {
-    private final WebLabel wblblTemp;
+    private final WebLabel labelTemp;
 
     private final Station station;
     private StationData data;
@@ -68,22 +68,22 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
         setBackground(new Color(250, 250, 250));
         setLayout(new MigLayout("", "[grow][][5%][]", "[][][]"));
 
-        WebLabel wblblStation = new WebLabel();
-        wblblStation.setForeground(new Color(255, 69, 0));
-        wblblStation.setFont(Style.FONT_16);
-        wblblStation.setText(station.getName());
-        add(wblblStation, "cell 0 0 1 2,alignx left,grow");
+        WebLabel labelStation = new WebLabel();
+        labelStation.setForeground(new Color(255, 69, 0));
+        labelStation.setFont(Style.FONT_16);
+        labelStation.setText(station.getName());
+        add(labelStation, "cell 0 0 1 2,alignx left,grow");
 
-        wblblTemp = new WebLabel();
-        wblblTemp.setFont(Style.FONT_FUTURA_20);
-        wblblTemp.setForeground(new Color(34, 139, 34));
+        labelTemp = new WebLabel();
+        labelTemp.setFont(Style.FONT_FUTURA_20);
+        labelTemp.setForeground(new Color(34, 139, 34));
 
-        add(wblblTemp, "cell 1 0 1 3,alignx center,aligny center");
+        add(labelTemp, "cell 1 0 1 3,alignx center,aligny center");
 
-        WebLabel wblblState = new WebLabel();
-        wblblState.setFont(Style.FONT_BENDER_12);
-        wblblState.setText(station.getState().getName());
-        add(wblblState, "cell 0 2");
+        WebLabel labelState = new WebLabel();
+        labelState.setFont(Style.FONT_BENDER_12);
+        labelState.setText(station.getState().getName());
+        add(labelState, "cell 0 2");
 
         setStationData(DataManager.getCachedStationData(station));
     }
@@ -97,18 +97,18 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
     private void setStationData(StationData data)
     {
         this.data = data;
-        wblblTemp.setText("-");
+        labelTemp.setText("-");
 
         if (data != null)
         {
             List<LatestReading> readings = data.getLatestReadings();
 
             if (readings.size() > 0 && readings.get(0).airTemp != null)
-                wblblTemp.setText(readings.get(0).airTemp.toString());
-            wblblTemp.setForeground(new Color(34, 139, 34));
+                labelTemp.setText(readings.get(0).airTemp.toString());
+            labelTemp.setForeground(new Color(34, 139, 34));
         }
         else
-            wblblTemp.setForeground(new Color(155, 155, 155));
+            labelTemp.setForeground(new Color(155, 155, 155));
     }
 
 

@@ -56,20 +56,20 @@ public class FrameLoading extends JFrame {
 //		ins -5 -5 -5 -5, gapy 0
 		panelMain.setLayout(new MigLayout("ins -5 -5 -5 -5", "[35%][grow]", "[grow]"));
 		
-		WebImage webImage = new WebImage(SwingUtils.createImageIcon("/Images/logo.png", "melbourne"));
-		panelMain.add(webImage, "cell 0 0, gapy 5 0, gapx 60 0");
+		WebImage logo = new WebImage(SwingUtils.createImageIcon("/Images/logo.png", "logo"));
+		panelMain.add(logo, "cell 0 0, gapy 5 0, gapx 60 0");
 		
 		JPanel panelWelcome = new JPanel();
 		panelWelcome.setBackground(Style.INTERNET_ON_BACKGROUND);
 		panelMain.add(panelWelcome, "cell 1 0,grow");
 		panelWelcome.setLayout(new MigLayout("ins 10 15 10 0", "[grow]", "[grow]"));
 		
-		WebLabel wblblBomWeather = new WebLabel();
-		wblblBomWeather.setForeground(new Color(255, 255, 255));
-		wblblBomWeather.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		wblblBomWeather.setFontSize(30);
-		wblblBomWeather.setText("BOM Weather");
-		panelWelcome.add(wblblBomWeather, "cell 0 0,aligny center");
+		WebLabel labelBomWeather = new WebLabel();
+		labelBomWeather.setForeground(new Color(255, 255, 255));
+		labelBomWeather.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		labelBomWeather.setFontSize(30);
+		labelBomWeather.setText("BOM Weather");
+		panelWelcome.add(labelBomWeather, "cell 0 0,aligny center");
 	}
 
 }
