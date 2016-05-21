@@ -7,6 +7,7 @@ import Model.Forecast;
 import Model.Station;
 import Model.StationData;
 import Utils.ForecastWorker;
+import Data.ForecastFactory;
 import Data.ForecastFactory.Source;
 
 import java.awt.Color;
@@ -113,6 +114,17 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 			setVisible(true);
 
 		if (data != null && !data.getLatestReadings().isEmpty()) {
+			
+
+			// get cached data if exist
+			List<Forecast> cachedForecast = ForecastFactory.getCachedForecasts(station, forecastSource);
+			if (cachedForecast != null)
+				forecastChart.setForecasts(cachedForecast);
+			else {
+				// clear forecast
+				forecastChart.setStatus(ForecastChart.LOADING_DATA);
+				forecastChart.clearForecast();
+			}
 
 			// load forecasts from the web
 			ForecastWorker worker = new ForecastWorker(station, forecastSource);
@@ -124,9 +136,6 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 			
 		} 
 
-		// clear forecast
-		forecastChart.setStatus(ForecastChart.LOADING_DATA);
-		forecastChart.clearForecast();
 	}
 
 	/**

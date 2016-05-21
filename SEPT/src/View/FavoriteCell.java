@@ -56,7 +56,7 @@ public final class FavoriteCell extends JPanel implements OnTaskCompleteListener
             // hover effect
             public final void mouseEntered(MouseEvent e)
             {
-            	setBorder(new LineBorder(isSelected ? Style.CELL_SELECTED : new Color(160, 160, 160)));
+            	setBorder(new LineBorder(Style.CELL_SELECTED));
             }
             public final void mouseExited(MouseEvent e)
             {
