@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.lang.StackOverflowError"/>
 <fullyQualifiedTypeName name="View.StatesPanel"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="Controller.States"/>
@@ -49,4 +48,16 @@
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="Utils.AppDefine"/>
 <fullyQualifiedTypeName name="Model.Station"/>
+<fullyQualifiedTypeName name="View.StationForecast"/>
+<fullyQualifiedTypeName name="java.awt.Panel"/>
+<fullyQualifiedTypeName name="com.alee.laf.button.WebToggleButton"/>
+<fullyQualifiedTypeName name="com.alee.extended.panel.WebButtonGroup"/>
+<fullyQualifiedTypeName name="java.nio.channels.SelectableChannel"/>
+<fullyQualifiedTypeName name="Utils.ForecastFactory.Source"/>
+<fullyQualifiedTypeName name="Utils.SwingUtils"/>
+<fullyQualifiedTypeName name="java.awt.Image"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="View.ForecastChart"/>
 </qualifiedTypeNameHistroy>
