@@ -43,8 +43,6 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	public static final int LOADING_DATA = 2;
 	public static final int NO_INTERNET = 3;
 
-	public static final boolean ANIMATE_OFF = false;
-
 	// 0 no data 1 loading 2 no internet
 	private int status = NO_DATA;
 
@@ -52,6 +50,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	private String xAxisText = "";
 	private String yAxisText = "";
 
+	private List<Forecast> oldForecasts = null; // for animation purposes
 	private List<Forecast> forecasts = new ArrayList<>();
 
 	private double min = Float.MAX_VALUE;
@@ -209,7 +208,13 @@ public final class ForecastChart extends JPanel implements ActionListener {
 					new Color(COL_MIN.getRed(), COL_MIN.getGreen(), COL_MIN.getBlue(), getAlpha(forecasts.get(i).min)));
 
 			int x1 = (int) (PADDING + forecastSep + i * (barSep + bar * 2 + forecastSep));
-			int y1 = (int) getY(forecasts.get(i).min * aniProgress / (float) ANIMATION_TICKS);
+
+			int y1;
+            if (oldForecasts == null)
+                y1 = (int) getY(forecasts.get(i).min * aniProgress / (float) ANIMATION_TICKS);
+            else
+                y1 = (int) getY((forecasts.get(i).min - oldForecasts.get(i).min) * aniProgress / (float) ANIMATION_TICKS + oldForecasts.get(i).min);
+
 			int y2 = (int) getY(0);
 
 			g.fillRect(x1, y1 < y2 ? y1 : y2, (int) bar, Math.abs(y2 - y1));
@@ -228,7 +233,12 @@ public final class ForecastChart extends JPanel implements ActionListener {
 					new Color(COL_MAX.getRed(), COL_MAX.getGreen(), COL_MAX.getBlue(), getAlpha(forecasts.get(i).max)));
 
 			x1 = (int) (PADDING + forecastSep + bar + barSep + i * (barSep + bar * 2 + forecastSep));
-			y1 = (int) getY(forecasts.get(i).max * aniProgress / (float) ANIMATION_TICKS);
+
+            if (oldForecasts == null)
+                y1 = (int) getY(forecasts.get(i).max * aniProgress / (float) ANIMATION_TICKS);
+            else
+                y1 = (int) getY((forecasts.get(i).max - oldForecasts.get(i).max) * aniProgress / (float) ANIMATION_TICKS + oldForecasts.get(i).max);
+
 			y2 = (int) getY(0);
 
 			g.fillRect(x1, y1 < y2 ? y1 : y2, (int) bar, Math.abs(y2 - y1));
@@ -351,10 +361,12 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	}
 
 	public final void setForecasts(List<Forecast> forecasts) {
-		setForecasts(forecasts, true);
-	}
+		// only animate from old values if the number of data items is the same
+		if (this.forecasts.size() == forecasts.size())
+			oldForecasts = this.forecasts;
+		else
+			oldForecasts = null;
 
-	public final void setForecasts(List<Forecast> forecasts, boolean animated) {
 		this.forecasts = forecasts;
 
 		min = Float.MAX_VALUE;
@@ -372,14 +384,8 @@ public final class ForecastChart extends JPanel implements ActionListener {
 
 		repaint();
 
-		if (animated) {
-			// start animation
-			aniProgress = 0;
-			timer.start();
-		} else {
-			// no animation
-			aniProgress = ANIMATION_TICKS;
-		}
+        timer.start();
+        aniProgress = 0;
 
 		Log.info(getClass(), "New range, min: " + min + ", max: " + max);
 	}

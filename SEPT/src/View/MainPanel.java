@@ -191,7 +191,7 @@ public final class MainPanel extends JPanel
 		stationChart.setStation(station, data);
 		stationHistory.setStation(station, data);
 		stationDetail.setStation(station, data);
-		stationForecast.setStation(station, data);
+		stationForecast.setStation(station);
 
 		// update selected favorite indicator
 		for (Component cell : pnFavorites.getComponents())

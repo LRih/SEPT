@@ -33,7 +33,6 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	private Panel pnChart;
 
 	private Station station;
-	private StationData data;
 	private WebLabel wblblForecast;
 
 	/**
@@ -113,9 +112,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 		} else
 			setVisible(true);
 
-		if (data != null && !data.getLatestReadings().isEmpty()) {
-			
-
+		if (station != null) {
 			// get cached data if exist
 			List<Forecast> cachedForecast = ForecastFactory.getCachedForecasts(station, forecastSource);
 			if (cachedForecast != null)
@@ -133,17 +130,14 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 
 			// block UI while loading
 			groupForcast.setEnabled(false);
-			
-		} 
-
+		}
 	}
 
 	/**
 	 * set station information to this Panel
 	 */
-	public final void setStation(Station station, StationData data) {
+	public final void setStation(Station station) {
 		this.station = station;
-		this.data = data;
 
 		updateStation();
 	}
@@ -171,7 +165,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	 */
 	public final void onTaskSuccess(List<Forecast> forecasts) {
 		showChart();
-		forecastChart.setForecasts(forecasts, ForecastChart.ANIMATE_OFF);
+		forecastChart.setForecasts(forecasts);
 	}
 
 	public final void onTaskFail() {
