@@ -170,6 +170,7 @@ public final class MainPanel extends JPanel
 	 */
 	public final void setFavorites(Favorites favorites, States states, Station selectedStation) {
 		pnFavorites.removeAll();
+		pnFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[][grow]", "[]"));
 
 		int row = 0;
 		int col = 0;
@@ -181,12 +182,13 @@ public final class MainPanel extends JPanel
 			cell.setOnDataLoadListener(this);
 
 			if (col % 2 == 0)
-				pnFavorites.add(cell, "cell 0 " + row + ", grow, gap 4");
+				pnFavorites.add(cell, "cell 0 " + row + ", width max(50%), gap 4");
 			else
-				pnFavorites.add(cell, "cell 1 " + (row++) + ", grow, gap 0 4");
+				pnFavorites.add(cell, "cell 1 " + (row++) + ", growx, gap 0 4");
 
 			col++;
 		}
+
 	}
 
 	public final void setStation(Station station, StationData data) {

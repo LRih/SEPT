@@ -72,30 +72,6 @@ public final class StationChart extends JPanel {
 		setBackground(Color.WHITE);
 		setLayout(new MigLayout("", "[50][][][grow][200]", "[][grow]"));
 
-		// wblblState = new WebLabel();
-		// wblblState.setFont(Style.FONT_BENDER_16);
-		// wblblState.setText("-");
-		// add(wblblState, "cell 2 0,alignx trailing");
-
-		// WebLabel wblblSelectChart = new WebLabel();
-		// wblblSelectChart.setFont(Style.FONT_13);
-		// wblblSelectChart.setText("Select Chart");
-		// add(wblblSelectChart, "flowx,cell 3 0,alignx right,aligny center");
-
-		// wcbChartType = new WebComboBox();
-		// wcbChartType.setDrawFocus(false);
-		// wcbChartType.setFont(Style.FONT_BENDER_13);
-		// wcbChartType.setModel(new DefaultComboBoxModel(new String[] { "Min
-		// temp.", "Max temp.", "Rainfall",
-		// "Max wind gust (km/h)", "Temp. 9AM", "Rel. humidity 9AM", "Wind spd
-		// 9AM", "Pressure 9AM", "Temp. 3PM",
-		// "Rel. humidity 3PM", "Wind spd 3PM", "Pressure 3PM" }));
-		// add(wcbChartType, "cell 3 0,alignx right");
-
-		// if (AppState.getInstance().chartIndex >= 0 &&
-		// AppState.getInstance().chartIndex < ChartType.values().length)
-		// wcbChartType.setSelectedIndex(AppState.getInstance().chartIndex);
-
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		add(panel, "cell 0 0 4 2,grow");
