@@ -192,7 +192,6 @@ public final class MainPanel extends JPanel
 	}
 
 	public final void setStation(Station station, StationData data) {
-		System.out.println(station.getName());
 		stationChart.setStation(station, data);
 		stationHistory.setStation(station, data);
 		stationDetail.setStation(station, data);

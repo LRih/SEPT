@@ -604,7 +604,7 @@ public final class StationChart extends JPanel {
 		if (currentView == ChartView.Latest) {
 
 			values = new double[data.getLatestReadings().size()];
-			List<LatestReading> latest_readings = data.getLatestReadings();
+			List<LatestReading> readings = data.getLatestReadings();
 
 			String name;
 
@@ -616,8 +616,8 @@ public final class StationChart extends JPanel {
 				name = ChartType.DewPoint.toString();
 				col = Style.LINE_COLORS[2];
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).dewPt != null)
-						values[i] = latest_readings.get(i).dewPt;
+					if (readings.get(values.length - i - 1).dewPt != null)
+						values[i] = readings.get(values.length - i - 1).dewPt;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
@@ -627,8 +627,8 @@ public final class StationChart extends JPanel {
 				name = ChartType.Delta.toString();
 				col = Style.LINE_COLORS[3];
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).deltaTemp != null)
-						values[i] = latest_readings.get(i).deltaTemp;
+					if (readings.get(values.length - i - 1).deltaTemp != null)
+						values[i] = readings.get(values.length - i - 1).deltaTemp;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
@@ -636,9 +636,9 @@ public final class StationChart extends JPanel {
 			case Rainfall:
 				name = ChartType.RainTrace.toString();
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).rainTrace != null) {
+					if (readings.get(values.length - i - 1).rainTrace != null) {
 						try {
-							values[i] = Double.parseDouble(latest_readings.get(i).rainTrace);
+							values[i] = Double.parseDouble(readings.get(values.length - i - 1).rainTrace);
 						} catch (Exception e) {
 							values[i] = 0;
 						}
@@ -651,8 +651,8 @@ public final class StationChart extends JPanel {
 				name = ChartType.WindGust.toString();
 				col = Style.LINE_COLORS[2];
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).windGustKmH != null)
-						values[i] = latest_readings.get(i).windGustKmH;
+					if (readings.get(values.length - i - 1).windGustKmH != null)
+						values[i] = readings.get(values.length - i - 1).windGustKmH;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
@@ -661,8 +661,8 @@ public final class StationChart extends JPanel {
 				// apparent
 				name = ChartType.Apparent.toString();
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).apparentTemp != null)
-						values[i] = latest_readings.get(i).apparentTemp;
+					if (readings.get(values.length - i - 1).apparentTemp != null)
+						values[i] = readings.get(values.length - i - 1).apparentTemp;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
@@ -670,8 +670,8 @@ public final class StationChart extends JPanel {
 				// humid
 				name = ChartType.Humidity.toString();
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).relativeHumidity != null)
-						values[i] = latest_readings.get(i).relativeHumidity;
+					if (readings.get(values.length - i - 1).relativeHumidity != null)
+						values[i] = readings.get(values.length - i - 1).relativeHumidity;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
@@ -679,16 +679,16 @@ public final class StationChart extends JPanel {
 				// speed
 				name = ChartType.WindSpeed.toString();
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).windSpdKmH != null)
-						values[i] = latest_readings.get(i).windSpdKmH;
+					if (readings.get(values.length - i - 1).windSpdKmH != null)
+						values[i] = readings.get(values.length - i - 1).windSpdKmH;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
 			case PressureMSL9AM:
 				name = ChartType.PressureQNH.toString();
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).pressureQNH != null)
-						values[i] = latest_readings.get(i).pressureQNH;
+					if (readings.get(values.length - i - 1).pressureQNH != null)
+						values[i] = readings.get(values.length - i - 1).pressureQNH;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
@@ -698,8 +698,8 @@ public final class StationChart extends JPanel {
 				name = ChartType.AirTemp.toString();
 				col = Style.LINE_COLORS[1];
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).airTemp != null)
-						values[i] = latest_readings.get(i).airTemp;
+					if (readings.get(values.length - i - 1).airTemp != null)
+						values[i] = readings.get(values.length - i - 1).airTemp;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
@@ -707,8 +707,8 @@ public final class StationChart extends JPanel {
 				name = ChartType.PressureMSL.toString();
 				col = Style.LINE_COLORS[1];
 				for (int i = 0; i < values.length; i++)
-					if (latest_readings.get(i).pressureMSL != null)
-						values[i] = latest_readings.get(i).pressureMSL;
+					if (readings.get(values.length - i - 1).pressureMSL != null)
+						values[i] = readings.get(values.length - i - 1).pressureMSL;
 					else if (i > 0)
 						values[i] = values[i - 1];
 				break;
@@ -857,15 +857,17 @@ public final class StationChart extends JPanel {
 			values = new String[data.getLatestReadings().size()];
 			List<LatestReading> readings = data.getLatestReadings();
 			for (int i = 0; i < values.length; i++) {
-				if (readings.get(i).localDateTime.getHourOfDay() == 0
-						&& readings.get(i).localDateTime.getMinuteOfHour() == 0)
-					values[i] = readings.get(i).localDateTime.getDayOfMonth() + "/"
-							+ readings.get(i).localDateTime.getMonthOfYear();
+				int index = values.length - i - 1;
+
+				if (readings.get(index).localDateTime.getHourOfDay() == 0
+						&& readings.get(index).localDateTime.getMinuteOfHour() == 0)
+					values[i] = readings.get(index).localDateTime.getDayOfMonth() + "/"
+							+ readings.get(index).localDateTime.getMonthOfYear();
 				else
-					values[i] = readings.get(i).localDateTime.getDayOfMonth() + "/"
-							+ readings.get(i).localDateTime.getHourOfDay() + ":"
-							+ (readings.get(i).localDateTime.getMinuteOfHour() == 0 ? "00"
-									: readings.get(i).localDateTime.getMinuteOfHour());
+					values[i] = readings.get(index).localDateTime.getDayOfMonth() + "/"
+							+ readings.get(index).localDateTime.getHourOfDay() + ":"
+							+ (readings.get(index).localDateTime.getMinuteOfHour() == 0 ? "00"
+									: readings.get(index).localDateTime.getMinuteOfHour());
 			}
 
 		}
