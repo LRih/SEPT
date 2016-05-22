@@ -81,8 +81,8 @@ public final class OpenWeatherMapUtils
         JSONArray list = obj.getJSONArray("list");
 
         LocalDate curDate = null;
-        double min = Double.MAX_VALUE;
-        double max = Double.MIN_NORMAL;
+        double min = 100000;
+        double max = -100000;
         String summary = "";
         String description = "";
 
@@ -99,8 +99,8 @@ public final class OpenWeatherMapUtils
             if (curDate != null && date.getDayOfYear() != curDate.getDayOfYear())
             {
                 forecasts.add(new Forecast(curDate, min, max, summary, description));
-                min = Double.MAX_VALUE;
-                max = Double.MIN_VALUE;
+                min = 100000;
+                max = -100000;
                 summary = "";
                 description = "";
             }
