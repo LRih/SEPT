@@ -46,6 +46,7 @@ public final class LineChart extends JPanel implements ActionListener
     private int maxDataPoints;
 
     // linked hash map to preserve insertion order
+    private final LinkedHashMap<String, double[]> oldDatasets = new LinkedHashMap<>();
     private final LinkedHashMap<String, double[]> datasets = new LinkedHashMap<>();
     private final HashMap<String, Color> colors = new HashMap<>();
 
@@ -132,7 +133,7 @@ public final class LineChart extends JPanel implements ActionListener
 
         float rad = 90 * (float)Math.PI /180;
 
-        x = PADDING / 3f;
+        x = PADDING / 5f;
         y = getHeight() / 2f;
 
         g.rotate(-rad, x, y);
@@ -293,7 +294,7 @@ public final class LineChart extends JPanel implements ActionListener
         {
             g.setColor(colors.get(name));
             g.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g.draw(getLinePath(datasets.get(name), name));
+            g.draw(getLinePath(name));
 
             index++;
         }
@@ -302,18 +303,37 @@ public final class LineChart extends JPanel implements ActionListener
     }
 
 
-    private Path2D getLinePath(double[] values, String name)
+    private Path2D getLinePath(String name)
     {
+        double[] values = datasets.get(name);
+        double[] oldValues = oldDatasets.containsKey(name) ? oldDatasets.get(name) : null;
+
         double median = (min + max) / 2;
         double aniLeftPercent = aniProgressList.get(name) / (float)ANIMATION_TICKS;
 
         int start = getStartIndex();
 
         Path2D path = new Path2D.Float();
-        path.moveTo(getX(start), getY(values[start] - (values[start] - median) * aniLeftPercent));
+
+        double y;
+        if (oldValues == null)
+            y = getY(values[start] - (values[start] - median) * aniLeftPercent);
+        else
+            y = getY(values[start] - (values[start] - oldValues[start]) * aniLeftPercent);
+
+        path.moveTo(getX(start), y);
 
         for (int i = start + 1; i < values.length; i++)
-            path.lineTo(getX(i), getY(values[i] - (values[i] - median) * aniLeftPercent));
+        {
+            if (oldValues == null)
+                y = getY(values[i] - (values[i] - median) * aniLeftPercent);
+            else
+                y = getY(values[i] - (values[i] - oldValues[i]) * aniLeftPercent);
+
+            path.lineTo(getX(i), y);
+        }
+
+        System.out.println(oldValues == null);
 
         return path;
     }
@@ -364,10 +384,7 @@ public final class LineChart extends JPanel implements ActionListener
     public final void addDataset(String name, Color color, double[] values)
     {
         if (datasets.containsKey(name))
-        {
-            Log.warn(getClass(), "Dataset " + name + " already exists");
-            return;
-        }
+            oldDatasets.put(name, datasets.get(name));
 
         if (values.length == 0)
             return;
@@ -399,6 +416,10 @@ public final class LineChart extends JPanel implements ActionListener
             return;
         }
 
+        // if dataset has not yet been replaced, it will not be contained in old datasets
+        if (oldDatasets.containsKey(name))
+            oldDatasets.remove(name);
+
         datasets.remove(name);
         colors.remove(name);
         aniProgressList.remove(name);
@@ -417,7 +438,8 @@ public final class LineChart extends JPanel implements ActionListener
     public final void clearDatasets()
     {
         datasets.clear();
-        
+        oldDatasets.clear();
+
         resetChart();
         
     }

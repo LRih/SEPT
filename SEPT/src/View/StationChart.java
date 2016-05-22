@@ -416,7 +416,6 @@ public final class StationChart extends JPanel {
 		// re-select selected checkboxes
 		// to reload data for new station
 		reselectCheckboxes();
-
 	}
 
 	boolean selectedYet = false;
@@ -497,12 +496,12 @@ public final class StationChart extends JPanel {
 			break;
 
 		case MaxTemp:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).maxTemp != null)
-					values[i] = readings.get(i).maxTemp;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
+            for (int i = 0; i < values.length; i++)
+                if (readings.get(i).maxTemp != null)
+                    values[i] = readings.get(i).maxTemp;
+                else if (i > 0)
+                    values[i] = values[i - 1];
+            break;
 
 		case Rainfall:
 			for (int i = 0; i < values.length; i++)
