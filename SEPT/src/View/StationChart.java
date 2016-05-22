@@ -117,6 +117,7 @@ public final class StationChart extends JPanel {
 		checkboxTemp9am.setFocusable(false);
 		checkboxTemp9am.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 0;
 				checkboxChanged(checkboxTemp9am, ChartType.Temp9AM);
 			}
 		});
@@ -129,6 +130,7 @@ public final class StationChart extends JPanel {
 		checkboxTemp3pm.setFocusable(false);
 		checkboxTemp3pm.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 1;
 				checkboxChanged(checkboxTemp3pm, ChartType.Temp3PM);
 			}
 		});
@@ -141,6 +143,7 @@ public final class StationChart extends JPanel {
 		checkboxTempMin.setFocusable(false);
 		checkboxTempMin.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 2;
 				checkboxChanged(checkboxTempMin, ChartType.MinTemp);
 			}
 		});
@@ -153,6 +156,7 @@ public final class StationChart extends JPanel {
 		checkboxTempMax.setFocusable(false);
 		checkboxTempMax.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 3;
 				checkboxChanged(checkboxTempMax, ChartType.MaxTemp);
 			}
 		});
@@ -175,6 +179,7 @@ public final class StationChart extends JPanel {
 		checkboxWind9am.setFocusable(false);
 		checkboxWind9am.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 0;
 				checkboxChanged(checkboxWind9am, ChartType.WindSpd9AM);
 			}
 		});
@@ -187,6 +192,7 @@ public final class StationChart extends JPanel {
 		checkboxWind3pm.setFocusable(false);
 		checkboxWind3pm.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 1;
 				checkboxChanged(checkboxWind3pm, ChartType.WindSpd3PM);
 			}
 		});
@@ -199,6 +205,7 @@ public final class StationChart extends JPanel {
 		checkboxWindGust.setFocusable(false);
 		checkboxWindGust.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 2;
 				checkboxChanged(checkboxWindGust, ChartType.MaxWindGustKmH);
 			}
 		});
@@ -221,6 +228,7 @@ public final class StationChart extends JPanel {
 		checkboxPressure9am.setFocusable(false);
 		checkboxPressure9am.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 0;
 				checkboxChanged(checkboxPressure9am, ChartType.PressureMSL9AM);
 			}
 		});
@@ -233,6 +241,7 @@ public final class StationChart extends JPanel {
 		checkboxPressure3pm.setFocusable(false);
 		checkboxPressure3pm.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 1;
 				checkboxChanged(checkboxPressure3pm, ChartType.PressureMSL3PM);
 			}
 		});
@@ -255,6 +264,7 @@ public final class StationChart extends JPanel {
 		checkboxHumid9am.setFocusable(false);
 		checkboxHumid9am.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 0;
 				checkboxChanged(checkboxHumid9am, ChartType.RelHumidity9AM);
 			}
 		});
@@ -267,6 +277,7 @@ public final class StationChart extends JPanel {
 		checkboxHumid3pm.setFocusable(false);
 		checkboxHumid3pm.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				current_color = 1;
 				checkboxChanged(checkboxHumid3pm, ChartType.RelHumidity3PM);
 			}
 		});
@@ -411,7 +422,7 @@ public final class StationChart extends JPanel {
 		current_color = 0;
 
 		// reset max min
-		chartPanel.clearDatasets();
+//		chartPanel.clearDatasets();
 
 		// re-select selected checkboxes
 		// to reload data for new station
@@ -421,25 +432,63 @@ public final class StationChart extends JPanel {
 	boolean selectedYet = false;
 	private WebLabel labelZoom;
 	private WebSlider sliderZoom;
+	
+	private void setDataset(ChartType type) {
+		setDataset(type, null);
+	}
 
 	private void reselectCheckboxes() {
 
 		if (radioRainFall.isSelected()) {
-			radioRainFall.setSelected(false);
-			radioRainFall.setSelected(true);
+			setDataset(ChartType.Rainfall, radioRainFall.getForeground());
+//			radioRainFall.setSelected(false);
+//			radioRainFall.setSelected(true);
 			selectedYet = true;
 		} else {
-			reselectCheckbox(checkboxTemp9am);
-			reselectCheckbox(checkboxTemp3pm);
-			reselectCheckbox(checkboxTempMax);
-			reselectCheckbox(checkboxTempMin);
-			reselectCheckbox(checkboxWind9am);
-			reselectCheckbox(checkboxWind3pm);
-			reselectCheckbox(checkboxWindGust);
-			reselectCheckbox(checkboxPressure9am);
-			reselectCheckbox(checkboxPressure3pm);
-			reselectCheckbox(checkboxHumid9am);
-			reselectCheckbox(checkboxHumid3pm);
+			if (checkboxTemp9am.isSelected()) {
+				setDataset(ChartType.Temp9AM, checkboxTemp9am.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxTemp3pm.isSelected()) {
+				setDataset(ChartType.Temp3PM, checkboxTemp3pm.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxTempMax.isSelected()) {
+				setDataset(ChartType.MaxTemp, checkboxTempMax.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxTempMin.isSelected()) {
+				setDataset(ChartType.MinTemp, checkboxTempMin.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxWind9am.isSelected()) {
+				setDataset(ChartType.WindSpd9AM, checkboxWind9am.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxWind3pm.isSelected()) {
+				setDataset(ChartType.WindSpd3PM, checkboxWind3pm.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxWindGust.isSelected()) {
+				setDataset(ChartType.MaxWindGustKmH, checkboxWindGust.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxPressure9am.isSelected()) {
+				setDataset(ChartType.PressureMSL9AM, checkboxPressure9am.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxPressure3pm.isSelected()) {
+				setDataset(ChartType.PressureMSL3PM, checkboxPressure3pm.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxHumid9am.isSelected()) {
+				setDataset(ChartType.RelHumidity9AM, checkboxHumid9am.getForeground());
+				selectedYet = true;
+			}
+			if (checkboxHumid3pm.isSelected()) {
+				setDataset(ChartType.RelHumidity3PM, checkboxHumid3pm.getForeground());
+				selectedYet = true;
+			}
 		}
 
 		// if first time open panel
@@ -468,7 +517,7 @@ public final class StationChart extends JPanel {
 		chartPanel.removeDataset(type.toString());
 	}
 
-	private void setDataset(ChartType type) {
+	private void setDataset(ChartType type, Color c) {
 
 		if (data == null)
 			return;
@@ -581,9 +630,13 @@ public final class StationChart extends JPanel {
 			Log.warn(getClass(), "Invalid chart type: " + type.name());
 			return;
 		}
-
+		
 		Color col = Style.LINE_COLORS[current_color % Style.LINE_COLORS.length];
-		current_color++;
+		if (c != null)
+			col = c;
+		else
+			current_color++;
+		System.out.println(current_color);
 		chartPanel.addDataset(name, col, values);
 	}
 
