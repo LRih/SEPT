@@ -8,6 +8,7 @@ import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
 import Utils.Log;
+import Utils.StationDataWorker.OnTaskCompleteListener;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
@@ -42,6 +43,7 @@ public final class StationChart extends JPanel {
 	private final JPanel panelMain;
 	// private final WebComboBox wcbChartType;
 
+	private Station station;
 	private StationData data;
 
 	private OnBackClickListener _listener;
@@ -64,6 +66,7 @@ public final class StationChart extends JPanel {
 	private WebRadioButton radioRainFall;
 	private int current_color;
 	private ChartGroup selected_group = ChartGroup.Temperature;
+	private ChartView currentView = ChartView.Historical;
 
 	/**
 	 * Create the panel.
@@ -303,15 +306,71 @@ public final class StationChart extends JPanel {
 
 		sliderZoom = new WebSlider();
 		sliderZoom.setFocusable(false);
-		sliderZoom.setMinimum(3);
+		sliderZoom.setMinimum(0);
 		sliderZoom.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-
-				chartPanel.setMaxDataPoints(sliderZoom.getValue());
-				labelZoom.setText("View: Last " + sliderZoom.getValue() + " day(s).");
+				if (sliderZoom.getValue() < 4) {
+					switchView(ChartView.Latest);
+				} else {
+					switchView(ChartView.Historical);
+					chartPanel.setMaxDataPoints(sliderZoom.getValue());
+				}
 			}
 		});
 		panelSelectData.add(sliderZoom, "cell 0 13 3 1");
+
+	}
+
+	private void switchView(ChartView view) {
+		switch (view) {
+		case Historical:
+			checkboxTemp9am.setText("9am");
+			checkboxTemp3pm.setText("3pm");
+			checkboxTempMin.setText("Min");
+			checkboxTempMax.setText("Max");
+
+			checkboxWind9am.setText("9am");
+			checkboxWind3pm.setText("3pm");
+			checkboxWind3pm.setVisible(true);
+
+			checkboxPressure9am.setText("9am");
+			checkboxPressure3pm.setText("3pm");
+
+			checkboxHumid9am.setText("9am");
+			checkboxHumid3pm.setVisible(true);
+			checkboxHumid3pm.setText("3pm");
+
+			labelZoom.setText("View: Last " + sliderZoom.getValue() + " day(s).");
+
+			break;
+		case Latest:
+			checkboxTemp9am.setText("Apparent");
+			checkboxTemp3pm.setText("Air");
+			checkboxTempMin.setText("Dew Point");
+			checkboxTempMax.setText("Delta");
+
+			checkboxWind9am.setText("Speed");
+			checkboxWind3pm.setVisible(false);
+
+			checkboxPressure9am.setText("QNH");
+			checkboxPressure3pm.setText("MSL");
+
+			checkboxHumid9am.setText("Current");
+			checkboxHumid3pm.setVisible(false);
+
+			labelZoom.setText("Lastest Reading");
+
+			break;
+		}
+
+		if (currentView != view) {
+			currentView = view;
+
+			if (radioTemperature.isSelected())
+				radioTemperature.setSelected(false);
+			radioTemperature.setSelected(true);
+
+		}
 
 	}
 
@@ -330,9 +389,6 @@ public final class StationChart extends JPanel {
 	}
 
 	protected void radioChanged(ChartGroup group, boolean isSelected) {
-
-		// System.out.println(chartPanel.getXValues().length);
-
 		// reset color index
 		current_color = 0;
 
@@ -345,9 +401,12 @@ public final class StationChart extends JPanel {
 		// update group of checkboxes
 		updateGroup(group, isSelected);
 
-		sliderZoom.setMaximum(chartPanel.getXValues().length);
-
-		chartPanel.setMaxDataPoints(sliderZoom.getValue());
+		if (currentView == ChartView.Historical) {
+			sliderZoom.setMaximum(chartPanel.getXValues().length);
+			chartPanel.setMaxDataPoints(sliderZoom.getValue());
+		} else {
+			chartPanel.setMaxDataPoints(chartPanel.getXValues().length);
+		}
 
 	}
 
@@ -421,9 +480,6 @@ public final class StationChart extends JPanel {
 		// reset color
 		current_color = 0;
 
-		// reset max min
-//		chartPanel.clearDatasets();
-
 		// re-select selected checkboxes
 		// to reload data for new station
 		reselectCheckboxes();
@@ -432,7 +488,7 @@ public final class StationChart extends JPanel {
 	boolean selectedYet = false;
 	private WebLabel labelZoom;
 	private WebSlider sliderZoom;
-	
+
 	private void reselectCheckboxes() {
 
 		if (radioRainFall.isSelected()) {
@@ -492,22 +548,49 @@ public final class StationChart extends JPanel {
 
 	}
 
-	private void reselectCheckbox(WebCheckBox checkbox) {
-		if (checkbox.isSelected()) {
-			checkbox.setSelected(false);
-			checkbox.setSelected(true);
-			selectedYet = true;
-		}
-	}
-
 	/**
 	 * Replay chart animation.
 	 */
 	public final void animate() {
 		chartPanel.animate();
 	}
-	
+
 	private void removeDataset(ChartType type) {
+		if (currentView == ChartView.Latest) {
+			switch (type) {
+			case Temp9AM:
+				type = ChartType.Apparent;
+				break;
+			case Temp3PM:
+				type = ChartType.AirTemp;
+				break;
+			case MinTemp:
+				type = ChartType.DewPoint;
+				break;
+			case MaxTemp:
+				type = ChartType.Delta;
+				break;
+			case WindSpd9AM:
+				type = ChartType.WindSpeed;
+				break;
+			case MaxWindGustKmH:
+				type = ChartType.WindGust;
+				break;
+			case PressureMSL9AM:
+				type = ChartType.PressureQNH;
+				break;
+			case PressureMSL3PM:
+				type = ChartType.PressureMSL;
+				break;
+			case RelHumidity9AM:
+				type = ChartType.Humidity;
+				break;
+			case Rainfall:
+				type = ChartType.RainTrace;
+				break;
+			}
+		}
+		
 		chartPanel.removeDataset(type.toString());
 	}
 
@@ -516,131 +599,276 @@ public final class StationChart extends JPanel {
 		if (data == null)
 			return;
 
-		String name = type.toString();
-
 		double[] values;
-		List<HistoricalReading> readings = data.getHistoricalReadings();
 
-		if (sliderZoom.getValue() == 2) {
+		if (currentView == ChartView.Latest) {
+
 			values = new double[data.getLatestReadings().size()];
-//			List<LatestReading> latest_readings = data.getLatestReadings();
+			List<LatestReading> latest_readings = data.getLatestReadings();
+
+			String name;
+
 			// switch to latest reading
+			Color col = Style.LINE_COLORS[0];
+			switch (type) {
+			case MinTemp:
+				// dew point
+				name = ChartType.DewPoint.toString();
+				col = Style.LINE_COLORS[2];
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).dewPt != null)
+						values[i] = latest_readings.get(i).dewPt;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case MaxTemp:
+				// delta
+				name = ChartType.Delta.toString();
+				col = Style.LINE_COLORS[3];
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).deltaTemp != null)
+						values[i] = latest_readings.get(i).deltaTemp;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case Rainfall:
+				name = ChartType.RainTrace.toString();
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).rainTrace != null) {
+						try {
+							values[i] = Double.parseDouble(latest_readings.get(i).rainTrace);
+						} catch (Exception e) {
+							values[i] = 0;
+						}
+					} else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case MaxWindGustKmH:
+				// max gust
+				name = ChartType.WindGust.toString();
+				col = Style.LINE_COLORS[2];
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).windGustKmH != null)
+						values[i] = latest_readings.get(i).windGustKmH;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case Temp9AM:
+				// apparent
+				name = ChartType.Apparent.toString();
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).apparentTemp != null)
+						values[i] = latest_readings.get(i).apparentTemp;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case RelHumidity9AM:
+				// humid
+				name = ChartType.Humidity.toString();
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).relativeHumidity != null)
+						values[i] = latest_readings.get(i).relativeHumidity;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case WindSpd9AM:
+				// speed
+				name = ChartType.WindSpeed.toString();
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).windSpdKmH != null)
+						values[i] = latest_readings.get(i).windSpdKmH;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case PressureMSL9AM:
+				name = ChartType.PressureQNH.toString();
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).pressureQNH != null)
+						values[i] = latest_readings.get(i).pressureQNH;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case Temp3PM:
+				// air
+				name = ChartType.AirTemp.toString();
+				col = Style.LINE_COLORS[1];
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).airTemp != null)
+						values[i] = latest_readings.get(i).airTemp;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case PressureMSL3PM:
+				name = ChartType.PressureMSL.toString();
+				col = Style.LINE_COLORS[1];
+				for (int i = 0; i < values.length; i++)
+					if (latest_readings.get(i).pressureMSL != null)
+						values[i] = latest_readings.get(i).pressureMSL;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			default:
+				Log.warn(getClass(), "Invalid chart type: " + type.name());
+				return;
+			}
+
+			current_color++;
+
+			chartPanel.addDataset(name, col, values);
 		} else {
+
+			String name = type.toString();
+
 			values = new double[data.getHistoricalReadings().size()];
+			List<HistoricalReading> readings = data.getHistoricalReadings();
+			Color col = Style.LINE_COLORS[0];
+			
+			switch (type) {
+			case MinTemp:
+				col = Style.LINE_COLORS[2];
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).minTemp != null)
+						values[i] = readings.get(i).minTemp;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case MaxTemp:
+				col = Style.LINE_COLORS[3];
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).maxTemp != null)
+						values[i] = readings.get(i).maxTemp;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case Rainfall:
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).rainfall != null)
+						values[i] = readings.get(i).rainfall;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case MaxWindGustKmH:
+				col = Style.LINE_COLORS[2];
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).maxWindGustKmH != null)
+						values[i] = readings.get(i).maxWindGustKmH;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case Temp9AM:
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).temp9AM != null)
+						values[i] = readings.get(i).temp9AM;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case RelHumidity9AM:
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).relHumidity9AM != null)
+						values[i] = readings.get(i).relHumidity9AM;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case WindSpd9AM:
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).windSpd9AM != null)
+						values[i] = readings.get(i).windSpd9AM;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case PressureMSL9AM:
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).pressureMSL9AM != null)
+						values[i] = readings.get(i).pressureMSL9AM;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			case Temp3PM:
+				col = Style.LINE_COLORS[1];
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).temp3PM != null)
+						values[i] = readings.get(i).temp3PM;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case RelHumidity3PM:
+				col = Style.LINE_COLORS[1];
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).relHumidity3PM != null)
+						values[i] = readings.get(i).relHumidity3PM;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case WindSpd3PM:
+				col = Style.LINE_COLORS[1];
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).windSpd3PM != null)
+						values[i] = readings.get(i).windSpd3PM;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+			case PressureMSL3PM:
+				col = Style.LINE_COLORS[1];
+				for (int i = 0; i < values.length; i++)
+					if (readings.get(i).pressureMSL3PM != null)
+						values[i] = readings.get(i).pressureMSL3PM;
+					else if (i > 0)
+						values[i] = values[i - 1];
+				break;
+
+			default:
+				Log.warn(getClass(), "Invalid chart type: " + type.name());
+				return;
+			}
+
+			current_color++;
+
+			chartPanel.addDataset(name, col, values);
 		}
 
-		switch (type) {
-		case MinTemp:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).minTemp != null)
-					values[i] = readings.get(i).minTemp;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-
-		case MaxTemp:
-            for (int i = 0; i < values.length; i++)
-                if (readings.get(i).maxTemp != null)
-                    values[i] = readings.get(i).maxTemp;
-                else if (i > 0)
-                    values[i] = values[i - 1];
-            break;
-
-		case Rainfall:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).rainfall != null)
-					values[i] = readings.get(i).rainfall;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-
-		case MaxWindGustKmH:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).maxWindGustKmH != null)
-					values[i] = readings.get(i).maxWindGustKmH;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-
-		case Temp9AM:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).temp9AM != null)
-					values[i] = readings.get(i).temp9AM;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-		case RelHumidity9AM:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).relHumidity9AM != null)
-					values[i] = readings.get(i).relHumidity9AM;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-		case WindSpd9AM:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).windSpd9AM != null)
-					values[i] = readings.get(i).windSpd9AM;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-		case PressureMSL9AM:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).pressureMSL9AM != null)
-					values[i] = readings.get(i).pressureMSL9AM;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-
-		case Temp3PM:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).temp3PM != null)
-					values[i] = readings.get(i).temp3PM;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-		case RelHumidity3PM:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).relHumidity3PM != null)
-					values[i] = readings.get(i).relHumidity3PM;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-		case WindSpd3PM:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).windSpd3PM != null)
-					values[i] = readings.get(i).windSpd3PM;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-		case PressureMSL3PM:
-			for (int i = 0; i < values.length; i++)
-				if (readings.get(i).pressureMSL3PM != null)
-					values[i] = readings.get(i).pressureMSL3PM;
-				else if (i > 0)
-					values[i] = values[i - 1];
-			break;
-
-		default:
-			Log.warn(getClass(), "Invalid chart type: " + type.name());
-			return;
-		}
-		
-		Color col = Style.LINE_COLORS[current_color % Style.LINE_COLORS.length];
-		current_color++;
-	
-		chartPanel.addDataset(name, col, values);
 	}
 
 	private String[] getXAxisValues() {
 		if (data == null)
 			return new String[] {};
 
-		String[] values = new String[data.getHistoricalReadings().size()];
+		String[] values;
 
-		List<HistoricalReading> readings = data.getHistoricalReadings();
+		if (currentView == ChartView.Historical) {
+			values = new String[data.getHistoricalReadings().size()];
 
-		for (int i = 0; i < values.length; i++)
-			values[i] = readings.get(i).date.getDayOfMonth() + "/" + readings.get(i).date.getMonthOfYear();
+			List<HistoricalReading> readings = data.getHistoricalReadings();
+
+			for (int i = 0; i < values.length; i++)
+				values[i] = readings.get(i).date.getDayOfMonth() + "/" + readings.get(i).date.getMonthOfYear();
+		} else {
+
+			values = new String[data.getLatestReadings().size()];
+			List<LatestReading> readings = data.getLatestReadings();
+			for (int i = 0; i < values.length; i++) {
+				if (readings.get(i).localDateTime.getHourOfDay() == 0
+						&& readings.get(i).localDateTime.getMinuteOfHour() == 0)
+					values[i] = readings.get(i).localDateTime.getDayOfMonth() + "/"
+							+ readings.get(i).localDateTime.getMonthOfYear();
+				else
+					values[i] = readings.get(i).localDateTime.getDayOfMonth() + "/"
+							+ readings.get(i).localDateTime.getHourOfDay() + ":"
+							+ (readings.get(i).localDateTime.getMinuteOfHour() == 0 ? "00"
+									: readings.get(i).localDateTime.getMinuteOfHour());
+			}
+
+		}
 
 		return values;
 	}
@@ -649,9 +877,10 @@ public final class StationChart extends JPanel {
 	 * Set station data for this panel.
 	 */
 	public final void setStation(Station station, StationData data) {
-		this.data = data;
 
 		if (station != null) {
+			this.station = station;
+			this.data = data;
 			// labelStation.setText(station.getName());
 			chartPanel.setTitle(station.getName());
 			// labelState.setText(station.getState().getName());
@@ -665,14 +894,19 @@ public final class StationChart extends JPanel {
 	}
 
 	public enum ChartType {
-		MinTemp, MaxTemp, Rainfall, MaxWindGustKmH, Temp9AM, RelHumidity9AM, WindSpd9AM, PressureMSL9AM, Temp3PM, RelHumidity3PM, WindSpd3PM, PressureMSL3PM
+		MinTemp, MaxTemp, Rainfall, MaxWindGustKmH, Temp9AM, RelHumidity9AM, WindSpd9AM, PressureMSL9AM, Temp3PM, RelHumidity3PM, WindSpd3PM, PressureMSL3PM, Apparent, AirTemp, DewPoint, Delta, WindSpeed, WindGust, Humidity, PressureQNH, PressureMSL, RainTrace
 	}
 
 	public enum ChartGroup {
 		Temperature, WindSpeed, Pressure, Humidity, RainFall
 	}
 
+	public enum ChartView {
+		Historical, Latest
+	}
+
 	public void setBlockUI(boolean isBlockUI) {
 		// wcbChartType.setEnabled(isBlockUI);
 	}
+
 }

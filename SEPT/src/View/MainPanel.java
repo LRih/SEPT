@@ -32,7 +32,7 @@ public final class MainPanel extends JPanel
 	private OnActionListener _listenerAction;
 	private FavoriteCell.OnStationSelectListener _listenerStationSelect;
 	private FavoriteCell.OnDataLoadListener _listenerDataLoad;
-
+	
 	private JPanel pnStationList;
 
 	/**
@@ -169,6 +169,7 @@ public final class MainPanel extends JPanel
 	 * Populate panel with favorites.
 	 */
 	public final void setFavorites(Favorites favorites, States states, Station selectedStation) {
+		
 		panelFavorites.removeAll();
 		panelFavorites.setLayout(new MigLayout("ins 4 0 0 0", "[][grow]", "[]"));
 
@@ -188,10 +189,10 @@ public final class MainPanel extends JPanel
 
 			col++;
 		}
-
 	}
 
 	public final void setStation(Station station, StationData data) {
+		System.out.println(station.getName());
 		stationChart.setStation(station, data);
 		stationHistory.setStation(station, data);
 		stationDetail.setStation(station, data);
@@ -233,8 +234,9 @@ public final class MainPanel extends JPanel
 	}
 
 	public final void onDataLoadSuccess(Station station, StationData data) {
-		if (_listenerDataLoad != null)
+		if (_listenerDataLoad != null) {
 			_listenerDataLoad.onDataLoadSuccess(station, data);
+		}
 	}
 
 	public final void onDataLoadFail() {
