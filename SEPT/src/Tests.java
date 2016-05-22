@@ -3,9 +3,11 @@ import Data.ForecastFactory;
 import Utils.Log;
 import Utils.SwingUtils;
 import Utils.TextUtils;
+import View.LineChart;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.awt.*;
 import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.*;
@@ -265,7 +267,7 @@ public final class Tests
         assertNotNull(SwingUtils.createImage("/Images/rain.png"));
         assertNotNull(SwingUtils.createImage("/Images/sleet.png"));
         assertNotNull(SwingUtils.createImage("/Images/snow.png"));
-        assertNotNull(SwingUtils.createImage("/Images/wind.png"));
+        assertNotNull(SwingUtils.createImage("/Images/windy.png"));
     }
 
     /**
@@ -282,5 +284,52 @@ public final class Tests
         {
             fail();
         }
+    }
+
+    /**
+     * Test correct number of lines in line chart.
+     */
+    @Test
+    public void testCorrectLineCount()
+    {
+        LineChart chart = new LineChart();
+
+        chart.setXValues(new String[] { "1", "2" });
+        chart.addDataset("D1", Color.BLUE, new double[] { 1, 2 });
+        chart.addDataset("D2", Color.GREEN, new double[] { 1, 2 });
+
+        assertEquals(chart.getLineCount(), 2);
+    }
+
+    /**
+     * Test line chart correctly handles duplicates.
+     */
+    @Test
+    public void testCorrectLineCountAfterDuplicate()
+    {
+        LineChart chart = new LineChart();
+
+        chart.setXValues(new String[] { "1", "2" });
+        chart.addDataset("D1", Color.BLUE, new double[] { 1, 2 });
+        chart.addDataset("D1", Color.GREEN, new double[] { 1, 2 });
+
+        assertEquals(chart.getLineCount(), 1);
+    }
+
+    /**
+     * Test clearing line chart.
+     */
+    @Test
+    public void testClearLineChart()
+    {
+        LineChart chart = new LineChart();
+
+        chart.setXValues(new String[] { "1", "2" });
+        chart.addDataset("D1", Color.BLUE, new double[] { 1, 2 });
+        chart.addDataset("D2", Color.GREEN, new double[] { 1, 2 });
+
+        chart.clearDatasets();
+
+        assertEquals(chart.getLineCount(), 0);
     }
 }

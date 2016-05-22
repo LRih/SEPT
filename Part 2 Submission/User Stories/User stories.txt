@@ -25,12 +25,16 @@ cached data will be loaded.
 
 7. As a curious user, I want to check forecast from different sources so that I can compare the accuracy and
 decide which source is more reliable.
-No confirmation as of yet.
+Given the user is connected to the internet, when the user opens the app then
+the user is presented with two different forecast sources.
 
 8. As a user I want to view both general temperature trends and how temperature varies throughout the day.
-No confirmation as of yet.
+Given the user has the chart open, when the user activates the zoom slider then
+the chart zooms in/out to display more granular data points and shift between
+day by day and hour by hour datasets.
 
 9. As a user I want to check what the weather is going to be in the near future so I can best choose the best
 day for arranging events.
-No confirmation as of yet.
+Given the user is connected to the internet, when the user clicks a forecast
+source then a 5-7 forecast is displayed to the user.
  
