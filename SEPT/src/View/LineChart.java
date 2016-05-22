@@ -306,34 +306,29 @@ public final class LineChart extends JPanel implements ActionListener
     private Path2D getLinePath(String name)
     {
         double[] values = datasets.get(name);
-        double[] oldValues = oldDatasets.containsKey(name) ? oldDatasets.get(name) : null;
-
-        double median = (min + max) / 2;
-        double aniLeftPercent = aniProgressList.get(name) / (float)ANIMATION_TICKS;
-
         int start = getStartIndex();
 
         Path2D path = new Path2D.Float();
-
-        double y;
-        if (oldValues == null)
-            y = getY(values[start] - (values[start] - median) * aniLeftPercent);
-        else
-            y = getY(values[start] - (values[start] - oldValues[start]) * aniLeftPercent);
-
-        path.moveTo(getX(start), y);
+        path.moveTo(getX(start), getY(getAnimatedValue(name, 0)));
 
         for (int i = start + 1; i < values.length; i++)
-        {
-            if (oldValues == null)
-                y = getY(values[i] - (values[i] - median) * aniLeftPercent);
-            else
-                y = getY(values[i] - (values[i] - oldValues[i]) * aniLeftPercent);
-
-            path.lineTo(getX(i), y);
-        }
+            path.lineTo(getX(i), getY(getAnimatedValue(name, i)));
 
         return path;
+    }
+
+    private double getAnimatedValue(String name, int index)
+    {
+        double mean = (min + max) / 2;
+        double aniLeftPercent = aniProgressList.get(name) / (float)ANIMATION_TICKS;
+
+        double[] values = datasets.get(name);
+        double[] oldValues = oldDatasets.containsKey(name) ? oldDatasets.get(name) : null;
+
+        if (oldValues == null)
+            return values[index] - (values[index] - mean) * aniLeftPercent;
+        else
+            return values[index] - (values[index] - oldValues[index]) * aniLeftPercent;
     }
 
     /**

@@ -53,6 +53,7 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	private List<Forecast> oldForecasts = null; // for animation purposes
 	private List<Forecast> forecasts = new ArrayList<>();
 
+	private double oldMin, oldMax;
 	private double min = Float.MAX_VALUE;
 	private double max = Float.MIN_VALUE;
 
@@ -297,27 +298,18 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	 */
 	private double getY(double value) {
 		int height = getHeight() - PADDING - PADDING_BOTTOM;
+        double aniMin = (min - oldMin) * aniProgress / (float) ANIMATION_TICKS + oldMin;
+        double aniMax = (max - oldMax) * aniProgress / (float) ANIMATION_TICKS + oldMax;
 
-		if (min < 0 && max > 0) // both positive and negative values, draw axis
-								// in the middle
-		{
-			double top = PADDING + height / 8f;
-			double bottom = getHeight() - PADDING_BOTTOM - height / 8f;
+        double top = PADDING;
+        double bottom = getHeight() - PADDING_BOTTOM;
 
-			return bottom - (bottom - top) * (value - min) / (max - min);
-		} else if (min >= 0) // all positive
-		{
-			double top = PADDING + height / 8f;
-			double bottom = getHeight() - PADDING_BOTTOM;
-
-			return bottom - (bottom - top) * value / max;
-		} else if (max <= 0) // all negative
-		{
-			double top = PADDING;
-			double bottom = getHeight() - PADDING_BOTTOM - height / 8f;
-
-			return bottom - (bottom - top) * (value - min) / -min;
-		}
+		if (aniMin < 0 && aniMax > 0) // both positive and negative values, draw axis in the middle
+			return bottom - (bottom - top) * (value - aniMin) / (aniMax - aniMin);
+		else if (aniMin >= 0) // all positive
+			return bottom - (bottom - top) * value / aniMax;
+		else if (aniMax <= 0) // all negative
+			return bottom - (bottom - top) * (value - aniMin) / -aniMin;
 
 		return 0;
 	}
@@ -363,7 +355,11 @@ public final class ForecastChart extends JPanel implements ActionListener {
 	public final void setForecasts(List<Forecast> forecasts) {
 		// only animate from old values if the number of data items is the same
 		if (this.forecasts.size() == forecasts.size())
+        {
 			oldForecasts = this.forecasts;
+            oldMin = min;
+            oldMax = max;
+        }
 		else
 			oldForecasts = null;
 
@@ -381,6 +377,13 @@ public final class ForecastChart extends JPanel implements ActionListener {
 		for (Forecast forecast : forecasts)
 			if (forecast.max > max)
 				max = forecast.max;
+
+        // don't animate axis if previous forecast doesn't exist
+        if (oldForecasts == null)
+        {
+            oldMin = min;
+            oldMax = max;
+        }
 
 		repaint();
 
