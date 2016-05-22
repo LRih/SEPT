@@ -333,8 +333,6 @@ public final class LineChart extends JPanel implements ActionListener
             path.lineTo(getX(i), y);
         }
 
-        System.out.println(oldValues == null);
-
         return path;
     }
 
