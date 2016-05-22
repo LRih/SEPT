@@ -72,6 +72,12 @@ View/Style.java
 
 
 ============================================
+JUnit tests
+============================================
+Unit tests are located in Tests.java
+
+
+============================================
 Factory method implementation
 ============================================
 We have implemented the factory method in this assignment to select between two

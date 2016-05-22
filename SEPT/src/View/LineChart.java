@@ -22,7 +22,6 @@ public final class LineChart extends JPanel implements ActionListener
 
     private static final int PADDING = 60;
     private static final int PADDING_RIGHT = 20;
-    private static final int LABEL_SIZE = 20;
 
     private static final int MINOR_AXIS_EXTRA = 6;
 
@@ -99,7 +98,6 @@ public final class LineChart extends JPanel implements ActionListener
 
         drawTitle(g);
         drawAxisText(g);
-//        drawDatasetNames(g);
         drawEmptyText(g);
     }
 
@@ -139,28 +137,6 @@ public final class LineChart extends JPanel implements ActionListener
         g.rotate(-rad, x, y);
         g.drawString(yAxisText, PADDING / 3f - (float)rect.getCenterX(), getHeight() / 2f - (float)rect.getCenterY());
         g.rotate(rad, x, y);
-    }
-    private void drawDatasetNames(Graphics2D g)
-    {
-        FontMetrics metrics = g.getFontMetrics(FONT_MINOR_AXIS);
-
-        g.setFont(FONT_MINOR_AXIS);
-
-        int index = 0;
-        for (String name : datasets.keySet())
-        {
-            Rectangle2D rect = metrics.getStringBounds(name, g);
-            float x = getWidth() - PADDING_RIGHT + MINOR_AXIS_EXTRA;
-            float y = PADDING + index * (LABEL_SIZE + MINOR_AXIS_EXTRA);
-
-            g.setColor(colors.get(name));
-            g.fillRect((int)x, (int)y, LABEL_SIZE, LABEL_SIZE);
-
-            g.setColor(COL_TEXT);
-            g.drawString(name, x + LABEL_SIZE + MINOR_AXIS_EXTRA, y + LABEL_SIZE / 2f - (float)rect.getCenterY());
-
-            index++;
-        }
     }
     private void drawEmptyText(Graphics2D g)
     {
@@ -417,29 +393,24 @@ public final class LineChart extends JPanel implements ActionListener
         colors.remove(name);
         aniProgressList.remove(name);
     }
-    
-    public final void resetChart() {
-    	colors.clear();
-        aniProgressList.clear();
 
-        min = Float.MAX_VALUE;
-        max = Float.MIN_VALUE;
+    public final void clear()
+    {
+        xValues = new String[] { };
+        clearDatasets();
 
         repaint();
     }
-
     public final void clearDatasets()
     {
         datasets.clear();
         oldDatasets.clear();
 
-        resetChart();
-        
-    }
-    public final void clearValues()
-    {
-        xValues = new String[] { };
-        clearDatasets();
+        colors.clear();
+        aniProgressList.clear();
+
+        min = Float.MAX_VALUE;
+        max = Float.MIN_VALUE;
 
         repaint();
     }
