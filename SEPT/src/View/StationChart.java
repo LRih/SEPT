@@ -33,6 +33,7 @@ import javax.swing.event.ChangeEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import com.alee.laf.slider.WebSlider;
+import org.joda.time.LocalDateTime;
 
 /**
  * Chart UI
@@ -857,17 +858,12 @@ public final class StationChart extends JPanel {
 			values = new String[data.getLatestReadings().size()];
 			List<LatestReading> readings = data.getLatestReadings();
 			for (int i = 0; i < values.length; i++) {
-				int index = values.length - i - 1;
+                LocalDateTime dt = readings.get(values.length - i - 1).localDateTime;
 
-				if (readings.get(index).localDateTime.getHourOfDay() == 0
-						&& readings.get(index).localDateTime.getMinuteOfHour() == 0)
-					values[i] = readings.get(index).localDateTime.getDayOfMonth() + "/"
-							+ readings.get(index).localDateTime.getMonthOfYear();
+				if (dt.getHourOfDay() == 0 && dt.getMinuteOfHour() == 0)
+                    values[i] = String.format("%d/%d", dt.getDayOfMonth(), dt.getMonthOfYear());
 				else
-					values[i] = readings.get(index).localDateTime.getDayOfMonth() + "/"
-							+ readings.get(index).localDateTime.getHourOfDay() + ":"
-							+ (readings.get(index).localDateTime.getMinuteOfHour() == 0 ? "00"
-									: readings.get(index).localDateTime.getMinuteOfHour());
+					values[i] = String.format("%d/%d:%02d", dt.getDayOfMonth(), dt.getHourOfDay(), dt.getMinuteOfHour());
 			}
 
 		}

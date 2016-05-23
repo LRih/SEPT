@@ -37,7 +37,7 @@ Percentage:
 25%
 
 Contribution description:
-Acceptance tests
+New LeanTesting system/acceptance tests
 
 
 --------------------------------------------
@@ -67,6 +67,7 @@ Utils/TextUtils.java
 View/ForecastChart.java
 View/FrameLoading.java
 View/LineChart.java
+View/StationChart.java
 View/StationForecast.java
 View/Style.java
 
