@@ -416,6 +416,8 @@ public final class StationChart extends JPanel {
 		if (isEnabled)
 			selected_group = group;
 
+        chartPanel.setXValues(getXAxisValues());
+
 		switch (group) {
 		case Temperature:
 			chartPanel.setYAxisText("Temperature (°C)");
@@ -426,20 +428,17 @@ public final class StationChart extends JPanel {
 			break;
 		case WindSpeed:
 			chartPanel.setYAxisText("Wind Speed (km/h)");
-			chartPanel.setXValues(getXAxisValues());
 			updateCheckbox(checkboxWind9am, isEnabled);
 			updateCheckbox(checkboxWind3pm, isEnabled);
 			updateCheckbox(checkboxWindGust, isEnabled);
 			break;
 		case Pressure:
 			chartPanel.setYAxisText("Pressure (hPa)");
-			chartPanel.setXValues(getXAxisValues());
 			updateCheckbox(checkboxPressure9am, isEnabled);
 			updateCheckbox(checkboxPressure3pm, isEnabled);
 			break;
 		case Humidity:
 			chartPanel.setYAxisText("Humidity (%)");
-			chartPanel.setXValues(getXAxisValues());
 			updateCheckbox(checkboxHumid9am, isEnabled);
 			updateCheckbox(checkboxHumid3pm, isEnabled);
 			break;
@@ -481,9 +480,18 @@ public final class StationChart extends JPanel {
 		// reset color
 		current_color = 0;
 
+        chartPanel.setXValues(getXAxisValues());
+        sliderZoom.setMaximum(chartPanel.getXValues().length);
+
 		// re-select selected checkboxes
 		// to reload data for new station
 		reselectCheckboxes();
+
+		if (currentView == ChartView.Historical) {
+			chartPanel.setMaxDataPoints(sliderZoom.getValue());
+		} else {
+			chartPanel.setMaxDataPoints(chartPanel.getXValues().length);
+		}
 	}
 
 	boolean selectedYet = false;
