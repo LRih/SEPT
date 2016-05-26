@@ -2,13 +2,11 @@ package View;
 
 import javax.swing.JPanel;
 
-import Model.AppState;
 import Model.HistoricalReading;
 import Model.LatestReading;
 import Model.Station;
 import Model.StationData;
 import Utils.Log;
-import Utils.StationDataWorker.OnTaskCompleteListener;
 import net.miginfocom.swing.MigLayout;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
@@ -16,15 +14,9 @@ import com.alee.laf.label.WebLabel;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-import com.alee.laf.combobox.WebComboBox;
-
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
 import com.alee.laf.radiobutton.WebRadioButton;
 import com.alee.utils.swing.UnselectableButtonGroup;
 import com.alee.laf.checkbox.WebCheckBox;
@@ -39,16 +31,11 @@ import org.joda.time.LocalDateTime;
  * Chart UI
  */
 public final class StationChart extends JPanel {
-	// private final WebLabel labelState;
 	private final LineChart chartPanel;
-	private final JPanel panelMain;
-	// private final WebComboBox wcbChartType;
 
-	private Station station;
 	private StationData data;
 
 	private OnBackClickListener _listener;
-	private JPanel panelSelectData;
 	private WebRadioButton radioTemperature;
 	private WebCheckBox checkboxTempMin;
 	private WebCheckBox checkboxTempMax;
@@ -76,7 +63,7 @@ public final class StationChart extends JPanel {
 		setBackground(Color.WHITE);
 		setLayout(new MigLayout("ins 5 5 5 5, gapy 0", "[50][][][grow][200]", "[][grow]"));
 
-		panelMain = new JPanel();
+		JPanel panelMain = new JPanel();
 		panelMain.setBackground(Color.WHITE);
 		add(panelMain, "cell 0 0 4 2,grow");
 		panelMain.setLayout(new MigLayout("ins 0", "[grow]", "[grow]"));
@@ -101,7 +88,7 @@ public final class StationChart extends JPanel {
 		});
 		buttonBack.setText("Back");
 
-		panelSelectData = new JPanel();
+		JPanel panelSelectData = new JPanel();
 		panelSelectData.setBackground(Color.white);
 		add(panelSelectData, "cell 4 0 1 2,grow");
 		panelSelectData.setLayout(new MigLayout("", "[14%][50%][36%]", "[][][][][][][][][][][][][][][][][][][]"));
@@ -375,7 +362,7 @@ public final class StationChart extends JPanel {
 
 	}
 
-	protected void checkboxChanged(WebCheckBox checkbox, ChartType type) {
+	private void checkboxChanged(WebCheckBox checkbox, ChartType type) {
 		if (checkbox.isSelected()) {
 			// set legend color
 			checkbox.setForeground(Style.LINE_COLORS[current_color % Style.LINE_COLORS.length]);
@@ -389,7 +376,7 @@ public final class StationChart extends JPanel {
 		}
 	}
 
-	protected void radioChanged(ChartGroup group, boolean isSelected) {
+	private void radioChanged(ChartGroup group, boolean isSelected) {
 		// reset color index
 		current_color = 0;
 
@@ -494,7 +481,7 @@ public final class StationChart extends JPanel {
 		}
 	}
 
-	boolean selectedYet = false;
+	private boolean selectedYet = false;
 	private WebLabel labelZoom;
 	private WebSlider sliderZoom;
 
@@ -885,7 +872,6 @@ public final class StationChart extends JPanel {
 	public final void setStation(Station station, StationData data) {
 
 		if (station != null) {
-			this.station = station;
 			this.data = data;
 			// labelStation.setText(station.getName());
 			chartPanel.setTitle(station.getName());
@@ -903,11 +889,11 @@ public final class StationChart extends JPanel {
 		MinTemp, MaxTemp, Rainfall, MaxWindGustKmH, Temp9AM, RelHumidity9AM, WindSpd9AM, PressureMSL9AM, Temp3PM, RelHumidity3PM, WindSpd3PM, PressureMSL3PM, Apparent, AirTemp, DewPoint, Delta, WindSpeed, WindGust, Humidity, PressureQNH, PressureMSL, RainTrace
 	}
 
-	public enum ChartGroup {
+	private enum ChartGroup {
 		Temperature, WindSpeed, Pressure, Humidity, RainFall
 	}
 
-	public enum ChartView {
+	private enum ChartView {
 		Historical, Latest
 	}
 
