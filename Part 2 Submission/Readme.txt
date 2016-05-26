@@ -26,6 +26,7 @@ Percentage:
 
 Contribution description:
 Incorporating new UI
+Ant automated build
 
 
 --------------------------------------------
@@ -93,3 +94,9 @@ needs to provide the source and the factory takes care of the rest (i.e. how to
 obtain the forecast data and create the required object representations). The
 factory checks the specified source and calls different routines depending on the
 source.
+
+
+============================================
+Ant usage
+============================================
+Ant usage documented in documentation folder.
