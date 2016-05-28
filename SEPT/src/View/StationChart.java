@@ -403,7 +403,7 @@ public final class StationChart extends JPanel {
 		if (isEnabled)
 			selected_group = group;
 
-        chartPanel.setXValues(getXAxisValues());
+		chartPanel.setXValues(getXAxisValues());
 
 		switch (group) {
 		case Temperature:
@@ -467,8 +467,8 @@ public final class StationChart extends JPanel {
 		// reset color
 		current_color = 0;
 
-        chartPanel.setXValues(getXAxisValues());
-        sliderZoom.setMaximum(chartPanel.getXValues().length);
+		chartPanel.setXValues(getXAxisValues());
+		sliderZoom.setMaximum(chartPanel.getXValues().length);
 
 		// re-select selected checkboxes
 		// to reload data for new station
@@ -724,7 +724,7 @@ public final class StationChart extends JPanel {
 			values = new double[data.getHistoricalReadings().size()];
 			List<HistoricalReading> readings = data.getHistoricalReadings();
 			Color col = Style.LINE_COLORS[0];
-			
+
 			switch (type) {
 			case MinTemp:
 				col = Style.LINE_COLORS[2];
@@ -853,12 +853,13 @@ public final class StationChart extends JPanel {
 			values = new String[data.getLatestReadings().size()];
 			List<LatestReading> readings = data.getLatestReadings();
 			for (int i = 0; i < values.length; i++) {
-                LocalDateTime dt = readings.get(values.length - i - 1).localDateTime;
+				LocalDateTime dt = readings.get(values.length - i - 1).localDateTime;
 
 				if (dt.getHourOfDay() == 0 && dt.getMinuteOfHour() == 0)
-                    values[i] = String.format("%d/%d", dt.getDayOfMonth(), dt.getMonthOfYear());
+					values[i] = String.format("%d/%d", dt.getDayOfMonth(), dt.getMonthOfYear());
 				else
-					values[i] = String.format("%d/%d:%02d", dt.getDayOfMonth(), dt.getHourOfDay(), dt.getMinuteOfHour());
+					values[i] = String.format("%d/%d:%02d", dt.getDayOfMonth(), dt.getHourOfDay(),
+							dt.getMinuteOfHour());
 			}
 
 		}
