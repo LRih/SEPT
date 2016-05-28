@@ -379,7 +379,7 @@ public final class ForecastChart extends JPanel implements ActionListener
         repaint();
 
         // if animation is not done, repeat timer
-        if (aniProgress < ANIMATION_TICKS)
+        if (aniProgress >= ANIMATION_TICKS)
             timer.start();
     }
 }

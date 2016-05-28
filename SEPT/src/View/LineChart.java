@@ -252,13 +252,10 @@ public final class LineChart extends JPanel implements ActionListener {
 		// set clip so line does not draw outside the axis
 		g.setClip(PADDING, PADDING, getWidth() - PADDING - PADDING_RIGHT, getHeight() - PADDING * 2);
 
-		int index = 0;
 		for (String name : datasets.keySet()) {
 			g.setColor(colors.get(name));
 			g.setStroke(new BasicStroke(LINE_WIDTH, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 			g.draw(getLinePath(name));
-
-			index++;
 		}
 
 		g.setClip(null);
@@ -445,7 +442,7 @@ public final class LineChart extends JPanel implements ActionListener {
 		repaint();
 
 		// if animation is not done, repeat timer
-		if (!isAnimationDone)
-			timer.start();
+		if (isAnimationDone)
+			timer.stop();
 	}
 }
