@@ -111,7 +111,7 @@ public final class ForecastChart extends JPanel implements ActionListener
         if (!forecasts.isEmpty())
             return;
 
-        String text = "no data";
+        String text = "no forecast data for this station";
         if (status == LOADING_DATA)
             text = "loading data..";
         else if (status == NO_INTERNET)

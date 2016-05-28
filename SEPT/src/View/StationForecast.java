@@ -107,6 +107,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 
 		// no station select so hide
 		if (station == null) {
+			setBackground(Style.MAIN_PANEL_BACKGROUND);
 			setVisible(false);
 			return;
 		} else
@@ -141,6 +142,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 	 * set station information to this Panel
 	 */
 	public final void setStation(Station station) {
+
 		this.station = station;
 
 		updateStation();
@@ -157,6 +159,7 @@ public class StationForecast extends JPanel implements ForecastWorker.OnTaskComp
 
 	public final void onTaskFail() {
 		groupForcast.setEnabled(true);
+		forecastChart.setStatus(ForecastChart.NO_DATA);
 	}
 
 	public void setBlockUI(boolean isBlockUI) {
