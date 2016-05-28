@@ -47,7 +47,7 @@
 		</javac>
 	</target>
 	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
-	<target name="Main">
+	<target name="run">
 		<java classname="View.Main" failonerror="true" fork="yes">
 			<classpath refid="SEPT.classpath" />
 		</java>
