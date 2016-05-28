@@ -372,6 +372,8 @@ public final class LineChart extends JPanel implements ActionListener {
 		datasets.remove(name);
 		colors.remove(name);
 		aniProgressList.remove(name);
+		
+		repaint();
 	}
 
 	public final void clear() {
