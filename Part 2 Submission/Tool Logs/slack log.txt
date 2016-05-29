@@ -1,0 +1,33 @@
+marcel 10:32 AM alright guys, what's the go with today's tut?
+richard
+11:21 AM I won't be in for the tute today guys
+marcel
+11:21 AM All good brother
+richard
+11:48 PM We have an individual assessment in week 10 demoing an issue tracking tool
+11:48
+I'd like to demo github if that's ok
+quando
+3:49 PM yup that’s ok
+marcel
+12:03 PM Demo trello then?
+Not coming in today, hmu if there's anything in particular that I've missed out on.
+What other tools can people demo?
+marcel
+1:49 PM Also I went on the website we need to pull data from, went on their data sources list and was overwhelmed!
+There's so many!! What do?
+richard
+4:52 PM Think the demo next week is like the JUnit test
+4:52
+doesn't matter if we use the same tool
+4:52
+they will give us a bug and we have to demonstrate that we can issue track it
+4:52
+But there is also bitbucket, JIRA, leantesting
+brenton_kelly
+9:42 PM It seems like leantesting should make the demo super easy :)
+marcel
+1:11 PM Shiiiiiiiiit just woke up
+Please tell me I'm not dead
+richard
+8:54 PM @marcel: no but I'll leave you in charge of the sequence diagrams we need for updated functionality
