@@ -1,3 +1,4 @@
+package Tests;
 import Model.*;
 import Data.ForecastFactory;
 import Utils.Log;

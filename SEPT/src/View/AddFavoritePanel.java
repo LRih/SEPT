@@ -160,16 +160,25 @@ public final class AddFavoritePanel extends JPanel
         comboboxStations.setModel(model);
     }
 
+    /**
+     * Listener for when user click back button
+     */
     public final void setOnBackClickListener(OnBackClickListener listener)
     {
         _listenerBack = listener;
     }
+
+    /**
+     * Listener for when user click add favorite button
+     */
     public final void setOnAddFavoriteClickListener(OnAddFavoriteClickListener listener)
     {
         _listenerAddFavorite = listener;
     }
 
-
+    /**
+     * Listener Interface for when user click add favorite button
+     */
     public interface OnAddFavoriteClickListener
     {
         void onAddFavoriteClick(Station station);
